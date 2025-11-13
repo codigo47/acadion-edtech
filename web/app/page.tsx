@@ -222,7 +222,7 @@ export default function Home() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50"
+        className="fixed top-0 w-full bg-transparent backdrop-blur-md z-50"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
@@ -239,7 +239,7 @@ export default function Home() {
               {menuItems.map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase().replace(' ', '-')}`}
+                  href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
                   className="text-gray-600 hover:text-[#9F80DA] transition-colors font-medium"
                 >
                   {item}
