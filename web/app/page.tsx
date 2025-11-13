@@ -128,6 +128,19 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Send event to Google Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'generate_lead', {
+        event_category: 'Form',
+        event_label: 'Contact Form Submission',
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        number_of_designers: formData.designers,
+        company: formData.company || 'Not provided',
+      });
+    }
+
     console.log('Form submitted:', formData);
     setShowSuccessPopup(true);
 
