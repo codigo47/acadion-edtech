@@ -470,3 +470,54 @@ https://react.dev/link/hydration-mismatch
           ...
 
 [00:19:36.037] Server  LOG      ✓ Compiled in 17ms
+[00:20:35.210] Browser LOG     Form submitted: {"company":"test","designers":"1-5","email":"codigo47@gmail.com","firstName":"Esteban","lastName":"Suarez"}
+[00:24:48.538] Browser LOG     Form submitted: {"company":"test","designers":"1-5","email":"codigo47@gmail.com","firstName":"Esteban","lastName":"Suarez"}
+[00:25:29.931] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/#contact" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
++                               className="min-h-screen bg-white"
+-                               className="redeviation-lsb-visible"
+-                               id="redeviation-lsb-indicator"
+-                               style={{width:"2px"}}
+                              >
+                                <motion.header initial={{y:-100}} animate={{y:0}} transition={{duration:0.6}} ...>
++                                 <header
++                                   className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50"
++                                   style={{transform:"translateY..."}}
++                                   ref={function useMotionRef.useCallback}
++                                 >
+-                                 <div>
+                                ...
+                        ...
+                      ...
+          ...
+
+[00:25:35.126] Browser LOG     Form submitted: {"company":"asd","designers":"1-5","email":"codigo47@gmail.com","firstName":"Esteban","lastName":"Suarez"}
+[00:26:23.004] Server  LOG      ✓ Compiled in 13ms
+[00:26:32.462] Browser LOG     Form submitted: {"company":"asd","designers":"1-5","email":"codigo47@gmail.com","firstName":"Esteban","lastName":"Suarez"}
+[00:29:17.718] Server  LOG      ✓ Compiled in 23ms

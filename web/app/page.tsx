@@ -131,6 +131,7 @@ export default function Home() {
     // Send event to Google Analytics
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'generate_lead', {
+        debug_mode: process.env.NODE_ENV === 'development',
         event_category: 'Form',
         event_label: 'Contact Form Submission',
         first_name: formData.firstName,
