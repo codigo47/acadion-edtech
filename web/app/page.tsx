@@ -645,22 +645,33 @@ export default function Home() {
                   className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                 >
                   <span className="font-semibold text-gray-900 pr-8">{faq.question}</span>
-                  <svg
-                    className={`w-6 h-6 text-[#9F80DA] flex-shrink-0 transition-transform ${
-                      openFaq === index ? 'rotate-180' : ''
-                    }`}
+                  <motion.svg
+                    animate={{ rotate: openFaq === index ? 180 : 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="w-6 h-6 text-[#9F80DA] flex-shrink-0"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  </motion.svg>
                 </button>
-                {openFaq === index && (
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: openFaq === index ? "auto" : 0,
+                    opacity: openFaq === index ? 1 : 0
+                  }}
+                  transition={{
+                    height: { duration: 0.3, ease: "easeInOut" },
+                    opacity: { duration: 0.2, ease: "easeInOut" }
+                  }}
+                  className="overflow-hidden"
+                >
                   <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
                     <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
                   </div>
-                )}
+                </motion.div>
               </motion.div>
             ))}
           </motion.div>

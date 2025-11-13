@@ -1,5 +1,5 @@
-[00:00:00.508] Server  LOG      ✓ Ready in 371ms
-[00:00:05.120] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+[00:00:00.520] Server  LOG      ✓ Ready in 383ms
+[00:00:02.868] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
 
 - A server/client branch `if (typeof window !== 'undefined')`.
 - Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
@@ -30,7 +30,196 @@ https://react.dev/link/hydration-mismatch
 +                               className="min-h-screen bg-white"
 -                               className="redeviation-lsb-visible"
 -                               id="redeviation-lsb-indicator"
--                               style={{width:"3px"}}
+-                               style={{width:"2px"}}
+                              >
+                                <motion.header initial={{y:-100}} animate={{y:0}} transition={{duration:0.6}} ...>
++                                 <header
++                                   className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50"
++                                   style={{transform:"translateY..."}}
++                                   ref={function useMotionRef.useCallback}
++                                 >
+-                                 <div>
+                                ...
+                        ...
+                      ...
+          ...
+
+[00:00:15.862] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/#contact" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
++                               className="min-h-screen bg-white"
+-                               className="redeviation-lsb-visible"
+-                               id="redeviation-lsb-indicator"
+-                               style={{width:"2px"}}
+                              >
+                                <motion.header initial={{y:-100}} animate={{y:0}} transition={{duration:0.6}} ...>
++                                 <header
++                                   className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50"
++                                   style={{transform:"translateY..."}}
++                                   ref={function useMotionRef.useCallback}
++                                 >
+-                                 <div>
+                                ...
+                        ...
+                      ...
+          ...
+
+[00:02:05.201] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/#contact" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
++                               className="min-h-screen bg-white"
+-                               className="redeviation-lsb-visible"
+-                               id="redeviation-lsb-indicator"
+-                               style={{width:"2px"}}
+                              >
+                                <motion.header initial={{y:-100}} animate={{y:0}} transition={{duration:0.6}} ...>
++                                 <header
++                                   className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50"
++                                   style={{transform:"translateY..."}}
++                                   ref={function useMotionRef.useCallback}
++                                 >
+-                                 <div>
+                                ...
+                        ...
+                      ...
+          ...
+
+[00:02:05.201] Browser WARN    [PostHog.js] You have already initialized PostHog! Re-initializing is a no-op
+[00:02:17.677] Server  LOG      ✓ Compiled in 25ms
+[00:02:30.990] Server  LOG      ✓ Compiled in 19ms
+[00:03:23.217] Server  LOG      ✓ Compiled in 50ms
+[00:03:23.381] Server  WARN     ⚠ Fast Refresh had to perform a full reload when [turbopack]/browser/dev/hmr-client/hmr-client.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:03:25.201] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/#contact" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
++                               className="min-h-screen bg-white"
+-                               className="redeviation-lsb-visible"
+-                               id="redeviation-lsb-indicator"
+-                               style={{width:"2px"}}
+                              >
+                                <motion.header initial={{y:-100}} animate={{y:0}} transition={{duration:0.6}} ...>
++                                 <header
++                                   className="fixed top-0 w-full bg-white/95 backdrop-blur-sm shadow-sm z-50"
++                                   style={{transform:"translateY..."}}
++                                   ref={function useMotionRef.useCallback}
++                                 >
+-                                 <div>
+                                ...
+                        ...
+                      ...
+          ...
+
+[00:03:25.201] Browser WARN    [PostHog.js] You have already initialized PostHog! Re-initializing is a no-op
+[00:03:25.201] Browser WARN    [PostHog.js] You have already initialized PostHog! Re-initializing is a no-op
+[00:03:55.976] Server  LOG      ✓ Compiled in 23ms
+[00:04:01.950] Server  LOG      ✓ Compiled in 9ms
+[00:04:13.198] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/#contact" tree={[...]} params={{}} cacheNode={{lazyData:null, ...}} ...>
+                        <SegmentViewNode type="page" pagePath="page.tsx">
+                          <SegmentTrieNode>
+                          <ClientPageRoot Component={function Home} serverProvidedParams={{...}}>
+                            <Home params={Promise} searchParams={Promise}>
+                              <div
++                               className="min-h-screen bg-white"
+-                               className="redeviation-lsb-visible"
+-                               id="redeviation-lsb-indicator"
+-                               style={{width:"2px"}}
                               >
                                 <motion.header initial={{y:-100}} animate={{y:0}} transition={{duration:0.6}} ...>
 +                                 <header
