@@ -2,9 +2,11 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import posthog from 'posthog-js';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -125,8 +127,23 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     console.log('Form submitted:', formData);
-    alert('Thank you for your interest! We\'ll be in touch soon.');
+    setShowSuccessPopup(true);
+
+    // Reset form
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      designers: '',
+      company: ''
+    });
+
+    // Auto-close popup after 5 seconds
+    setTimeout(() => {
+      setShowSuccessPopup(false);
+    }, 5000);
   };
 
   const fadeInUp = {
@@ -765,6 +782,61 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowSuccessPopup(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setShowSuccessPopup(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Success icon */}
+            <div className="flex justify-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Message */}
+            <div className="text-center">
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Thank you for your interest!</h3>
+              <p className="text-gray-600 leading-relaxed">
+                We'll be in touch soon to help you get started with Course Scribe.
+              </p>
+            </div>
+
+            {/* Optional close button */}
+            <button
+              onClick={() => setShowSuccessPopup(false)}
+              className="mt-6 w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium"
+            >
+              Got it!
+            </button>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
