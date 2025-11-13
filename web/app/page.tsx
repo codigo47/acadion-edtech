@@ -19,29 +19,69 @@ export default function Home() {
 
   const features = [
     {
-      title: 'AI-Powered Content Generation',
-      description: 'Transform your existing content into engaging courses with our advanced AI technology. Save hours of manual work and focus on what matters most - teaching.',
+      title: 'AI-Generated Courses from Any Source',
+      description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, engaging courses automatically. No matter the format, Course Scribe handles it all.',
       image: '/placeholder-feature-1.jpg'
     },
     {
-      title: 'Smart Content Organization',
-      description: 'Automatically structure your content into logical modules and lessons. Our AI understands the flow of information and creates the perfect learning path.',
+      title: 'Full Manual Editing Control',
+      description: 'Manually edit any block or resource in your course. Fine-tune content, adjust layouts, modify assessments, and customize every element to match your exact vision and requirements.',
       image: '/placeholder-feature-2.jpg'
     },
     {
-      title: 'Multi-Format Support',
-      description: 'Upload videos, documents, presentations, or any other content format. Course Scribe intelligently processes and converts everything into professional courses.',
+      title: 'Industry-Standard Export Formats',
+      description: 'Export your courses to SCORM 1.2, xAPI (Tin Can API), and other standard formats. Seamlessly integrate with any LMS platform including Moodle, Canvas, Blackboard, and more.',
       image: '/placeholder-feature-3.jpg'
     },
     {
-      title: 'Real-Time Collaboration',
-      description: 'Work together with your team in real-time. Share feedback, make edits, and approve content without endless email chains.',
+      title: 'Multi-Language Course Support',
+      description: 'Create courses in multiple languages to reach a global audience. Easily translate and localize content to meet the needs of learners worldwide.',
       image: '/placeholder-feature-4.jpg'
     },
     {
-      title: 'Export Anywhere',
-      description: 'Export your courses to any LMS platform or format. Compatible with SCORM, xAPI, and all major learning management systems.',
+      title: 'Rich Interactive Resources',
+      description: 'Engage learners with diverse interactive elements including multiple choice, flip cards, sorting activities, true/false questions, fill in the blanks, drag and drop, matching pairs, sequencing, hotspots, and more.',
       image: '/placeholder-feature-5.jpg'
+    },
+    {
+      title: 'Multimedia Course Creation',
+      description: 'Build dynamic courses combining text, images, and videos. Create rich multimedia learning experiences that keep learners engaged and improve knowledge retention.',
+      image: '/placeholder-feature-6.jpg'
+    },
+    {
+      title: 'AI-Powered QA Magic Button',
+      description: 'Streamline quality assurance with our "Magic Button" feature. Automatically address reviewer comments and feedback using AI, saving hours of manual revision work.',
+      image: '/placeholder-feature-7.jpg'
+    },
+    {
+      title: 'Instructional Design Models',
+      description: 'Create courses based on proven pedagogical frameworks including Bloom\'s Taxonomy, Kirkpatrick Model, Gagné\'s 9 Events of Instruction, and ADDIE framework compliance for effective learning outcomes.',
+      image: '/placeholder-feature-8.jpg'
+    },
+    {
+      title: 'White Label Customization',
+      description: 'Make it your own with complete white label capabilities. Customize fonts, colors, and logos to match your brand identity perfectly and deliver a consistent brand experience.',
+      image: '/placeholder-feature-9.jpg'
+    },
+    {
+      title: 'Dark Mode for Modern Learning',
+      description: 'Offer learners a comfortable viewing experience with built-in dark mode support. Reduce eye strain and provide a modern, accessible learning environment.',
+      image: '/placeholder-feature-10.jpg'
+    },
+    {
+      title: 'WCAG 2.1 Accessibility Compliance',
+      description: 'Ensure your courses are accessible to all learners with WCAG 2.1 compliance. Meet legal requirements and provide inclusive learning experiences for users with disabilities.',
+      image: '/placeholder-feature-11.jpg'
+    },
+    {
+      title: 'AI Image Generation',
+      description: 'Generate custom images on-demand without needing stock photo subscriptions. Create unique, relevant visuals for your courses instantly using AI-powered image generation.',
+      image: '/placeholder-feature-12.jpg'
+    },
+    {
+      title: 'Complete Learning Assets Library',
+      description: 'Generate a comprehensive suite of professional learning deliverables automatically: e-learning modules, microlearning content, job aids, quick reference guides, facilitator guides, participant workbooks, ILT presentation decks, and assessments - everything you need for effective training programs.',
+      image: '/placeholder-feature-13.jpg'
     }
   ];
 
@@ -224,8 +264,22 @@ export default function Home() {
       </motion.header>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-purple-50 to-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-32 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 z-0">
+          {/* Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-100 via-blue-50 to-white"></div>
+
+          {/* Floating Shapes */}
+          <div className="absolute top-20 left-10 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob"></div>
+          <div className="absolute top-40 right-10 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-blob animation-delay-4000"></div>
+
+          {/* Grid Pattern */}
+          <div className="absolute inset-0 opacity-30" style={{backgroundImage: 'linear-gradient(to right, rgba(128, 128, 128, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(128, 128, 128, 0.1) 1px, transparent 1px)', backgroundSize: '4rem 4rem'}}></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -248,14 +302,14 @@ export default function Home() {
               variants={fadeInUp}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6"
             >
-              Boring work made<br />simple with AI
+              Create educational content<br />in the AI era
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
               className="text-xl sm:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto"
             >
-              Course Scribe plugs into your existing workflows, so you can ditch the boring stuff and focus on growth.
+              Forget all the manual tasks of instructional design and focus on creating better educational content.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">

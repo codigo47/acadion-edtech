@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Course Scribe - Boring work made simple with AI",
-  description: "Course Scribe plugs into your existing workflows, so you can ditch the boring stuff and focus on growth.",
+  title: "Course Scribe - Create educational content in the AI era",
+  description: "Forget all the manual tasks of instructional design and focus on creating better courses.",
 };
 
 export default function RootLayout({
