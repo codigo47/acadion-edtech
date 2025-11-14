@@ -11,11 +11,44 @@ export default function Home() {
     firstName: '',
     lastName: '',
     email: '',
+    company: '',
+    userType: '', // 'myself' or 'company'
     designers: '',
-    company: ''
+    deliverables: [] as string[]
   });
 
   const menuItems = ['Features', 'How it Works', 'Testimonials', 'FAQ', 'Contact'];
+
+  const deliverableOptions = [
+    'E-learning module',
+    'Microlearning',
+    'Job Aid',
+    'Quick Reference Guide (QRG)',
+    'Facilitator Guide (FG)',
+    'Participant Guide / Learner Guide',
+    'ILT Deck',
+    'VILT Session',
+    'Workbook',
+    'SOP (Standard Operating Procedure)',
+    'Work Instruction (WI)',
+    'Knowledge Base Article',
+    'Infographic',
+    'Explainer Video',
+    'Interactive Simulation',
+    'Scenario-based activity',
+    'Assessment / Quiz',
+    'Learning Path / Curriculum',
+    'Performance Support Tool'
+  ];
+
+  const handleDeliverableChange = (deliverable: string) => {
+    setFormData(prev => ({
+      ...prev,
+      deliverables: prev.deliverables.includes(deliverable)
+        ? prev.deliverables.filter(d => d !== deliverable)
+        : [...prev.deliverables, deliverable]
+    }));
+  };
 
   const features = [
     {
@@ -168,6 +201,12 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Validate that at least one deliverable is selected
+    if (formData.deliverables.length === 0) {
+      alert('Please select at least one deliverable type');
+      return;
+    }
+
     // Send event to Google Analytics
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'generate_lead', {
@@ -177,8 +216,11 @@ export default function Home() {
         first_name: formData.firstName,
         last_name: formData.lastName,
         email: formData.email,
-        number_of_designers: formData.designers,
+        user_type: formData.userType,
+        number_of_designers: formData.designers || 'N/A',
         company: formData.company || 'Not provided',
+        deliverables: formData.deliverables.join(', '),
+        deliverables_count: formData.deliverables.length,
       });
     }
 
@@ -190,8 +232,10 @@ export default function Home() {
       firstName: '',
       lastName: '',
       email: '',
+      company: '',
+      userType: '',
       designers: '',
-      company: ''
+      deliverables: []
     });
 
     // Auto-close popup after 5 seconds
@@ -625,36 +669,99 @@ export default function Home() {
                 />
               </div>
 
+              {/* User Type Selection */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Number of Instructional Designers *
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  I am... *
                 </label>
-                <select
-                  required
-                  value={formData.designers}
-                  onChange={(e) => setFormData({...formData, designers: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
-                >
-                  <option value="">Select...</option>
-                  <option value="1-5">1-5</option>
-                  <option value="6-10">6-10</option>
-                  <option value="11-25">11-25</option>
-                  <option value="26-50">26-50</option>
-                  <option value="51+">51+</option>
-                </select>
+                <div className="flex gap-4">
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="myself"
+                      checked={formData.userType === 'myself'}
+                      onChange={(e) => setFormData({...formData, userType: e.target.value})}
+                      className="w-4 h-4 text-[#9F80DA] focus:ring-[#9F80DA] cursor-pointer"
+                      required
+                    />
+                    <span className="ml-2 text-gray-700">I'm for myself</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="userType"
+                      value="company"
+                      checked={formData.userType === 'company'}
+                      onChange={(e) => setFormData({...formData, userType: e.target.value})}
+                      className="w-4 h-4 text-[#9F80DA] focus:ring-[#9F80DA] cursor-pointer"
+                      required
+                    />
+                    <span className="ml-2 text-gray-700">I work for a company</span>
+                  </label>
+                </div>
               </div>
 
+              {/* Company Name - shown for both, required for company */}
+              {formData.userType && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Company Name {formData.userType === 'company' ? '*' : '(optional)'}
+                  </label>
+                  <input
+                    type="text"
+                    required={formData.userType === 'company'}
+                    value={formData.company}
+                    onChange={(e) => setFormData({...formData, company: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
+                    placeholder="Your Company"
+                  />
+                </div>
+              )}
+
+              {/* Number of Designers - only for company */}
+              {formData.userType === 'company' && (
+                <div className="mb-6">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Number of Instructional Designers *
+                  </label>
+                  <select
+                    required
+                    value={formData.designers}
+                    onChange={(e) => setFormData({...formData, designers: e.target.value})}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
+                  >
+                    <option value="">Select...</option>
+                    <option value="1-5">1-5</option>
+                    <option value="6-10">6-10</option>
+                    <option value="11-25">11-25</option>
+                    <option value="26-50">26-50</option>
+                    <option value="51+">51+</option>
+                  </select>
+                </div>
+              )}
+
+              {/* Deliverables Checkboxes */}
               <div className="mb-8">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Company Name (optional)
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  What type of deliverables are you interested in? * (Select at least one)
                 </label>
-                <input
-                  type="text"
-                  value={formData.company}
-                  onChange={(e) => setFormData({...formData, company: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
-                  placeholder="Your Company"
-                />
+                <div className="grid md:grid-cols-2 gap-3 max-h-96 overflow-y-auto p-4 border border-gray-200 rounded-lg bg-white">
+                  {deliverableOptions.map((deliverable) => (
+                    <label key={deliverable} className="flex items-start cursor-pointer hover:bg-gray-50 p-2 rounded">
+                      <input
+                        type="checkbox"
+                        checked={formData.deliverables.includes(deliverable)}
+                        onChange={() => handleDeliverableChange(deliverable)}
+                        className="mt-1 w-4 h-4 text-[#9F80DA] focus:ring-[#9F80DA] rounded cursor-pointer"
+                      />
+                      <span className="ml-2 text-sm text-gray-700">{deliverable}</span>
+                    </label>
+                  ))}
+                </div>
+                {formData.deliverables.length === 0 && (
+                  <p className="text-xs text-gray-500 mt-2">Please select at least one deliverable type</p>
+                )}
               </div>
 
               <button
