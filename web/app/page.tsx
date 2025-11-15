@@ -107,12 +107,24 @@ export default function Home() {
   const features = [
     {
       title: 'AI-Generated Courses from Any Source',
-      description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, engaging courses automatically. No matter the format, Course Scribe handles it all.',
+      description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, block-oriented courses automatically. No matter the format, Course Scribe handles it all.',
       image: '/placeholder-feature-1.jpg',
       plan: 'All Plans'
     },
     {
-      title: 'Full Manual Editing Control',
+      title: 'Course Copilot',
+      description: 'Iterate on your content as you design it, test different alternatives until you get the best version of your work. Save hours of manual work by applying changes or corrections to multiple lessons and modules at once.',
+      image: '/placeholder-feature-1b.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'AI Image Generation',
+      description: 'Generate custom images on-demand without needing stock photo subscriptions. Create unique, relevant visuals for your courses instantly using AI-powered image generation.',
+      image: '/placeholder-feature-12.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Full editing control',
       description: 'Manually edit any block or resource in your course. Fine-tune content, adjust layouts, modify assessments, and customize every element to match your exact vision and requirements.',
       image: '/placeholder-feature-2.jpg',
       plan: 'All Plans'
@@ -130,7 +142,7 @@ export default function Home() {
       plan: 'All Plans'
     },
     {
-      title: 'Rich Interactive Resources',
+      title: 'Interactive Activities',
       description: 'Engage learners with diverse interactive elements including multiple choice, flip cards, sorting activities, true/false questions, fill in the blanks, drag and drop, matching pairs, sequencing, hotspots, and more.',
       image: '/placeholder-feature-5.jpg',
       plan: 'All Plans'
@@ -142,26 +154,32 @@ export default function Home() {
       plan: 'All Plans'
     },
     {
-      title: 'Comments and AI-Powered Fixes',
-      description: 'Receive comments from your team on your course, then fix them manually or with AI. Streamline your review process and address feedback efficiently with intelligent assistance.',
+      title: 'AI powered QA',
+      description: 'Share your course in Review mode with anyone you want. Receive comments from your team or your SME, then fix them manually or with AI.',
       image: '/placeholder-feature-7a.jpg',
       plan: 'All Plans'
     },
     {
-      title: 'Accessibility QA',
-      description: 'Automatically detect and resolve WCAG compliance issues. Ensure your courses are accessible to all learners and meet legal requirements with our built-in accessibility scanner.',
+      title: 'Accessibility Compliant',
+      description: 'Automatically detect and resolve WCAG compliance requirements during the QA process. Ensure your courses are accessible to all learners and meet standard guidance with our built-in accessibility scanner.',
       image: '/placeholder-feature-7b.jpg',
       plan: 'All Plans'
     },
     {
-      title: 'Pedagogic QA',
-      description: 'Upload your own standard PDF documents and ensure courses follow your instructional design frameworks. Maintain consistency with your organization\'s educational standards and best practices.',
+      title: 'Content review QA',
+      description: 'Review all the content of your course with an artificial intelligence model that acts as a subject matter expert and receive feedback.',
       image: '/placeholder-feature-7c.jpg',
       plan: 'All Plans'
     },
     {
-      title: 'Visual Identity QA',
-      description: 'Verify your course matches your brand style guide and design system. Ensure consistent visual identity across all your learning materials with automated brand compliance checks.',
+      title: 'Learning Objectives',
+      description: 'Automatically check if there is consistency between the objectives and the type of activities in the course to ensure that the student learned.',
+      image: '/placeholder-feature-7c2.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Branding QA',
+      description: 'Verify your course matches your brand style guide, writing and design system. Ensure consistent visual identity across all your learning materials with automated brand compliance checks.',
       image: '/placeholder-feature-7d.jpg',
       plan: 'All Plans'
     },
@@ -178,32 +196,14 @@ export default function Home() {
       plan: 'All Plans'
     },
     {
-      title: 'White Label Customization',
-      description: 'Make it your own with complete white label capabilities. Customize fonts, colors, and logos to match your brand identity perfectly and deliver a consistent brand experience.',
-      image: '/placeholder-feature-9.jpg',
-      plan: 'All Plans'
-    },
-    {
-      title: 'Dark Mode for Modern Learning',
-      description: 'Offer learners a comfortable viewing experience with built-in dark mode support. Reduce eye strain and provide a modern, accessible learning environment.',
-      image: '/placeholder-feature-10.jpg',
-      plan: 'All Plans'
-    },
-    {
       title: 'WCAG 2.1 Accessibility Compliance',
-      description: 'Ensure your courses are accessible to all learners with WCAG 2.1 compliance. Meet legal requirements and provide inclusive learning experiences for users with disabilities.',
+      description: 'Ensure your courses are accessible to all learners with WCAG 2.1 compliance. Meet legal requirements and provide inclusive learning experiences for users with disabilities. Includes dark mode support to reduce eye strain and improve accessibility.',
       image: '/placeholder-feature-11.jpg',
       plan: 'All Plans'
     },
     {
-      title: 'AI Image Generation',
-      description: 'Generate custom images on-demand without needing stock photo subscriptions. Create unique, relevant visuals for your courses instantly using AI-powered image generation.',
-      image: '/placeholder-feature-12.jpg',
-      plan: 'All Plans'
-    },
-    {
       title: 'Complete Learning Assets Library',
-      description: 'Generate a comprehensive suite of professional learning deliverables automatically: e-learning modules, microlearning content, job aids, quick reference guides, facilitator guides, participant workbooks, ILT presentation decks, and assessments - everything you need for effective training programs.',
+      description: 'Generate a comprehensive suite of professional learning deliverables automatically: e-learning modules, microlearning content, job aids, QRG, facilitator guides, participant workbooks, ILT, and assessments - everything you need for effective training programs.',
       image: '/placeholder-feature-13.jpg',
       plan: 'All Plans'
     },
@@ -214,14 +214,14 @@ export default function Home() {
       plan: 'All Plans'
     },
     {
-      title: 'Portfolio Sharing',
-      description: 'Share your courses and showcase your portfolio to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business.',
+      title: 'Professional Portfolio',
+      description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Get metrics of the visits to your portfolio.',
       image: '/placeholder-feature-15.jpg',
-      plan: 'Pro'
+      plan: 'Freelance & Pro'
     },
     {
-      title: 'User Management & Workflows',
-      description: 'Manage your team with comprehensive user roles and permissions. Control access levels, assign courses and specific stages in the development process, and streamline collaboration with customizable workflows and timelines that keep everyone on track.',
+      title: 'Project Management & Workflows',
+      description: 'Manage your team with comprehensive user roles and permissions. Control access levels, assign courses and specific tasks, and streamline collaboration with customizable workflows and timelines that keep everyone on track.',
       image: '/placeholder-feature-16.jpg',
       plan: 'Enterprise'
     }
@@ -455,14 +455,14 @@ export default function Home() {
               variants={fadeInUp}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 mb-6"
             >
-              Create educational content<br />in the AI era
+              Create engaged and interactive<br />AI powered learning experiences
             </motion.h1>
 
             <motion.p
               variants={fadeInUp}
               className="text-xl sm:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto"
             >
-              Forget all the manual tasks of instructional design and focus on creating better educational content.
+              Forget all the manual tasks, save time and money. Just design better learning content.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -488,19 +488,19 @@ export default function Home() {
                 <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-                SCORM COMPLIANT
+                Bloom's Taxonomy
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-                xAPI COMPLIANT
+                Kirkpatrick Model
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-                WCAG 2.1 COMPLIANT
+                Gagné's 9 Events of Instruction
               </div>
             </motion.div>
           </motion.div>
@@ -545,7 +545,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              Everything you need to create amazing courses
+              Everything you need to create amazing eLearnings
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Powerful features that streamline your course creation process
@@ -572,6 +572,8 @@ export default function Home() {
                       feature.plan === 'Enterprise'
                         ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
                         : feature.plan === 'Pro'
+                        ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-md'
+                        : feature.plan === 'Freelance & Pro'
                         ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-md'
                         : 'bg-gray-100 text-gray-600 border border-gray-300'
                     }`}>
