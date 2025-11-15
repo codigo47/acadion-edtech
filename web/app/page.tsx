@@ -1,12 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import posthog from 'posthog-js';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
+  const [planType, setPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,6 +20,56 @@ export default function Home() {
     designers: '',
     deliverables: [] as string[]
   });
+
+  const personalSteps = ['Full Name', 'Email', 'Deliverables'];
+  const enterpriseSteps = ['Full Name', 'Email', 'Company', 'Team Size', 'Deliverables'];
+
+  const steps = selectedPlanType === 'Personal' ? personalSteps : enterpriseSteps;
+
+  const openPopup = (type: 'Personal' | 'Enterprise') => {
+    setSelectedPlanType(type);
+    setCurrentStep(0);
+    setShowWelcomePopup(true);
+  };
+
+  const handleNextStep = () => {
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1);
+    } else {
+      // Last step, close popup
+      setShowWelcomePopup(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleNextStep();
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyboard = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showWelcomePopup) {
+        setShowWelcomePopup(false);
+      }
+
+      // Handle Enter key for button-based steps (Team Size and Deliverables)
+      if (e.key === 'Enter' && showWelcomePopup && !e.shiftKey) {
+        const isTeamSizeStep = (selectedPlanType === 'Enterprise' && currentStep === 3);
+        const isDeliverablesStep = (selectedPlanType === 'Personal' && currentStep === 2) ||
+                                   (selectedPlanType === 'Enterprise' && currentStep === 4);
+
+        if (isTeamSizeStep || isDeliverablesStep) {
+          e.preventDefault();
+          handleNextStep();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyboard);
+    return () => window.removeEventListener('keydown', handleKeyboard);
+  }, [showWelcomePopup, currentStep, selectedPlanType]);
 
   const menuItems = ['Features', 'How it Works', 'Testimonials', 'FAQ', 'Contact'];
 
@@ -54,67 +108,122 @@ export default function Home() {
     {
       title: 'AI-Generated Courses from Any Source',
       description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, engaging courses automatically. No matter the format, Course Scribe handles it all.',
-      image: '/placeholder-feature-1.jpg'
+      image: '/placeholder-feature-1.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Full Manual Editing Control',
       description: 'Manually edit any block or resource in your course. Fine-tune content, adjust layouts, modify assessments, and customize every element to match your exact vision and requirements.',
-      image: '/placeholder-feature-2.jpg'
+      image: '/placeholder-feature-2.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Industry-Standard Export Formats',
-      description: 'Export your courses to SCORM 1.2, xAPI (Tin Can API), and other standard formats. Seamlessly integrate with any LMS platform including Moodle, Canvas, Blackboard, and more.',
-      image: '/placeholder-feature-3.jpg'
+      description: 'Export your courses to SCORM 1.2, xAPI (Tin Can API), PDF, and other standard formats. Seamlessly integrate with any LMS platform including Moodle, Canvas, Blackboard, and more.',
+      image: '/placeholder-feature-3.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Multi-Language Course Support',
       description: 'Create courses in multiple languages to reach a global audience. Easily translate and localize content to meet the needs of learners worldwide.',
-      image: '/placeholder-feature-4.jpg'
+      image: '/placeholder-feature-4.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Rich Interactive Resources',
       description: 'Engage learners with diverse interactive elements including multiple choice, flip cards, sorting activities, true/false questions, fill in the blanks, drag and drop, matching pairs, sequencing, hotspots, and more.',
-      image: '/placeholder-feature-5.jpg'
+      image: '/placeholder-feature-5.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Multimedia Course Creation',
       description: 'Build dynamic courses combining text, images, and videos. Create rich multimedia learning experiences that keep learners engaged and improve knowledge retention.',
-      image: '/placeholder-feature-6.jpg'
+      image: '/placeholder-feature-6.jpg',
+      plan: 'All Plans'
     },
     {
-      title: 'AI-Powered QA Magic Button',
-      description: 'Streamline quality assurance with our "Magic Button" feature. Automatically address reviewer comments and feedback using AI, saving hours of manual revision work.',
-      image: '/placeholder-feature-7.jpg'
+      title: 'Comments and AI-Powered Fixes',
+      description: 'Receive comments from your team on your course, then fix them manually or with AI. Streamline your review process and address feedback efficiently with intelligent assistance.',
+      image: '/placeholder-feature-7a.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Accessibility QA',
+      description: 'Automatically detect and resolve WCAG compliance issues. Ensure your courses are accessible to all learners and meet legal requirements with our built-in accessibility scanner.',
+      image: '/placeholder-feature-7b.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Pedagogic QA',
+      description: 'Upload your own standard PDF documents and ensure courses follow your instructional design frameworks. Maintain consistency with your organization\'s educational standards and best practices.',
+      image: '/placeholder-feature-7c.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Visual Identity QA',
+      description: 'Verify your course matches your brand style guide and design system. Ensure consistent visual identity across all your learning materials with automated brand compliance checks.',
+      image: '/placeholder-feature-7d.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Course-Wide Fixes',
+      description: 'Tell the AI to fix recurring issues across the entire course instantly. Save hours of manual work by applying corrections to multiple lessons and modules at once.',
+      image: '/placeholder-feature-7e.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Instructional Design Models',
       description: 'Create courses based on proven pedagogical frameworks including Bloom\'s Taxonomy, Kirkpatrick Model, Gagné\'s 9 Events of Instruction, and ADDIE framework compliance for effective learning outcomes.',
-      image: '/placeholder-feature-8.jpg'
+      image: '/placeholder-feature-8.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'White Label Customization',
       description: 'Make it your own with complete white label capabilities. Customize fonts, colors, and logos to match your brand identity perfectly and deliver a consistent brand experience.',
-      image: '/placeholder-feature-9.jpg'
+      image: '/placeholder-feature-9.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Dark Mode for Modern Learning',
       description: 'Offer learners a comfortable viewing experience with built-in dark mode support. Reduce eye strain and provide a modern, accessible learning environment.',
-      image: '/placeholder-feature-10.jpg'
+      image: '/placeholder-feature-10.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'WCAG 2.1 Accessibility Compliance',
       description: 'Ensure your courses are accessible to all learners with WCAG 2.1 compliance. Meet legal requirements and provide inclusive learning experiences for users with disabilities.',
-      image: '/placeholder-feature-11.jpg'
+      image: '/placeholder-feature-11.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'AI Image Generation',
       description: 'Generate custom images on-demand without needing stock photo subscriptions. Create unique, relevant visuals for your courses instantly using AI-powered image generation.',
-      image: '/placeholder-feature-12.jpg'
+      image: '/placeholder-feature-12.jpg',
+      plan: 'All Plans'
     },
     {
       title: 'Complete Learning Assets Library',
       description: 'Generate a comprehensive suite of professional learning deliverables automatically: e-learning modules, microlearning content, job aids, quick reference guides, facilitator guides, participant workbooks, ILT presentation decks, and assessments - everything you need for effective training programs.',
-      image: '/placeholder-feature-13.jpg'
+      image: '/placeholder-feature-13.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Automatic Version Control',
+      description: 'Maintain versions automatically just like Google Docs. Roll back to any previous version at any time by reviewing the complete change history. Never lose your work and track every modification with confidence.',
+      image: '/placeholder-feature-14.jpg',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Portfolio Sharing',
+      description: 'Share your courses and showcase your portfolio to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business.',
+      image: '/placeholder-feature-15.jpg',
+      plan: 'Pro'
+    },
+    {
+      title: 'User Management & Workflows',
+      description: 'Manage your team with comprehensive user roles and permissions. Control access levels, assign courses and specific stages in the development process, and streamline collaboration with customizable workflows and timelines that keep everyone on track.',
+      image: '/placeholder-feature-16.jpg',
+      plan: 'Enterprise'
     }
   ];
 
@@ -339,7 +448,7 @@ export default function Home() {
                   </svg>
                 ))}
               </div>
-              <p className="text-gray-600 text-lg">Trusted by 2,500+ teams</p>
+              <p className="text-gray-600 text-lg">Join the closed beta with over 150 designers</p>
             </motion.div>
 
             <motion.h1
@@ -377,21 +486,21 @@ export default function Home() {
             <motion.div variants={fadeInUp} className="mt-12 flex flex-wrap justify-center gap-8 text-sm text-gray-500">
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-                7 MIN SETUP
-              </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
-                GDPR COMPLIANT
+                SCORM COMPLIANT
               </div>
               <div className="flex items-center gap-2">
                 <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
-                ISO27001
+                xAPI COMPLIANT
+              </div>
+              <div className="flex items-center gap-2">
+                <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+                WCAG 2.1 COMPLIANT
               </div>
             </motion.div>
           </motion.div>
@@ -456,8 +565,21 @@ export default function Home() {
               } items-center gap-12 mb-24`}
             >
               <div className="flex-1">
-                <h3 className="text-3xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-lg text-gray-600 leading-relaxed">{feature.description}</p>
+                <div className="flex items-center gap-3 mb-4">
+                  <h3 className="text-3xl font-bold text-gray-900">{feature.title}</h3>
+                  {feature.plan && (
+                    <span className={`px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wider ${
+                      feature.plan === 'Enterprise'
+                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
+                        : feature.plan === 'Pro'
+                        ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-600 border border-gray-300'
+                    }`}>
+                      {feature.plan}
+                    </span>
+                  )}
+                </div>
+                <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
                 <div className="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-xl flex items-center justify-center">
@@ -621,156 +743,179 @@ export default function Home() {
                 Ready to get started?
               </h2>
               <p className="text-xl text-gray-600">
-                Join 2,500+ teams creating better courses faster
+                Join the closed beta with over 150 designers creating better courses faster
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="bg-gray-50 rounded-3xl p-8 shadow-xl">
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    First Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
-                    placeholder="John"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Last Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.lastName}
-                    onChange={(e) => setFormData({...formData, lastName: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
-                    placeholder="Doe"
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
-                  placeholder="john.doe@company.com"
-                />
-              </div>
-
-              {/* User Type Selection */}
-              <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  I am... *
-                </label>
-                <div className="flex gap-4">
-                  <label className="flex items-center cursor-pointer">
-                    <input
-                      type="radio"
-                      name="userType"
-                      value="myself"
-                      checked={formData.userType === 'myself'}
-                      onChange={(e) => setFormData({...formData, userType: e.target.value})}
-                      className="w-4 h-4 text-[#9F80DA] focus:ring-[#9F80DA] cursor-pointer"
-                      required
-                    />
-                    <span className="ml-2 text-gray-700">I'm for myself</span>
-                  </label>
-                  <label className="flex items-center cursor-pointer">
-                    <input
-                      type="radio"
-                      name="userType"
-                      value="company"
-                      checked={formData.userType === 'company'}
-                      onChange={(e) => setFormData({...formData, userType: e.target.value})}
-                      className="w-4 h-4 text-[#9F80DA] focus:ring-[#9F80DA] cursor-pointer"
-                      required
-                    />
-                    <span className="ml-2 text-gray-700">I work for a company</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Company Name - shown for both, required for company */}
-              {formData.userType && (
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Company Name {formData.userType === 'company' ? '*' : '(optional)'}
-                  </label>
-                  <input
-                    type="text"
-                    required={formData.userType === 'company'}
-                    value={formData.company}
-                    onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
-                    placeholder="Your Company"
-                  />
-                </div>
-              )}
-
-              {/* Number of Designers - only for company */}
-              {formData.userType === 'company' && (
-                <div className="mb-6">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Number of Instructional Designers *
-                  </label>
-                  <select
-                    required
-                    value={formData.designers}
-                    onChange={(e) => setFormData({...formData, designers: e.target.value})}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent outline-none transition"
-                  >
-                    <option value="">Select...</option>
-                    <option value="1-5">1-5</option>
-                    <option value="6-10">6-10</option>
-                    <option value="11-25">11-25</option>
-                    <option value="26-50">26-50</option>
-                    <option value="51+">51+</option>
-                  </select>
-                </div>
-              )}
-
-              {/* Deliverables Checkboxes */}
-              <div className="mb-8">
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  What type of deliverables are you interested in? * (Select at least one)
-                </label>
-                <div className="grid md:grid-cols-2 gap-3 max-h-96 overflow-y-auto p-4 border border-gray-200 rounded-lg bg-white">
-                  {deliverableOptions.map((deliverable) => (
-                    <label key={deliverable} className="flex items-start cursor-pointer hover:bg-gray-50 p-2 rounded">
-                      <input
-                        type="checkbox"
-                        checked={formData.deliverables.includes(deliverable)}
-                        onChange={() => handleDeliverableChange(deliverable)}
-                        className="mt-1 w-4 h-4 text-[#9F80DA] focus:ring-[#9F80DA] rounded cursor-pointer"
-                      />
-                      <span className="ml-2 text-sm text-gray-700">{deliverable}</span>
-                    </label>
-                  ))}
-                </div>
-                {formData.deliverables.length === 0 && (
-                  <p className="text-xs text-gray-500 mt-2">Please select at least one deliverable type</p>
-                )}
-              </div>
-
+            {/* Plan Type Selector */}
+            <div className="flex justify-center gap-4 mb-12">
               <button
-                type="submit"
-                className="w-full bg-[#9F80DA] text-white py-4 rounded-full hover:bg-[#8A6BC5] transition-all transform hover:scale-105 font-medium text-lg shadow-lg"
+                onClick={() => setPlanType('Personal')}
+                className={`px-8 py-3 rounded-full font-semibold transition-all ${
+                  planType === 'Personal'
+                    ? 'bg-[#9F80DA] text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
               >
-                Start Free Trial
+                Personal
               </button>
-            </form>
+              <button
+                onClick={() => setPlanType('Enterprise')}
+                className={`px-8 py-3 rounded-full font-semibold transition-all ${
+                  planType === 'Enterprise'
+                    ? 'bg-[#9F80DA] text-white shadow-lg'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                Enterprise
+              </button>
+            </div>
+
+            {/* Pricing Plans */}
+            <div className="grid md:grid-cols-2 gap-8 mb-16">
+              {planType === 'Personal' ? (
+                <>
+                  {/* Personal Basic Plan */}
+                  <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-all">
+                    <div className="flex justify-center mb-6">
+                      <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center">
+                        <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Basic</h3>
+                    <div className="mb-2">
+                      <span className="text-4xl font-bold text-gray-900">$30</span>
+                      <span className="text-gray-600">/month</span>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-6">60 one-hour courses</p>
+                    <ul className="space-y-3 mb-8">
+                      {features.filter(f => f.plan === 'All Plans').map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm text-gray-700">{feature.title}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => openPopup('Personal')}
+                      className="w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium"
+                    >
+                      Start
+                    </button>
+                  </div>
+
+                  {/* Personal Pro Plan */}
+                  <div className="bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-3xl p-8 shadow-2xl transform hover:scale-105 transition-all">
+                    <div className="flex justify-center mb-6">
+                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
+                    <div className="mb-2">
+                      <span className="text-4xl font-bold text-white">$50</span>
+                      <span className="text-purple-100">/month</span>
+                    </div>
+                    <p className="text-sm text-purple-100 mb-6">60 one-hour courses</p>
+                    <p className="text-purple-100 text-sm mb-4 italic">All features from Basic +</p>
+                    <ul className="space-y-3 mb-8">
+                      {features.filter(f => f.plan === 'Pro').map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm text-white font-semibold">{feature.title}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => openPopup('Personal')}
+                      className="w-full bg-white text-[#9F80DA] py-3 rounded-full hover:bg-gray-100 transition-all font-medium"
+                    >
+                      Start
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Enterprise Basic Plan */}
+                  <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-all">
+                    <div className="flex justify-center mb-6">
+                      <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center">
+                        <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Basic</h3>
+                    <div className="mb-2">
+                      <span className="text-4xl font-bold text-gray-900">$50</span>
+                      <span className="text-gray-600">/month/user</span>
+                    </div>
+                    <p className="text-sm text-gray-500 mb-6">100 one-hour courses</p>
+                    <ul className="space-y-3 mb-8">
+                      {features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm text-gray-700">{feature.title}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button
+                      onClick={() => openPopup('Enterprise')}
+                      className="w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium"
+                    >
+                      Start
+                    </button>
+                  </div>
+
+                  {/* Enterprise Pro Plan */}
+                  <div className="bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-3xl p-8 shadow-2xl transform hover:scale-105 transition-all">
+                    <div className="flex justify-center mb-6">
+                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
+                    <div className="mb-2">
+                      <span className="text-2xl font-bold text-white">Custom pricing</span>
+                    </div>
+                    <p className="text-sm text-purple-100 mb-6">Unlimited courses</p>
+                    <p className="text-purple-100 text-sm mb-4 italic">All features from Basic +</p>
+                    <ul className="space-y-3 mb-8">
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-white font-semibold">Initial setup</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-white font-semibold">Personalized support</span>
+                      </li>
+                    </ul>
+                    <button
+                      onClick={() => openPopup('Enterprise')}
+                      className="w-full bg-white text-[#9F80DA] py-3 rounded-full hover:bg-gray-100 transition-all font-medium"
+                    >
+                      Talk to sales
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -957,6 +1102,334 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Welcome Popup */}
+      {showWelcomePopup && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowWelcomePopup(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white rounded-3xl p-6 sm:p-8 md:p-12 max-w-4xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Progress Steps Header */}
+            <div className="mb-8 md:mb-12">
+              {/* Mobile: 2 rows */}
+              <div className="grid grid-cols-3 gap-4 md:hidden">
+                {steps.map((step, index) => (
+                  <div key={`step-${index}`} className="flex flex-col items-center">
+                    <button
+                      type="button"
+                      onClick={() => setCurrentStep(index)}
+                      className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold mb-2 transition-all cursor-pointer hover:scale-110 text-sm ${
+                        index < currentStep
+                          ? 'bg-[#86C5A8] text-white'
+                          : index === currentStep
+                          ? 'bg-[#9F80DA] text-white ring-4 ring-purple-200'
+                          : 'bg-gray-200 text-gray-500'
+                      }`}
+                    >
+                      {index < currentStep ? (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : (
+                        index + 1
+                      )}
+                    </button>
+                    <span className={`text-xs font-medium text-center ${
+                      index < currentStep ? 'text-[#86C5A8]' : index === currentStep ? 'text-[#9F80DA]' : 'text-gray-400'
+                    }`}>
+                      {step}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Desktop: Single row with lines */}
+              <div className="hidden md:flex items-start mb-6">
+                {steps.map((step, index) => (
+                  <>
+                    <div key={`step-${index}`} className="flex flex-col items-center min-w-fit">
+                      <button
+                        type="button"
+                        onClick={() => setCurrentStep(index)}
+                        className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold mb-2 transition-all cursor-pointer hover:scale-110 ${
+                          index < currentStep
+                            ? 'bg-[#86C5A8] text-white'
+                            : index === currentStep
+                            ? 'bg-[#9F80DA] text-white ring-4 ring-purple-200'
+                            : 'bg-gray-200 text-gray-500'
+                        }`}
+                      >
+                        {index < currentStep ? (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        ) : (
+                          index + 1
+                        )}
+                      </button>
+                      <span className={`text-xs font-medium text-center whitespace-nowrap ${
+                        index < currentStep ? 'text-[#86C5A8]' : index === currentStep ? 'text-[#9F80DA]' : 'text-gray-400'
+                      }`}>
+                        {step}
+                      </span>
+                    </div>
+                    {index < steps.length - 1 && (
+                      <div key={`line-${index}`} className={`h-1 flex-1 mx-2 rounded transition-all mt-5 ${
+                        index < currentStep ? 'bg-[#86C5A8]' : 'bg-gray-200'
+                      }`} />
+                    )}
+                  </>
+                ))}
+              </div>
+            </div>
+
+            {/* Form Content */}
+            <div className="mb-8 md:mb-12 min-h-[400px] md:min-h-[500px] flex flex-col justify-center">
+              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 md:mb-8">
+                {currentStep === 0 && "What's your full name?"}
+                {currentStep === 1 && 'What is your email address?'}
+                {currentStep === 2 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
+                {currentStep === 2 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
+                {currentStep === 3 && 'How many people are on your team?'}
+                {currentStep === 4 && 'What type of deliverables are you interested in?'}
+              </h3>
+
+              {/* Step 0: Full Name */}
+              {currentStep === 0 && (
+                <>
+                  <input
+                    type="text"
+                    value={formData.firstName}
+                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                    onKeyDown={handleKeyDown}
+                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
+                    placeholder="Type your answer here..."
+                    autoFocus
+                  />
+                  <div className="flex flex-col items-start">
+                    <button
+                      onClick={handleNextStep}
+                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                    >
+                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+                    <p className="text-sm text-gray-400 mt-2">
+                      press <span className="font-semibold">Enter ↵</span>
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* Step 1: Email */}
+              {currentStep === 1 && (
+                <>
+                  <input
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    onKeyDown={handleKeyDown}
+                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
+                    placeholder="Type your answer here..."
+                    autoFocus
+                  />
+                  <div className="flex flex-col items-start">
+                    <button
+                      onClick={handleNextStep}
+                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                    >
+                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+                    <p className="text-sm text-gray-400 mt-2">
+                      press <span className="font-semibold">Enter ↵</span>
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* Step 2: Deliverables (Personal) or Company (Enterprise) */}
+              {currentStep === 2 && selectedPlanType === 'Personal' && (
+                <>
+                  <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
+                    {deliverableOptions.map((deliverable) => (
+                      <button
+                        key={deliverable}
+                        type="button"
+                        onClick={() => handleDeliverableChange(deliverable)}
+                        className={`px-3 sm:px-4 py-2 rounded-full font-medium transition-all text-sm sm:text-base ${
+                          formData.deliverables.includes(deliverable)
+                            ? 'bg-[#9F80DA] text-white shadow-md'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {deliverable}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <button
+                      onClick={handleNextStep}
+                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                    >
+                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+                    <p className="text-sm text-gray-400 mt-2">
+                      press <span className="font-semibold">Enter ↵</span>
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {currentStep === 2 && selectedPlanType === 'Enterprise' && (
+                <>
+                  <input
+                    type="text"
+                    value={formData.company}
+                    onChange={(e) => setFormData({...formData, company: e.target.value})}
+                    onKeyDown={handleKeyDown}
+                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
+                    placeholder="Type your answer here..."
+                    autoFocus
+                  />
+                  <div className="flex flex-col items-start">
+                    <button
+                      onClick={handleNextStep}
+                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                    >
+                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+                    <p className="text-sm text-gray-400 mt-2">
+                      press <span className="font-semibold">Enter ↵</span>
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* Step 3: Team Size */}
+              {currentStep === 3 && (
+                <>
+                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
+                    {['1-5', '6-10', '11-25', '26-50', '51+'].map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        onClick={() => setFormData({...formData, designers: size})}
+                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all text-sm sm:text-base ${
+                          formData.designers === size
+                            ? 'bg-[#9F80DA] text-white shadow-md'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <button
+                      onClick={handleNextStep}
+                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                    >
+                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+                    <p className="text-sm text-gray-400 mt-2">
+                      press <span className="font-semibold">Enter ↵</span>
+                    </p>
+                  </div>
+                </>
+              )}
+
+              {/* Step 4: Deliverables */}
+              {currentStep === 4 && (
+                <>
+                  <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
+                    {deliverableOptions.map((deliverable) => (
+                      <button
+                        key={deliverable}
+                        type="button"
+                        onClick={() => handleDeliverableChange(deliverable)}
+                        className={`px-3 sm:px-4 py-2 rounded-full font-medium transition-all text-sm sm:text-base ${
+                          formData.deliverables.includes(deliverable)
+                            ? 'bg-[#9F80DA] text-white shadow-md'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {deliverable}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <button
+                      onClick={handleNextStep}
+                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                    >
+                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </button>
+                    <p className="text-sm text-gray-400 mt-2">
+                      press <span className="font-semibold">Enter ↵</span>
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Navigation Arrows */}
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                disabled={currentStep === 0}
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                  currentStep === 0
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
+                disabled={currentStep === steps.length - 1}
+                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                  currentStep === steps.length - 1
+                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
 
       {/* Success Popup */}
       {showSuccessPopup && (
