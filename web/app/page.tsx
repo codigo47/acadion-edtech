@@ -3,13 +3,17 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import posthog from 'posthog-js';
+import Feature1 from './components/Feature1';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [showInitialPopup, setShowInitialPopup] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
+  const [selectedPlanName, setSelectedPlanName] = useState('');
   const [planType, setPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [formData, setFormData] = useState({
     firstName: '',
@@ -18,16 +22,19 @@ export default function Home() {
     company: '',
     userType: '', // 'myself' or 'company'
     designers: '',
+    experience: '',
+    sector: '',
     deliverables: [] as string[]
   });
 
-  const personalSteps = ['Full Name', 'Email', 'Deliverables'];
-  const enterpriseSteps = ['Full Name', 'Email', 'Company', 'Team Size', 'Deliverables'];
+  const personalSteps = ['Full Name', 'Email', 'Sector', 'Experience', 'Deliverables'];
+  const enterpriseSteps = ['Full Name', 'Email', 'Sector', 'Company', 'Team Size', 'Deliverables'];
 
   const steps = selectedPlanType === 'Personal' ? personalSteps : enterpriseSteps;
 
-  const openPopup = (type: 'Personal' | 'Enterprise') => {
+  const openPopup = (type: 'Personal' | 'Enterprise', planName: string) => {
     setSelectedPlanType(type);
+    setSelectedPlanName(planName);
     setCurrentStep(0);
     setShowWelcomePopup(true);
   };
@@ -54,13 +61,15 @@ export default function Home() {
         setShowWelcomePopup(false);
       }
 
-      // Handle Enter key for button-based steps (Team Size and Deliverables)
+      // Handle Enter key for button-based steps (Sector, Years of Experience, Team Size and Deliverables)
       if (e.key === 'Enter' && showWelcomePopup && !e.shiftKey) {
-        const isTeamSizeStep = (selectedPlanType === 'Enterprise' && currentStep === 3);
-        const isDeliverablesStep = (selectedPlanType === 'Personal' && currentStep === 2) ||
-                                   (selectedPlanType === 'Enterprise' && currentStep === 4);
+        const isSectorStep = (currentStep === 2);
+        const isExperienceStep = (selectedPlanType === 'Personal' && currentStep === 3);
+        const isTeamSizeStep = (selectedPlanType === 'Enterprise' && currentStep === 4);
+        const isDeliverablesStep = (selectedPlanType === 'Personal' && currentStep === 4) ||
+                                   (selectedPlanType === 'Enterprise' && currentStep === 5);
 
-        if (isTeamSizeStep || isDeliverablesStep) {
+        if (isSectorStep || isExperienceStep || isTeamSizeStep || isDeliverablesStep) {
           e.preventDefault();
           handleNextStep();
         }
@@ -71,7 +80,7 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyboard);
   }, [showWelcomePopup, currentStep, selectedPlanType]);
 
-  const menuItems = ['Features', 'How it Works', 'Testimonials', 'FAQ', 'Contact'];
+  const menuItems = ['Features', 'How it Works', 'Testimonials', 'Pricing', 'FAQ'];
 
   const deliverableOptions = [
     'E-learning module',
@@ -108,121 +117,127 @@ export default function Home() {
     {
       title: 'AI-Generated Courses from Any Source',
       description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, block-oriented courses automatically. No matter the format, Course Scribe handles it all.',
-      image: '/placeholder-feature-1.jpg',
+      image: '/features/feature1.gif',
       plan: 'All Plans'
     },
     {
       title: 'Course Copilot',
       description: 'Iterate on your content as you design it, test different alternatives until you get the best version of your work. Save hours of manual work by applying changes or corrections to multiple lessons and modules at once.',
-      image: '/placeholder-feature-1b.jpg',
+      image: '/features/feature2.gif',
       plan: 'All Plans'
     },
     {
       title: 'AI Image Generation',
       description: 'Generate custom images on-demand without needing stock photo subscriptions. Create unique, relevant visuals for your courses instantly using AI-powered image generation.',
-      image: '/placeholder-feature-12.jpg',
+      image: '/features/feature3.gif',
       plan: 'All Plans'
     },
     {
       title: 'Full editing control',
       description: 'Manually edit any block or resource in your course. Fine-tune content, adjust layouts, modify assessments, and customize every element to match your exact vision and requirements.',
-      image: '/placeholder-feature-2.jpg',
+      image: '/features/feature4.gif',
+      plan: 'All Plans'
+    },
+    {
+      title: 'Real-time Collaboration',
+      description: 'Invite your teammates to design and edit courses together in real-time. Share your e-learning projects with colleagues, subject matter experts, and stakeholders for seamless collaboration. Work simultaneously on the same course, see changes as they happen, and streamline your content creation workflow with your entire team.',
+      image: '/features/feature5.gif',
       plan: 'All Plans'
     },
     {
       title: 'Industry-Standard Export Formats',
       description: 'Export your courses to SCORM 1.2, xAPI (Tin Can API), PDF, and other standard formats. Seamlessly integrate with any LMS platform including Moodle, Canvas, Blackboard, and more.',
-      image: '/placeholder-feature-3.jpg',
+      image: '/features/feature5.gif',
       plan: 'All Plans'
     },
     {
       title: 'Multi-Language Course Support',
       description: 'Create courses in multiple languages to reach a global audience. Easily translate and localize content to meet the needs of learners worldwide.',
-      image: '/placeholder-feature-4.jpg',
+      image: '/features/feature6.gif',
       plan: 'All Plans'
     },
     {
       title: 'Interactive Activities',
       description: 'Engage learners with diverse interactive elements including multiple choice, flip cards, sorting activities, true/false questions, fill in the blanks, drag and drop, matching pairs, sequencing, hotspots, and more.',
-      image: '/placeholder-feature-5.jpg',
+      image: '/features/feature7.gif',
       plan: 'All Plans'
     },
     {
       title: 'Multimedia Course Creation',
       description: 'Build dynamic courses combining text, images, and videos. Create rich multimedia learning experiences that keep learners engaged and improve knowledge retention.',
-      image: '/placeholder-feature-6.jpg',
+      image: '/features/feature8.gif',
       plan: 'All Plans'
     },
     {
       title: 'AI powered QA',
       description: 'Share your course in Review mode with anyone you want. Receive comments from your team or your SME, then fix them manually or with AI.',
-      image: '/placeholder-feature-7a.jpg',
+      image: '/features/feature9.gif',
       plan: 'All Plans'
     },
     {
       title: 'Accessibility Compliant',
       description: 'Automatically detect and resolve WCAG compliance requirements during the QA process. Ensure your courses are accessible to all learners and meet standard guidance with our built-in accessibility scanner.',
-      image: '/placeholder-feature-7b.jpg',
+      image: '/features/feature10.gif',
       plan: 'All Plans'
     },
     {
       title: 'Content review QA',
       description: 'Review all the content of your course with an artificial intelligence model that acts as a subject matter expert and receive feedback.',
-      image: '/placeholder-feature-7c.jpg',
+      image: '/features/feature11.gif',
       plan: 'All Plans'
     },
     {
       title: 'Learning Objectives',
       description: 'Automatically check if there is consistency between the objectives and the type of activities in the course to ensure that the student learned.',
-      image: '/placeholder-feature-7c2.jpg',
+      image: '/features/feature12.gif',
       plan: 'All Plans'
     },
     {
       title: 'Branding QA',
       description: 'Verify your course matches your brand style guide, writing and design system. Ensure consistent visual identity across all your learning materials with automated brand compliance checks.',
-      image: '/placeholder-feature-7d.jpg',
+      image: '/features/feature13.gif',
       plan: 'All Plans'
     },
     {
       title: 'Course-Wide Fixes',
       description: 'Tell the AI to fix recurring issues across the entire course instantly. Save hours of manual work by applying corrections to multiple lessons and modules at once.',
-      image: '/placeholder-feature-7e.jpg',
+      image: '/features/feature14.gif',
       plan: 'All Plans'
     },
     {
       title: 'Instructional Design Models',
       description: 'Create courses based on proven pedagogical frameworks including Bloom\'s Taxonomy, Kirkpatrick Model, Gagné\'s 9 Events of Instruction, and ADDIE framework compliance for effective learning outcomes.',
-      image: '/placeholder-feature-8.jpg',
+      image: '/features/feature10.gif',
       plan: 'All Plans'
     },
     {
       title: 'WCAG 2.1 Accessibility Compliance',
       description: 'Ensure your courses are accessible to all learners with WCAG 2.1 compliance. Meet legal requirements and provide inclusive learning experiences for users with disabilities. Includes dark mode support to reduce eye strain and improve accessibility.',
-      image: '/placeholder-feature-11.jpg',
+      image: '/features/feature13.gif',
       plan: 'All Plans'
     },
     {
       title: 'Complete Learning Assets Library',
       description: 'Generate a comprehensive suite of professional learning deliverables automatically: e-learning modules, microlearning content, job aids, QRG, facilitator guides, participant workbooks, ILT, and assessments - everything you need for effective training programs.',
-      image: '/placeholder-feature-13.jpg',
+      image: '/features/feature15.gif',
       plan: 'All Plans'
     },
     {
       title: 'Automatic Version Control',
       description: 'Maintain versions automatically just like Google Docs. Roll back to any previous version at any time by reviewing the complete change history. Never lose your work and track every modification with confidence.',
-      image: '/placeholder-feature-14.jpg',
+      image: '/features/feature14.gif',
       plan: 'All Plans'
     },
     {
       title: 'Professional Portfolio',
       description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Get metrics of the visits to your portfolio.',
-      image: '/placeholder-feature-15.jpg',
-      plan: 'Freelance & Pro'
+      image: '/features/feature15.gif',
+      plan: 'Pro'
     },
     {
       title: 'Project Management & Workflows',
       description: 'Manage your team with comprehensive user roles and permissions. Control access levels, assign courses and specific tasks, and streamline collaboration with customizable workflows and timelines that keep everyone on track.',
-      image: '/placeholder-feature-16.jpg',
+      image: '/features/feature16.gif',
       plan: 'Enterprise'
     }
   ];
@@ -399,7 +414,7 @@ export default function Home() {
                 </a>
               ))}
               <a
-                href="#contact"
+                href="#pricing"
                 className="bg-[#9F80DA] text-white px-6 py-2.5 rounded-full hover:bg-[#8A6BC5] transition-colors font-medium"
               >
                 Start Now
@@ -407,12 +422,44 @@ export default function Home() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-900 relative w-10 h-10 flex items-center justify-center overflow-visible">
+              <div className="w-6 relative flex flex-col gap-[5px]">
+                <span className={`block w-full h-[3px] bg-current rounded-full transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'rotate-45 translate-y-[8px] scale-y-[1.15]' : ''}`}></span>
+                <span className={`block w-full h-[3px] bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-0' : ''}`}></span>
+                <span className={`block w-full h-[3px] bg-current rounded-full transform transition-all duration-300 ease-in-out ${isMenuOpen ? '-rotate-45 -translate-y-[8px] scale-y-[1.15]' : ''}`}></span>
+              </div>
             </button>
           </div>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="md:hidden py-4 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-lg"
+            >
+              <div className="flex flex-col space-y-4 px-4">
+                {menuItems.map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
+                    className="text-gray-600 hover:text-[#9F80DA] transition-colors font-medium py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item}
+                  </a>
+                ))}
+                <a
+                  href="#pricing"
+                  className="bg-[#9F80DA] text-white px-6 py-2.5 rounded-full hover:bg-[#8A6BC5] transition-colors font-medium text-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Start Now
+                </a>
+              </div>
+            </motion.nav>
+          )}
         </div>
       </motion.header>
 
@@ -568,13 +615,13 @@ export default function Home() {
                 <div className="flex items-center gap-3 mb-4">
                   <h3 className="text-3xl font-bold text-gray-900">{feature.title}</h3>
                   {feature.plan && (
-                    <span className={`px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wider ${
+                    <span className={`px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wider whitespace-nowrap ${
                       feature.plan === 'Enterprise'
                         ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
                         : feature.plan === 'Pro'
-                        ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-md'
-                        : feature.plan === 'Freelance & Pro'
-                        ? 'bg-gradient-to-r from-purple-400 to-pink-400 text-white shadow-md'
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
+                        : feature.plan === 'Starter'
+                        ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-md'
                         : 'bg-gray-100 text-gray-600 border border-gray-300'
                     }`}>
                       {feature.plan}
@@ -584,13 +631,12 @@ export default function Home() {
                 <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
-                <div className="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-xl flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <div className="w-16 h-16 bg-[#9F80DA] rounded-xl mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-white text-2xl font-bold">{index + 1}</span>
-                    </div>
-                    <p className="text-gray-600">Feature Visualization</p>
-                  </div>
+                <div className="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-xl overflow-hidden">
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               </div>
             </motion.div>
@@ -732,8 +778,8 @@ export default function Home() {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
+      <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -749,50 +795,46 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Plan Type Selector */}
-            <div className="flex justify-center gap-4 mb-12">
-              <button
-                onClick={() => setPlanType('Personal')}
-                className={`px-8 py-3 rounded-full font-semibold transition-all ${
-                  planType === 'Personal'
-                    ? 'bg-[#9F80DA] text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                Personal
-              </button>
-              <button
-                onClick={() => setPlanType('Enterprise')}
-                className={`px-8 py-3 rounded-full font-semibold transition-all ${
-                  planType === 'Enterprise'
-                    ? 'bg-[#9F80DA] text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                Enterprise
-              </button>
-            </div>
-
             {/* Pricing Plans */}
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-              {planType === 'Personal' ? (
-                <>
+            <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-2 mb-16">
+              {/* Personal Plans */}
                   {/* Personal Basic Plan */}
-                  <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-all">
-                    <div className="flex justify-center mb-6">
-                      <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center">
-                        <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div onClick={() => openPopup('Personal', 'Starter')} className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8 shadow-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-all flex flex-col cursor-pointer">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 bg-blue-200 rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-8 h-8 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                       </div>
+                      <h3 className="text-3xl font-bold text-gray-900">Starter</h3>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Basic</h3>
-                    <div className="mb-2">
-                      <span className="text-4xl font-bold text-gray-900">$30</span>
-                      <span className="text-gray-600">/month</span>
+                    <div className="h-[57px] mb-[4.8px]">
+                      <div className="flex items-start gap-2">
+                        <div className="flex items-start">
+                          <span className="text-3xl font-bold text-gray-900">$</span>
+                          <span className="text-5xl font-bold text-gray-900">30</span>
+                        </div>
+                        <div className="flex flex-col justify-between h-full text-sm text-gray-600 py-1">
+                          <span>per month</span>
+                          <span className="font-semibold text-gray-900">or ${(30 * 12 * 0.8).toFixed(0)} per year</span>
+                        </div>
+                      </div>
                     </div>
-                    <p className="text-sm text-gray-500 mb-6">60 one-hour courses</p>
-                    <ul className="space-y-3 mb-8">
+                    <div className="h-[24px] mb-[2.4px]">
+                    </div>
+                    <ul className="space-y-3 mb-8 flex-grow">
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">3000 credits</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">30 course hours</span>
+                      </li>
                       {features.filter(f => f.plan === 'All Plans').map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -803,66 +845,62 @@ export default function Home() {
                       ))}
                     </ul>
                     <button
-                      onClick={() => openPopup('Personal')}
-                      className="w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium"
+                      onClick={() => openPopup('Personal', 'Starter')}
+                      className="w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium mt-auto"
                     >
                       Start
                     </button>
                   </div>
 
                   {/* Personal Pro Plan */}
-                  <div className="bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-3xl p-8 shadow-2xl transform hover:scale-105 transition-all">
-                    <div className="flex justify-center mb-6">
-                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div onClick={() => openPopup('Personal', 'Pro')} className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 shadow-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-all flex flex-col cursor-pointer">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 bg-purple-200 rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-8 h-8 text-purple-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
                         </svg>
                       </div>
+                      <h3 className="text-3xl font-bold">
+                        <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text">Pro</span>
+                      </h3>
+                      <span className="px-3 py-1 text-xs font-semibold rounded-full uppercase tracking-wider whitespace-nowrap bg-gradient-to-r from-amber-400 via-orange-500 to-pink-500 text-white shadow-lg animate-pulse">
+                        Most Popular
+                      </span>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
-                    <div className="mb-2">
-                      <span className="text-4xl font-bold text-white">$50</span>
-                      <span className="text-purple-100">/month</span>
-                    </div>
-                    <p className="text-sm text-purple-100 mb-6">60 one-hour courses</p>
-                    <p className="text-purple-100 text-sm mb-4 italic">All features from Basic +</p>
-                    <ul className="space-y-3 mb-8">
-                      {features.filter(f => f.plan === 'Pro').map((feature, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                          </svg>
-                          <span className="text-sm text-white font-semibold">{feature.title}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <button
-                      onClick={() => openPopup('Personal')}
-                      className="w-full bg-white text-[#9F80DA] py-3 rounded-full hover:bg-gray-100 transition-all font-medium"
-                    >
-                      Start
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Enterprise Basic Plan */}
-                  <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-all">
-                    <div className="flex justify-center mb-6">
-                      <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center">
-                        <svg className="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
+                    <div className="h-[57px] mb-[4.8px]">
+                      <div className="flex items-start gap-2">
+                        <div className="flex items-start">
+                          <span className="text-3xl font-bold text-gray-900">$</span>
+                          <span className="text-5xl font-bold text-gray-900">50</span>
+                        </div>
+                        <div className="flex flex-col justify-between h-full text-sm text-gray-600 py-1">
+                          <span>per month</span>
+                          <span className="font-semibold text-gray-900">or ${(50 * 12 * 0.8).toFixed(0)} per year</span>
+                        </div>
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Basic</h3>
-                    <div className="mb-2">
-                      <span className="text-4xl font-bold text-gray-900">$50</span>
-                      <span className="text-gray-600">/month/user</span>
+                    <div className="h-[24px] mb-[2.4px]">
                     </div>
-                    <p className="text-sm text-gray-500 mb-6">100 one-hour courses</p>
-                    <ul className="space-y-3 mb-8">
-                      {features.map((feature, idx) => (
+                    <ul className="space-y-3 mb-8 flex-grow">
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700 font-bold">All features from Starter +</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">4000 credits</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">40 course hours</span>
+                      </li>
+                      {features.filter(f => f.plan === 'Pro').map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
                           <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -872,51 +910,83 @@ export default function Home() {
                       ))}
                     </ul>
                     <button
-                      onClick={() => openPopup('Enterprise')}
-                      className="w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium"
+                      onClick={() => openPopup('Personal', 'Pro')}
+                      className="w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium mt-auto"
                     >
                       Start
                     </button>
                   </div>
 
-                  {/* Enterprise Pro Plan */}
-                  <div className="bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-3xl p-8 shadow-2xl transform hover:scale-105 transition-all">
-                    <div className="flex justify-center mb-6">
-                      <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {/* Enterprise Plan */}
+                  <div onClick={() => openPopup('Enterprise', 'Enterprise')} className="bg-gradient-to-br from-violet-50 to-purple-50 rounded-3xl p-8 shadow-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-all flex flex-col cursor-pointer">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 bg-violet-200 rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-8 h-8 text-violet-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                       </div>
+                      <h3 className="text-3xl font-bold">
+                        <span className="bg-gradient-to-r from-purple-600 to-blue-600 text-transparent bg-clip-text">Enterprise</span>
+                      </h3>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Pro</h3>
-                    <div className="mb-2">
-                      <span className="text-2xl font-bold text-white">Custom pricing</span>
+                    <div className="h-[57px] mb-[4.8px]">
+                      <div>
+                        <span className="text-2xl font-bold text-gray-900">Custom pricing</span>
+                      </div>
                     </div>
-                    <p className="text-sm text-purple-100 mb-6">Unlimited courses</p>
-                    <p className="text-purple-100 text-sm mb-4 italic">All features from Basic +</p>
-                    <ul className="space-y-3 mb-8">
+                    <div className="h-[24px] mb-[2.4px]">
+                    </div>
+                    <ul className="space-y-3 mb-8 flex-grow">
                       <li className="flex items-start gap-2">
-                        <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm text-white font-semibold">Initial setup</span>
+                        <span className="text-sm text-gray-700 font-bold">All features from Pro +</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <svg className="w-5 h-5 text-white flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm text-white font-semibold">Personalized support</span>
+                        <span className="text-sm text-gray-700">5000 credits</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">50 course hours</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">Custom onboarding</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">Personalized support</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">Custom integrations</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">Project Management & Workflows</span>
                       </li>
                     </ul>
                     <button
-                      onClick={() => openPopup('Enterprise')}
-                      className="w-full bg-white text-[#9F80DA] py-3 rounded-full hover:bg-gray-100 transition-all font-medium"
+                      onClick={() => openPopup('Enterprise', 'Enterprise')}
+                      className="w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium mt-auto"
                     >
                       Talk to sales
                     </button>
                   </div>
-                </>
-              )}
             </div>
           </motion.div>
         </div>
@@ -1120,6 +1190,19 @@ export default function Home() {
             className="bg-white rounded-3xl p-6 sm:p-8 md:p-12 max-w-4xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Plan Title */}
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+              <span className={
+                selectedPlanName === 'Starter'
+                  ? 'text-gray-900'
+                  : selectedPlanName === 'Pro'
+                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-transparent bg-clip-text'
+                  : 'bg-gradient-to-r from-purple-600 to-blue-600 text-transparent bg-clip-text'
+              }>
+                {selectedPlanName} Plan
+              </span>
+            </h2>
+
             {/* Progress Steps Header */}
             <div className="mb-8 md:mb-12">
               {/* Mobile: 2 rows */}
@@ -1199,10 +1282,12 @@ export default function Home() {
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 md:mb-8">
                 {currentStep === 0 && "What's your full name?"}
                 {currentStep === 1 && 'What is your email address?'}
-                {currentStep === 2 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
-                {currentStep === 2 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
-                {currentStep === 3 && 'How many people are on your team?'}
-                {currentStep === 4 && 'What type of deliverables are you interested in?'}
+                {currentStep === 2 && 'What sector do you work in?'}
+                {currentStep === 3 && selectedPlanType === 'Personal' && 'How many years of experience do you have?'}
+                {currentStep === 3 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
+                {currentStep === 4 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
+                {currentStep === 4 && selectedPlanType === 'Enterprise' && 'How many people are on your team?'}
+                {currentStep === 5 && 'What type of deliverables are you interested in?'}
               </h3>
 
               {/* Step 0: Full Name */}
@@ -1217,19 +1302,21 @@ export default function Home() {
                     placeholder="Type your answer here..."
                     autoFocus
                   />
-                  <div className="flex flex-col items-start">
-                    <button
-                      onClick={handleNextStep}
-                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
-                    >
-                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </button>
-                    <p className="text-sm text-gray-400 mt-2">
-                      press <span className="font-semibold">Enter ↵</span>
-                    </p>
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
                   </div>
                 </>
               )}
@@ -1246,25 +1333,133 @@ export default function Home() {
                     placeholder="Type your answer here..."
                     autoFocus
                   />
-                  <div className="flex flex-col items-start">
-                    <button
-                      onClick={handleNextStep}
-                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
-                    >
-                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </button>
-                    <p className="text-sm text-gray-400 mt-2">
-                      press <span className="font-semibold">Enter ↵</span>
-                    </p>
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
                   </div>
                 </>
               )}
 
-              {/* Step 2: Deliverables (Personal) or Company (Enterprise) */}
-              {currentStep === 2 && selectedPlanType === 'Personal' && (
+              {/* Step 2: Sector (Both Personal and Enterprise) */}
+              {currentStep === 2 && (
+                <>
+                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
+                    {['Consulting', 'Human Resources', 'Marketing', 'Learning and Development', 'Higher Education', 'Other'].map((sec) => (
+                      <button
+                        key={sec}
+                        type="button"
+                        onClick={() => setFormData({...formData, sector: sec})}
+                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all text-sm sm:text-base ${
+                          formData.sector === sec
+                            ? 'bg-[#9F80DA] text-white shadow-md'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {sec}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Step 3: Years of Experience (Personal) or Company (Enterprise) */}
+              {currentStep === 3 && selectedPlanType === 'Personal' && (
+                <>
+                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
+                    {['1 to 3 years', '4 to 6 years', '+6 years'].map((exp) => (
+                      <button
+                        key={exp}
+                        type="button"
+                        onClick={() => setFormData({...formData, experience: exp})}
+                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all text-sm sm:text-base ${
+                          formData.experience === exp
+                            ? 'bg-[#9F80DA] text-white shadow-md'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        {exp}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {currentStep === 3 && selectedPlanType === 'Enterprise' && (
+                <>
+                  <input
+                    type="text"
+                    value={formData.company}
+                    onChange={(e) => setFormData({...formData, company: e.target.value})}
+                    onKeyDown={handleKeyDown}
+                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
+                    placeholder="Type your answer here..."
+                    autoFocus
+                  />
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* Step 4: Deliverables (Personal) or Team Size (Enterprise) */}
+              {currentStep === 4 && selectedPlanType === 'Personal' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
                     {deliverableOptions.map((deliverable) => (
@@ -1282,53 +1477,26 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
-                  <div className="flex flex-col items-start">
-                    <button
-                      onClick={handleNextStep}
-                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
-                    >
-                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </button>
-                    <p className="text-sm text-gray-400 mt-2">
-                      press <span className="font-semibold">Enter ↵</span>
-                    </p>
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
                   </div>
                 </>
               )}
 
-              {currentStep === 2 && selectedPlanType === 'Enterprise' && (
-                <>
-                  <input
-                    type="text"
-                    value={formData.company}
-                    onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    onKeyDown={handleKeyDown}
-                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
-                    placeholder="Type your answer here..."
-                    autoFocus
-                  />
-                  <div className="flex flex-col items-start">
-                    <button
-                      onClick={handleNextStep}
-                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
-                    >
-                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </button>
-                    <p className="text-sm text-gray-400 mt-2">
-                      press <span className="font-semibold">Enter ↵</span>
-                    </p>
-                  </div>
-                </>
-              )}
-
-              {/* Step 3: Team Size */}
-              {currentStep === 3 && (
+              {currentStep === 4 && selectedPlanType === 'Enterprise' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
                     {['1-5', '6-10', '11-25', '26-50', '51+'].map((size) => (
@@ -1346,25 +1514,27 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
-                  <div className="flex flex-col items-start">
-                    <button
-                      onClick={handleNextStep}
-                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
-                    >
-                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </button>
-                    <p className="text-sm text-gray-400 mt-2">
-                      press <span className="font-semibold">Enter ↵</span>
-                    </p>
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
                   </div>
                 </>
               )}
 
-              {/* Step 4: Deliverables */}
-              {currentStep === 4 && (
+              {/* Step 5: Deliverables (Enterprise) */}
+              {currentStep === 5 && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
                     {deliverableOptions.map((deliverable) => (
@@ -1382,19 +1552,21 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
-                  <div className="flex flex-col items-start">
-                    <button
-                      onClick={handleNextStep}
-                      className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
-                    >
-                      {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </button>
-                    <p className="text-sm text-gray-400 mt-2">
-                      press <span className="font-semibold">Enter ↵</span>
-                    </p>
+                  <div className="flex justify-start">
+                    <div className="flex flex-col items-center">
+                      <button
+                        onClick={handleNextStep}
+                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                      >
+                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>
+                      <p className="text-sm text-gray-400 mt-2">
+                        press <span className="font-semibold">Enter ↵</span>
+                      </p>
+                    </div>
                   </div>
                 </>
               )}
@@ -1484,6 +1656,42 @@ export default function Home() {
             >
               Got it!
             </button>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Initial Popup */}
+      {showInitialPopup && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowInitialPopup(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="bg-white rounded-3xl shadow-2xl relative"
+            style={{ width: '90%', aspectRatio: '850/474' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowInitialPopup(false)}
+              className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            >
+              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Popup Content */}
+            <div className="w-full h-full p-8 flex items-center justify-center">
+              <div className="w-[70%] h-[60%]">
+                <Feature1 />
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       )}
