@@ -34,6 +34,7 @@ export default function Home() {
   const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [selectedPlanName, setSelectedPlanName] = useState('');
   const [planType, setPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
+  const [scrolled, setScrolled] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -98,6 +99,15 @@ export default function Home() {
     window.addEventListener('keydown', handleKeyboard);
     return () => window.removeEventListener('keydown', handleKeyboard);
   }, [showWelcomePopup, currentStep, selectedPlanType]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = ['Features', 'How it Works', 'Testimonials', 'Pricing', 'FAQ'];
 
@@ -429,12 +439,12 @@ export default function Home() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 w-full bg-transparent backdrop-blur-md z-50"
+        className="fixed top-0 w-full z-50"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
-            <div className="flex items-center">
+            <div className={`flex items-center rounded-2xl px-4 py-2 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
               <div className="w-10 h-10 bg-[#9F80DA] rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">CS</span>
               </div>
@@ -442,7 +452,7 @@ export default function Home() {
             </div>
 
             {/* Desktop Menu */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className={`hidden md:flex items-center space-x-8 rounded-2xl px-6 py-3 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
               {menuItems.map((item) => (
                 <a
                   key={item}
@@ -461,7 +471,7 @@ export default function Home() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-900 relative w-10 h-10 flex items-center justify-center overflow-visible">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`md:hidden text-gray-900 relative w-10 h-10 flex items-center justify-center overflow-visible rounded-2xl transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
               <div className="w-6 relative flex flex-col gap-[5px]">
                 <span className={`block w-full h-[3px] bg-current rounded-full transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'rotate-45 translate-y-[8px] scale-y-[1.15]' : ''}`}></span>
                 <span className={`block w-full h-[3px] bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-0' : ''}`}></span>
@@ -476,7 +486,7 @@ export default function Home() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="md:hidden py-4 bg-white/95 backdrop-blur-md rounded-b-2xl shadow-lg"
+              className="md:hidden py-4 bg-white rounded-b-2xl shadow-lg"
             >
               <div className="flex flex-col space-y-4 px-4">
                 {menuItems.map((item) => (
