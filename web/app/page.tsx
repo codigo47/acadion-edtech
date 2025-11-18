@@ -615,17 +615,14 @@ export default function Home() {
         >
           <div className="bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-3xl p-2 shadow-2xl">
             <div className="bg-white rounded-2xl overflow-hidden">
-              <div className="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="w-24 h-24 bg-[#9F80DA] rounded-2xl mx-auto mb-6 flex items-center justify-center">
-                    <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
-                  <p className="text-2xl font-semibold text-gray-700">Dashboard Preview</p>
-                  <p className="text-gray-500 mt-2">Your complete course creation workspace</p>
-                </div>
-              </div>
+              <Image
+                src="/features/mock.png"
+                alt="Dashboard Preview - Your complete course creation workspace"
+                width={1920}
+                height={1080}
+                className="w-full h-auto"
+                priority
+              />
             </div>
           </div>
         </motion.div>
