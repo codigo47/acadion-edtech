@@ -3,13 +3,13 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import posthog from 'posthog-js';
-import Feature1 from './components/Feature1';
+import AIGeneratedCourseFeature from './components/features-landing/AIGeneratedCourseFeature';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
-  const [showInitialPopup, setShowInitialPopup] = useState(true);
+  const [showInitialPopup, setShowInitialPopup] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
@@ -631,13 +631,19 @@ export default function Home() {
                 <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
-                <div className="aspect-video bg-gradient-to-br from-purple-100 to-blue-100 rounded-2xl shadow-xl overflow-hidden">
-                  <img
-                    src={feature.image}
-                    alt={feature.title}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
+                {index === 0 ? (
+                  <div className="aspect-video overflow-hidden">
+                    <AIGeneratedCourseFeature />
+                  </div>
+                ) : (
+                  <div className="aspect-video overflow-hidden">
+                    <img
+                      src={feature.image}
+                      alt={feature.title}
+                      className="w-full h-full object-contain rounded-2xl"
+                    />
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
@@ -1689,7 +1695,7 @@ export default function Home() {
             {/* Popup Content */}
             <div className="w-full h-full p-8 flex items-center justify-center">
               <div className="w-[70%] h-[60%]">
-                <Feature1 />
+                <AIGeneratedCourseFeature />
               </div>
             </div>
           </motion.div>
