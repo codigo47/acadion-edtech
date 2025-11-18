@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import posthog from 'posthog-js';
 import AIGeneratedCourseFeature from './components/features-landing/AIGeneratedCourseFeature';
 import CourseCopilotFeature from './components/features-landing/CourseCopilotFeature';
@@ -293,46 +294,46 @@ export default function Home() {
 
   const testimonials = [
     {
-      name: 'Sarah Martinez',
-      role: 'Learning & Development Manager',
-      company: 'TechCorp Inc.',
+      name: 'Emily Wood',
+      role: 'Learning Experience Designer',
+      company: 'Tacoma Power',
       review: 'Course Scribe has transformed how we create training content. What used to take weeks now takes days. The AI-powered generation is incredibly accurate and saves our team countless hours.',
-      avatar: 'SM'
+      avatar: '/reviews/emily.jpeg'
     },
     {
-      name: 'Michael Chen',
-      role: 'Instructional Designer',
-      company: 'EduLearn Solutions',
+      name: 'Cammy Bean',
+      role: 'VP of Learning Design',
+      company: 'Kineo',
       review: 'As an instructional designer, I was skeptical at first. But Course Scribe has become an indispensable tool in my workflow. It handles the tedious work so I can focus on creating engaging learning experiences.',
-      avatar: 'MC'
+      avatar: '/reviews/cammy.jpeg'
     },
     {
-      name: 'Emily Rodriguez',
-      role: 'Head of Training',
-      company: 'Global Finance Group',
+      name: 'Devlin Peck',
+      role: 'School Director | Founder',
+      company: 'Peck Academy',
       review: 'The ROI on Course Scribe has been phenomenal. We\'ve reduced course development time by 70% and our team can now focus on strategic initiatives instead of manual formatting.',
-      avatar: 'ER'
+      avatar: '/reviews/devlin.jpeg'
     },
     {
-      name: 'James Thompson',
-      role: 'Senior Course Developer',
-      company: 'HealthEd Systems',
+      name: 'Patricia Regier',
+      role: 'Technical Instructional Designer',
+      company: 'Mohawk College',
       review: 'I love how Course Scribe understands context and maintains consistency across all our courses. The export features are seamless and work perfectly with our existing LMS.',
-      avatar: 'JT'
+      avatar: '/reviews/patricia.jpeg'
     },
     {
-      name: 'Priya Patel',
-      role: 'Director of Education',
-      company: 'StartupAcademy',
+      name: 'Holly Owens',
+      role: 'Instructional Designer',
+      company: 'Mars',
       review: 'Course Scribe has been a game-changer for our small team. We can now produce the same quality content as organizations with 10x our resources. Absolutely worth every penny.',
-      avatar: 'PP'
+      avatar: '/reviews/holly.jpeg'
     },
     {
-      name: 'David Kim',
-      role: 'Training Coordinator',
-      company: 'Manufacturing Pro',
+      name: 'Sabire Akay Topkara',
+      role: 'Training & Education Specialist',
+      company: 'Medtronic',
       review: 'The ability to upload any content format and get a professional course is amazing. Our compliance training development has never been faster or more efficient.',
-      avatar: 'DK'
+      avatar: '/reviews/sabire.jpeg'
     }
   ];
 
@@ -799,8 +800,14 @@ export default function Home() {
                 className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-12 h-12 bg-[#9F80DA] rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-white font-bold">{testimonial.avatar}</span>
+                  <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                    <Image
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      width={48}
+                      height={48}
+                      className="object-cover w-full h-full"
+                    />
                   </div>
                   <div>
                     <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
@@ -1032,32 +1039,6 @@ export default function Home() {
                       Talk to sales
                     </button>
                   </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Companies Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <h2 className="text-3xl font-bold text-gray-900 mb-12">
-              Companies that trust us
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center opacity-60">
-              {[...Array(6)].map((_, index) => (
-                <div key={index} className="flex items-center justify-center">
-                  <div className="w-32 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <span className="text-gray-500 font-semibold">LOGO</span>
-                  </div>
-                </div>
-              ))}
             </div>
           </motion.div>
         </div>
