@@ -4,6 +4,25 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import posthog from 'posthog-js';
 import AIGeneratedCourseFeature from './components/features-landing/AIGeneratedCourseFeature';
+import CourseCopilotFeature from './components/features-landing/CourseCopilotFeature';
+import AIImageGenerationFeature from './components/features-landing/AIImageGenerationFeature';
+import FullEditingControlFeature from './components/features-landing/FullEditingControlFeature';
+import RealTimeCollaborationFeature from './components/features-landing/RealTimeCollaborationFeature';
+import ExportFormatsFeature from './components/features-landing/ExportFormatsFeature';
+import MultiLanguageFeature from './components/features-landing/MultiLanguageFeature';
+import InteractiveActivitiesFeature from './components/features-landing/InteractiveActivitiesFeature';
+import MultimediaCourseFeature from './components/features-landing/MultimediaCourseFeature';
+import AIPoweredQAFeature from './components/features-landing/AIPoweredQAFeature';
+import AccessibilityCompliantFeature from './components/features-landing/AccessibilityCompliantFeature';
+import ContentReviewQAFeature from './components/features-landing/ContentReviewQAFeature';
+import LearningObjectivesFeature from './components/features-landing/LearningObjectivesFeature';
+import BrandingQAFeature from './components/features-landing/BrandingQAFeature';
+import InstructionalDesignModelsFeature from './components/features-landing/InstructionalDesignModelsFeature';
+import WCAGComplianceFeature from './components/features-landing/WCAGComplianceFeature';
+import LearningAssetsLibraryFeature from './components/features-landing/LearningAssetsLibraryFeature';
+import VersionControlFeature from './components/features-landing/VersionControlFeature';
+import ProfessionalPortfolioFeature from './components/features-landing/ProfessionalPortfolioFeature';
+import ProjectManagementFeature from './components/features-landing/ProjectManagementFeature';
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -199,12 +218,6 @@ export default function Home() {
       plan: 'All Plans'
     },
     {
-      title: 'Course-Wide Fixes',
-      description: 'Tell the AI to fix recurring issues across the entire course instantly. Save hours of manual work by applying corrections to multiple lessons and modules at once.',
-      image: '/features/feature14.gif',
-      plan: 'All Plans'
-    },
-    {
       title: 'Instructional Design Models',
       description: 'Create courses based on proven pedagogical frameworks including Bloom\'s Taxonomy, Kirkpatrick Model, Gagné\'s 9 Events of Instruction, and ADDIE framework compliance for effective learning outcomes.',
       image: '/features/feature10.gif',
@@ -241,6 +254,32 @@ export default function Home() {
       plan: 'Enterprise'
     }
   ];
+
+  const getFeatureComponent = (index: number) => {
+    const components = [
+      <AIGeneratedCourseFeature />,
+      <CourseCopilotFeature />,
+      <AIImageGenerationFeature />,
+      <FullEditingControlFeature />,
+      <RealTimeCollaborationFeature />,
+      <ExportFormatsFeature />,
+      <MultiLanguageFeature />,
+      <InteractiveActivitiesFeature />,
+      <MultimediaCourseFeature />,
+      <AIPoweredQAFeature />,
+      <AccessibilityCompliantFeature />,
+      <ContentReviewQAFeature />,
+      <LearningObjectivesFeature />,
+      <BrandingQAFeature />,
+      <InstructionalDesignModelsFeature />,
+      <WCAGComplianceFeature />,
+      <LearningAssetsLibraryFeature />,
+      <VersionControlFeature />,
+      <ProfessionalPortfolioFeature />,
+      <ProjectManagementFeature />
+    ];
+    return components[index] || null;
+  };
 
   const testimonials = [
     {
@@ -631,19 +670,9 @@ export default function Home() {
                 <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
-                {index === 0 ? (
-                  <div className="aspect-video overflow-hidden">
-                    <AIGeneratedCourseFeature />
-                  </div>
-                ) : (
-                  <div className="aspect-video overflow-hidden">
-                    <img
-                      src={feature.image}
-                      alt={feature.title}
-                      className="w-full h-full object-contain rounded-2xl"
-                    />
-                  </div>
-                )}
+                <div className={index === 8 ? "aspect-[16/18] overflow-hidden" : index === 1 || index === 11 || index === 12 ? "aspect-[16/11.7] overflow-hidden" : index === 2 ? "aspect-[16/14.3] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 3 || index === 9 || index === 10 || index === 13 || index === 14 || index === 15 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
+                  {getFeatureComponent(index)}
+                </div>
               </div>
             </motion.div>
           ))}
