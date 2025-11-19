@@ -6,7 +6,7 @@ export default function ContentReviewQAFeature() {
       {/* Document Container */}
       <div className="flex-1 overflow-y-auto p-3 md:p-6 bg-white">
         {/* Document Title */}
-        <h1 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-4">Scrum course</h1>
+        <h1 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">Scrum course</h1>
 
         {/* Placeholder Content */}
         <div className="space-y-2 md:space-y-3">
