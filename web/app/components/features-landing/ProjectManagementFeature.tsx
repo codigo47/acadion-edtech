@@ -1,5 +1,7 @@
 'use client';
 
+import Image from 'next/image';
+
 export default function ProjectManagementFeature() {
   return (
     <div className="w-full h-full flex items-center justify-center bg-white rounded-3xl overflow-hidden border-2 border-gray-200 p-3 md:p-6">
@@ -7,13 +9,27 @@ export default function ProjectManagementFeature() {
         {/* Task 1 - Completed */}
         <label className="flex items-center gap-2 md:gap-3 p-2 md:p-3 bg-green-50 rounded-lg border-2 border-green-200">
           <input type="checkbox" checked readOnly className="w-4 h-4 md:w-5 md:h-5 text-green-600 rounded" />
-          <span className="text-gray-700 text-sm md:text-base font-medium line-through">Review content</span>
+          <span className="text-gray-700 text-sm md:text-base font-medium line-through flex-1">Review content</span>
+          <Image
+            src="/landing/avatars/1.jpg"
+            alt="Avatar"
+            width={28}
+            height={28}
+            className="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-green-300"
+          />
         </label>
 
         {/* Task 2 - Completed */}
         <label className="flex items-center gap-2 md:gap-3 p-2 md:p-3 bg-green-50 rounded-lg border-2 border-green-200">
           <input type="checkbox" checked readOnly className="w-4 h-4 md:w-5 md:h-5 text-green-600 rounded" />
-          <span className="text-gray-700 text-sm md:text-base font-medium line-through">Branding QA</span>
+          <span className="text-gray-700 text-sm md:text-base font-medium line-through flex-1">Branding QA</span>
+          <Image
+            src="/landing/avatars/2.jpg"
+            alt="Avatar"
+            width={28}
+            height={28}
+            className="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-green-300"
+          />
         </label>
 
         {/* Task 3 - Pending */}

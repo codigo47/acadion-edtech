@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function RealTimeCollaborationFeature() {
   return (
@@ -24,9 +25,13 @@ export default function RealTimeCollaborationFeature() {
                 <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
               </svg>
               <div className="flex items-center gap-0.5 md:gap-1 bg-blue-500 text-white text-[10px] md:text-xs px-1.5 md:px-2 py-0.5 rounded">
-                <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-blue-300 flex items-center justify-center text-[8px] md:text-[10px] font-bold">
-                  J
-                </div>
+                <Image
+                  src="/landing/avatars/3.jpg"
+                  alt="John"
+                  width={16}
+                  height={16}
+                  className="w-3 h-3 md:w-4 md:h-4 rounded-full border border-blue-300"
+                />
                 <span className="hidden sm:inline">John</span>
               </div>
             </motion.div>
@@ -47,9 +52,13 @@ export default function RealTimeCollaborationFeature() {
                 <path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z" />
               </svg>
               <div className="flex items-center gap-0.5 md:gap-1 bg-purple-500 text-white text-[10px] md:text-xs px-1.5 md:px-2 py-0.5 rounded">
-                <div className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-purple-300 flex items-center justify-center text-[8px] md:text-[10px] font-bold">
-                  S
-                </div>
+                <Image
+                  src="/landing/avatars/4.jpg"
+                  alt="Sarah"
+                  width={16}
+                  height={16}
+                  className="w-3 h-3 md:w-4 md:h-4 rounded-full border border-purple-300"
+                />
                 <span className="hidden sm:inline">Sarah</span>
               </div>
             </motion.div>
