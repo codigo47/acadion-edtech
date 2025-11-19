@@ -110,7 +110,7 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = ['Features', 'How it Works', 'Testimonials', 'Pricing', 'FAQ'];
+  const menuItems = ['Features', 'How it Works', 'AI Models', 'Testimonials', 'Pricing', 'FAQ'];
 
   const deliverableOptions = [
     'E-learning module',
@@ -205,19 +205,19 @@ export default function Home() {
       plan: 'All Plans'
     },
     {
-      title: 'Accessibility Compliant',
+      title: 'Accessibility QA',
       description: 'Automatically detect and resolve WCAG compliance requirements during the QA process. Ensure your courses are accessible to all learners and meet standard guidance with our built-in accessibility scanner.',
       image: '/landing/feature10.gif',
       plan: 'All Plans'
     },
     {
-      title: 'Content review QA',
+      title: 'Content Review QA',
       description: 'Review all the content of your course with an artificial intelligence model that acts as a subject matter expert and receive feedback.',
       image: '/landing/feature11.gif',
       plan: 'All Plans'
     },
     {
-      title: 'Learning Objectives',
+      title: 'Learning Objectives QA',
       description: 'Automatically check if there is consistency between the objectives and the type of activities in the course to ensure that the student learned.',
       image: '/landing/feature12.gif',
       plan: 'All Plans'
@@ -339,6 +339,10 @@ export default function Home() {
 
   const faqs = [
     {
+      question: 'What AI models does Course Scribe use?',
+      answer: 'Course Scribe leverages the most advanced generative AI models available, including OpenAI (GPT-4), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
+    },
+    {
       question: 'What types of content can I upload to Course Scribe?',
       answer: 'Course Scribe accepts a wide variety of content formats including videos, PDFs, PowerPoint presentations, Word documents, audio files, and more. Our AI is trained to understand and process different content types to create cohesive courses.'
     },
@@ -357,6 +361,10 @@ export default function Home() {
     {
       question: 'How secure is my content?',
       answer: 'Security is our top priority. All data is encrypted in transit and at rest. We\'re SOC 2 Type II certified and fully GDPR compliant. Your content is never used to train our AI models, and you maintain complete ownership of your intellectual property.'
+    },
+    {
+      question: 'Can I invite others to review my courses?',
+      answer: 'Yes! All plans include the ability to invite unlimited users to perform QA (Quality Assurance) reviews at no additional cost. This allows you to collaborate with subject matter experts, stakeholders, and team members without worrying about extra fees. Reviewers can leave comments, suggest improvements, and help ensure your course quality.'
     },
     {
       question: 'Do you offer team collaboration features?',
@@ -678,7 +686,7 @@ export default function Home() {
                 <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
-                <div className={index === 8 ? "aspect-[16/18] overflow-hidden" : index === 1 ? "overflow-hidden" : index === 11 || index === 12 ? "aspect-[16/11.7] overflow-hidden" : index === 2 ? "aspect-[16/14.3] overflow-hidden" : index === 3 ? "aspect-[16/15.6] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 9 || index === 10 || index === 13 || index === 14 || index === 15 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
+                <div className={index === 8 ? "aspect-[16/18] overflow-hidden" : index === 1 ? "overflow-hidden" : index === 11 || index === 12 ? "aspect-[16/11.7] overflow-hidden" : index === 2 ? "aspect-[16/14.3] overflow-hidden" : index === 3 ? "aspect-[16/15.6] overflow-hidden" : index === 15 ? "aspect-[16/14] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 9 || index === 10 || index === 13 || index === 14 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
                   {getFeatureComponent(index)}
                 </div>
               </div>
@@ -863,6 +871,73 @@ export default function Home() {
         </div>
       </section>
 
+      {/* AI Models Section */}
+      <section id="ai-models" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              Powered by Leading AI Models
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Course Scribe leverages the most advanced generative AI models to deliver exceptional results
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-8"
+          >
+            {/* OpenAI */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#9F80DA] transition-all">
+              <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-10 h-10 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">OpenAI GPT-4</h3>
+              <p className="text-gray-600">
+                Advanced language understanding and generation for creating engaging, contextually accurate course content.
+              </p>
+            </motion.div>
+
+            {/* Anthropic */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#9F80DA] transition-all">
+              <div className="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-10 h-10 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Anthropic Claude</h3>
+              <p className="text-gray-600">
+                Reliable and nuanced AI for complex instructional design tasks and detailed content analysis.
+              </p>
+            </motion.div>
+
+            {/* Google Gemini */}
+            <motion.div variants={fadeInUp} className="bg-white rounded-2xl p-8 shadow-lg border-2 border-gray-200 hover:border-[#9F80DA] transition-all">
+              <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-10 h-10 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Google Gemini</h3>
+              <p className="text-gray-600">
+                Multimodal AI capabilities for processing diverse content types and creating rich learning experiences.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
@@ -977,6 +1052,12 @@ export default function Home() {
                         <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
+                        <span className="text-sm text-gray-700">1 free course</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
                         <span className="text-sm text-gray-700">3000 credits</span>
                       </li>
                       <li className="flex items-start gap-2">
@@ -984,6 +1065,12 @@ export default function Home() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                         <span className="text-sm text-gray-700">30 course hours</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-sm text-gray-700">Invite unlimited users for QA at no extra cost</span>
                       </li>
                       {features.filter(f => f.plan === 'All Plans').map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
@@ -1045,7 +1132,7 @@ export default function Home() {
                         <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm text-gray-700">4000 credits</span>
+                        <span className="text-sm text-gray-700">1000 credits (4000 total)</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1100,7 +1187,7 @@ export default function Home() {
                         <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm text-gray-700">5000 credits</span>
+                        <span className="text-sm text-gray-700">1000 credits (5000 total)</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

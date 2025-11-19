@@ -37,9 +37,18 @@ export default function VersionControlFeature() {
           <div className="space-y-2 md:space-y-3">
             <div className="p-2 md:p-3 bg-gray-50 rounded-lg border-2 border-gray-200">
               <div className="text-xs md:text-sm text-gray-600 mb-1.5 md:mb-2">{formatDate(yesterday)}, 3:45 PM</div>
-              <div className="flex items-center gap-1.5 md:gap-2">
+              <div className="flex items-center gap-1.5 md:gap-2 mb-2 md:mb-3">
                 <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-400"></div>
                 <span className="text-xs md:text-sm text-gray-800">Jane Donalson</span>
+              </div>
+              {/* Action Buttons */}
+              <div className="flex gap-1.5 md:gap-2">
+                <button className="flex-1 px-2 py-1 md:px-3 md:py-1.5 bg-gray-200 hover:bg-gray-300 text-gray-700 text-[10px] md:text-xs rounded font-medium transition-colors">
+                  View
+                </button>
+                <button className="flex-1 px-2 py-1 md:px-3 md:py-1.5 bg-[#9F80DA] hover:bg-[#8A6BC5] text-white text-[10px] md:text-xs rounded font-medium transition-colors">
+                  Recover
+                </button>
               </div>
             </div>
           </div>

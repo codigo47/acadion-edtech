@@ -23,12 +23,12 @@ export default function AccessibilityCompliantFeature() {
               <div className="absolute -bottom-0.5 md:-bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-2 md:h-2 bg-orange-400 rotate-45"></div>
             </div>
 
-            {/* Fix Accessibility Button */}
+            {/* Fix with AI Button */}
             <button className="absolute -bottom-2 md:-bottom-3 right-1 md:right-2 px-2 py-1 md:px-3 md:py-1.5 bg-[#9F80DA] hover:bg-[#8A6BC5] text-white text-[10px] md:text-xs rounded-lg font-medium transition-colors flex items-center gap-1 md:gap-1.5 shadow-lg">
               <svg className="w-3 h-3 md:w-3.5 md:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Fix accessibility
+              Fix with AI
             </button>
           </div>
 

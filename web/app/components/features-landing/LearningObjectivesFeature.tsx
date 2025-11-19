@@ -4,7 +4,7 @@ export default function LearningObjectivesFeature() {
   return (
     <div className="w-full h-full flex flex-col bg-white rounded-3xl overflow-hidden border-2 border-gray-200">
       {/* Document Container */}
-      <div className="flex-1 overflow-y-auto p-3 md:p-6 bg-white">
+      <div className="flex-1 overflow-y-auto p-3 md:p-6 bg-white relative">
         {/* Document Title */}
         <h1 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">Scrum course</h1>
 
@@ -18,14 +18,43 @@ export default function LearningObjectivesFeature() {
           <div className="h-3 md:h-4 bg-gray-200 rounded w-5/6"></div>
         </div>
 
-        {/* Check Learning Objectives Button */}
-        <div className="mt-4 md:mt-6 flex justify-center">
-          <button className="px-3 py-2 md:px-4 md:py-2.5 bg-[#9F80DA] hover:bg-[#8A6BC5] text-white rounded-lg text-sm md:text-base font-medium transition-colors flex items-center gap-1.5 md:gap-2">
-            <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-            Check learning objectives
-          </button>
+        {/* Learning Objectives Checklist Overlay */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl border-2 border-gray-200 p-3 md:p-4 w-[85%] md:w-72 z-10">
+          <h3 className="text-xs md:text-sm font-semibold text-gray-800 mb-2 md:mb-3">Learning Objectives QA</h3>
+
+          <div className="space-y-1.5 md:space-y-2">
+            {/* Objective 1 - Checked */}
+            <div className="flex items-start gap-2 p-1.5 md:p-2 bg-green-50 border border-green-200 rounded">
+              <div className="flex-shrink-0 w-4 h-4 md:w-5 md:h-5 bg-green-100 border-2 border-green-400 rounded flex items-center justify-center mt-0.5">
+                <svg className="w-2.5 h-2.5 md:w-3 md:h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span className="text-[10px] md:text-xs text-green-800 font-medium leading-tight">
+                Understand Scrum framework basics
+              </span>
+            </div>
+
+            {/* Objective 2 - Checked */}
+            <div className="flex items-start gap-2 p-1.5 md:p-2 bg-green-50 border border-green-200 rounded">
+              <div className="flex-shrink-0 w-4 h-4 md:w-5 md:h-5 bg-green-100 border-2 border-green-400 rounded flex items-center justify-center mt-0.5">
+                <svg className="w-2.5 h-2.5 md:w-3 md:h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span className="text-[10px] md:text-xs text-green-800 font-medium leading-tight">
+                Identify key Scrum roles and responsibilities
+              </span>
+            </div>
+
+            {/* Objective 3 - Not Checked (Orange) */}
+            <div className="flex items-start gap-2 p-1.5 md:p-2 bg-orange-50 border border-orange-200 rounded">
+              <div className="flex-shrink-0 w-4 h-4 md:w-5 md:h-5 bg-white border-2 border-orange-400 rounded mt-0.5"></div>
+              <span className="text-[10px] md:text-xs text-orange-800 font-medium leading-tight">
+                Apply Scrum ceremonies in practice
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
