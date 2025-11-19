@@ -147,121 +147,121 @@ export default function Home() {
     {
       title: 'AI-Generated Courses from Any Source',
       description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, block-oriented courses automatically. No matter the format, Course Scribe handles it all.',
-      image: '/features/feature1.gif',
+      image: '/landing/feature1.gif',
       plan: 'All Plans'
     },
     {
       title: 'Course Copilot',
       description: 'Iterate on your content as you design it, test different alternatives until you get the best version of your work. Save hours of manual work by applying changes or corrections to multiple lessons and modules at once.',
-      image: '/features/feature2.gif',
+      image: '/landing/feature2.gif',
       plan: 'All Plans'
     },
     {
       title: 'AI Image Generation',
       description: 'Generate custom images on-demand without needing stock photo subscriptions. Create unique, relevant visuals for your courses instantly using AI-powered image generation.',
-      image: '/features/feature3.gif',
+      image: '/landing/feature3.gif',
       plan: 'All Plans'
     },
     {
       title: 'Full editing control',
       description: 'Manually edit any block or resource in your course. Fine-tune content, adjust layouts, modify assessments, and customize every element to match your exact vision and requirements.',
-      image: '/features/feature4.gif',
+      image: '/landing/feature4.gif',
       plan: 'All Plans'
     },
     {
       title: 'Real-time Collaboration',
       description: 'Invite your teammates to design and edit courses together in real-time. Share your e-learning projects with colleagues, subject matter experts, and stakeholders for seamless collaboration. Work simultaneously on the same course, see changes as they happen, and streamline your content creation workflow with your entire team.',
-      image: '/features/feature5.gif',
+      image: '/landing/feature5.gif',
       plan: 'All Plans'
     },
     {
       title: 'Industry-Standard Export Formats',
       description: 'Export your courses to SCORM 1.2, xAPI (Tin Can API), PDF, and other standard formats. Seamlessly integrate with any LMS platform including Moodle, Canvas, Blackboard, and more.',
-      image: '/features/feature5.gif',
+      image: '/landing/feature5.gif',
       plan: 'All Plans'
     },
     {
       title: 'Multi-Language Course Support',
       description: 'Create courses in multiple languages to reach a global audience. Easily translate and localize content to meet the needs of learners worldwide.',
-      image: '/features/feature6.gif',
+      image: '/landing/feature6.gif',
       plan: 'All Plans'
     },
     {
       title: 'Interactive Activities',
       description: 'Engage learners with diverse interactive elements including multiple choice, flip cards, sorting activities, true/false questions, fill in the blanks, drag and drop, matching pairs, sequencing, hotspots, and more.',
-      image: '/features/feature7.gif',
+      image: '/landing/feature7.gif',
       plan: 'All Plans'
     },
     {
       title: 'Multimedia Course Creation',
       description: 'Build dynamic courses combining text, images, and videos. Create rich multimedia learning experiences that keep learners engaged and improve knowledge retention.',
-      image: '/features/feature8.gif',
+      image: '/landing/feature8.gif',
       plan: 'All Plans'
     },
     {
       title: 'AI powered QA',
       description: 'Share your course in Review mode with anyone you want. Receive comments from your team or your SME, then fix them manually or with AI.',
-      image: '/features/feature9.gif',
+      image: '/landing/feature9.gif',
       plan: 'All Plans'
     },
     {
       title: 'Accessibility Compliant',
       description: 'Automatically detect and resolve WCAG compliance requirements during the QA process. Ensure your courses are accessible to all learners and meet standard guidance with our built-in accessibility scanner.',
-      image: '/features/feature10.gif',
+      image: '/landing/feature10.gif',
       plan: 'All Plans'
     },
     {
       title: 'Content review QA',
       description: 'Review all the content of your course with an artificial intelligence model that acts as a subject matter expert and receive feedback.',
-      image: '/features/feature11.gif',
+      image: '/landing/feature11.gif',
       plan: 'All Plans'
     },
     {
       title: 'Learning Objectives',
       description: 'Automatically check if there is consistency between the objectives and the type of activities in the course to ensure that the student learned.',
-      image: '/features/feature12.gif',
+      image: '/landing/feature12.gif',
       plan: 'All Plans'
     },
     {
       title: 'Branding QA',
       description: 'Verify your course matches your brand style guide, writing and design system. Ensure consistent visual identity across all your learning materials with automated brand compliance checks.',
-      image: '/features/feature13.gif',
+      image: '/landing/feature13.gif',
       plan: 'All Plans'
     },
     {
       title: 'Instructional Design Models',
       description: 'Create courses based on proven pedagogical frameworks including Bloom\'s Taxonomy, Kirkpatrick Model, Gagné\'s 9 Events of Instruction, and ADDIE framework compliance for effective learning outcomes.',
-      image: '/features/feature10.gif',
+      image: '/landing/feature10.gif',
       plan: 'All Plans'
     },
     {
       title: 'WCAG 2.1 Accessibility Compliance',
       description: 'Ensure your courses are accessible to all learners with WCAG 2.1 compliance. Meet legal requirements and provide inclusive learning experiences for users with disabilities. Includes dark mode support to reduce eye strain and improve accessibility.',
-      image: '/features/feature13.gif',
+      image: '/landing/feature13.gif',
       plan: 'All Plans'
     },
     {
       title: 'Complete Learning Assets Library',
       description: 'Generate a comprehensive suite of professional learning deliverables automatically: e-learning modules, microlearning content, job aids, QRG, facilitator guides, participant workbooks, ILT, and assessments - everything you need for effective training programs.',
-      image: '/features/feature15.gif',
+      image: '/landing/feature15.gif',
       plan: 'All Plans'
     },
     {
       title: 'Automatic Version Control',
       description: 'Maintain versions automatically just like Google Docs. Roll back to any previous version at any time by reviewing the complete change history. Never lose your work and track every modification with confidence.',
-      image: '/features/feature14.gif',
+      image: '/landing/feature14.gif',
       plan: 'All Plans'
     },
     {
       title: 'Professional Portfolio',
       description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Get metrics of the visits to your portfolio.',
-      image: '/features/feature15.gif',
+      image: '/landing/feature15.gif',
       plan: 'Pro'
     },
     {
       title: 'Project Management & Workflows',
       description: 'Manage your team with comprehensive user roles and permissions. Control access levels, assign courses and specific tasks, and streamline collaboration with customizable workflows and timelines that keep everyone on track.',
-      image: '/features/feature16.gif',
+      image: '/landing/feature16.gif',
       plan: 'Enterprise'
     }
   ];
@@ -616,7 +616,7 @@ export default function Home() {
           <div className="bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-3xl p-2 shadow-2xl">
             <div className="bg-white rounded-2xl overflow-hidden">
               <Image
-                src="/features/mock.png"
+                src="/landing/mock.png"
                 alt="Dashboard Preview - Your complete course creation workspace"
                 width={1920}
                 height={1080}
