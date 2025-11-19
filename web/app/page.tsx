@@ -865,7 +865,10 @@ export default function Home() {
                         </div>
                         <div className="flex flex-col justify-between h-full text-sm text-gray-600 py-1">
                           <span>per month</span>
-                          <span className="font-semibold text-gray-900">or ${(30 * 12 * 0.8).toFixed(0)} per year</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-semibold text-gray-900">or ${(30 * 12 * 0.8).toFixed(0)} per year</span>
+                            <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded">20% OFF</span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -924,7 +927,10 @@ export default function Home() {
                         </div>
                         <div className="flex flex-col justify-between h-full text-sm text-gray-600 py-1">
                           <span>per month</span>
-                          <span className="font-semibold text-gray-900">or ${(50 * 12 * 0.8).toFixed(0)} per year</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-semibold text-gray-900">or ${(50 * 12 * 0.8).toFixed(0)} per year</span>
+                            <span className="px-1.5 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded">20% OFF</span>
+                          </div>
                         </div>
                       </div>
                     </div>

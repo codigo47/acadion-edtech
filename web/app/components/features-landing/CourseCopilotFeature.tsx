@@ -54,7 +54,8 @@ export default function CourseCopilotFeature() {
 
           {/* AI Response */}
           <div className="bg-[#9F80DA] rounded-lg p-2.5 shadow-sm">
-            <p className="text-xs text-white">I'll update all instances of "Scrum" to be italic and bold. Would you like me to apply this change now?</p>
+            <p className="text-xs text-white mb-1.5">I detected <span className="font-bold">23 instances</span> of the word "Scrum" in your course.</p>
+            <p className="text-xs text-white opacity-90">Apply italic and bold formatting?</p>
           </div>
 
           {/* Action Buttons */}
