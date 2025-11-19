@@ -1488,12 +1488,23 @@ export default function Home() {
                         key={sec}
                         type="button"
                         onClick={() => setFormData({...formData, sector: sec})}
-                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all text-sm sm:text-base ${
+                        className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.sector === sec
                             ? 'bg-[#9F80DA] text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
+                        <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                          formData.sector === sec
+                            ? 'bg-white border-white'
+                            : 'bg-white border-gray-300'
+                        }`}>
+                          {formData.sector === sec && (
+                            <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
                         {sec}
                       </button>
                     ))}
@@ -1526,12 +1537,23 @@ export default function Home() {
                         key={exp}
                         type="button"
                         onClick={() => setFormData({...formData, experience: exp})}
-                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all text-sm sm:text-base ${
+                        className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.experience === exp
                             ? 'bg-[#9F80DA] text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
+                        <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                          formData.experience === exp
+                            ? 'bg-white border-white'
+                            : 'bg-white border-gray-300'
+                        }`}>
+                          {formData.experience === exp && (
+                            <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
                         {exp}
                       </button>
                     ))}
@@ -1594,12 +1616,23 @@ export default function Home() {
                         key={deliverable}
                         type="button"
                         onClick={() => handleDeliverableChange(deliverable)}
-                        className={`px-3 sm:px-4 py-2 rounded-full font-medium transition-all text-sm sm:text-base ${
+                        className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.deliverables.includes(deliverable)
                             ? 'bg-[#9F80DA] text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
+                        <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                          formData.deliverables.includes(deliverable)
+                            ? 'bg-white border-white'
+                            : 'bg-white border-gray-300'
+                        }`}>
+                          {formData.deliverables.includes(deliverable) && (
+                            <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
                         {deliverable}
                       </button>
                     ))}
@@ -1631,12 +1664,23 @@ export default function Home() {
                         key={size}
                         type="button"
                         onClick={() => setFormData({...formData, designers: size})}
-                        className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all text-sm sm:text-base ${
+                        className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.designers === size
                             ? 'bg-[#9F80DA] text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
+                        <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                          formData.designers === size
+                            ? 'bg-white border-white'
+                            : 'bg-white border-gray-300'
+                        }`}>
+                          {formData.designers === size && (
+                            <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
                         {size}
                       </button>
                     ))}
@@ -1669,12 +1713,23 @@ export default function Home() {
                         key={deliverable}
                         type="button"
                         onClick={() => handleDeliverableChange(deliverable)}
-                        className={`px-3 sm:px-4 py-2 rounded-full font-medium transition-all text-sm sm:text-base ${
+                        className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.deliverables.includes(deliverable)
                             ? 'bg-[#9F80DA] text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
+                        <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                          formData.deliverables.includes(deliverable)
+                            ? 'bg-white border-white'
+                            : 'bg-white border-gray-300'
+                        }`}>
+                          {formData.deliverables.includes(deliverable) && (
+                            <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
                         {deliverable}
                       </button>
                     ))}
