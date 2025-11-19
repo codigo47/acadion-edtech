@@ -678,7 +678,7 @@ export default function Home() {
                 <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
-                <div className={index === 8 ? "aspect-[16/18] overflow-hidden" : index === 1 || index === 11 || index === 12 ? "aspect-[16/11.7] overflow-hidden" : index === 2 ? "aspect-[16/14.3] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 3 || index === 9 || index === 10 || index === 13 || index === 14 || index === 15 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
+                <div className={index === 8 ? "aspect-[16/18] overflow-hidden" : index === 1 ? "overflow-hidden" : index === 11 || index === 12 ? "aspect-[16/11.7] overflow-hidden" : index === 2 ? "aspect-[16/14.3] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 3 || index === 9 || index === 10 || index === 13 || index === 14 || index === 15 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
                   {getFeatureComponent(index)}
                 </div>
               </div>
