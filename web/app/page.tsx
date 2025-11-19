@@ -687,8 +687,106 @@ export default function Home() {
         </div>
       </section>
 
+      {/* LMS Compatibility Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              Compatible with Leading LMS Platforms
+            </h2>
+            <p className="text-xl text-gray-600">
+              Export your courses to any Learning Management System
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="flex flex-wrap justify-center items-center gap-x-12 gap-y-6"
+          >
+            {/* Moodle */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/moodle.png" alt="Moodle" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Adobe */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/adobe.png" alt="Adobe Captivate Prime" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Absorb */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/absorb.svg" alt="Absorb LMS" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Docebo */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/docebo.png" alt="Docebo" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Cornerstone */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/cornerstone.svg" alt="Cornerstone OnDemand" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* LearnUpon */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/learnupon.png" alt="LearnUpon" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* TalentLMS */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/talent.png" alt="TalentLMS" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* 360Learning */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/360.png" alt="360Learning" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Litmos */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/litmos.svg" alt="Litmos" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Skilljar */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/skilljar.svg" alt="Skilljar" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* LearnWorlds */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/learnworlds.png" alt="LearnWorlds" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Tovuti */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/tovuti.svg" alt="Tovuti LMS" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* iSpring */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/isprint.png" alt="iSpring Learn" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+
+            {/* Chamilo */}
+            <div className="flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100">
+              <Image src="/landing/lms/chamilo.svg" alt="Chamilo" width={120} height={60} className="h-10 w-auto object-contain max-w-[120px]" />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white">
+      <section id="how-it-works" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -1216,11 +1314,11 @@ export default function Home() {
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-3xl p-6 sm:p-8 md:p-12 max-w-4xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-3xl p-4 sm:p-8 md:p-12 max-w-4xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Plan Title */}
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+            <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-8">
               <span className={
                 selectedPlanName === 'Starter'
                   ? 'text-gray-900'
@@ -1233,15 +1331,15 @@ export default function Home() {
             </h2>
 
             {/* Progress Steps Header */}
-            <div className="mb-8 md:mb-12">
-              {/* Mobile: 2 rows */}
-              <div className="grid grid-cols-3 gap-4 md:hidden">
+            <div className="mb-2 md:mb-12">
+              {/* Mobile: 1 row */}
+              <div className="flex justify-evenly md:hidden">
                 {steps.map((step, index) => (
-                  <div key={`step-${index}`} className="flex flex-col items-center">
+                  <div key={`step-${index}`} className="flex flex-col items-center min-w-0 flex-shrink">
                     <button
                       type="button"
                       onClick={() => setCurrentStep(index)}
-                      className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold mb-2 transition-all cursor-pointer hover:scale-110 text-sm ${
+                      className={`w-6 h-6 rounded-full flex items-center justify-center font-semibold mb-1 transition-all cursor-pointer hover:scale-110 text-[10px] ${
                         index < currentStep
                           ? 'bg-[#86C5A8] text-white'
                           : index === currentStep
@@ -1250,14 +1348,14 @@ export default function Home() {
                       }`}
                     >
                       {index < currentStep ? (
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
                         index + 1
                       )}
                     </button>
-                    <span className={`text-xs font-medium text-center ${
+                    <span className={`text-[8.8px] font-medium text-center leading-tight max-w-[45px] ${
                       index < currentStep ? 'text-[#86C5A8]' : index === currentStep ? 'text-[#9F80DA]' : 'text-gray-400'
                     }`}>
                       {step}
@@ -1307,8 +1405,8 @@ export default function Home() {
             </div>
 
             {/* Form Content */}
-            <div className="mb-8 md:mb-12 min-h-[400px] md:min-h-[500px] flex flex-col justify-center">
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 md:mb-8">
+            <div className="mb-0 md:mb-12 min-h-[200px] md:min-h-[500px] flex flex-col justify-center">
+              <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4 md:mb-8">
                 {currentStep === 0 && "What's your full name?"}
                 {currentStep === 1 && 'What is your email address?'}
                 {currentStep === 2 && 'What sector do you work in?'}
@@ -1327,7 +1425,7 @@ export default function Home() {
                     value={formData.firstName}
                     onChange={(e) => setFormData({...formData, firstName: e.target.value})}
                     onKeyDown={handleKeyDown}
-                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
+                    className="w-full px-4 py-2 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-base sm:text-xl mb-4 md:mb-8"
                     placeholder="Type your answer here..."
                     autoFocus
                   />
@@ -1335,14 +1433,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1358,7 +1456,7 @@ export default function Home() {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     onKeyDown={handleKeyDown}
-                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
+                    className="w-full px-4 py-2 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-base sm:text-xl mb-4 md:mb-8"
                     placeholder="Type your answer here..."
                     autoFocus
                   />
@@ -1366,14 +1464,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1404,14 +1502,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1442,14 +1540,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1464,7 +1562,7 @@ export default function Home() {
                     value={formData.company}
                     onChange={(e) => setFormData({...formData, company: e.target.value})}
                     onKeyDown={handleKeyDown}
-                    className="w-full px-4 py-3 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-lg sm:text-xl mb-8"
+                    className="w-full px-4 py-2 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-base sm:text-xl mb-4 md:mb-8"
                     placeholder="Type your answer here..."
                     autoFocus
                   />
@@ -1472,14 +1570,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1510,14 +1608,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1547,14 +1645,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1585,14 +1683,14 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-8 py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
                       >
                         {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       </button>
-                      <p className="text-sm text-gray-400 mt-2">
+                      <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
                       </p>
                     </div>
@@ -1602,7 +1700,7 @@ export default function Home() {
             </div>
 
             {/* Navigation Arrows */}
-            <div className="flex justify-end gap-3">
+            <div className="hidden md:flex justify-end gap-3">
               <button
                 onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
                 disabled={currentStep === 0}
