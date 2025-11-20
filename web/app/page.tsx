@@ -175,7 +175,7 @@ export default function Home() {
     },
     {
       title: 'Real-time Collaboration',
-      description: 'Invite your teammates to design and edit courses together in real-time. Share your e-learning projects with colleagues, subject matter experts, and stakeholders for seamless collaboration. Work simultaneously on the same course, see changes as they happen, and streamline your content creation workflow with your entire team.',
+      description: 'Invite your teammates to design and edit courses together in real-time. Share your e-learning projects with colleagues, subject matter experts, and stakeholders for seamless collaboration. Work simultaneously on the same course, see changes as they happen, and streamline your content creation workflow with your entire team. Add unlimited reviewers for QA at no extra cost.',
       image: '/landing/feature5.gif',
       plan: 'All Plans'
     },
@@ -381,7 +381,7 @@ export default function Home() {
     },
     {
       question: 'Can I try Course Scribe before committing?',
-      answer: 'Absolutely! We offer a 14-day free trial with full access to all features. No credit card required. You can create up to 3 courses during the trial period to fully evaluate if Course Scribe is right for you.'
+      answer: 'Absolutely! You can create 1 course completely free with full access to all features. No credit card required, no time limits. This allows you to fully evaluate if Course Scribe is right for you.'
     }
   ];
 
@@ -691,7 +691,7 @@ export default function Home() {
                 <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
-                <div className={index === 2 || index === 3 || index === 4 || index === 8 || index === 9 || index === 10 || index === 11 || index === 13 ? "overflow-hidden" : index === 1 ? "overflow-hidden" : index === 12 ? "aspect-[16/14.04] overflow-hidden" : index === 15 ? "aspect-[16/14] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 14 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
+                <div className={index === 2 || index === 3 || index === 4 || index === 8 || index === 9 || index === 10 || index === 11 || index === 12 || index === 13 || index === 14 ? "overflow-hidden" : index === 1 ? "overflow-hidden" : index === 15 ? "aspect-[16/14] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
                   {getFeatureComponent(index)}
                 </div>
               </div>

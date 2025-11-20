@@ -2,7 +2,7 @@
 
 export default function InstructionalDesignModelsFeature() {
   return (
-    <div className="w-full h-full flex items-center justify-center bg-white rounded-3xl overflow-hidden border-2 border-gray-200 p-3 md:p-6">
+    <div className="w-full h-full flex items-center justify-center bg-white rounded-3xl overflow-hidden border-2 border-gray-200 p-3 md:p-6 my-4 md:my-6">
       {/* Bloom's Taxonomy Pyramid */}
       <div className="w-full max-w-lg flex flex-col items-center">
         <div className="w-full flex flex-col gap-0.5 md:gap-1 items-center">
