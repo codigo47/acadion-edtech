@@ -110,7 +110,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const menuItems = ['Features', 'How it Works', 'Testimonials', 'Pricing', 'FAQ'];
+  const menuItems = ['Features', 'How it Works', 'LMS\'s', 'Testimonials', 'Pricing', 'FAQ'];
+
+  const getMenuItemId = (item: string) => {
+    if (item === 'LMS\'s') return 'lms';
+    return item.toLowerCase().replaceAll(' ', '-');
+  };
 
   const deliverableOptions = [
     'E-learning module',
@@ -254,7 +259,7 @@ export default function Home() {
     },
     {
       title: 'Professional Portfolio',
-      description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Get metrics of the visits to your portfolio.',
+      description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Add a bio to personalize your portfolio. Get metrics of the visits to your portfolio.',
       image: '/landing/feature15.gif',
       plan: 'Pro'
     },
@@ -465,7 +470,7 @@ export default function Home() {
               {menuItems.map((item) => (
                 <a
                   key={item}
-                  href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
+                  href={`#${getMenuItemId(item)}`}
                   className="text-gray-600 hover:text-[#9F80DA] transition-colors font-medium"
                 >
                   {item}
@@ -501,7 +506,7 @@ export default function Home() {
                 {menuItems.map((item) => (
                   <a
                     key={item}
-                    href={`#${item.toLowerCase().replaceAll(' ', '-')}`}
+                    href={`#${getMenuItemId(item)}`}
                     className="text-gray-600 hover:text-[#9F80DA] transition-colors font-medium py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -686,7 +691,7 @@ export default function Home() {
                 <p className="text-lg text-gray-600 leading-relaxed whitespace-pre-line">{feature.description}</p>
               </div>
               <div className="flex-1 w-full">
-                <div className={index === 8 ? "aspect-[16/18] overflow-hidden" : index === 1 ? "overflow-hidden" : index === 11 || index === 12 ? "aspect-[16/14.04] overflow-hidden" : index === 2 ? "aspect-[16/14.3] overflow-hidden" : index === 3 ? "aspect-[16/15.6] overflow-hidden" : index === 15 ? "aspect-[16/14] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 14 ? "aspect-[16/10.8] overflow-hidden" : index === 9 || index === 10 || index === 13 ? "aspect-[16/12.96] overflow-hidden" : index === 4 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
+                <div className={index === 2 || index === 3 || index === 4 || index === 8 || index === 9 || index === 10 || index === 11 || index === 13 ? "overflow-hidden" : index === 1 ? "overflow-hidden" : index === 12 ? "aspect-[16/14.04] overflow-hidden" : index === 15 ? "aspect-[16/14] overflow-hidden" : index === 16 || index === 18 ? "aspect-[16/13] overflow-hidden" : index === 0 || index === 14 ? "aspect-[16/10.8] overflow-hidden" : index === 17 ? "aspect-[16/9.9] overflow-hidden" : "aspect-video overflow-hidden"}>
                   {getFeatureComponent(index)}
                 </div>
               </div>
@@ -696,7 +701,7 @@ export default function Home() {
       </section>
 
       {/* LMS Compatibility Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+      <section id="lms" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial="hidden"
@@ -1263,7 +1268,7 @@ export default function Home() {
               <ul className="space-y-3">
                 {menuItems.map((item) => (
                   <li key={item}>
-                    <a href={`#${item.toLowerCase().replace(' ', '-')}`} className="text-gray-400 hover:text-white transition-colors">
+                    <a href={`#${getMenuItemId(item)}`} className="text-gray-400 hover:text-white transition-colors">
                       {item}
                     </a>
                   </li>
