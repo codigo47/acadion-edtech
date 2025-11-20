@@ -56,7 +56,12 @@ export default function MockDashboard() {
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="font-bold text-xl">Course Scribe</span>
+            <img
+              src="/landing/acadion.png"
+              alt="Acadion Logo"
+              className="h-8 object-contain"
+              style={{ width: 'auto' }}
+            />
           </div>
         </div>
 
@@ -73,9 +78,11 @@ export default function MockDashboard() {
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-[#9F80DA] rounded-full flex items-center justify-center text-white font-semibold text-sm">
-              ES
-            </div>
+            <img
+              src="/landing/avatars/1.jpg"
+              alt="User Avatar"
+              className="w-9 h-9 rounded-full object-cover"
+            />
           </div>
         </div>
       </nav>

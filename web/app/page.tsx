@@ -459,10 +459,12 @@ export default function Home() {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <div className={`flex items-center rounded-2xl px-4 py-2 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
-              <div className="w-10 h-10 bg-[#9F80DA] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">CS</span>
-              </div>
-              <span className="ml-3 text-xl font-bold text-gray-900">Course Scribe</span>
+              <img
+                src="/landing/acadion.png"
+                alt="Acadion Logo"
+                className="h-10 object-contain"
+                style={{ width: 'auto' }}
+              />
             </div>
 
             {/* Desktop Menu */}
@@ -1245,11 +1247,13 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             {/* Logo and Description */}
             <div className="lg:col-span-1">
-              <div className="flex items-center mb-4">
-                <div className="w-10 h-10 bg-[#9F80DA] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">CS</span>
-                </div>
-                <span className="ml-3 text-xl font-bold">Course Scribe</span>
+              <div className="mb-4">
+                <img
+                  src="/landing/acadion.png"
+                  alt="Acadion Logo"
+                  className="h-10 object-contain"
+                  style={{ width: 'auto' }}
+                />
               </div>
               <p className="text-gray-400 mb-6">
                 Making course creation simple with AI-powered tools.
