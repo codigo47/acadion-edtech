@@ -6,7 +6,7 @@ export default function WCAGComplianceFeature() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
-    <div className="w-full h-full flex flex-col rounded-3xl overflow-hidden border-2 border-gray-200 relative">
+    <div className="w-full h-auto flex flex-col rounded-3xl overflow-hidden border-2 border-gray-200 relative">
       {/* Dark Mode Toggle Button */}
       <button
         onClick={() => setIsDarkMode(!isDarkMode)}
