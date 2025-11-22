@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import posthog from 'posthog-js';
 import AIGeneratedCourseFeature from './components/features-landing/AIGeneratedCourseFeature';
 import CourseCopilotFeature from './components/features-landing/CourseCopilotFeature';
 import AIImageGenerationFeature from './components/features-landing/AIImageGenerationFeature';
@@ -34,7 +33,6 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [selectedPlanName, setSelectedPlanName] = useState('');
-  const [planType, setPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [scrolled, setScrolled] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
@@ -422,6 +420,8 @@ export default function Home() {
       company: '',
       userType: '',
       designers: '',
+      experience: '',
+      sector: '',
       deliverables: []
     });
 
