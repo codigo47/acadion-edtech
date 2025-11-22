@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
 import "./globals.css";
-import GoogleAnalytics from "./components/GoogleAnalytics";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -24,7 +23,6 @@ export default function RootLayout({
       <body
         className={`${onest.variable} antialiased`}
       >
-        <GoogleAnalytics />
         {children}
       </body>
     </html>
