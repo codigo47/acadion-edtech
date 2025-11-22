@@ -13,7 +13,7 @@ export function initPostHog() {
     person_profiles: "identified_only",
     autocapture: true,
     loaded: (ph) => {
-      ph.set_person_properties({
+      ph.setPersonProperties({
         environment: process.env.NEXT_PUBLIC_POSTHOG_ENV,
       });
     },
