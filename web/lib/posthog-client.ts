@@ -11,6 +11,12 @@ export function initPostHog() {
     api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.posthog.com",
     capture_pageview: false,
     person_profiles: "identified_only",
+    autocapture: true,
+    loaded: (ph) => {
+      ph.set_person_properties({
+        environment: process.env.NEXT_PUBLIC_POSTHOG_ENV,
+      });
+    },
   });
 
   isInitialized = true;

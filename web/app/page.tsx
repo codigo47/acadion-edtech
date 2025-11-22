@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { posthog } from '@/lib/posthog-client';
 import AIGeneratedCourseFeature from './components/features-landing/AIGeneratedCourseFeature';
 import CourseCopilotFeature from './components/features-landing/CourseCopilotFeature';
 import AIImageGenerationFeature from './components/features-landing/AIImageGenerationFeature';
@@ -40,7 +41,7 @@ export default function Home() {
     email: '',
     company: '',
     userType: '', // 'myself' or 'company'
-    designers: '',
+    team_size: '',
     experience: '',
     sector: '',
     deliverables: [] as string[]
@@ -402,9 +403,36 @@ export default function Home() {
         last_name: formData.lastName,
         email: formData.email,
         user_type: formData.userType,
-        number_of_designers: formData.designers || 'N/A',
+        team_size: formData.team_size || 'N/A',
         company: formData.company || 'Not provided',
         deliverables: formData.deliverables.join(', '),
+        deliverables_count: formData.deliverables.length,
+      });
+    }
+
+    // PostHog tracking
+    if (posthog) {
+      // Identify the user
+      posthog.identify(formData.email, {
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        company: formData.company || undefined,
+      });
+
+      // Capture form submission event
+      posthog.capture('form_submitted', {
+        plan_type: selectedPlanType,
+        plan_name: selectedPlanName,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        company: formData.company,
+        user_type: formData.userType,
+        team_size: formData.team_size,
+        experience: formData.experience,
+        sector: formData.sector,
+        deliverables: formData.deliverables,
         deliverables_count: formData.deliverables.length,
       });
     }
@@ -419,7 +447,7 @@ export default function Home() {
       email: '',
       company: '',
       userType: '',
-      designers: '',
+      team_size: '',
       experience: '',
       sector: '',
       deliverables: []
@@ -1692,19 +1720,19 @@ export default function Home() {
                       <button
                         key={size}
                         type="button"
-                        onClick={() => setFormData({...formData, designers: size})}
+                        onClick={() => setFormData({...formData, team_size: size})}
                         className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
-                          formData.designers === size
+                          formData.team_size === size
                             ? 'bg-[#9F80DA] text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
                         <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                          formData.designers === size
+                          formData.team_size === size
                             ? 'bg-white border-white'
                             : 'bg-white border-gray-300'
                         }`}>
-                          {formData.designers === size && (
+                          {formData.team_size === size && (
                             <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                             </svg>
