@@ -150,7 +150,7 @@ export default function Home() {
   const features = [
     {
       title: 'AI-Generated Courses from Any Source',
-      description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, block-oriented courses automatically. No matter the format, Course Scribe handles it all.',
+      description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, block-oriented courses automatically. No matter the format, Acadion.ai handles it all.',
       image: '/landing/feature1.gif',
       plan: 'All Plans'
     },
@@ -301,35 +301,35 @@ export default function Home() {
       name: 'Emily Wood',
       role: 'Learning Experience Designer',
       company: 'Tacoma Power',
-      review: 'Course Scribe has transformed how we create training content. What used to take weeks now takes days. The AI-powered generation is incredibly accurate and saves our team countless hours.',
+      review: 'Acadion.ai has transformed how we create training content. What used to take weeks now takes days. The AI-powered generation is incredibly accurate and saves our team countless hours.',
       avatar: '/reviews/emily.jpeg'
     },
     {
       name: 'Cammy Bean',
       role: 'VP of Learning Design',
       company: 'Kineo',
-      review: 'As an instructional designer, I was skeptical at first. But Course Scribe has become an indispensable tool in my workflow. It handles the tedious work so I can focus on creating engaging learning experiences.',
+      review: 'As an instructional designer, I was skeptical at first. But Acadion.ai has become an indispensable tool in my workflow. It handles the tedious work so I can focus on creating engaging learning experiences.',
       avatar: '/reviews/cammy.jpeg'
     },
     {
       name: 'Devlin Peck',
       role: 'School Director | Founder',
       company: 'Peck Academy',
-      review: 'The ROI on Course Scribe has been phenomenal. We\'ve reduced course development time by 70% and our team can now focus on strategic initiatives instead of manual formatting.',
+      review: 'The ROI on Acadion.ai has been phenomenal. We\'ve reduced course development time by 70% and our team can now focus on strategic initiatives instead of manual formatting.',
       avatar: '/reviews/devlin.jpeg'
     },
     {
       name: 'Patricia Regier',
       role: 'Technical Instructional Designer',
       company: 'Mohawk College',
-      review: 'I love how Course Scribe understands context and maintains consistency across all our courses. The export features are seamless and work perfectly with our existing LMS.',
+      review: 'I love how Acadion.ai understands context and maintains consistency across all our courses. The export features are seamless and work perfectly with our existing LMS.',
       avatar: '/reviews/patricia.jpeg'
     },
     {
       name: 'Holly Owens',
       role: 'Instructional Designer',
       company: 'Mars',
-      review: 'Course Scribe has been a game-changer for our small team. We can now produce the same quality content as organizations with 10x our resources. Absolutely worth every penny.',
+      review: 'Acadion.ai has been a game-changer for our small team. We can now produce the same quality content as organizations with 10x our resources. Absolutely worth every penny.',
       avatar: '/reviews/holly.jpeg'
     },
     {
@@ -343,12 +343,12 @@ export default function Home() {
 
   const faqs = [
     {
-      question: 'What AI models does Course Scribe use?',
-      answer: 'Course Scribe leverages the most advanced generative AI models available, including OpenAI (GPT-4), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
+      question: 'What AI models does Acadion.ai use?',
+      answer: 'Acadion.ai leverages the most advanced generative AI models available, including OpenAI (GPT-4), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
     },
     {
-      question: 'What types of content can I upload to Course Scribe?',
-      answer: 'Course Scribe accepts a wide variety of content formats including videos, PDFs, PowerPoint presentations, Word documents, audio files, and more. Our AI is trained to understand and process different content types to create cohesive courses.'
+      question: 'What types of content can I upload to Acadion.ai?',
+      answer: 'Acadion.ai accepts a wide variety of content formats including videos, PDFs, PowerPoint presentations, Word documents, audio files, and more. Our AI is trained to understand and process different content types to create cohesive courses.'
     },
     {
       question: 'How long does it take to create a course?',
@@ -356,11 +356,11 @@ export default function Home() {
     },
     {
       question: 'Can I customize the AI-generated content?',
-      answer: 'Absolutely! While our AI does an excellent job of creating course content, you have full control to edit, modify, and customize everything. Think of Course Scribe as your intelligent assistant that handles the heavy lifting, but you remain in complete control.'
+      answer: 'Absolutely! While our AI does an excellent job of creating course content, you have full control to edit, modify, and customize everything. Think of Acadion.ai as your intelligent assistant that handles the heavy lifting, but you remain in complete control.'
     },
     {
-      question: 'Is Course Scribe compatible with my LMS?',
-      answer: 'Yes! Course Scribe supports exports in SCORM 1.2, SCORM 2004, xAPI (Tin Can), and other standard formats. We\'re compatible with all major LMS platforms including Moodle, Canvas, Blackboard, and more.'
+      question: 'Is Acadion.ai compatible with my LMS?',
+      answer: 'Yes! Acadion.ai supports exports in SCORM 1.2, SCORM 2004, xAPI (Tin Can), and other standard formats. We\'re compatible with all major LMS platforms including Moodle, Canvas, Blackboard, and more.'
     },
     {
       question: 'How secure is my content?',
@@ -372,15 +372,15 @@ export default function Home() {
     },
     {
       question: 'Do you offer team collaboration features?',
-      answer: 'Yes! Course Scribe includes robust collaboration tools. Multiple team members can work on the same course simultaneously, leave comments, suggest edits, and manage approval workflows. We offer different permission levels to suit your organizational needs.'
+      answer: 'Yes! Acadion.ai includes robust collaboration tools. Multiple team members can work on the same course simultaneously, leave comments, suggest edits, and manage approval workflows. We offer different permission levels to suit your organizational needs.'
     },
     {
       question: 'What kind of support do you provide?',
       answer: 'We offer comprehensive support including detailed documentation, video tutorials, and email support for all plans. Premium plans include priority support, dedicated account management, and personalized onboarding sessions.'
     },
     {
-      question: 'Can I try Course Scribe before committing?',
-      answer: 'Absolutely! You can create 1 course completely free with full access to all features. No credit card required, no time limits. This allows you to fully evaluate if Course Scribe is right for you.'
+      question: 'Can I try Acadion.ai before committing?',
+      answer: 'Absolutely! You can create 1 course completely free with full access to all features. No credit card required, no time limits. This allows you to fully evaluate if Acadion.ai is right for you.'
     }
   ];
 
@@ -1211,7 +1211,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              What's often asked about Course Scribe
+              What's often asked about Acadion.ai
             </h2>
             <p className="text-xl text-gray-600">
               Find answers to common questions
@@ -1335,7 +1335,7 @@ export default function Home() {
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400 text-sm">
-                © {new Date().getFullYear()} Course Scribe. All rights reserved.
+                © {new Date().getFullYear()} Acadion.ai. All rights reserved.
               </p>
               <div className="flex gap-6">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -1884,7 +1884,7 @@ export default function Home() {
             <div className="text-center">
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Thank you for your interest!</h3>
               <p className="text-gray-600 leading-relaxed">
-                We'll be in touch soon to help you get started with Course Scribe.
+                We'll be in touch soon to help you get started with Acadion.ai.
               </p>
             </div>
 

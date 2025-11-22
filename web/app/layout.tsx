@@ -10,8 +10,8 @@ const onest = Onest({
 });
 
 export const metadata: Metadata = {
-  title: "Course Scribe - Create educational content in the AI era",
-  description: "Forget all the manual tasks of instructional design and focus on creating better courses.",
+  title: "Acadion.ai - Create educational content in the AI era",
+  description: "Forget all the manual tasks of instructional design and focus on creating better courses. Acadion.ai is a platform that helps you create educational content in the AI era.",
 };
 
 export default function RootLayout({
