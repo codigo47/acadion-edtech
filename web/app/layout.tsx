@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
 import "./globals.css";
+import { PostHogProvider } from "./components/providers/posthog-provider";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -23,7 +24,9 @@ export default function RootLayout({
       <body
         className={`${onest.variable} antialiased`}
       >
-        {children}
+        <PostHogProvider>
+          {children}
+        </PostHogProvider>
       </body>
     </html>
   );
