@@ -487,7 +487,7 @@ export default function Home() {
         className="fixed top-0 w-full z-50"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-20 relative z-50">
             {/* Logo */}
             <div className={`flex items-center rounded-2xl px-4 py-2 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
               <img
@@ -533,9 +533,9 @@ export default function Home() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="md:hidden py-4 bg-white rounded-b-2xl shadow-lg"
+              className="md:hidden fixed inset-0 bg-white shadow-lg z-40 overflow-y-auto"
             >
-              <div className="flex flex-col space-y-4 px-4">
+              <div className="flex flex-col space-y-4 px-4 pt-24 pb-6">
                 {menuItems.map((item) => (
                   <a
                     key={item}
