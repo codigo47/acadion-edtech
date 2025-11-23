@@ -32,6 +32,7 @@ export default function Home() {
   const [showInitialPopup, setShowInitialPopup] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [showThankYou, setShowThankYou] = useState(false);
   const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [selectedPlanName, setSelectedPlanName] = useState('');
   const [scrolled, setScrolled] = useState(false);
@@ -56,6 +57,7 @@ export default function Home() {
     setSelectedPlanType(type);
     setSelectedPlanName(planName);
     setCurrentStep(0);
+    setShowThankYou(false);
     setShowWelcomePopup(true);
   };
 
@@ -63,8 +65,9 @@ export default function Home() {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Last step, close popup
-      setShowWelcomePopup(false);
+      // Last step, show Thank You section
+      setCurrentStep(steps.length); // Mark last step as completed
+      setShowThankYou(true);
     }
   };
 
@@ -1463,19 +1466,23 @@ export default function Home() {
 
             {/* Form Content */}
             <div className="mb-0 md:mb-12 min-h-[200px] md:min-h-[500px] flex flex-col justify-center">
-              <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4 md:mb-8">
-                {currentStep === 0 && "What's your full name?"}
-                {currentStep === 1 && 'What is your email address?'}
-                {currentStep === 2 && 'What sector do you work in?'}
-                {currentStep === 3 && selectedPlanType === 'Personal' && 'How many years of experience do you have?'}
-                {currentStep === 3 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
-                {currentStep === 4 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
-                {currentStep === 4 && selectedPlanType === 'Enterprise' && 'How many people are on your team?'}
-                {currentStep === 5 && 'What type of deliverables are you interested in?'}
-              </h3>
+              {!showThankYou && (
+                <>
+                  <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4 md:mb-8">
+                    {currentStep === 0 && "What's your full name?"}
+                    {currentStep === 1 && 'What is your email address?'}
+                    {currentStep === 2 && 'What sector do you work in?'}
+                    {currentStep === 3 && selectedPlanType === 'Personal' && 'How many years of experience do you have?'}
+                    {currentStep === 3 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
+                    {currentStep === 4 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
+                    {currentStep === 4 && selectedPlanType === 'Enterprise' && 'How many people are on your team?'}
+                    {currentStep === 5 && 'What type of deliverables are you interested in?'}
+                  </h3>
+                </>
+              )}
 
               {/* Step 0: Full Name */}
-              {currentStep === 0 && (
+              {!showThankYou && currentStep === 0 && (
                 <>
                   <input
                     type="text"
@@ -1506,7 +1513,7 @@ export default function Home() {
               )}
 
               {/* Step 1: Email */}
-              {currentStep === 1 && (
+              {!showThankYou && currentStep === 1 && (
                 <>
                   <input
                     type="email"
@@ -1537,7 +1544,7 @@ export default function Home() {
               )}
 
               {/* Step 2: Sector (Both Personal and Enterprise) */}
-              {currentStep === 2 && (
+              {!showThankYou && currentStep === 2 && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
                     {['Consulting', 'Human Resources', 'Marketing', 'Learning and Development', 'Higher Education', 'Other'].map((sec) => (
@@ -1586,7 +1593,7 @@ export default function Home() {
               )}
 
               {/* Step 3: Years of Experience (Personal) or Company (Enterprise) */}
-              {currentStep === 3 && selectedPlanType === 'Personal' && (
+              {!showThankYou && currentStep === 3 && selectedPlanType === 'Personal' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
                     {['1 to 3 years', '4 to 6 years', '+6 years'].map((exp) => (
@@ -1634,7 +1641,7 @@ export default function Home() {
                 </>
               )}
 
-              {currentStep === 3 && selectedPlanType === 'Enterprise' && (
+              {!showThankYou && currentStep === 3 && selectedPlanType === 'Enterprise' && (
                 <>
                   <input
                     type="text"
@@ -1665,7 +1672,7 @@ export default function Home() {
               )}
 
               {/* Step 4: Deliverables (Personal) or Team Size (Enterprise) */}
-              {currentStep === 4 && selectedPlanType === 'Personal' && (
+              {!showThankYou && currentStep === 4 && selectedPlanType === 'Personal' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
                     {deliverableOptions.map((deliverable) => (
@@ -1713,7 +1720,7 @@ export default function Home() {
                 </>
               )}
 
-              {currentStep === 4 && selectedPlanType === 'Enterprise' && (
+              {!showThankYou && currentStep === 4 && selectedPlanType === 'Enterprise' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
                     {['1-5', '6-10', '11-25', '26-50', '51+'].map((size) => (
@@ -1762,7 +1769,7 @@ export default function Home() {
               )}
 
               {/* Step 5: Deliverables (Enterprise) */}
-              {currentStep === 5 && (
+              {!showThankYou && currentStep === 5 && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
                     {deliverableOptions.map((deliverable) => (
@@ -1809,37 +1816,111 @@ export default function Home() {
                   </div>
                 </>
               )}
+
+              {/* Thank You Section */}
+              {showThankYou && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="text-center space-y-6"
+                >
+                  {/* Confirmation Icon */}
+                  <div className="flex justify-center mb-2">
+                    <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-[#86C5A8] to-[#9F80DA] flex items-center justify-center">
+                      <svg className="w-6 h-6 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Main Message */}
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    You're on the list
+                  </h3>
+
+                  <div className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-normal">
+                    <p>Your request has been received.</p>
+                    <p>We'll review your information within the next 48-72 hours.</p>
+                  </div>
+
+                  {/* What's Next */}
+                  <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 md:p-8 mt-8">
+                    <h4 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">
+                      What happens next?
+                    </h4>
+                    <ul className="space-y-3 text-left text-sm md:text-base text-gray-700">
+                      <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>You'll receive a confirmation email shortly</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>We'll analyze your needs and how to include you in our closed beta</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Optional Next Steps */}
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <p className="text-sm text-gray-500 mb-4">
+                      While you wait, explore what you can do with Acadion
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <a
+                        href="#features"
+                        onClick={() => setShowWelcomePopup(false)}
+                        className="px-6 py-2.5 text-[#9F80DA] border-2 border-[#9F80DA] rounded-lg hover:bg-[#9F80DA] hover:text-white transition-all font-medium"
+                      >
+                        See all features
+                      </a>
+                      <button
+                        onClick={() => setShowWelcomePopup(false)}
+                        className="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all font-medium"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {/* Navigation Arrows */}
-            <div className="hidden md:flex justify-end gap-3">
-              <button
-                onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-                disabled={currentStep === 0}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                  currentStep === 0
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
-                disabled={currentStep === steps.length - 1}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                  currentStep === steps.length - 1
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
+            {!showThankYou && (
+              <div className="hidden md:flex justify-end gap-3">
+                <button
+                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  disabled={currentStep === 0}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                    currentStep === 0
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
+                  disabled={currentStep === steps.length - 1}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                    currentStep === steps.length - 1
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}
