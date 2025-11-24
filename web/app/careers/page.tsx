@@ -195,7 +195,7 @@ export default function CareersPage() {
             onClick={scrollToJobs}
             className="inline-block bg-[#9F80DA] text-white px-8 py-4 rounded-full hover:bg-[#8A6BC5] transition-colors font-medium text-lg"
           >
-            View Open Roles
+            Learn More
           </motion.button>
         </div>
       </section>
@@ -263,97 +263,20 @@ export default function CareersPage() {
       <section id="open-roles" className="py-16 px-4 sm:px-6 lg:px-8 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Open Positions</h2>
-          <div className="space-y-6">
-            {jobPostings.map((job, index) => (
-              <motion.div
-                key={job.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.1 }}
-                className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow"
-              >
-                <div className="p-6 md:p-8">
-                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">{job.title}</h3>
-                      <div className="flex flex-wrap gap-3 text-sm text-gray-600">
-                        <span className="flex items-center gap-1">
-                          <Briefcase className="w-4 h-4" />
-                          {job.department}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-4 h-4" />
-                          {job.location}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          {job.type}
-                        </span>
-                      </div>
-                    </div>
-                    {job.id === 'ai-engineer' && (
-                      <span className="inline-block mt-2 md:mt-0 bg-[#9F80DA] text-white px-3 py-1 rounded-full text-sm font-medium">
-                        3 Positions
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-gray-700 mb-6">{job.description}</p>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-3">Responsibilities</h4>
-                      <ul className="space-y-2">
-                        {job.responsibilities.map((item, idx) => (
-                          <li key={idx} className="text-gray-600 text-sm flex items-start gap-2">
-                            <span className="text-[#9F80DA] mt-1">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-gray-900 mb-3">Qualifications</h4>
-                      <ul className="space-y-2">
-                        {job.qualifications.map((item, idx) => (
-                          <li key={idx} className="text-gray-600 text-sm flex items-start gap-2">
-                            <span className="text-[#9F80DA] mt-1">•</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <a
-                      href={`mailto:careers@acadion.ai?subject=Application for ${job.title}`}
-                      className="inline-flex items-center gap-2 bg-[#9F80DA] text-white px-6 py-3 rounded-full hover:bg-[#8A6BC5] transition-colors font-medium"
-                    >
-                      Apply Now
-                      <ArrowRight className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Don't See a Perfect Fit?</h2>
-          <p className="text-xl text-gray-600 mb-8">
-            We're always interested in meeting talented people. Send us your resume and tell us how you'd like to contribute.
-          </p>
-          <a
-            href="mailto:careers@acadion.ai?subject=General Application"
-            className="inline-block bg-[#9F80DA] text-white px-8 py-4 rounded-full hover:bg-[#8A6BC5] transition-colors font-medium text-lg"
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="bg-white rounded-xl shadow-md p-12 text-center"
           >
-            Get in Touch
-          </a>
+            <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Briefcase className="w-10 h-10 text-gray-400" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">No Open Positions at This Time</h3>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              We don't have any open positions available right now, but we're always growing and looking for talented people to join our team.
+            </p>
+          </motion.div>
         </div>
       </section>
 

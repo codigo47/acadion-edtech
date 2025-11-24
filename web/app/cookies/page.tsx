@@ -103,7 +103,6 @@ export default function CookiePolicyPage() {
               <div className="bg-gray-50 p-4 rounded-lg mb-4">
                 <p className="font-semibold mb-2">Examples:</p>
                 <ul className="list-disc ml-6 space-y-1 text-sm">
-                  <li><strong>_ga, _gid:</strong> Google Analytics cookies that help us understand user behavior (2 years / 24 hours)</li>
                   <li><strong>analytics_user:</strong> Tracks anonymous usage statistics (2 years)</li>
                   <li><strong>performance_metrics:</strong> Monitors platform performance (30 days)</li>
                 </ul>
@@ -147,8 +146,7 @@ export default function CookiePolicyPage() {
 
               <h3 className="text-xl font-bold text-gray-900 mb-3 mt-6">Third-party services we use include:</h3>
               <ul className="list-disc ml-6 mb-4 space-y-2">
-                <li><strong>Google Analytics:</strong> Website traffic and usage analysis</li>
-                <li><strong>Google Tag Manager:</strong> Managing marketing and analytics tags</li>
+                <li><strong>PostHog:</strong> Product analytics and user behavior tracking</li>
                 <li><strong>Stripe:</strong> Payment processing (fraud prevention)</li>
                 <li><strong>Intercom:</strong> Customer support and communication</li>
                 <li><strong>Facebook Pixel:</strong> Advertising and conversion tracking</li>
@@ -159,7 +157,7 @@ export default function CookiePolicyPage() {
                 For more information about how these third parties use cookies, please refer to their privacy policies:
               </p>
               <ul className="list-disc ml-6 mb-4 space-y-1 text-sm">
-                <li><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">Google Privacy Policy</a></li>
+                <li><a href="https://posthog.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">PostHog Privacy Policy</a></li>
                 <li><a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">Stripe Privacy Policy</a></li>
                 <li><a href="https://www.intercom.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">Intercom Privacy Policy</a></li>
                 <li><a href="https://www.facebook.com/privacy/explanation" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">Facebook Privacy Policy</a></li>
@@ -201,7 +199,6 @@ export default function CookiePolicyPage() {
               <ul className="list-disc ml-6 mb-4 space-y-1">
                 <li><a href="http://optout.networkadvertising.org/" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">Network Advertising Initiative Opt-Out</a></li>
                 <li><a href="http://optout.aboutads.info/" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">Digital Advertising Alliance Opt-Out</a></li>
-                <li><a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-[#9F80DA] hover:underline">Google Analytics Opt-Out</a></li>
               </ul>
 
               <h3 className="text-xl font-bold text-gray-900 mb-3 mt-6">6.4 Mobile Devices</h3>
