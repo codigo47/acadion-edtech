@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { posthog } from '@/lib/posthog-client';
 import AIGeneratedCourseFeature from './components/features-landing/AIGeneratedCourseFeature';
 import CourseCopilotFeature from './components/features-landing/CourseCopilotFeature';
 import AIImageGenerationFeature from './components/features-landing/AIImageGenerationFeature';
@@ -31,6 +32,7 @@ export default function Home() {
   const [showInitialPopup, setShowInitialPopup] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
+  const [showThankYou, setShowThankYou] = useState(false);
   const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [selectedPlanName, setSelectedPlanName] = useState('');
   const [scrolled, setScrolled] = useState(false);
@@ -40,7 +42,7 @@ export default function Home() {
     email: '',
     company: '',
     userType: '', // 'myself' or 'company'
-    designers: '',
+    team_size: '',
     experience: '',
     sector: '',
     deliverables: [] as string[]
@@ -55,6 +57,7 @@ export default function Home() {
     setSelectedPlanType(type);
     setSelectedPlanName(planName);
     setCurrentStep(0);
+    setShowThankYou(false);
     setShowWelcomePopup(true);
   };
 
@@ -62,8 +65,9 @@ export default function Home() {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Last step, close popup
-      setShowWelcomePopup(false);
+      // Last step, show Thank You section
+      setCurrentStep(steps.length); // Mark last step as completed
+      setShowThankYou(true);
     }
   };
 
@@ -149,7 +153,7 @@ export default function Home() {
   const features = [
     {
       title: 'AI-Generated Courses from Any Source',
-      description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, block-oriented courses automatically. No matter the format, Course Scribe handles it all.',
+      description: 'Upload PDFs, text documents, website links, videos, or audio files and watch as our AI transforms them into structured, block-oriented courses automatically. No matter the format, Acadion.ai handles it all.',
       image: '/landing/feature1.gif',
       plan: 'All Plans'
     },
@@ -300,35 +304,35 @@ export default function Home() {
       name: 'Emily Wood',
       role: 'Learning Experience Designer',
       company: 'Tacoma Power',
-      review: 'Course Scribe has transformed how we create training content. What used to take weeks now takes days. The AI-powered generation is incredibly accurate and saves our team countless hours.',
+      review: 'Acadion.ai has transformed how we create training content. What used to take weeks now takes days. The AI-powered generation is incredibly accurate and saves our team countless hours.',
       avatar: '/reviews/emily.jpeg'
     },
     {
       name: 'Cammy Bean',
       role: 'VP of Learning Design',
       company: 'Kineo',
-      review: 'As an instructional designer, I was skeptical at first. But Course Scribe has become an indispensable tool in my workflow. It handles the tedious work so I can focus on creating engaging learning experiences.',
+      review: 'As an instructional designer, I was skeptical at first. But Acadion.ai has become an indispensable tool in my workflow. It handles the tedious work so I can focus on creating engaging learning experiences.',
       avatar: '/reviews/cammy.jpeg'
     },
     {
       name: 'Devlin Peck',
       role: 'School Director | Founder',
       company: 'Peck Academy',
-      review: 'The ROI on Course Scribe has been phenomenal. We\'ve reduced course development time by 70% and our team can now focus on strategic initiatives instead of manual formatting.',
+      review: 'The ROI on Acadion.ai has been phenomenal. We\'ve reduced course development time by 70% and our team can now focus on strategic initiatives instead of manual formatting.',
       avatar: '/reviews/devlin.jpeg'
     },
     {
       name: 'Patricia Regier',
       role: 'Technical Instructional Designer',
       company: 'Mohawk College',
-      review: 'I love how Course Scribe understands context and maintains consistency across all our courses. The export features are seamless and work perfectly with our existing LMS.',
+      review: 'I love how Acadion.ai understands context and maintains consistency across all our courses. The export features are seamless and work perfectly with our existing LMS.',
       avatar: '/reviews/patricia.jpeg'
     },
     {
       name: 'Holly Owens',
       role: 'Instructional Designer',
       company: 'Mars',
-      review: 'Course Scribe has been a game-changer for our small team. We can now produce the same quality content as organizations with 10x our resources. Absolutely worth every penny.',
+      review: 'Acadion.ai has been a game-changer for our small team. We can now produce the same quality content as organizations with 10x our resources. Absolutely worth every penny.',
       avatar: '/reviews/holly.jpeg'
     },
     {
@@ -342,12 +346,12 @@ export default function Home() {
 
   const faqs = [
     {
-      question: 'What AI models does Course Scribe use?',
-      answer: 'Course Scribe leverages the most advanced generative AI models available, including OpenAI (GPT-4), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
+      question: 'What AI models does Acadion.ai use?',
+      answer: 'Acadion.ai leverages the most advanced generative AI models available, including OpenAI (GPT-4), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
     },
     {
-      question: 'What types of content can I upload to Course Scribe?',
-      answer: 'Course Scribe accepts a wide variety of content formats including videos, PDFs, PowerPoint presentations, Word documents, audio files, and more. Our AI is trained to understand and process different content types to create cohesive courses.'
+      question: 'What types of content can I upload to Acadion.ai?',
+      answer: 'Acadion.ai accepts a wide variety of content formats including videos, PDFs, PowerPoint presentations, Word documents, audio files, and more. Our AI is trained to understand and process different content types to create cohesive courses.'
     },
     {
       question: 'How long does it take to create a course?',
@@ -355,11 +359,11 @@ export default function Home() {
     },
     {
       question: 'Can I customize the AI-generated content?',
-      answer: 'Absolutely! While our AI does an excellent job of creating course content, you have full control to edit, modify, and customize everything. Think of Course Scribe as your intelligent assistant that handles the heavy lifting, but you remain in complete control.'
+      answer: 'Absolutely! While our AI does an excellent job of creating course content, you have full control to edit, modify, and customize everything. Think of Acadion.ai as your intelligent assistant that handles the heavy lifting, but you remain in complete control.'
     },
     {
-      question: 'Is Course Scribe compatible with my LMS?',
-      answer: 'Yes! Course Scribe supports exports in SCORM 1.2, SCORM 2004, xAPI (Tin Can), and other standard formats. We\'re compatible with all major LMS platforms including Moodle, Canvas, Blackboard, and more.'
+      question: 'Is Acadion.ai compatible with my LMS?',
+      answer: 'Yes! Acadion.ai supports exports in SCORM 1.2, SCORM 2004, xAPI (Tin Can), and other standard formats. We\'re compatible with all major LMS platforms including Moodle, Canvas, Blackboard, and more.'
     },
     {
       question: 'How secure is my content?',
@@ -371,15 +375,15 @@ export default function Home() {
     },
     {
       question: 'Do you offer team collaboration features?',
-      answer: 'Yes! Course Scribe includes robust collaboration tools. Multiple team members can work on the same course simultaneously, leave comments, suggest edits, and manage approval workflows. We offer different permission levels to suit your organizational needs.'
+      answer: 'Yes! Acadion.ai includes robust collaboration tools. Multiple team members can work on the same course simultaneously, leave comments, suggest edits, and manage approval workflows. We offer different permission levels to suit your organizational needs.'
     },
     {
       question: 'What kind of support do you provide?',
       answer: 'We offer comprehensive support including detailed documentation, video tutorials, and email support for all plans. Premium plans include priority support, dedicated account management, and personalized onboarding sessions.'
     },
     {
-      question: 'Can I try Course Scribe before committing?',
-      answer: 'Absolutely! You can create 1 course completely free with full access to all features. No credit card required, no time limits. This allows you to fully evaluate if Course Scribe is right for you.'
+      question: 'Can I try Acadion.ai before committing?',
+      answer: 'Absolutely! You can create 1 course completely free with full access to all features. No credit card required, no time limits. This allows you to fully evaluate if Acadion.ai is right for you.'
     }
   ];
 
@@ -402,9 +406,36 @@ export default function Home() {
         last_name: formData.lastName,
         email: formData.email,
         user_type: formData.userType,
-        number_of_designers: formData.designers || 'N/A',
+        team_size: formData.team_size || 'N/A',
         company: formData.company || 'Not provided',
         deliverables: formData.deliverables.join(', '),
+        deliverables_count: formData.deliverables.length,
+      });
+    }
+
+    // PostHog tracking
+    if (posthog) {
+      // Identify the user
+      posthog.identify(formData.email, {
+        email: formData.email,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        company: formData.company || undefined,
+      });
+
+      // Capture form submission event
+      posthog.capture('form_submitted', {
+        plan_type: selectedPlanType,
+        plan_name: selectedPlanName,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        company: formData.company,
+        user_type: formData.userType,
+        team_size: formData.team_size,
+        experience: formData.experience,
+        sector: formData.sector,
+        deliverables: formData.deliverables,
         deliverables_count: formData.deliverables.length,
       });
     }
@@ -419,7 +450,7 @@ export default function Home() {
       email: '',
       company: '',
       userType: '',
-      designers: '',
+      team_size: '',
       experience: '',
       sector: '',
       deliverables: []
@@ -456,9 +487,9 @@ export default function Home() {
         className="fixed top-0 w-full z-50"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+          <div className="flex justify-between items-center h-20 relative z-50">
             {/* Logo */}
-            <div className={`flex items-center rounded-2xl px-4 py-2 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
+            <div className={`flex items-center h-14 rounded-2xl px-4 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
               <img
                 src="/landing/acadion.png"
                 alt="Acadion Logo"
@@ -468,7 +499,7 @@ export default function Home() {
             </div>
 
             {/* Desktop Menu */}
-            <nav className={`hidden md:flex items-center space-x-8 rounded-2xl px-6 py-3 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
+            <nav className={`hidden md:flex items-center h-14 space-x-8 rounded-2xl px-6 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
               {menuItems.map((item) => (
                 <a
                   key={item}
@@ -502,9 +533,9 @@ export default function Home() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="md:hidden py-4 bg-white rounded-b-2xl shadow-lg"
+              className="md:hidden fixed inset-0 bg-white shadow-lg z-40 overflow-y-auto"
             >
-              <div className="flex flex-col space-y-4 px-4">
+              <div className="flex flex-col space-y-4 px-4 pt-24 pb-6">
                 {menuItems.map((item) => (
                   <a
                     key={item}
@@ -1183,7 +1214,7 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              What's often asked about Course Scribe
+              What's often asked about Acadion.ai
             </h2>
             <p className="text-xl text-gray-600">
               Find answers to common questions
@@ -1256,7 +1287,7 @@ export default function Home() {
                 />
               </div>
               <p className="text-gray-400 mb-6">
-                Making course creation simple with AI-powered tools.
+                Create engaged and interactive AI powered learning experiences
               </p>
               <a
                 href="#contact"
@@ -1284,10 +1315,9 @@ export default function Home() {
             <div>
               <h3 className="font-bold text-lg mb-4">Company</h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Press</a></li>
+                <li><a href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                <li><a href="/careers" className="text-gray-400 hover:text-white transition-colors">Careers</a></li>
+                <li><a href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
               </ul>
             </div>
 
@@ -1295,10 +1325,10 @@ export default function Home() {
             <div>
               <h3 className="font-bold text-lg mb-4">Legal</h3>
               <ul className="space-y-3">
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white transition-colors">GDPR</a></li>
+                <li><a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="/terms" className="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                <li><a href="/cookies" className="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
+                <li><a href="/gdpr" className="text-gray-400 hover:text-white transition-colors">GDPR</a></li>
               </ul>
             </div>
           </div>
@@ -1307,9 +1337,9 @@ export default function Home() {
           <div className="border-t border-gray-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <p className="text-gray-400 text-sm">
-                © {new Date().getFullYear()} Course Scribe. All rights reserved.
+                © {new Date().getFullYear()} Acadion.ai. All rights reserved.
               </p>
-              <div className="flex gap-6">
+              <div className="flex gap-6 hidden">
                 <a href="#" className="text-gray-400 hover:text-white transition-colors">
                   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
@@ -1336,14 +1366,14 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm"
           onClick={() => setShowWelcomePopup(false)}
         >
           <motion.div
             initial={{ scale: 0.9, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-3xl p-4 sm:p-8 md:p-12 max-w-4xl w-full shadow-2xl relative max-h-[90vh] overflow-y-auto"
+            className="bg-white rounded-none sm:rounded-3xl p-4 sm:p-8 md:p-12 max-w-4xl w-full h-full sm:h-auto shadow-2xl relative sm:max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Plan Title */}
@@ -1435,19 +1465,23 @@ export default function Home() {
 
             {/* Form Content */}
             <div className="mb-0 md:mb-12 min-h-[200px] md:min-h-[500px] flex flex-col justify-center">
-              <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4 md:mb-8">
-                {currentStep === 0 && "What's your full name?"}
-                {currentStep === 1 && 'What is your email address?'}
-                {currentStep === 2 && 'What sector do you work in?'}
-                {currentStep === 3 && selectedPlanType === 'Personal' && 'How many years of experience do you have?'}
-                {currentStep === 3 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
-                {currentStep === 4 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
-                {currentStep === 4 && selectedPlanType === 'Enterprise' && 'How many people are on your team?'}
-                {currentStep === 5 && 'What type of deliverables are you interested in?'}
-              </h3>
+              {!showThankYou && (
+                <>
+                  <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4 md:mb-8">
+                    {currentStep === 0 && "What's your full name?"}
+                    {currentStep === 1 && 'What is your email address?'}
+                    {currentStep === 2 && 'What sector do you work in?'}
+                    {currentStep === 3 && selectedPlanType === 'Personal' && 'How many years of experience do you have?'}
+                    {currentStep === 3 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
+                    {currentStep === 4 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
+                    {currentStep === 4 && selectedPlanType === 'Enterprise' && 'How many people are on your team?'}
+                    {currentStep === 5 && 'What type of deliverables are you interested in?'}
+                  </h3>
+                </>
+              )}
 
               {/* Step 0: Full Name */}
-              {currentStep === 0 && (
+              {!showThankYou && currentStep === 0 && (
                 <>
                   <input
                     type="text"
@@ -1478,7 +1512,7 @@ export default function Home() {
               )}
 
               {/* Step 1: Email */}
-              {currentStep === 1 && (
+              {!showThankYou && currentStep === 1 && (
                 <>
                   <input
                     type="email"
@@ -1509,7 +1543,7 @@ export default function Home() {
               )}
 
               {/* Step 2: Sector (Both Personal and Enterprise) */}
-              {currentStep === 2 && (
+              {!showThankYou && currentStep === 2 && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
                     {['Consulting', 'Human Resources', 'Marketing', 'Learning and Development', 'Higher Education', 'Other'].map((sec) => (
@@ -1558,7 +1592,7 @@ export default function Home() {
               )}
 
               {/* Step 3: Years of Experience (Personal) or Company (Enterprise) */}
-              {currentStep === 3 && selectedPlanType === 'Personal' && (
+              {!showThankYou && currentStep === 3 && selectedPlanType === 'Personal' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
                     {['1 to 3 years', '4 to 6 years', '+6 years'].map((exp) => (
@@ -1606,7 +1640,7 @@ export default function Home() {
                 </>
               )}
 
-              {currentStep === 3 && selectedPlanType === 'Enterprise' && (
+              {!showThankYou && currentStep === 3 && selectedPlanType === 'Enterprise' && (
                 <>
                   <input
                     type="text"
@@ -1637,7 +1671,7 @@ export default function Home() {
               )}
 
               {/* Step 4: Deliverables (Personal) or Team Size (Enterprise) */}
-              {currentStep === 4 && selectedPlanType === 'Personal' && (
+              {!showThankYou && currentStep === 4 && selectedPlanType === 'Personal' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
                     {deliverableOptions.map((deliverable) => (
@@ -1685,26 +1719,26 @@ export default function Home() {
                 </>
               )}
 
-              {currentStep === 4 && selectedPlanType === 'Enterprise' && (
+              {!showThankYou && currentStep === 4 && selectedPlanType === 'Enterprise' && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
                     {['1-5', '6-10', '11-25', '26-50', '51+'].map((size) => (
                       <button
                         key={size}
                         type="button"
-                        onClick={() => setFormData({...formData, designers: size})}
+                        onClick={() => setFormData({...formData, team_size: size})}
                         className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
-                          formData.designers === size
+                          formData.team_size === size
                             ? 'bg-[#9F80DA] text-white shadow-md'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
                         <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                          formData.designers === size
+                          formData.team_size === size
                             ? 'bg-white border-white'
                             : 'bg-white border-gray-300'
                         }`}>
-                          {formData.designers === size && (
+                          {formData.team_size === size && (
                             <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                             </svg>
@@ -1734,7 +1768,7 @@ export default function Home() {
               )}
 
               {/* Step 5: Deliverables (Enterprise) */}
-              {currentStep === 5 && (
+              {!showThankYou && currentStep === 5 && (
                 <>
                   <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
                     {deliverableOptions.map((deliverable) => (
@@ -1781,37 +1815,111 @@ export default function Home() {
                   </div>
                 </>
               )}
+
+              {/* Thank You Section */}
+              {showThankYou && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="text-center space-y-6"
+                >
+                  {/* Confirmation Icon */}
+                  <div className="flex justify-center mb-2">
+                    <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-[#86C5A8] to-[#9F80DA] flex items-center justify-center">
+                      <svg className="w-6 h-6 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Main Message */}
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    You're on the list
+                  </h3>
+
+                  <div className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-normal">
+                    <p>Your request has been received.</p>
+                    <p>We'll review your information within the next 48-72 hours.</p>
+                  </div>
+
+                  {/* What's Next */}
+                  <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-2xl p-6 md:p-8 mt-8">
+                    <h4 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">
+                      What happens next?
+                    </h4>
+                    <ul className="space-y-3 text-left text-sm md:text-base text-gray-700">
+                      <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>You'll receive a confirmation email shortly</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <svg className="w-5 h-5 text-[#9F80DA] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                        <span>We'll analyze your needs and how to include you in our closed beta</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Optional Next Steps */}
+                  <div className="mt-8 pt-6 border-t border-gray-200">
+                    <p className="text-sm text-gray-500 mb-4">
+                      While you wait, explore what you can do with Acadion
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <a
+                        href="#features"
+                        onClick={() => setShowWelcomePopup(false)}
+                        className="px-6 py-2.5 text-[#9F80DA] border-2 border-[#9F80DA] rounded-lg hover:bg-[#9F80DA] hover:text-white transition-all font-medium"
+                      >
+                        See all features
+                      </a>
+                      <button
+                        onClick={() => setShowWelcomePopup(false)}
+                        className="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all font-medium"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {/* Navigation Arrows */}
-            <div className="hidden md:flex justify-end gap-3">
-              <button
-                onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
-                disabled={currentStep === 0}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                  currentStep === 0
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
-                disabled={currentStep === steps.length - 1}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
-                  currentStep === steps.length - 1
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
+            {!showThankYou && (
+              <div className="hidden md:flex justify-end gap-3">
+                <button
+                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  disabled={currentStep === 0}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                    currentStep === 0
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
+                  disabled={currentStep === steps.length - 1}
+                  className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
+                    currentStep === steps.length - 1
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}
@@ -1856,7 +1964,7 @@ export default function Home() {
             <div className="text-center">
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Thank you for your interest!</h3>
               <p className="text-gray-600 leading-relaxed">
-                We'll be in touch soon to help you get started with Course Scribe.
+                We'll be in touch soon to help you get started with Acadion.ai.
               </p>
             </div>
 
