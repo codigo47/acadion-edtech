@@ -27,12 +27,12 @@ import ProjectManagementFeature from './components/features-landing/ProjectManag
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
   const [showInitialPopup, setShowInitialPopup] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedPlanType, setSelectedPlanType] = useState<'Personal' | 'Enterprise'>('Personal');
   const [selectedPlanName, setSelectedPlanName] = useState('');
   const [scrolled, setScrolled] = useState(false);
@@ -58,6 +58,7 @@ export default function Home() {
     setSelectedPlanName(planName);
     setCurrentStep(0);
     setShowThankYou(false);
+    setIsSubmitting(false);
     setShowWelcomePopup(true);
   };
 
@@ -65,9 +66,8 @@ export default function Home() {
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      // Last step, show Thank You section
-      setCurrentStep(steps.length); // Mark last step as completed
-      setShowThankYou(true);
+      // Last step, submit form and show Thank You section after loading
+      handleSubmit();
     }
   };
 
@@ -387,8 +387,10 @@ export default function Home() {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
 
     // Validate that at least one deliverable is selected
     if (formData.deliverables.length === 0) {
@@ -396,22 +398,8 @@ export default function Home() {
       return;
     }
 
-    // Send event to Google Analytics
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'generate_lead', {
-        debug_mode: process.env.NODE_ENV === 'development',
-        event_category: 'Form',
-        event_label: 'Contact Form Submission',
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        user_type: formData.userType,
-        team_size: formData.team_size || 'N/A',
-        company: formData.company || 'Not provided',
-        deliverables: formData.deliverables.join(', '),
-        deliverables_count: formData.deliverables.length,
-      });
-    }
+    // Set loading state
+    setIsSubmitting(true);
 
     // PostHog tracking
     if (posthog) {
@@ -441,25 +429,26 @@ export default function Home() {
     }
 
     console.log('Form submitted:', formData);
-    setShowSuccessPopup(true);
 
-    // Reset form
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      company: '',
-      userType: '',
-      team_size: '',
-      experience: '',
-      sector: '',
-      deliverables: []
-    });
-
-    // Auto-close popup after 5 seconds
+    // Show thank you page after 1.2 seconds
     setTimeout(() => {
-      setShowSuccessPopup(false);
-    }, 5000);
+      setCurrentStep(steps.length); // Mark last step as completed
+      setShowThankYou(true);
+      setIsSubmitting(false);
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        company: '',
+        userType: '',
+        team_size: '',
+        experience: '',
+        sector: '',
+        deliverables: []
+      });
+    }, 1200);
   };
 
   const fadeInUp = {
@@ -1464,7 +1453,7 @@ export default function Home() {
             </div>
 
             {/* Form Content */}
-            <div className="mb-0 md:mb-12 min-h-[200px] md:min-h-[500px] flex flex-col justify-center">
+            <form onSubmit={handleSubmit} className="mb-0 md:mb-12 min-h-[200px] md:min-h-[500px] flex flex-col justify-center">
               {!showThankYou && (
                 <>
                   <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4 md:mb-8">
@@ -1496,12 +1485,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1527,12 +1529,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1576,12 +1591,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1625,12 +1653,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1655,12 +1696,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1704,12 +1758,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1752,12 +1819,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1801,12 +1881,25 @@ export default function Home() {
                     <div className="flex flex-col items-center">
                       <button
                         onClick={handleNextStep}
-                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2"
+                        disabled={isSubmitting}
+                        className="bg-[#9F80DA] text-white px-6 py-2 md:px-8 md:py-3 rounded-lg hover:bg-[#8A6BC5] transition-all font-medium flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                       >
-                        {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
+                        {isSubmitting ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Loading...
+                          </>
+                        ) : (
+                          <>
+                            {currentStep === steps.length - 1 ? 'Finish' : 'Accept'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          </>
+                        )}
                       </button>
                       <p className="hidden md:block text-sm text-gray-400 mt-2">
                         press <span className="font-semibold">Enter ↵</span>
@@ -1887,7 +1980,7 @@ export default function Home() {
                   </div>
                 </motion.div>
               )}
-            </div>
+            </form>
 
             {/* Navigation Arrows */}
             {!showThankYou && (
@@ -1920,61 +2013,6 @@ export default function Home() {
                 </button>
               </div>
             )}
-          </motion.div>
-        </motion.div>
-      )}
-
-      {/* Success Popup */}
-      {showSuccessPopup && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-          onClick={() => setShowSuccessPopup(false)}
-        >
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button
-              onClick={() => setShowSuccessPopup(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            {/* Success icon */}
-            <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-            </div>
-
-            {/* Message */}
-            <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Thank you for your interest!</h3>
-              <p className="text-gray-600 leading-relaxed">
-                We'll be in touch soon to help you get started with Acadion.ai.
-              </p>
-            </div>
-
-            {/* Optional close button */}
-            <button
-              onClick={() => setShowSuccessPopup(false)}
-              className="mt-6 w-full bg-[#9F80DA] text-white py-3 rounded-full hover:bg-[#8A6BC5] transition-all font-medium"
-            >
-              Got it!
-            </button>
           </motion.div>
         </motion.div>
       )}
