@@ -55,7 +55,7 @@ export default function ProjectManagementFeature() {
             className="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-gray-300"
           />
           <input type="checkbox" className="w-4 h-4 md:w-5 md:h-5 text-[#9F80DA] rounded" />
-          <span className="text-gray-700 text-sm md:text-base font-medium flex-1">Learning Objectives</span>
+          <span className="text-gray-700 text-sm md:text-base font-medium flex-1">Define Learning Objectives</span>
         </label>
       </div>
     </div>

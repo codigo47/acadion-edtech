@@ -1,9 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { posthog } from '@/lib/posthog-client';
+import { validateEmail, validateName, validateRequired, validateArrayNotEmpty } from '@/lib/validators';
 import AIGeneratedCourseFeature from './components/features-landing/AIGeneratedCourseFeature';
 import CourseCopilotFeature from './components/features-landing/CourseCopilotFeature';
 import AIImageGenerationFeature from './components/features-landing/AIImageGenerationFeature';
@@ -44,9 +45,27 @@ export default function Home() {
     userType: '', // 'myself' or 'company'
     team_size: '',
     experience: '',
-    sector: '',
+    sector: [] as string[],
     deliverables: [] as string[]
   });
+
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
+
+  // Refs for input focus
+  const firstNameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const companyRef = useRef<HTMLInputElement>(null);
+
+  // Auto-focus on error
+  useEffect(() => {
+    if (errors.firstName && firstNameRef.current) {
+      firstNameRef.current.focus();
+    } else if (errors.email && emailRef.current) {
+      emailRef.current.focus();
+    } else if (errors.company && companyRef.current) {
+      companyRef.current.focus();
+    }
+  }, [errors]);
 
   const personalSteps = ['Full Name', 'Email', 'Sector', 'Experience', 'Deliverables'];
   const enterpriseSteps = ['Full Name', 'Email', 'Sector', 'Company', 'Team Size', 'Deliverables'];
@@ -59,10 +78,106 @@ export default function Home() {
     setCurrentStep(0);
     setShowThankYou(false);
     setIsSubmitting(false);
+    setErrors({});
     setShowWelcomePopup(true);
   };
 
+  const validateCurrentStep = (): boolean => {
+    const newErrors: {[key: string]: string} = {};
+
+    // Step 0: Full Name
+    if (currentStep === 0) {
+      const nameValidation = validateName(formData.firstName, 'Full name');
+      if (!nameValidation.isValid) {
+        newErrors.firstName = nameValidation.error || 'Full name is required';
+      }
+    }
+
+    // Step 1: Email
+    if (currentStep === 1) {
+      const emailValidation = validateEmail(formData.email);
+      if (!emailValidation.isValid) {
+        newErrors.email = emailValidation.error || 'Valid email is required';
+      }
+    }
+
+    // Step 2: Sector
+    if (currentStep === 2) {
+      const sectorValidation = validateArrayNotEmpty(formData.sector, 'sector');
+      if (!sectorValidation.isValid) {
+        newErrors.sector = sectorValidation.error || 'Please select at least one sector';
+      }
+    }
+
+    // Step 3: Experience (Personal) or Company (Enterprise)
+    if (currentStep === 3) {
+      if (selectedPlanType === 'Personal') {
+        const experienceValidation = validateRequired(formData.experience, 'Experience');
+        if (!experienceValidation.isValid) {
+          newErrors.experience = experienceValidation.error || 'Please select your experience level';
+        }
+      } else {
+        const companyValidation = validateRequired(formData.company, 'Company name');
+        if (!companyValidation.isValid) {
+          newErrors.company = companyValidation.error || 'Company name is required';
+        }
+      }
+    }
+
+    // Step 4: Deliverables (Personal) or Team Size (Enterprise)
+    if (currentStep === 4) {
+      if (selectedPlanType === 'Personal') {
+        const deliverablesValidation = validateArrayNotEmpty(formData.deliverables, 'deliverable');
+        if (!deliverablesValidation.isValid) {
+          newErrors.deliverables = deliverablesValidation.error || 'Please select at least one deliverable';
+        }
+      } else {
+        const teamSizeValidation = validateRequired(formData.team_size, 'Team size');
+        if (!teamSizeValidation.isValid) {
+          newErrors.team_size = teamSizeValidation.error || 'Please select your team size';
+        }
+      }
+    }
+
+    // Step 5: Deliverables (Enterprise)
+    if (currentStep === 5) {
+      const deliverablesValidation = validateArrayNotEmpty(formData.deliverables, 'deliverable');
+      if (!deliverablesValidation.isValid) {
+        newErrors.deliverables = deliverablesValidation.error || 'Please select at least one deliverable';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleStepChange = (newStep: number) => {
+    // If moving forward, validate current step
+    if (newStep > currentStep) {
+      if (!validateCurrentStep()) {
+        return;
+      }
+      // Clear errors for current step
+      setErrors({});
+    }
+
+    // If moving backward, just clear errors
+    if (newStep < currentStep) {
+      setErrors({});
+    }
+
+    setCurrentStep(newStep);
+  };
+
   const handleNextStep = () => {
+    // Validate current step before proceeding
+    if (!validateCurrentStep()) {
+      return;
+    }
+
+    // Clear errors for current step
+    setErrors({});
+
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -119,15 +234,28 @@ export default function Home() {
     return item.toLowerCase().replaceAll(' ', '-');
   };
 
-  const deliverableOptions = [
-    'E-learning module',
+  const personalDeliverableOptions = [
+    'E-learning modules',
+    'Job Aid',
+    'Quick Reference Guide (QRG)',
+    'Learner Guide',
+    'ILT Deck',
+    'vILT Session',
+    'Workbook',
+    'Infographic',
+    'Scenario-based activity'
+  ];
+
+  const enterpriseDeliverableOptions = [
+    'E-learning modules',
     'Microlearning',
     'Job Aid',
     'Quick Reference Guide (QRG)',
     'Facilitator Guide (FG)',
     'Participant Guide / Learner Guide',
+    'Learner Guide',
     'ILT Deck',
-    'VILT Session',
+    'vILT Session',
     'Workbook',
     'SOP (Standard Operating Procedure)',
     'Work Instruction (WI)',
@@ -141,6 +269,22 @@ export default function Home() {
     'Performance Support Tool'
   ];
 
+  const deliverableOptions = selectedPlanType === 'Personal'
+    ? personalDeliverableOptions
+    : enterpriseDeliverableOptions;
+
+  const handleSectorChange = (sector: string) => {
+    setFormData(prev => ({
+      ...prev,
+      sector: prev.sector.includes(sector)
+        ? prev.sector.filter(s => s !== sector)
+        : [...prev.sector, sector]
+    }));
+    if (errors.sector) {
+      setErrors({...errors, sector: ''});
+    }
+  };
+
   const handleDeliverableChange = (deliverable: string) => {
     setFormData(prev => ({
       ...prev,
@@ -148,6 +292,9 @@ export default function Home() {
         ? prev.deliverables.filter(d => d !== deliverable)
         : [...prev.deliverables, deliverable]
     }));
+    if (errors.deliverables) {
+      setErrors({...errors, deliverables: ''});
+    }
   };
 
   const features = [
@@ -261,7 +408,7 @@ export default function Home() {
     },
     {
       title: 'Professional Portfolio',
-      description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Add a bio to personalize your portfolio. Get metrics of the visits to your portfolio.',
+      description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Add a bio to personalize it. Get metrics of visits and engagement.',
       image: '/landing/feature15.gif',
       plan: 'Pro'
     },
@@ -347,7 +494,7 @@ export default function Home() {
   const faqs = [
     {
       question: 'What AI models does Acadion.ai use?',
-      answer: 'Acadion.ai leverages the most advanced generative AI models available, including OpenAI (GPT-4), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
+      answer: 'Acadion.ai leverages the most advanced generative AI models available, including OpenAI (GPT-5), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
     },
     {
       question: 'What types of content can I upload to Acadion.ai?',
@@ -392,9 +539,8 @@ export default function Home() {
       e.preventDefault();
     }
 
-    // Validate that at least one deliverable is selected
-    if (formData.deliverables.length === 0) {
-      alert('Please select at least one deliverable type');
+    // Validate current step (deliverables) before submitting
+    if (!validateCurrentStep()) {
       return;
     }
 
@@ -445,7 +591,7 @@ export default function Home() {
         userType: '',
         team_size: '',
         experience: '',
-        sector: '',
+        sector: [],
         deliverables: []
       });
     }, 1200);
@@ -599,7 +745,7 @@ export default function Home() {
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a
-                href="#contact"
+                href="#pricing"
                 className="bg-[#9F80DA] text-white px-8 py-4 rounded-full hover:bg-[#8A6BC5] transition-all transform hover:scale-105 text-lg font-medium shadow-lg flex items-center gap-2"
               >
                 Get Started for Free
@@ -849,7 +995,7 @@ export default function Home() {
               {
                 step: '01',
                 title: 'Sign Up',
-                description: 'Create your free account in seconds. No credit card required. Start with our generous free tier.',
+                description: 'Create your free account in seconds. No credit card required.',
                 icon: (
                   <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -1279,7 +1425,7 @@ export default function Home() {
                 Create engaged and interactive AI powered learning experiences
               </p>
               <a
-                href="#contact"
+                href="#pricing"
                 className="inline-block bg-[#9F80DA] text-white px-6 py-2.5 rounded-full hover:bg-[#8A6BC5] transition-colors font-medium"
               >
                 Start Now
@@ -1386,8 +1532,8 @@ export default function Home() {
                   <div key={`step-${index}`} className="flex flex-col items-center min-w-0 flex-shrink">
                     <button
                       type="button"
-                      onClick={() => setCurrentStep(index)}
-                      className={`w-6 h-6 rounded-full flex items-center justify-center font-semibold mb-1 transition-all cursor-pointer hover:scale-110 text-[10px] ${
+                      onClick={() => handleStepChange(index)}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center font-semibold mb-1 transition-all cursor-pointer hover:scale-110 text-[11px] ${
                         index < currentStep
                           ? 'bg-[#86C5A8] text-white'
                           : index === currentStep
@@ -1396,14 +1542,14 @@ export default function Home() {
                       }`}
                     >
                       {index < currentStep ? (
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                       ) : (
                         index + 1
                       )}
                     </button>
-                    <span className={`text-[8.8px] font-medium text-center leading-tight max-w-[45px] ${
+                    <span className={`text-[10px] font-medium text-center leading-tight max-w-[50px] ${
                       index < currentStep ? 'text-[#86C5A8]' : index === currentStep ? 'text-[#9F80DA]' : 'text-gray-400'
                     }`}>
                       {step}
@@ -1419,7 +1565,7 @@ export default function Home() {
                     <div key={`step-${index}`} className="flex flex-col items-center min-w-fit">
                       <button
                         type="button"
-                        onClick={() => setCurrentStep(index)}
+                        onClick={() => handleStepChange(index)}
                         className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold mb-2 transition-all cursor-pointer hover:scale-110 ${
                           index < currentStep
                             ? 'bg-[#86C5A8] text-white'
@@ -1459,7 +1605,7 @@ export default function Home() {
                   <h3 className="text-xl sm:text-3xl font-bold text-gray-900 mb-4 md:mb-8">
                     {currentStep === 0 && "What's your full name?"}
                     {currentStep === 1 && 'What is your email address?'}
-                    {currentStep === 2 && 'What sector do you work in?'}
+                    {currentStep === 2 && 'What sectors do you work in?'}
                     {currentStep === 3 && selectedPlanType === 'Personal' && 'How many years of experience do you have?'}
                     {currentStep === 3 && selectedPlanType === 'Enterprise' && 'What is your company name?'}
                     {currentStep === 4 && selectedPlanType === 'Personal' && 'What type of deliverables are you interested in?'}
@@ -1472,15 +1618,39 @@ export default function Home() {
               {/* Step 0: Full Name */}
               {!showThankYou && currentStep === 0 && (
                 <>
-                  <input
-                    type="text"
-                    value={formData.firstName}
-                    onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                    onKeyDown={handleKeyDown}
-                    className="w-full px-4 py-2 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-base sm:text-xl mb-4 md:mb-8"
-                    placeholder="Type your answer here..."
-                    autoFocus
-                  />
+                  <div className="w-full">
+                    <input
+                      ref={firstNameRef}
+                      type="text"
+                      value={formData.firstName}
+                      onChange={(e) => {
+                        setFormData({...formData, firstName: e.target.value});
+                        if (errors.firstName) {
+                          setErrors({...errors, firstName: ''});
+                        }
+                      }}
+                      onKeyDown={handleKeyDown}
+                      className={`w-full px-4 py-2 sm:py-4 border-b-2 ${
+                        errors.firstName
+                          ? 'border-red-500 focus:border-red-500'
+                          : 'border-gray-200 focus:border-[#9F80DA]'
+                      } outline-none transition text-base sm:text-xl ${errors.firstName ? 'mb-2' : 'mb-4 md:mb-8'}`}
+                      placeholder="Type your answer here..."
+                      autoFocus
+                    />
+                    {errors.firstName && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-500 text-sm flex items-center gap-1.5 mb-4 md:mb-8"
+                      >
+                        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {errors.firstName}
+                      </motion.p>
+                    )}
+                  </div>
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1516,15 +1686,39 @@ export default function Home() {
               {/* Step 1: Email */}
               {!showThankYou && currentStep === 1 && (
                 <>
-                  <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    onKeyDown={handleKeyDown}
-                    className="w-full px-4 py-2 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-base sm:text-xl mb-4 md:mb-8"
-                    placeholder="Type your answer here..."
-                    autoFocus
-                  />
+                  <div className="w-full">
+                    <input
+                      ref={emailRef}
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => {
+                        setFormData({...formData, email: e.target.value});
+                        if (errors.email) {
+                          setErrors({...errors, email: ''});
+                        }
+                      }}
+                      onKeyDown={handleKeyDown}
+                      className={`w-full px-4 py-2 sm:py-4 border-b-2 ${
+                        errors.email
+                          ? 'border-red-500 focus:border-red-500'
+                          : 'border-gray-200 focus:border-[#9F80DA]'
+                      } outline-none transition text-base sm:text-xl ${errors.email ? 'mb-2' : 'mb-4 md:mb-8'}`}
+                      placeholder="Type your answer here..."
+                      autoFocus
+                    />
+                    {errors.email && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-500 text-sm flex items-center gap-1.5 mb-4 md:mb-8"
+                      >
+                        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {errors.email}
+                      </motion.p>
+                    )}
+                  </div>
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1560,24 +1754,26 @@ export default function Home() {
               {/* Step 2: Sector (Both Personal and Enterprise) */}
               {!showThankYou && currentStep === 2 && (
                 <>
-                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
+                  <div className={`flex flex-wrap gap-2 sm:gap-3 justify-center ${errors.sector ? 'mb-2' : 'mb-8'}`}>
                     {['Consulting', 'Human Resources', 'Marketing', 'Learning and Development', 'Higher Education', 'Other'].map((sec) => (
                       <button
                         key={sec}
                         type="button"
-                        onClick={() => setFormData({...formData, sector: sec})}
+                        onClick={() => handleSectorChange(sec)}
                         className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
-                          formData.sector === sec
+                          formData.sector.includes(sec)
                             ? 'bg-[#9F80DA] text-white shadow-md'
+                            : errors.sector
+                            ? 'bg-red-50 text-gray-700 hover:bg-red-100 border-2 border-red-200'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
                         <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
-                          formData.sector === sec
+                          formData.sector.includes(sec)
                             ? 'bg-white border-white'
                             : 'bg-white border-gray-300'
                         }`}>
-                          {formData.sector === sec && (
+                          {formData.sector.includes(sec) && (
                             <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                             </svg>
@@ -1587,6 +1783,18 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
+                  {errors.sector && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-sm flex items-center gap-1.5 mb-8 justify-center"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {errors.sector}
+                    </motion.p>
+                  )}
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1622,15 +1830,22 @@ export default function Home() {
               {/* Step 3: Years of Experience (Personal) or Company (Enterprise) */}
               {!showThankYou && currentStep === 3 && selectedPlanType === 'Personal' && (
                 <>
-                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
+                  <div className={`flex flex-wrap gap-2 sm:gap-3 justify-center ${errors.experience ? 'mb-2' : 'mb-8'}`}>
                     {['1 to 3 years', '4 to 6 years', '+6 years'].map((exp) => (
                       <button
                         key={exp}
                         type="button"
-                        onClick={() => setFormData({...formData, experience: exp})}
+                        onClick={() => {
+                          setFormData({...formData, experience: exp});
+                          if (errors.experience) {
+                            setErrors({...errors, experience: ''});
+                          }
+                        }}
                         className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.experience === exp
                             ? 'bg-[#9F80DA] text-white shadow-md'
+                            : errors.experience
+                            ? 'bg-red-50 text-gray-700 hover:bg-red-100 border-2 border-red-200'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
@@ -1649,6 +1864,18 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
+                  {errors.experience && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-sm flex items-center gap-1.5 mb-8 justify-center"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {errors.experience}
+                    </motion.p>
+                  )}
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1683,15 +1910,39 @@ export default function Home() {
 
               {!showThankYou && currentStep === 3 && selectedPlanType === 'Enterprise' && (
                 <>
-                  <input
-                    type="text"
-                    value={formData.company}
-                    onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    onKeyDown={handleKeyDown}
-                    className="w-full px-4 py-2 sm:py-4 border-b-2 border-gray-200 focus:border-[#9F80DA] outline-none transition text-base sm:text-xl mb-4 md:mb-8"
-                    placeholder="Type your answer here..."
-                    autoFocus
-                  />
+                  <div className="w-full">
+                    <input
+                      ref={companyRef}
+                      type="text"
+                      value={formData.company}
+                      onChange={(e) => {
+                        setFormData({...formData, company: e.target.value});
+                        if (errors.company) {
+                          setErrors({...errors, company: ''});
+                        }
+                      }}
+                      onKeyDown={handleKeyDown}
+                      className={`w-full px-4 py-2 sm:py-4 border-b-2 ${
+                        errors.company
+                          ? 'border-red-500 focus:border-red-500'
+                          : 'border-gray-200 focus:border-[#9F80DA]'
+                      } outline-none transition text-base sm:text-xl ${errors.company ? 'mb-2' : 'mb-4 md:mb-8'}`}
+                      placeholder="Type your answer here..."
+                      autoFocus
+                    />
+                    {errors.company && (
+                      <motion.p
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-red-500 text-sm flex items-center gap-1.5 mb-4 md:mb-8"
+                      >
+                        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {errors.company}
+                      </motion.p>
+                    )}
+                  </div>
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1727,7 +1978,7 @@ export default function Home() {
               {/* Step 4: Deliverables (Personal) or Team Size (Enterprise) */}
               {!showThankYou && currentStep === 4 && selectedPlanType === 'Personal' && (
                 <>
-                  <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
+                  <div className={`flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto ${errors.deliverables ? 'mb-2' : 'mb-8'}`}>
                     {deliverableOptions.map((deliverable) => (
                       <button
                         key={deliverable}
@@ -1736,6 +1987,8 @@ export default function Home() {
                         className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.deliverables.includes(deliverable)
                             ? 'bg-[#9F80DA] text-white shadow-md'
+                            : errors.deliverables
+                            ? 'bg-red-50 text-gray-700 hover:bg-red-100 border-2 border-red-200'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
@@ -1754,6 +2007,18 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
+                  {errors.deliverables && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-sm flex items-center gap-1.5 mb-8 justify-center"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {errors.deliverables}
+                    </motion.p>
+                  )}
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1788,15 +2053,22 @@ export default function Home() {
 
               {!showThankYou && currentStep === 4 && selectedPlanType === 'Enterprise' && (
                 <>
-                  <div className="flex flex-wrap gap-2 sm:gap-3 justify-center mb-8">
+                  <div className={`flex flex-wrap gap-2 sm:gap-3 justify-center ${errors.team_size ? 'mb-2' : 'mb-8'}`}>
                     {['1-5', '6-10', '11-25', '26-50', '51+'].map((size) => (
                       <button
                         key={size}
                         type="button"
-                        onClick={() => setFormData({...formData, team_size: size})}
+                        onClick={() => {
+                          setFormData({...formData, team_size: size});
+                          if (errors.team_size) {
+                            setErrors({...errors, team_size: ''});
+                          }
+                        }}
                         className={`px-3 sm:px-6 py-1.5 sm:py-3 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.team_size === size
                             ? 'bg-[#9F80DA] text-white shadow-md'
+                            : errors.team_size
+                            ? 'bg-red-50 text-gray-700 hover:bg-red-100 border-2 border-red-200'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
@@ -1815,6 +2087,18 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
+                  {errors.team_size && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-sm flex items-center gap-1.5 mb-8 justify-center"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {errors.team_size}
+                    </motion.p>
+                  )}
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1850,7 +2134,7 @@ export default function Home() {
               {/* Step 5: Deliverables (Enterprise) */}
               {!showThankYou && currentStep === 5 && (
                 <>
-                  <div className="flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto mb-8">
+                  <div className={`flex flex-wrap gap-2 sm:gap-3 max-h-96 overflow-y-auto ${errors.deliverables ? 'mb-2' : 'mb-8'}`}>
                     {deliverableOptions.map((deliverable) => (
                       <button
                         key={deliverable}
@@ -1859,6 +2143,8 @@ export default function Home() {
                         className={`px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full font-medium transition-all text-xs sm:text-base flex items-center gap-1.5 sm:gap-2 ${
                           formData.deliverables.includes(deliverable)
                             ? 'bg-[#9F80DA] text-white shadow-md'
+                            : errors.deliverables
+                            ? 'bg-red-50 text-gray-700 hover:bg-red-100 border-2 border-red-200'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                         }`}
                       >
@@ -1877,6 +2163,18 @@ export default function Home() {
                       </button>
                     ))}
                   </div>
+                  {errors.deliverables && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-500 text-sm flex items-center gap-1.5 mb-8 justify-center"
+                    >
+                      <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      {errors.deliverables}
+                    </motion.p>
+                  )}
                   <div className="flex justify-start">
                     <div className="flex flex-col items-center">
                       <button
@@ -1986,7 +2284,7 @@ export default function Home() {
             {!showThankYou && (
               <div className="hidden md:flex justify-end gap-3">
                 <button
-                  onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
+                  onClick={() => handleStepChange(Math.max(0, currentStep - 1))}
                   disabled={currentStep === 0}
                   className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
                     currentStep === 0
@@ -1999,7 +2297,7 @@ export default function Home() {
                   </svg>
                 </button>
                 <button
-                  onClick={() => setCurrentStep(Math.min(steps.length - 1, currentStep + 1))}
+                  onClick={() => handleStepChange(Math.min(steps.length - 1, currentStep + 1))}
                   disabled={currentStep === steps.length - 1}
                   className={`w-12 h-12 rounded-full flex items-center justify-center transition-all ${
                     currentStep === steps.length - 1
