@@ -34,9 +34,9 @@ export default function MockDashboard() {
         { title: 'Analysis - Define learning objectives', assigned: 'Acadion.ai Agent', checked: true },
         { title: 'Design - Create course structure', assigned: 'Acadion.ai Agent', checked: true },
         { title: 'Development - Generate content', assigned: 'Acadion.ai Agent', checked: true },
-        { title: 'Content QA', assigned: 'Esteban Suarez', checked: false },
-        { title: 'Branding QA', assigned: 'Esteban Suarez', checked: false },
-        { title: 'Draft Review', assigned: 'writer', checked: false }
+        { title: 'Content QA', assigned: 'John Doe', checked: false },
+        { title: 'Branding QA', assigned: 'John Doe', checked: false },
+        { title: 'SME', assigned: 'writer', checked: false }
       ]
     }
   ];

@@ -261,7 +261,7 @@ export default function Home() {
     },
     {
       title: 'Professional Portfolio',
-      description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Add a bio to personalize your portfolio. Get metrics of the visits to your portfolio.',
+      description: 'Showcase your courses to clients and companies with a single click. Create a professional presentation of your work that impresses stakeholders and wins new business. Add a bio to personalize it. Get metrics of visits and engagement.',
       image: '/landing/feature15.gif',
       plan: 'Pro'
     },
@@ -347,7 +347,7 @@ export default function Home() {
   const faqs = [
     {
       question: 'What AI models does Acadion.ai use?',
-      answer: 'Acadion.ai leverages the most advanced generative AI models available, including OpenAI (GPT-4), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
+      answer: 'Acadion.ai leverages the most advanced generative AI models available, including OpenAI (GPT-5), Anthropic (Claude), and Google Gemini. This multi-model approach ensures you get the best results for different types of content generation and analysis.'
     },
     {
       question: 'What types of content can I upload to Acadion.ai?',
@@ -599,7 +599,7 @@ export default function Home() {
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <a
-                href="#contact"
+                href="#pricing"
                 className="bg-[#9F80DA] text-white px-8 py-4 rounded-full hover:bg-[#8A6BC5] transition-all transform hover:scale-105 text-lg font-medium shadow-lg flex items-center gap-2"
               >
                 Get Started for Free
@@ -849,7 +849,7 @@ export default function Home() {
               {
                 step: '01',
                 title: 'Sign Up',
-                description: 'Create your free account in seconds. No credit card required. Start with our generous free tier.',
+                description: 'Create your free account in seconds. No credit card required.',
                 icon: (
                   <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -1279,7 +1279,7 @@ export default function Home() {
                 Create engaged and interactive AI powered learning experiences
               </p>
               <a
-                href="#contact"
+                href="#pricing"
                 className="inline-block bg-[#9F80DA] text-white px-6 py-2.5 rounded-full hover:bg-[#8A6BC5] transition-colors font-medium"
               >
                 Start Now

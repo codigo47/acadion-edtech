@@ -45,7 +45,7 @@ export default function AboutPage() {
             transition={{ delay: 0.1 }}
             className="text-xl text-gray-600 leading-relaxed"
           >
-            We're a team of passionate instructional designers who transformed our vision into reality
+            We're a team of passionate instructional designers and developers who transformed our vision into reality
           </motion.p>
         </div>
       </section>
@@ -63,14 +63,14 @@ export default function AboutPage() {
             <div className="prose prose-lg max-w-none text-gray-600">
               <p className="mb-4">
                 It all started in a small co-working space in early 2023. We were a team of five instructional designers,
-                each with years of experience working in different sectors—corporate training, higher education,
+                each with years of experience working in different sectors: corporate training, higher education,
                 and EdTech startups. Despite our different backgrounds, we all shared the same frustrations.
               </p>
               <p className="mb-4">
                 The tools we used daily were either too complex, too limited, or simply didn't understand the unique
                 needs of instructional designers. We spent more time fighting with our tools than creating meaningful
                 learning experiences. The rise of AI promised to change everything, but most solutions felt like
-                they were built by engineers for engineers—not by educators for educators.
+                they were built by engineers for engineers, not by educators for educators.
               </p>
               <p className="mb-4">
                 One evening, over coffee and whiteboards filled with sketches, we asked ourselves: "What if we built
@@ -78,12 +78,12 @@ export default function AboutPage() {
               </p>
               <p className="mb-4">
                 We pooled our savings, left our stable jobs, and dove headfirst into building Acadion.ai. The early
-                days were intense—long nights of coding, countless user interviews with fellow instructional designers,
+                days were intense: long nights of coding, countless user interviews with fellow instructional designers,
                 and iterations upon iterations of our platform. We weren't just building software; we were crafting
                 a companion for the modern instructional designer.
               </p>
               <p className="mb-4">
-                Our breakthrough came when we realized that AI shouldn't replace the instructional designer's expertise—
+                Our breakthrough came when we realized that AI shouldn't replace the instructional designer's expertise,
                 it should amplify it. We developed our Course Copilot to work alongside designers, handling the
                 repetitive tasks and technical complexities while leaving the creative and pedagogical decisions where
                 they belong: in your hands.
@@ -128,7 +128,7 @@ export default function AboutPage() {
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                 <Lightbulb className="w-6 h-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Innovation</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">AI Innovation</h3>
               <p className="text-gray-600">
                 We continuously push boundaries to bring cutting-edge AI technology to learning design.
               </p>
@@ -160,7 +160,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Community</h3>
               <p className="text-gray-600">
-                We're building more than software—we're fostering a community of innovative learning professionals.
+                We're building more than software; we're fostering a community of innovative learning professionals.
               </p>
             </motion.div>
           </div>
