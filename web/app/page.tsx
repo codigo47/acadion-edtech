@@ -621,10 +621,10 @@ export default function Home() {
         transition={{ duration: 0.6 }}
         className="fixed top-0 w-full z-50"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20 relative z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+          <div className={`flex justify-between items-center h-16 px-6 relative z-50 rounded-3xl transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20 shadow-lg shadow-black/5' : 'bg-transparent border border-transparent'}`}>
             {/* Logo */}
-            <div className={`flex items-center h-14 rounded-2xl px-4 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
+            <div className="flex items-center">
               <img
                 src="/landing/acadion.png"
                 alt="Acadion Logo"
@@ -634,7 +634,7 @@ export default function Home() {
             </div>
 
             {/* Desktop Menu */}
-            <nav className={`hidden md:flex items-center h-14 space-x-8 rounded-2xl px-6 transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
+            <nav className="hidden md:flex items-center space-x-8">
               {menuItems.map((item) => (
                 <a
                   key={item}
@@ -653,7 +653,7 @@ export default function Home() {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`md:hidden text-gray-900 relative w-10 h-10 flex items-center justify-center overflow-visible rounded-2xl transition-all duration-300 ${scrolled ? 'bg-white/40 backdrop-blur-lg border border-white/20' : 'bg-transparent border border-transparent'}`}>
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden text-gray-900 relative w-10 h-10 flex items-center justify-center overflow-visible">
               <div className="w-6 relative flex flex-col gap-[5px]">
                 <span className={`block w-full h-[3px] bg-current rounded-full transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'rotate-45 translate-y-[8px] scale-y-[1.15]' : ''}`}></span>
                 <span className={`block w-full h-[3px] bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-0' : ''}`}></span>
