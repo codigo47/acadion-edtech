@@ -47,10 +47,13 @@ export default function TestimonialBlock({
       )}
 
       <div
-        className="relative z-10 grid gap-6"
-        style={{
-          gridTemplateColumns: `repeat(${Math.min(testimonials.length, 3)}, 1fr)`,
-        }}
+        className={`relative z-10 grid gap-6 grid-cols-1 ${
+          testimonials.length === 2
+            ? 'md:grid-cols-2'
+            : testimonials.length >= 3
+              ? 'md:grid-cols-2 lg:grid-cols-3'
+              : ''
+        }`}
       >
         {testimonials.map((testimonial, index) => (
           <div

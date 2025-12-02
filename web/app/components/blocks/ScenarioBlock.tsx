@@ -53,49 +53,53 @@ export default function ScenarioBlock({
 
   return (
     <div className="w-full p-4">
-      <div className="relative w-full h-80 rounded-lg overflow-hidden mb-6">
+      <div className="relative w-full min-h-[500px] rounded-lg overflow-hidden">
         <Image src={image} alt="Scenario" fill className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-        {/* Speech bubble */}
-        <div className="absolute bottom-6 left-6 right-6">
-          <div className="bg-white rounded-lg p-4 shadow-lg relative">
-            <div className="absolute -top-2 left-8 w-4 h-4 bg-white transform rotate-45" />
-            <p className="text-lg font-medium text-gray-900 relative z-10">
-              {question}
-            </p>
+        {/* Content overlay */}
+        <div className="absolute inset-0 flex flex-col justify-end p-6">
+          {/* Speech bubble */}
+          <div className="mb-4">
+            <div className="bg-white rounded-lg p-4 shadow-lg relative inline-block max-w-lg">
+              <div className="absolute -top-2 left-8 w-4 h-4 bg-white transform rotate-45" />
+              <p className="text-lg font-medium text-gray-900 relative z-10">
+                {question}
+              </p>
+            </div>
           </div>
+
+          {/* Answers */}
+          <div className="space-y-2">
+            {sortedAnswers.map((answer) => (
+              <button
+                key={answer.id}
+                onClick={() => !showResult && handleAnswer(answer.id)}
+                disabled={showResult}
+                className={`w-full p-3 rounded-lg border-2 text-left transition-all backdrop-blur-sm ${getAnswerStyle(
+                  answer
+                )} ${!showResult ? 'cursor-pointer' : 'cursor-default'}`}
+              >
+                <span className="font-medium">{answer.text}</span>
+                {showResult && selectedAnswer === answer.id && (
+                  <span className="ml-2">
+                    {answer.isCorrect ? '✓' : '✗'}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+
+          {showResult && (
+            <button
+              onClick={reset}
+              className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors self-start"
+            >
+              Try Again
+            </button>
+          )}
         </div>
       </div>
-
-      <div className="space-y-3">
-        {sortedAnswers.map((answer) => (
-          <button
-            key={answer.id}
-            onClick={() => !showResult && handleAnswer(answer.id)}
-            disabled={showResult}
-            className={`w-full p-4 rounded-lg border-2 text-left transition-all ${getAnswerStyle(
-              answer
-            )} ${!showResult ? 'cursor-pointer' : 'cursor-default'}`}
-          >
-            <span className="font-medium">{answer.text}</span>
-            {showResult && selectedAnswer === answer.id && (
-              <span className="ml-2">
-                {answer.isCorrect ? '✓' : '✗'}
-              </span>
-            )}
-          </button>
-        ))}
-      </div>
-
-      {showResult && (
-        <button
-          onClick={reset}
-          className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-        >
-          Try Again
-        </button>
-      )}
     </div>
   );
 }

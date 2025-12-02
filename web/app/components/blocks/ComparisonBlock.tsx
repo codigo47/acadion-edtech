@@ -39,6 +39,14 @@ export default function ComparisonBlock({
     },
   }[blockStyle];
 
+  const getGridCols = () => {
+    const count = items.length;
+    if (count === 1) return 'grid-cols-1';
+    if (count === 2) return 'grid-cols-1 sm:grid-cols-2';
+    if (count === 3) return 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
+    return 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4';
+  };
+
   return (
     <div
       className="w-full p-4 rounded-lg"
@@ -48,7 +56,7 @@ export default function ComparisonBlock({
         borderRadius: textBackgroundStyle.borderRadius,
       }}
     >
-      <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${items.length}, 1fr)` }}>
+      <div className={`grid gap-4 ${getGridCols()}`}>
         {items.map((item, index) => (
           <div
             key={index}
