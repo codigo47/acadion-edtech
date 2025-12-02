@@ -1,0 +1,40 @@
+'use client';
+
+import React from 'react';
+import Image from 'next/image';
+
+export interface GalleryImage {
+  src: string;
+  alt?: string;
+}
+
+export interface GalleryBlockProps {
+  images: GalleryImage[];
+}
+
+export default function GalleryBlock({ images }: GalleryBlockProps) {
+  return (
+    <div className="w-full p-4">
+      <div
+        className="flex flex-row gap-4 overflow-x-auto"
+        style={{
+          gridTemplateColumns: `repeat(${images.length}, minmax(200px, 1fr))`
+        }}
+      >
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 relative h-48 min-w-[200px] flex-1"
+          >
+            <Image
+              src={image.src}
+              alt={image.alt || `Gallery image ${index + 1}`}
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
