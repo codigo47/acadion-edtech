@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Check, X, RotateCcw } from 'lucide-react';
 import { TextStyle, BackgroundStyle } from './types';
 
@@ -25,14 +25,14 @@ interface Match {
 }
 
 const MATCH_COLORS = [
-  { stroke: '#22c55e', bg: 'bg-green-100', border: 'border-green-500', text: 'text-green-800', badge: 'bg-green-500' },
-  { stroke: '#3b82f6', bg: 'bg-blue-100', border: 'border-blue-500', text: 'text-blue-800', badge: 'bg-blue-500' },
-  { stroke: '#f59e0b', bg: 'bg-amber-100', border: 'border-amber-500', text: 'text-amber-800', badge: 'bg-amber-500' },
-  { stroke: '#8b5cf6', bg: 'bg-violet-100', border: 'border-violet-500', text: 'text-violet-800', badge: 'bg-violet-500' },
-  { stroke: '#ec4899', bg: 'bg-pink-100', border: 'border-pink-500', text: 'text-pink-800', badge: 'bg-pink-500' },
-  { stroke: '#14b8a6', bg: 'bg-teal-100', border: 'border-teal-500', text: 'text-teal-800', badge: 'bg-teal-500' },
-  { stroke: '#f97316', bg: 'bg-orange-100', border: 'border-orange-500', text: 'text-orange-800', badge: 'bg-orange-500' },
-  { stroke: '#06b6d4', bg: 'bg-cyan-100', border: 'border-cyan-500', text: 'text-cyan-800', badge: 'bg-cyan-500' },
+  { bg: 'bg-green-100', border: 'border-green-500', text: 'text-green-800', badge: 'bg-green-500' },
+  { bg: 'bg-blue-100', border: 'border-blue-500', text: 'text-blue-800', badge: 'bg-blue-500' },
+  { bg: 'bg-amber-100', border: 'border-amber-500', text: 'text-amber-800', badge: 'bg-amber-500' },
+  { bg: 'bg-violet-100', border: 'border-violet-500', text: 'text-violet-800', badge: 'bg-violet-500' },
+  { bg: 'bg-pink-100', border: 'border-pink-500', text: 'text-pink-800', badge: 'bg-pink-500' },
+  { bg: 'bg-teal-100', border: 'border-teal-500', text: 'text-teal-800', badge: 'bg-teal-500' },
+  { bg: 'bg-orange-100', border: 'border-orange-500', text: 'text-orange-800', badge: 'bg-orange-500' },
+  { bg: 'bg-cyan-100', border: 'border-cyan-500', text: 'text-cyan-800', badge: 'bg-cyan-500' },
 ];
 
 export default function MatchingPairsBlock({
@@ -45,11 +45,9 @@ export default function MatchingPairsBlock({
   const [matches, setMatches] = useState<Match[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [draggedItem, setDraggedItem] = useState<{ id: string; side: 'A' | 'B' } | null>(null);
+  const [dragOverItem, setDragOverItem] = useState<{ id: string; side: 'A' | 'B' } | null>(null);
   const [selectedItem, setSelectedItem] = useState<{ id: string; side: 'A' | 'B' } | null>(null);
   const [wrongMatch, setWrongMatch] = useState<{ aId: string; bId: string } | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const itemRefsA = useRef<Map<string, HTMLDivElement>>(new Map());
-  const itemRefsB = useRef<Map<string, HTMLDivElement>>(new Map());
 
   const isMatched = (id: string, side: 'A' | 'B') => {
     return matches.some((m) => (side === 'A' ? m.aId === id : m.bId === id));
@@ -79,37 +77,29 @@ export default function MatchingPairsBlock({
     }
     setDraggedItem({ id, side });
     e.dataTransfer.effectAllowed = 'move';
-
-    // Create a custom drag image
-    const target = e.currentTarget as HTMLElement;
-    const rect = target.getBoundingClientRect();
-    const clone = target.cloneNode(true) as HTMLElement;
-    clone.style.position = 'absolute';
-    clone.style.top = '-1000px';
-    clone.style.left = '-1000px';
-    clone.style.width = `${rect.width}px`;
-    clone.style.height = `${rect.height}px`;
-    clone.style.backgroundColor = '#3b82f6';
-    clone.style.borderColor = '#2563eb';
-    clone.style.color = 'white';
-    clone.style.transform = 'rotate(3deg) scale(1.05)';
-    clone.style.boxShadow = '0 10px 25px rgba(0,0,0,0.3)';
-    clone.style.opacity = '1';
-    clone.style.borderRadius = '8px';
-    clone.style.padding = '16px';
-    clone.style.boxSizing = 'border-box';
-    document.body.appendChild(clone);
-    e.dataTransfer.setDragImage(clone, rect.width / 2, rect.height / 2);
-
-    // Clean up clone after drag starts
-    setTimeout(() => {
-      document.body.removeChild(clone);
-    }, 0);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDragEnter = (e: React.DragEvent, id: string, side: 'A' | 'B') => {
+    e.preventDefault();
+    // Only highlight if dragging from opposite side and target is not matched
+    if (draggedItem && draggedItem.side !== side && !isMatched(id, side)) {
+      setDragOverItem({ id, side });
+    }
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    // Only clear if leaving the actual element (not entering a child)
+    const relatedTarget = e.relatedTarget as Node;
+    const currentTarget = e.currentTarget as Node;
+    if (!currentTarget.contains(relatedTarget)) {
+      setDragOverItem(null);
+    }
   };
 
   const handleDrop = (e: React.DragEvent, targetId: string, targetSide: 'A' | 'B') => {
@@ -136,34 +126,32 @@ export default function MatchingPairsBlock({
     }
 
     setDraggedItem(null);
+    setDragOverItem(null);
   };
 
   const handleDragEnd = () => {
     setDraggedItem(null);
+    setDragOverItem(null);
   };
 
   const handleClick = (id: string, side: 'A' | 'B') => {
     if (isMatched(id, side) || showResults) return;
 
-    // If no item is selected, select this one
     if (!selectedItem) {
       setSelectedItem({ id, side });
       return;
     }
 
-    // If clicking the same item, deselect it
     if (selectedItem.id === id && selectedItem.side === side) {
       setSelectedItem(null);
       return;
     }
 
-    // If clicking an item from the same side, switch selection
     if (selectedItem.side === side) {
       setSelectedItem({ id, side });
       return;
     }
 
-    // Attempt to match items from different sides
     const aId = selectedItem.side === 'A' ? selectedItem.id : id;
     const bId = selectedItem.side === 'B' ? selectedItem.id : id;
 
@@ -185,6 +173,7 @@ export default function MatchingPairsBlock({
   const getItemStyle = (id: string, side: 'A' | 'B') => {
     const matchColor = getMatchColor(id, side);
     const isDragging = draggedItem?.id === id && draggedItem?.side === side;
+    const isDragOver = dragOverItem?.id === id && dragOverItem?.side === side;
     const isSelected = selectedItem?.id === id && selectedItem?.side === side;
     const isWrong = wrongMatch && ((side === 'A' && wrongMatch.aId === id) || (side === 'B' && wrongMatch.bId === id));
 
@@ -193,6 +182,11 @@ export default function MatchingPairsBlock({
     }
     if (matchColor) {
       return `${matchColor.bg} ${matchColor.border} ${matchColor.text}`;
+    }
+    if (isDragOver) {
+      return dark
+        ? 'bg-primary/20 border-primary border-dashed text-gray-200 ring-2 ring-primary ring-offset-2 ring-offset-gray-900 scale-[1.02]'
+        : 'bg-primary/10 border-primary border-dashed ring-2 ring-primary ring-offset-2 scale-[1.02]';
     }
     if (isSelected) {
       return 'bg-blue-100 border-blue-500 text-blue-800 ring-2 ring-blue-300 ring-offset-1';
@@ -220,47 +214,6 @@ export default function MatchingPairsBlock({
 
   const allCorrect = matches.length === itemsA.length;
 
-  // Calculate SVG paths for curved arrows
-  const [paths, setPaths] = useState<{ aId: string; bId: string; path: string; color: string; number: number }[]>([]);
-
-  useEffect(() => {
-    const calculatePaths = () => {
-      if (!containerRef.current) return;
-
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const newPaths: { aId: string; bId: string; path: string; color: string; number: number }[] = [];
-
-      matches.forEach((match, index) => {
-        const elA = itemRefsA.current.get(match.aId);
-        const elB = itemRefsB.current.get(match.bId);
-
-        if (elA && elB) {
-          const rectA = elA.getBoundingClientRect();
-          const rectB = elB.getBoundingClientRect();
-
-          const startX = rectA.right - containerRect.left;
-          const startY = rectA.top + rectA.height / 2 - containerRect.top;
-          const endX = rectB.left - containerRect.left;
-          const endY = rectB.top + rectB.height / 2 - containerRect.top;
-
-          const midX = (startX + endX) / 2;
-          const controlOffset = Math.abs(endY - startY) * 0.3 + 30;
-
-          const path = `M ${startX} ${startY} C ${midX + controlOffset} ${startY}, ${midX - controlOffset} ${endY}, ${endX} ${endY}`;
-          const color = MATCH_COLORS[match.colorIndex % MATCH_COLORS.length].stroke;
-
-          newPaths.push({ aId: match.aId, bId: match.bId, path, color, number: index + 1 });
-        }
-      });
-
-      setPaths(newPaths);
-    };
-
-    calculatePaths();
-    window.addEventListener('resize', calculatePaths);
-    return () => window.removeEventListener('resize', calculatePaths);
-  }, [matches, itemsA]);
-
   return (
     <div
       className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
@@ -281,41 +234,7 @@ export default function MatchingPairsBlock({
         }
       `}</style>
 
-      <div ref={containerRef} className="relative grid grid-cols-2 gap-8">
-        {/* SVG for curved arrows */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none z-10">
-          <defs>
-            {MATCH_COLORS.map((color, index) => (
-              <marker
-                key={`arrowhead-${index}`}
-                id={`arrowhead-${index}`}
-                markerWidth="10"
-                markerHeight="7"
-                refX="9"
-                refY="3.5"
-                orient="auto"
-              >
-                <polygon points="0 0, 10 3.5, 0 7" fill={color.stroke} />
-              </marker>
-            ))}
-          </defs>
-          {paths.map((p, index) => {
-            const match = matches.find(m => m.aId === p.aId && m.bId === p.bId);
-            const colorIndex = match?.colorIndex ?? 0;
-            return (
-              <path
-                key={`${p.aId}-${p.bId}`}
-                d={p.path}
-                fill="none"
-                stroke={p.color}
-                strokeWidth="3"
-                markerEnd={`url(#arrowhead-${colorIndex % MATCH_COLORS.length})`}
-                className="transition-all duration-300"
-              />
-            );
-          })}
-        </svg>
-
+      <div className="grid grid-cols-2 gap-8">
         {/* Column A */}
         <div className="space-y-3">
           <h4 className={`font-semibold mb-2 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>Column A</h4>
@@ -325,12 +244,11 @@ export default function MatchingPairsBlock({
             return (
               <div
                 key={item.id}
-                ref={(el) => {
-                  if (el) itemRefsA.current.set(item.id, el);
-                }}
                 draggable={!isMatched(item.id, 'A') && !showResults}
                 onDragStart={(e) => handleDragStart(e, item.id, 'A')}
                 onDragOver={handleDragOver}
+                onDragEnter={(e) => handleDragEnter(e, item.id, 'A')}
+                onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, item.id, 'A')}
                 onDragEnd={handleDragEnd}
                 onClick={() => handleClick(item.id, 'A')}
@@ -371,12 +289,11 @@ export default function MatchingPairsBlock({
             return (
               <div
                 key={item.id}
-                ref={(el) => {
-                  if (el) itemRefsB.current.set(item.id, el);
-                }}
                 draggable={!isMatched(item.id, 'B') && !showResults}
                 onDragStart={(e) => handleDragStart(e, item.id, 'B')}
                 onDragOver={handleDragOver}
+                onDragEnter={(e) => handleDragEnter(e, item.id, 'B')}
+                onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, item.id, 'B')}
                 onDragEnd={handleDragEnd}
                 onClick={() => handleClick(item.id, 'B')}

@@ -8,6 +8,7 @@ export interface MultipleChoiceOption {
   id: string;
   text: string;
   isCorrect: boolean;
+  feedback?: string;
 }
 
 export interface MultipleChoiceBlockProps {
@@ -55,6 +56,8 @@ export default function MultipleChoiceBlock({
     }
     return dark ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200';
   };
+
+  const selectedOption = items.find((item) => item.id === selectedId);
 
   return (
     <div
@@ -112,12 +115,25 @@ export default function MultipleChoiceBlock({
       </div>
 
       {showResult && (
-        <button
-          onClick={reset}
-          className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-        >
-          Try Again
-        </button>
+        <div className="mt-4 flex items-start gap-4">
+          <button
+            onClick={reset}
+            className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
+          >
+            Try Again
+          </button>
+          {selectedOption?.feedback && (
+            <div
+              className={`flex-1 p-3 rounded-lg ${
+                selectedOption.isCorrect
+                  ? 'bg-green-50 border border-green-200 text-green-800'
+                  : 'bg-red-50 border border-red-200 text-red-800'
+              }`}
+            >
+              <p className="text-sm">{selectedOption.feedback}</p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

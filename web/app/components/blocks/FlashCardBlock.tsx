@@ -54,8 +54,7 @@ export default function FlashCardBlock({
       <div className="max-w-xl mx-auto">
         {/* Card */}
         <div
-          onClick={flipCard}
-          className="relative h-64 cursor-pointer perspective-1000"
+          className="relative h-64 perspective-1000"
         >
           <div
             className={`absolute inset-0 transition-transform duration-500 transform-style-3d ${
@@ -68,10 +67,10 @@ export default function FlashCardBlock({
           >
             {/* Front - Question */}
             <div
-              className="absolute inset-0 bg-gradient-to-br from-primary to-primary-dark rounded-xl shadow-lg flex items-center justify-center p-8 backface-hidden"
+              className="absolute inset-0 bg-gradient-to-br from-primary to-primary-dark rounded-xl shadow-lg flex flex-col items-center justify-center p-8 backface-hidden"
               style={{ backfaceVisibility: 'hidden' }}
             >
-              <div className="text-center">
+              <div className="text-center flex-1 flex flex-col items-center justify-center">
                 <span className="text-sm text-white/70 mb-2 block">Question</span>
                 <p
                   className="text-xl text-white font-medium"
@@ -82,19 +81,26 @@ export default function FlashCardBlock({
                 >
                   {currentCard.question}
                 </p>
-                <span className="text-sm text-white/50 mt-4 block">Click to reveal answer</span>
-              </div>
+                </div>
+              {/* Flip button inside card - front */}
+              <button
+                onClick={flipCard}
+                className="absolute bottom-4 right-4 p-3 rounded-full bg-white/20 hover:bg-white/30 transition-colors hover:scale-110"
+                aria-label="Flip card"
+              >
+                <RotateCcw className="w-5 h-5 text-white" />
+              </button>
             </div>
 
             {/* Back - Answer */}
             <div
-              className={`absolute inset-0 border-2 border-primary rounded-xl shadow-lg flex items-center justify-center p-8 ${dark ? 'bg-gray-800' : 'bg-white'}`}
+              className={`absolute inset-0 border-2 border-primary rounded-xl shadow-lg flex flex-col items-center justify-center p-8 ${dark ? 'bg-gray-800' : 'bg-white'}`}
               style={{
                 backfaceVisibility: 'hidden',
                 transform: 'rotateY(180deg)',
               }}
             >
-              <div className="text-center">
+              <div className="text-center flex-1 flex flex-col items-center justify-center">
                 <span className={`text-sm mb-2 block ${dark ? 'text-gray-400' : 'text-gray-500'}`}>Answer</span>
                 <p
                   className={`text-xl font-medium ${dark ? 'text-white' : 'text-gray-800'}`}
@@ -107,6 +113,16 @@ export default function FlashCardBlock({
                   {currentCard.answer}
                 </p>
               </div>
+              {/* Flip button inside card - back */}
+              <button
+                onClick={flipCard}
+                className={`absolute bottom-4 right-4 p-3 rounded-full transition-colors hover:scale-110 ${
+                  dark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'
+                }`}
+                aria-label="Flip card"
+              >
+                <RotateCcw className={`w-5 h-5 ${dark ? 'text-gray-300' : 'text-gray-600'}`} />
+              </button>
             </div>
           </div>
         </div>
@@ -121,18 +137,9 @@ export default function FlashCardBlock({
             <ChevronLeft className={`w-5 h-5 ${dark ? 'text-gray-300' : 'text-gray-600'}`} />
           </button>
 
-          <div className="flex items-center gap-4">
-            <span className={dark ? 'text-gray-400' : 'text-gray-500'}>
-              {currentIndex + 1} / {items.length}
-            </span>
-            <button
-              onClick={() => setIsFlipped(false)}
-              className={`p-2 rounded-full transition-colors ${dark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
-              aria-label="Reset card"
-            >
-              <RotateCcw className={`w-4 h-4 ${dark ? 'text-gray-300' : 'text-gray-600'}`} />
-            </button>
-          </div>
+          <span className={dark ? 'text-gray-400' : 'text-gray-500'}>
+            {currentIndex + 1} / {items.length}
+          </span>
 
           <button
             onClick={goToNext}

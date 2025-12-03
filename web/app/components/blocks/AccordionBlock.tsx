@@ -1,13 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { ChevronDown } from 'lucide-react';
 import { TextStyle, BackgroundStyle, BlockStyle } from './types';
+
+export type ImagePosition = 'left' | 'right' | 'top' | 'bottom' | 'stretched';
 
 export interface AccordionItem {
   id: string;
   title: string;
   content: string;
+  image?: string;
+  imagePosition?: ImagePosition;
 }
 
 export interface AccordionBlockProps {
@@ -87,6 +92,86 @@ export default function AccordionBlock({
     },
   }[blockStyle];
 
+  const renderContent = (item: AccordionItem) => {
+    const imagePosition = item.imagePosition || 'right';
+    const hasImage = !!item.image;
+
+    if (!hasImage) {
+      return (
+        <p
+          style={{
+            fontSize: textStyle.fontSize,
+            color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
+            lineHeight: textStyle.lineHeight || '1.5',
+          }}
+        >
+          {item.content}
+        </p>
+      );
+    }
+
+    if (imagePosition === 'stretched') {
+      return (
+        <div className="relative">
+          <div className="relative w-full h-48 rounded-lg overflow-hidden">
+            <Image
+              src={item.image!}
+              alt={item.title}
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center p-4">
+              <p
+                className="text-white text-center"
+                style={{
+                  fontSize: textStyle.fontSize,
+                  lineHeight: textStyle.lineHeight || '1.5',
+                }}
+              >
+                {item.content}
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const isHorizontal = imagePosition === 'left' || imagePosition === 'right';
+    const isReversed = imagePosition === 'right' || imagePosition === 'bottom';
+
+    const containerClass = isHorizontal
+      ? `flex ${isReversed ? 'flex-row' : 'flex-row-reverse'} gap-4`
+      : `flex ${isReversed ? 'flex-col-reverse' : 'flex-col'} gap-4`;
+
+    const imageContainerClass = isHorizontal
+      ? 'relative w-1/3 h-32 flex-shrink-0'
+      : 'relative w-full h-40';
+
+    return (
+      <div className={containerClass}>
+        <div className="flex-1">
+          <p
+            style={{
+              fontSize: textStyle.fontSize,
+              color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
+              lineHeight: textStyle.lineHeight || '1.5',
+            }}
+          >
+            {item.content}
+          </p>
+        </div>
+        <div className={imageContainerClass}>
+          <Image
+            src={item.image!}
+            alt={item.title}
+            fill
+            className="object-cover rounded-lg"
+          />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div
       className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
@@ -126,19 +211,11 @@ export default function AccordionBlock({
 
             <div
               className={`overflow-hidden transition-all duration-300 ${
-                isOpen(item.id) ? 'max-h-96' : 'max-h-0'
+                isOpen(item.id) ? 'max-h-[500px]' : 'max-h-0'
               }`}
             >
               <div className={`${styleClasses.content} p-4 border-t ${dark ? 'border-gray-700' : 'border-gray-100'}`}>
-                <p
-                  style={{
-                    fontSize: textStyle.fontSize,
-                    color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
-                    lineHeight: textStyle.lineHeight || '1.5',
-                  }}
-                >
-                  {item.content}
-                </p>
+                {renderContent(item)}
               </div>
             </div>
           </div>

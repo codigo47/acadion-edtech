@@ -7,7 +7,7 @@ import { TextStyle, BackgroundStyle } from './types';
 export interface FillInTheBlankItem {
   id: string;
   text: string; // Use ___ or similar placeholder for the blank
-  answer: string;
+  answers: string[]; // Array of correct answers
 }
 
 export interface FillInTheBlankBlockProps {
@@ -17,6 +17,15 @@ export interface FillInTheBlankBlockProps {
   placeholder?: string;
   dark?: boolean;
 }
+
+// Function to normalize text for comparison (remove accents, lowercase)
+const normalizeText = (text: string): string => {
+  return text
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, ''); // Remove diacritics/accents
+};
 
 export default function FillInTheBlankBlock({
   items,
@@ -38,9 +47,8 @@ export default function FillInTheBlankBlock({
   };
 
   const isCorrect = (item: FillInTheBlankItem) => {
-    const userAnswer = answers[item.id]?.toLowerCase().trim();
-    const correctAnswer = item.answer.toLowerCase().trim();
-    return userAnswer === correctAnswer;
+    const userAnswer = normalizeText(answers[item.id] || '');
+    return item.answers.some((correctAnswer) => normalizeText(correctAnswer) === userAnswer);
   };
 
   const renderTextWithBlank = (item: FillInTheBlankItem) => {
@@ -95,7 +103,12 @@ export default function FillInTheBlankBlock({
                     <div className="flex items-center gap-1">
                       <X className="w-5 h-5 text-red-600" />
                       <span className="text-sm text-gray-500">
-                        Correct: <strong>{item.answer}</strong>
+                        Correct: <strong>{item.answers[0]}</strong>
+                        {item.answers.length > 1 && (
+                          <span className="text-xs text-gray-400 ml-1">
+                            (or: {item.answers.slice(1).join(', ')})
+                          </span>
+                        )}
                       </span>
                     </div>
                   )

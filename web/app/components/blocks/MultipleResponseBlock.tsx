@@ -13,6 +13,8 @@ export interface MultipleResponseOption {
 export interface MultipleResponseBlockProps {
   items: MultipleResponseOption[];
   question?: string;
+  correctFeedback?: string;
+  incorrectFeedback?: string;
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
   dark?: boolean;
@@ -21,6 +23,8 @@ export interface MultipleResponseBlockProps {
 export default function MultipleResponseBlock({
   items,
   question,
+  correctFeedback,
+  incorrectFeedback,
   textStyle = {},
   textBackgroundStyle = {},
   dark = false,
@@ -72,6 +76,12 @@ export default function MultipleResponseBlock({
       (item.isCorrect && selectedIds.includes(item.id)) ||
       (!item.isCorrect && !selectedIds.includes(item.id))
     );
+
+  const feedbackToShow = showResult
+    ? isAllCorrect
+      ? correctFeedback
+      : incorrectFeedback
+    : null;
 
   return (
     <div
@@ -136,7 +146,7 @@ export default function MultipleResponseBlock({
         })}
       </div>
 
-      <div className="flex items-center gap-4 mt-4">
+      <div className="flex items-start gap-4 mt-4">
         {!showResult ? (
           <button
             onClick={checkAnswers}
@@ -153,9 +163,21 @@ export default function MultipleResponseBlock({
             >
               Try Again
             </button>
-            <span className={`font-medium ${isAllCorrect ? 'text-green-600' : 'text-red-600'}`}>
-              {isAllCorrect ? 'All correct!' : 'Some answers are incorrect'}
-            </span>
+            {feedbackToShow ? (
+              <div
+                className={`flex-1 p-3 rounded-lg ${
+                  isAllCorrect
+                    ? 'bg-green-50 border border-green-200 text-green-800'
+                    : 'bg-red-50 border border-red-200 text-red-800'
+                }`}
+              >
+                <p className="text-sm">{feedbackToShow}</p>
+              </div>
+            ) : (
+              <span className={`font-medium py-2 ${isAllCorrect ? 'text-green-600' : 'text-red-600'}`}>
+                {isAllCorrect ? 'All correct!' : 'Some answers are incorrect'}
+              </span>
+            )}
           </>
         )}
       </div>

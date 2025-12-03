@@ -2,19 +2,61 @@
 
 import React, { useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
+
+// Paragraph Components
 import ParagraphBlock from '../components/blocks/ParagraphBlock';
+import ParagraphWithHeadingBlock from '../components/blocks/ParagraphWithHeadingBlock';
+import ParagraphWithSubheadingBlock from '../components/blocks/ParagraphWithSubheadingBlock';
+import ColumnsBlock from '../components/blocks/ColumnsBlock';
+
+// Heading Components
 import HeadingBlock from '../components/blocks/HeadingBlock';
-import TableBlock from '../components/blocks/TableBlock';
+import SubheadingBlock from '../components/blocks/SubheadingBlock';
+
+// Highlight Components
 import HighlightBlock from '../components/blocks/HighlightBlock';
-import ListBlock from '../components/blocks/ListBlock';
+import HighlightColumnBlock from '../components/blocks/HighlightColumnBlock';
+import HighlightCenterLineBlock from '../components/blocks/HighlightCenterLineBlock';
+import HighlightLeftLineBlock from '../components/blocks/HighlightLeftLineBlock';
+import HighlightBackgroundBlock from '../components/blocks/HighlightBackgroundBlock';
+
+// Image Components
 import ImageBlock from '../components/blocks/ImageBlock';
+import ImageWithTextBlock from '../components/blocks/ImageWithTextBlock';
+import ImageWithTextLeftBlock from '../components/blocks/ImageWithTextLeftBlock';
+import ImageWithTextCenterBlock from '../components/blocks/ImageWithTextCenterBlock';
+import ImageWithTextBottomBlock from '../components/blocks/ImageWithTextBottomBlock';
+import ImageWithTextTopBlock from '../components/blocks/ImageWithTextTopBlock';
+
+// Comparison Components
+import ComparisonBlock from '../components/blocks/ComparisonBlock';
+import ComparisonBeforeAfterBlock from '../components/blocks/ComparisonBeforeAfterBlock';
+import ComparisonProsConsBlock from '../components/blocks/ComparisonProsConsBlock';
+import ComparisonCauseEffectBlock from '../components/blocks/ComparisonCauseEffectBlock';
+import ComparisonDosDontsBlock from '../components/blocks/ComparisonDosDontsBlock';
+import ComparisonMythFactBlock from '../components/blocks/ComparisonMythFactBlock';
+
+// Chat Components
+import ChatBlock from '../components/blocks/ChatBlock';
+import ChatQABlock from '../components/blocks/ChatQABlock';
+import ChatQuestionWallBlock from '../components/blocks/ChatQuestionWallBlock';
+import ChatDialogBlock from '../components/blocks/ChatDialogBlock';
+
+// Quote Components
+import QuoteBlock from '../components/blocks/QuoteBlock';
+import QuoteCenterBorderBlock from '../components/blocks/QuoteCenterBorderBlock';
+import QuoteCenterLightBlock from '../components/blocks/QuoteCenterLightBlock';
+import QuoteLeftLightBlock from '../components/blocks/QuoteLeftLightBlock';
+import QuoteLeftBlock from '../components/blocks/QuoteLeftBlock';
+import QuoteImageBlock from '../components/blocks/QuoteImageBlock';
+
+// Other Components
+import TableBlock from '../components/blocks/TableBlock';
+import ListBlock from '../components/blocks/ListBlock';
 import GalleryBlock from '../components/blocks/GalleryBlock';
 import GraphBlock from '../components/blocks/GraphBlock';
 import TimelineBlock from '../components/blocks/TimelineBlock';
 import SeparatorBlock from '../components/blocks/SeparatorBlock';
-import ComparisonBlock from '../components/blocks/ComparisonBlock';
-import ChatBlock from '../components/blocks/ChatBlock';
-import QuoteBlock from '../components/blocks/QuoteBlock';
 import TestimonialBlock from '../components/blocks/TestimonialBlock';
 import CheckboxBlock from '../components/blocks/CheckboxBlock';
 import CarouselBlock from '../components/blocks/CarouselBlock';
@@ -23,12 +65,21 @@ import TabsBlock from '../components/blocks/TabsBlock';
 import LabeledImageBlock from '../components/blocks/LabeledImageBlock';
 import ScenarioBlock from '../components/blocks/ScenarioBlock';
 import SortingBlock from '../components/blocks/SortingBlock';
+import SortingStepsBlock from '../components/blocks/SortingStepsBlock';
 import FlashCardBlock from '../components/blocks/FlashCardBlock';
 import MultipleChoiceBlock from '../components/blocks/MultipleChoiceBlock';
 import MultipleResponseBlock from '../components/blocks/MultipleResponseBlock';
 import FillInTheBlankBlock from '../components/blocks/FillInTheBlankBlock';
 import MatchingPairsBlock from '../components/blocks/MatchingPairsBlock';
 import ButtonBlock from '../components/blocks/ButtonBlock';
+
+// New Components
+import ReviewsBlock from '../components/blocks/ReviewsBlock';
+import VideoBlock from '../components/blocks/VideoBlock';
+import AudioBlock from '../components/blocks/AudioBlock';
+import AttachmentBlock from '../components/blocks/AttachmentBlock';
+import EmbedBlock from '../components/blocks/EmbedBlock';
+import ButtonStackBlock from '../components/blocks/ButtonStackBlock';
 
 const sampleImage = '/sample.jpeg';
 
@@ -59,29 +110,446 @@ export default function PreviewPage() {
 
         <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={1} dark={dark} />
 
-        {/* HeadingBlock */}
-        <HeadingBlock heading="HeadingBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <HeadingBlock heading="Welcome to Our Learning Platform" level={1} textStyle={{ color: dark ? '#ffffff' : '#1a1a1a' }} dark={dark} />
-        <HeadingBlock heading="Chapter 1: Introduction" level={2} textStyle={{ color: dark ? '#d1d5db' : '#374151' }} dark={dark} />
-        <HeadingBlock heading="Section 1.1: Getting Started" level={3} textStyle={{ color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
+        {/* ============================================ */}
+        {/* HEADING COMPONENTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Heading Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="HeadingBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <HeadingBlock heading="Welcome to Our Learning Platform" level={1} dark={dark} />
+        <HeadingBlock heading="Chapter 1: Introduction" level={2} dark={dark} />
+        <HeadingBlock heading="Section 1.1: Getting Started" level={3} dark={dark} />
+
+        <ParagraphBlock content="SubheadingBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <SubheadingBlock subheading="This is a subheading for additional context" dark={dark} />
 
         <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={2} dark={dark} />
 
-        {/* ParagraphBlock */}
-        <HeadingBlock heading="ParagraphBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* PARAGRAPH COMPONENTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Paragraph Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="ParagraphBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
         <ParagraphBlock
+          content="E-learning has revolutionized the way we acquire knowledge and skills. With the advent of digital technology, learners can now access high-quality educational content from anywhere in the world."
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ParagraphWithHeadingBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ParagraphWithHeadingBlock
           heading="About E-Learning"
-          content="E-learning has revolutionized the way we acquire knowledge and skills. With the advent of digital technology, learners can now access high-quality educational content from anywhere in the world. This flexibility has made education more accessible and convenient than ever before. Whether you're looking to advance your career, learn a new hobby, or simply expand your horizons, e-learning offers endless possibilities for growth and development."
-          columns={2}
-          headingStyle={{ color: '#9F80DA', fontWeight: '700' }}
-          contentStyle={{ lineHeight: '1.8' }}
+          content="This flexibility has made education more accessible and convenient than ever before. Whether you're looking to advance your career, learn a new hobby, or simply expand your horizons."
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ParagraphWithSubheadingBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ParagraphWithSubheadingBlock
+          subheading="Key Benefits"
+          content="E-learning offers endless possibilities for growth and development, allowing you to learn at your own pace and on your own schedule."
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ColumnsBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ColumnsBlock
+          content="First column with introductory content about the course structure and methodology. Second column explaining the learning objectives and expected outcomes. Third column describing the assessment methods and certification process."
+          columns={3}
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={3} dark={dark} />
 
-        {/* TableBlock */}
-        <HeadingBlock heading="TableBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* HIGHLIGHT COMPONENTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Highlight Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="HighlightBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <HighlightBlock
+          highlight="Important: Always save your progress before closing the course module."
+          dark={dark}
+        />
+
+        <ParagraphBlock content="HighlightColumnBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <HighlightColumnBlock
+          highlight="This highlight is centered with extra padding for emphasis."
+          dark={dark}
+        />
+
+        <ParagraphBlock content="HighlightCenterLineBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <HighlightCenterLineBlock
+          highlight="A centered highlight with a decorative line above."
+          lineColor="#9F80DA"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="HighlightLeftLineBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <HighlightLeftLineBlock
+          highlight="Left-aligned highlight with a decorative line."
+          lineColor="#22C55E"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="HighlightBackgroundBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <HighlightBackgroundBlock
+          highlight="This highlight has a subtle background color for visual emphasis."
+          dark={dark}
+        />
+
+        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={4} dark={dark} />
+
+        {/* ============================================ */}
+        {/* IMAGE COMPONENTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Image Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="ImageBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ImageBlock image={sampleImage} alt="Sample image" dark={dark} />
+
+        <ParagraphBlock content="ImageWithTextBlock (image left, text right):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ImageWithTextBlock
+          image={sampleImage}
+          text="Image with text on the right side - perfect for feature highlights and descriptions."
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ImageWithTextLeftBlock (text left, image right):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ImageWithTextLeftBlock
+          image={sampleImage}
+          text="Text on the left with image on the right - ideal for alternating layouts."
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ImageWithTextCenterBlock (overlay):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ImageWithTextCenterBlock
+          image={sampleImage}
+          text="Centered overlay text on the image"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ImageWithTextBottomBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ImageWithTextBottomBlock
+          image={sampleImage}
+          text="Text caption displayed below the image"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ImageWithTextTopBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ImageWithTextTopBlock
+          image={sampleImage}
+          text="Text caption displayed above the image"
+          dark={dark}
+        />
+
+        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={5} dark={dark} />
+
+        {/* ============================================ */}
+        {/* COMPARISON COMPONENTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Comparison Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="ComparisonBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ComparisonBlock
+          items={[
+            { title: 'Basic Plan', content: 'Access to 10 courses, Email support, Basic certificate' },
+            { title: 'Pro Plan', content: 'Access to 50 courses, Priority support, Verified certificate' },
+          ]}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ComparisonBeforeAfterBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ComparisonBeforeAfterBlock
+          beforeItems={['Manual data entry', 'Paper-based processes', 'Limited accessibility']}
+          afterItems={['Automated workflows', 'Digital documentation', 'Access from anywhere']}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ComparisonProsConsBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ComparisonProsConsBlock
+          pros={['Flexible learning schedule', 'Cost effective', 'Wide variety of courses']}
+          cons={['Requires self-discipline', 'Limited hands-on practice', 'Internet dependency']}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ComparisonCauseEffectBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ComparisonCauseEffectBlock
+          cause="Poor time management and lack of clear goals"
+          effect="Missed deadlines and decreased productivity"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ComparisonDosDontsBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ComparisonDosDontsBlock
+          dos={['Set clear learning goals', 'Take regular breaks', 'Practice consistently']}
+          donts={['Procrastinate', 'Skip exercises', 'Multitask while learning']}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ComparisonMythFactBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ComparisonMythFactBlock
+          myth="You need expensive courses to learn effectively"
+          fact="Many free resources are excellent and studies show equal or better outcomes"
+          dark={dark}
+        />
+
+        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={6} dark={dark} />
+
+        {/* ============================================ */}
+        {/* CHAT COMPONENTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Chat Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="ChatBlock (full featured):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ChatBlock
+          messages={[
+            { participantId: 'receiver', text: 'Hi! How can I help you today?', time: '10:00 AM' },
+            { participantId: 'sender', text: 'I have a question about the React course.', time: '10:01 AM' },
+            { participantId: 'receiver', text: 'Sure! What would you like to know?', time: '10:02 AM' },
+          ]}
+          sender={{ name: 'Student', avatar: sampleImage }}
+          receiver={{ name: 'Support', avatar: sampleImage }}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ChatQABlock (names only):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ChatQABlock
+          messages={[
+            { participantId: 'receiver', text: 'What is the difference between let and const?' },
+            { participantId: 'sender', text: 'let allows reassignment, const does not.' },
+          ]}
+          sender={{ name: 'Instructor' }}
+          receiver={{ name: 'Student' }}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ChatQuestionWallBlock (2 columns Q&A):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ChatQuestionWallBlock
+          items={[
+            { question: 'What is React?', answer: 'A JavaScript library for building user interfaces.' },
+            { question: 'What are hooks?', answer: 'Functions that let you use state in functional components.' },
+          ]}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ChatDialogBlock (bubbles only):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ChatDialogBlock
+          messages={[
+            { text: 'Hello!', isLeft: true },
+            { text: 'Hi there!', isLeft: false },
+            { text: 'How are you?', isLeft: true },
+            { text: 'Great, thanks!', isLeft: false },
+          ]}
+          dark={dark}
+        />
+
+        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={7} dark={dark} />
+
+        {/* ============================================ */}
+        {/* QUOTE COMPONENTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Quote Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="QuoteBlock (default):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <QuoteBlock
+          content="Education is the most powerful weapon which you can use to change the world."
+          author="Nelson Mandela"
+          avatar={sampleImage}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="QuoteCenterBorderBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <QuoteCenterBorderBlock
+          content="The beautiful thing about learning is that no one can take it away from you."
+          author="B.B. King"
+          avatar={sampleImage}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="QuoteCenterLightBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <QuoteCenterLightBlock
+          content="Live as if you were to die tomorrow. Learn as if you were to live forever."
+          author="Mahatma Gandhi"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="QuoteLeftLightBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <QuoteLeftLightBlock
+          content="The only way to do great work is to love what you do."
+          author="Steve Jobs"
+          avatar={sampleImage}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="QuoteLeftBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <QuoteLeftBlock
+          content="Success is not final, failure is not fatal: it is the courage to continue that counts."
+          author="Winston Churchill"
+          avatar={sampleImage}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="QuoteImageBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <QuoteImageBlock
+          content="In the middle of difficulty lies opportunity."
+          author="Albert Einstein"
+          backgroundImage={sampleImage}
+          dark={dark}
+        />
+
+        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={8} dark={dark} />
+
+        {/* ============================================ */}
+        {/* LIST BLOCK STYLES */}
+        {/* ============================================ */}
+        <HeadingBlock heading="ListBlock Styles" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="Default (unordered):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ListBlock
+          items={['Interactive video lessons', 'Downloadable resources', 'Community forums']}
+          ordered={false}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="Check style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ListBlock
+          items={['Complete introduction', 'Read documentation', 'Submit assignment']}
+          listStyle="check"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="Numbered style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ListBlock
+          items={['Create your account', 'Browse courses', 'Start learning']}
+          listStyle="numbered"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="Gradient style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ListBlock
+          items={['First step with gradient', 'Second step highlighted', 'Third step complete']}
+          listStyle="gradient"
+          accentColor="#9F80DA"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="Bordered style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ListBlock
+          items={['Bordered item one', 'Bordered item two', 'Bordered item three']}
+          listStyle="bordered"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="Cards style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ListBlock
+          items={['Card item one', 'Card item two', 'Card item three', 'Card item four']}
+          listStyle="cards"
+          dark={dark}
+        />
+
+        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={9} dark={dark} />
+
+        {/* ============================================ */}
+        {/* NEW COMPONENTS: Reviews, Video, Audio, Attachment, Embed, ButtonStack */}
+        {/* ============================================ */}
+        <HeadingBlock heading="New Components" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="ReviewsBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ReviewsBlock
+          reviews={[
+            { id: '1', name: 'Sarah Johnson', avatar: sampleImage, rating: 5, review: 'This course completely changed my career trajectory. Highly recommended!' },
+            { id: '2', name: 'Michael Chen', rating: 4, review: 'Great content and well-structured lessons. Could use more practical examples.' },
+            { id: '3', name: 'Emily Davis', avatar: sampleImage, rating: 5, review: 'The best online learning experience I\'ve ever had!' },
+          ]}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="VideoBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <VideoBlock
+          url="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          title="Sample Video"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="AudioBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <AudioBlock
+          url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          title="Sample Audio Track"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="AttachmentBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <AttachmentBlock
+          attachments={[
+            { id: '1', name: 'Course-Syllabus.pdf', url: '#', size: '2.4 MB' },
+            { id: '2', name: 'Project-Template.docx', url: '#', size: '856 KB' },
+            { id: '3', name: 'Data-Analysis.xlsx', url: '#', size: '1.2 MB' },
+            { id: '4', name: 'Resources.zip', url: '#', size: '15.8 MB' },
+          ]}
+          dark={dark}
+        />
+
+        <ParagraphBlock content="EmbedBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <EmbedBlock
+          url="https://player.vimeo.com/video/76979871"
+          title="Vimeo Embed"
+          aspectRatio="16:9"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ButtonStackBlock (cards style):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ButtonStackBlock
+          title="Quick Actions"
+          items={[
+            { id: '1', text: 'Start Course', description: 'Begin your learning journey', url: '#', icon: 'Play' },
+            { id: '2', text: 'Download Materials', description: 'Get course resources', url: '#', icon: 'Download' },
+            { id: '3', text: 'Contact Support', description: 'Get help when you need it', url: '#', icon: 'Mail' },
+          ]}
+          stackStyle="cards"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ButtonStackBlock (minimal style):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ButtonStackBlock
+          title="Navigation"
+          items={[
+            { id: '1', text: 'Getting Started Guide', url: '#' },
+            { id: '2', text: 'API Documentation', url: '#' },
+            { id: '3', text: 'Community Forum', url: '#' },
+          ]}
+          stackStyle="minimal"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ButtonStackBlock (bordered style):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ButtonStackBlock
+          items={[
+            { id: '1', text: 'Module 1: Introduction', description: 'Learn the basics', url: '#', icon: 'BookOpen' },
+            { id: '2', text: 'Module 2: Advanced Topics', description: 'Deep dive into concepts', url: '#', icon: 'BookOpen' },
+          ]}
+          stackStyle="bordered"
+          accentColor="#22C55E"
+          dark={dark}
+        />
+
+        <ParagraphBlock content="ButtonStackBlock (gradient style):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <ButtonStackBlock
+          title="Learning Path"
+          items={[
+            { id: '1', text: 'Fundamentals', description: 'Core concepts', url: '#' },
+            { id: '2', text: 'Intermediate', description: 'Build your skills', url: '#' },
+            { id: '3', text: 'Advanced', description: 'Master the topic', url: '#' },
+          ]}
+          stackStyle="gradient"
+          accentColor="#9F80DA"
+          dark={dark}
+        />
+
+        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={10} dark={dark} />
+
+        {/* ============================================ */}
+        {/* TABLE BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="TableBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <TableBlock
           rows={5}
           columns={4}
@@ -96,78 +564,12 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={4} dark={dark} />
+        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={11} dark={dark} />
 
-        {/* HighlightBlock */}
-        <HeadingBlock heading="HighlightBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <HighlightBlock
-          highlight="Important: Always save your progress before closing the course module."
-          blockStyle="A"
-          dark={dark}
-        />
-        <HighlightBlock
-          highlight="Note: This course includes hands-on projects and real-world examples."
-          blockStyle="B"
-          dark={dark}
-        />
-        <HighlightBlock
-          highlight="Tip: Take breaks every 25 minutes to maximize your learning efficiency."
-          blockStyle="C"
-          dark={dark}
-        />
-
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={5} dark={dark} />
-
-        {/* ListBlock */}
-        <HeadingBlock heading="ListBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <ParagraphBlock content="Unordered List:" contentStyle={{ fontWeight: '600' }} dark={dark} />
-        <ListBlock
-          items={[
-            'Interactive video lessons',
-            'Downloadable resources',
-            'Community discussion forums',
-            'Certificate upon completion',
-          ]}
-          ordered={false}
-          dark={dark}
-        />
-        <ParagraphBlock content="Ordered List:" contentStyle={{ fontWeight: '600' }} dark={dark} />
-        <ListBlock
-          items={[
-            'Create your account',
-            'Browse available courses',
-            'Enroll in your chosen course',
-            'Start learning!',
-          ]}
-          ordered={true}
-          dark={dark}
-        />
-
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={6} dark={dark} />
-
-        {/* ImageBlock */}
-        <HeadingBlock heading="ImageBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <ParagraphBlock content="Layout: image-left" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <ImageBlock
-          image={sampleImage}
-          text="Image with text on the right side - perfect for feature highlights"
-          layout="image-left"
-          textStyle={{ fontSize: '16px', lineHeight: '1.6' }}
-          textBackgroundStyle={{ backgroundColor: dark ? '#1f2937' : '#f3f4f6', padding: '20px', borderRadius: '8px' }}
-          dark={dark}
-        />
-        <ParagraphBlock content="Layout: stretched" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <ImageBlock
-          image={sampleImage}
-          text="Stretched image with overlay text"
-          layout="stretched"
-          dark={dark}
-        />
-
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={7} dark={dark} />
-
-        {/* GalleryBlock */}
-        <HeadingBlock heading="GalleryBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* GALLERY BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="GalleryBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <GalleryBlock
           images={[
             { src: sampleImage, alt: 'Gallery Image 1' },
@@ -178,10 +580,12 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={8} dark={dark} />
+        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={12} dark={dark} />
 
-        {/* GraphBlock */}
-        <HeadingBlock heading="GraphBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* GRAPH BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="GraphBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <ParagraphBlock content="Line Chart:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
         <GraphBlock
           graphType="line"
@@ -219,142 +623,42 @@ export default function PreviewPage() {
           ]}
           dark={dark}
         />
-        <ParagraphBlock content="Donut Chart:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <GraphBlock
-          graphType="donut"
-          title="Learning Preferences"
-          data={[
-            { name: 'Video', value: 45 },
-            { name: 'Reading', value: 25 },
-            { name: 'Practice', value: 30 },
-          ]}
-          dark={dark}
-        />
-
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={9} dark={dark} />
-
-        {/* TimelineBlock */}
-        <HeadingBlock heading="TimelineBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <TimelineBlock
-          events={[
-            {
-              title: 'Course Launch',
-              description: 'We launched our first online course with over 100 students enrolled.',
-              date: 'January 2023',
-            },
-            {
-              title: 'Mobile App Release',
-              description: 'Our mobile app became available on iOS and Android platforms.',
-              date: 'April 2023',
-            },
-            {
-              title: 'Community Milestone',
-              description: 'Reached 10,000 active learners in our community.',
-              date: 'August 2023',
-            },
-            {
-              title: 'Enterprise Solution',
-              description: 'Launched enterprise training solutions for corporate clients.',
-              date: 'December 2023',
-            },
-          ]}
-          dark={dark}
-        />
-
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={10} dark={dark} />
-
-        {/* SeparatorBlock */}
-        <HeadingBlock heading="SeparatorBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <ParagraphBlock content="Line only:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <SeparatorBlock height={40} color="gray" showLine={true} showNumber={false} dark={dark} />
-        <ParagraphBlock content="Number only:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <SeparatorBlock height={60} color="blue" showLine={false} showNumber={true} number={1} dark={dark} />
-        <ParagraphBlock content="Line with number:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={2} dark={dark} />
-        <ParagraphBlock content="Space only:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <SeparatorBlock height={40} showLine={false} showNumber={false} dark={dark} />
-
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={11} dark={dark} />
-
-        {/* ComparisonBlock */}
-        <HeadingBlock heading="ComparisonBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <ComparisonBlock
-          items={[
-            { title: 'Basic Plan', content: 'Access to 10 courses, Email support, Basic certificate' },
-            { title: 'Pro Plan', content: 'Access to 50 courses, Priority support, Verified certificate' },
-            { title: 'Enterprise', content: 'Unlimited courses, Dedicated support, Custom branding' },
-          ]}
-          blockStyle="A"
-          dark={dark}
-        />
-
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={12} dark={dark} />
-
-        {/* ChatBlock */}
-        <HeadingBlock heading="ChatBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <ChatBlock
-          messages={[
-            { participantId: 'receiver', text: 'Hi! How can I help you today?', time: '10:00 AM' },
-            { participantId: 'sender', text: 'I have a question about the React course.', time: '10:01 AM' },
-            { participantId: 'receiver', text: 'Sure! What would you like to know?', time: '10:02 AM' },
-            { participantId: 'sender', text: 'Is prior JavaScript knowledge required?', time: '10:03 AM' },
-            { participantId: 'receiver', text: 'Yes, basic JavaScript knowledge is recommended before starting the React course.', time: '10:04 AM' },
-          ]}
-          sender={{ name: 'Student', avatar: sampleImage }}
-          receiver={{ name: 'Support', avatar: sampleImage }}
-          senderBubbleColor="#9F80DA"
-          receiverBubbleColor={dark ? '#374151' : '#E5E7EB'}
-          dark={dark}
-        />
 
         <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={13} dark={dark} />
 
-        {/* QuoteBlock */}
-        <HeadingBlock heading="QuoteBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <QuoteBlock
-          quotes={[
-            {
-              content: 'Education is the most powerful weapon which you can use to change the world.',
-              author: 'Nelson Mandela',
-              avatar: sampleImage,
-            },
-            {
-              content: 'The beautiful thing about learning is that no one can take it away from you.',
-              author: 'B.B. King',
-            },
-            {
-              content: 'Live as if you were to die tomorrow. Learn as if you were to live forever.',
-              author: 'Mahatma Gandhi',
-            },
+        {/* ============================================ */}
+        {/* TIMELINE BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="TimelineBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        <TimelineBlock
+          events={[
+            { title: 'Course Launch', description: 'We launched our first online course.', date: 'January 2023' },
+            { title: 'Mobile App Release', description: 'Our mobile app became available.', date: 'April 2023' },
+            { title: 'Community Milestone', description: 'Reached 10,000 active learners.', date: 'August 2023' },
           ]}
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={14} dark={dark} />
 
-        {/* TestimonialBlock */}
-        <HeadingBlock heading="TestimonialBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* TESTIMONIAL BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="TestimonialBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <TestimonialBlock
           testimonials={[
             {
               title: 'Life Changing Experience',
-              content: 'This platform completely changed my career trajectory. The courses are well-structured and the instructors are amazing!',
+              content: 'This platform completely changed my career trajectory!',
               name: 'Sarah Johnson',
               role: 'Software Developer',
               avatar: sampleImage,
             },
             {
               title: 'Highly Recommended',
-              content: 'I learned more in 3 months here than in 2 years of self-study. The community support is incredible.',
+              content: 'I learned more in 3 months here than in 2 years of self-study.',
               name: 'Michael Chen',
               role: 'Data Analyst',
-              avatar: sampleImage,
-            },
-            {
-              title: 'Worth Every Penny',
-              content: 'The quality of content and the practical projects helped me land my dream job. Thank you!',
-              name: 'Emily Davis',
-              role: 'UX Designer',
               avatar: sampleImage,
             },
           ]}
@@ -367,9 +671,10 @@ export default function PreviewPage() {
 
         <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={15} dark={dark} />
 
-        {/* CheckboxBlock */}
-        <HeadingBlock heading="CheckboxBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <ParagraphBlock content="Style A:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
+        {/* ============================================ */}
+        {/* CHECKBOX BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="CheckboxBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <CheckboxBlock
           items={[
             { id: '1', text: 'Complete introduction video', checked: true },
@@ -379,31 +684,13 @@ export default function PreviewPage() {
           blockStyle="A"
           dark={dark}
         />
-        <ParagraphBlock content="Style B:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <CheckboxBlock
-          items={[
-            { id: '4', text: 'Watch tutorial video', checked: true },
-            { id: '5', text: 'Practice exercises', checked: false },
-            { id: '6', text: 'Take the quiz', checked: false },
-          ]}
-          blockStyle="B"
-          dark={dark}
-        />
-        <ParagraphBlock content="Style C:" contentStyle={{ fontWeight: '500', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
-        <CheckboxBlock
-          items={[
-            { id: '7', text: 'Review materials', checked: false },
-            { id: '8', text: 'Join study group', checked: false },
-            { id: '9', text: 'Complete project', checked: false },
-          ]}
-          blockStyle="C"
-          dark={dark}
-        />
 
         <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={16} dark={dark} />
 
-        {/* CarouselBlock */}
-        <HeadingBlock heading="CarouselBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* CAROUSEL BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="CarouselBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <CarouselBlock
           images={[
             { src: sampleImage, alt: 'Slide 1', caption: 'Modern Learning Environment' },
@@ -415,24 +702,32 @@ export default function PreviewPage() {
 
         <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={17} dark={dark} />
 
-        {/* AccordionBlock */}
-        <HeadingBlock heading="AccordionBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* ACCORDION BLOCK (with images) */}
+        {/* ============================================ */}
+        <HeadingBlock heading="AccordionBlock (with images)" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <AccordionBlock
           items={[
             {
               id: 'faq1',
               title: 'How do I enroll in a course?',
-              content: 'Simply browse our course catalog, select the course you\'re interested in, and click the "Enroll Now" button. You\'ll be guided through the payment process if required.',
+              content: 'Simply browse our course catalog, select the course you\'re interested in, and click the "Enroll Now" button.',
+              image: sampleImage,
+              imagePosition: 'right',
             },
             {
               id: 'faq2',
               title: 'Can I get a refund?',
-              content: 'Yes! We offer a 30-day money-back guarantee. If you\'re not satisfied with your course, contact our support team within 30 days of purchase for a full refund.',
+              content: 'Yes! We offer a 30-day money-back guarantee.',
+              image: sampleImage,
+              imagePosition: 'left',
             },
             {
               id: 'faq3',
               title: 'Are certificates included?',
-              content: 'Yes, upon completion of any course, you\'ll receive a digital certificate that you can share on LinkedIn or add to your resume.',
+              content: 'Yes, upon completion of any course, you\'ll receive a digital certificate.',
+              image: sampleImage,
+              imagePosition: 'top',
             },
           ]}
           blockStyle="A"
@@ -441,50 +736,42 @@ export default function PreviewPage() {
 
         <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={18} dark={dark} />
 
-        {/* TabsBlock */}
-        <HeadingBlock heading="TabsBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* TABS BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="TabsBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <TabsBlock
           items={[
-            {
-              id: 'overview',
-              title: 'Overview',
-              content: 'This comprehensive course covers all the fundamentals of web development, from HTML and CSS to JavaScript and React. Perfect for beginners who want to start their coding journey.',
-              image: sampleImage,
-            },
-            {
-              id: 'curriculum',
-              title: 'Curriculum',
-              content: 'The course is divided into 12 modules, each focusing on a specific topic. You\'ll learn through video lectures, hands-on projects, and interactive quizzes.',
-            },
-            {
-              id: 'instructor',
-              title: 'Instructor',
-              content: 'John Smith is a senior software engineer with over 15 years of experience. He has taught over 100,000 students worldwide and is passionate about making coding accessible to everyone.',
-              image: sampleImage,
-            },
+            { id: 'overview', title: 'Overview', content: 'This comprehensive course covers all the fundamentals.', image: sampleImage },
+            { id: 'curriculum', title: 'Curriculum', content: 'The course is divided into 12 modules.' },
+            { id: 'instructor', title: 'Instructor', content: 'John Smith is a senior software engineer.', image: sampleImage },
           ]}
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={19} dark={dark} />
 
-        {/* LabeledImageBlock */}
-        <HeadingBlock heading="LabeledImageBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* LABELED IMAGE BLOCK (with navigation) */}
+        {/* ============================================ */}
+        <HeadingBlock heading="LabeledImageBlock (with navigation arrows)" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <LabeledImageBlock
           image={sampleImage}
           items={[
-            { id: '1', title: 'Header Section', content: 'The main navigation and branding area of the application.', x: 20, y: 15 },
-            { id: '2', title: 'Content Area', content: 'The primary content display region where course materials are shown.', x: 50, y: 50 },
-            { id: '3', title: 'Sidebar', content: 'Quick access to course modules and progress tracking.', x: 85, y: 40 },
-            { id: '4', title: 'Footer', content: 'Links to support, policies, and social media.', x: 50, y: 85 },
+            { id: '1', title: 'Header Section', content: 'The main navigation and branding area.', x: 20, y: 15 },
+            { id: '2', title: 'Content Area', content: 'The primary content display region.', x: 50, y: 50 },
+            { id: '3', title: 'Sidebar', content: 'Quick access to modules and progress.', x: 85, y: 40 },
+            { id: '4', title: 'Footer', content: 'Links to support and social media.', x: 50, y: 85 },
           ]}
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={20} dark={dark} />
 
-        {/* ScenarioBlock */}
-        <HeadingBlock heading="ScenarioBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* SCENARIO BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="ScenarioBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <ScenarioBlock
           image={sampleImage}
           question="A customer is complaining about a delayed shipment. What's the best response?"
@@ -499,10 +786,13 @@ export default function PreviewPage() {
 
         <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={21} dark={dark} />
 
-        {/* SortingBlock */}
-        <HeadingBlock heading="SortingBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
-        <ParagraphBlock content="Arrange the software development lifecycle phases in the correct order:" contentStyle={{ color: dark ? '#9ca3af' : '#4B5563' }} dark={dark} />
-        <SortingBlock
+        {/* ============================================ */}
+        {/* SORTING BLOCKS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Sorting Blocks" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="SortingStepsBlock (order steps):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <SortingStepsBlock
           items={[
             { id: '1', title: 'Testing', content: 'Verify the software works correctly', correctOrder: 4 },
             { id: '2', title: 'Requirements', content: 'Gather and document needs', correctOrder: 1 },
@@ -513,39 +803,61 @@ export default function PreviewPage() {
           dark={dark}
         />
 
+        <ParagraphBlock content="SortingBlock (categorize cards):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <SortingBlock
+          cards={[
+            { id: '1', title: 'React', content: 'JavaScript library for UI', correctCategory: 'frontend' },
+            { id: '2', title: 'Node.js', content: 'JavaScript runtime', correctCategory: 'backend' },
+            { id: '3', title: 'Vue.js', content: 'Progressive framework', correctCategory: 'frontend' },
+            { id: '4', title: 'Express', content: 'Web framework for Node', correctCategory: 'backend' },
+            { id: '5', title: 'Angular', content: 'Platform for web apps', correctCategory: 'frontend' },
+            { id: '6', title: 'Django', content: 'Python web framework', correctCategory: 'backend' },
+          ]}
+          categories={[
+            { id: 'frontend', title: 'Frontend' },
+            { id: 'backend', title: 'Backend' },
+          ]}
+          dark={dark}
+        />
+
         <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={22} dark={dark} />
 
-        {/* FlashCardBlock */}
-        <HeadingBlock heading="FlashCardBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* FLASH CARD BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="FlashCardBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <FlashCardBlock
           items={[
             { id: '1', question: 'What does HTML stand for?', answer: 'HyperText Markup Language' },
             { id: '2', question: 'What is CSS used for?', answer: 'Styling and layout of web pages' },
             { id: '3', question: 'What is JavaScript?', answer: 'A programming language for web interactivity' },
-            { id: '4', question: 'What is React?', answer: 'A JavaScript library for building user interfaces' },
           ]}
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={23} dark={dark} />
 
-        {/* MultipleChoiceBlock */}
-        <HeadingBlock heading="MultipleChoiceBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* MULTIPLE CHOICE BLOCK (with feedback) */}
+        {/* ============================================ */}
+        <HeadingBlock heading="MultipleChoiceBlock (with feedback)" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <MultipleChoiceBlock
           question="Which of the following is NOT a JavaScript data type?"
           items={[
-            { id: 'a', text: 'String', isCorrect: false },
-            { id: 'b', text: 'Boolean', isCorrect: false },
-            { id: 'c', text: 'Float', isCorrect: true },
-            { id: 'd', text: 'Number', isCorrect: false },
+            { id: 'a', text: 'String', isCorrect: false, feedback: 'String is a valid primitive type in JavaScript.' },
+            { id: 'b', text: 'Boolean', isCorrect: false, feedback: 'Boolean is a valid primitive type in JavaScript.' },
+            { id: 'c', text: 'Float', isCorrect: true, feedback: 'Correct! JavaScript only has "Number" for numeric values, not separate Float/Integer types.' },
+            { id: 'd', text: 'Number', isCorrect: false, feedback: 'Number is a valid primitive type in JavaScript.' },
           ]}
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={24} dark={dark} />
 
-        {/* MultipleResponseBlock */}
-        <HeadingBlock heading="MultipleResponseBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* MULTIPLE RESPONSE BLOCK (with feedback) */}
+        {/* ============================================ */}
+        <HeadingBlock heading="MultipleResponseBlock (with feedback)" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <MultipleResponseBlock
           question="Which of the following are valid React hooks?"
           items={[
@@ -555,26 +867,32 @@ export default function PreviewPage() {
             { id: 'd', text: 'useCallback', isCorrect: true },
             { id: 'e', text: 'useHTML', isCorrect: false },
           ]}
+          correctFeedback="Excellent! You correctly identified all the valid React hooks."
+          incorrectFeedback="Not quite. useState, useEffect, and useCallback are built-in React hooks."
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={25} dark={dark} />
 
-        {/* FillInTheBlankBlock */}
-        <HeadingBlock heading="FillInTheBlankBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* FILL IN THE BLANK BLOCK (multiple answers) */}
+        {/* ============================================ */}
+        <HeadingBlock heading="FillInTheBlankBlock (multiple correct answers)" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <FillInTheBlankBlock
           items={[
-            { id: '1', text: 'In React, we use ___ to manage component state.', answer: 'useState' },
-            { id: '2', text: 'The ___ hook is used for side effects in React.', answer: 'useEffect' },
-            { id: '3', text: 'CSS stands for Cascading Style ___.', answer: 'Sheets' },
+            { id: '1', text: 'In React, we use ___ to manage component state.', answers: ['useState', 'use state', 'usestate'] },
+            { id: '2', text: 'The ___ hook is used for side effects in React.', answers: ['useEffect', 'use effect', 'useeffect'] },
+            { id: '3', text: 'CSS stands for Cascading Style ___.', answers: ['Sheets', 'sheets', 'SHEETS'] },
           ]}
           dark={dark}
         />
 
         <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={26} dark={dark} />
 
-        {/* MatchingPairsBlock */}
-        <HeadingBlock heading="MatchingPairsBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* MATCHING PAIRS BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="MatchingPairsBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <ParagraphBlock content="Match the programming concept with its definition:" contentStyle={{ color: dark ? '#9ca3af' : '#4B5563' }} dark={dark} />
         <MatchingPairsBlock
           itemsA={[
@@ -594,8 +912,10 @@ export default function PreviewPage() {
 
         <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={27} dark={dark} />
 
-        {/* ButtonBlock */}
-        <HeadingBlock heading="ButtonBlock" level={3} textStyle={{ color: '#9F80DA' }} dark={dark} />
+        {/* ============================================ */}
+        {/* BUTTON BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="ButtonBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
         <ButtonBlock
           items={[
             {
