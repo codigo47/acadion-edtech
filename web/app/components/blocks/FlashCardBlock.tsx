@@ -14,12 +14,14 @@ export interface FlashCardBlockProps {
   items: FlashCard[];
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  dark?: boolean;
 }
 
 export default function FlashCardBlock({
   items,
   textStyle = {},
   textBackgroundStyle = {},
+  dark = false,
 }: FlashCardBlockProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -42,9 +44,9 @@ export default function FlashCardBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -86,19 +88,19 @@ export default function FlashCardBlock({
 
             {/* Back - Answer */}
             <div
-              className="absolute inset-0 bg-white border-2 border-primary rounded-xl shadow-lg flex items-center justify-center p-8"
+              className={`absolute inset-0 border-2 border-primary rounded-xl shadow-lg flex items-center justify-center p-8 ${dark ? 'bg-gray-800' : 'bg-white'}`}
               style={{
                 backfaceVisibility: 'hidden',
                 transform: 'rotateY(180deg)',
               }}
             >
               <div className="text-center">
-                <span className="text-sm text-gray-500 mb-2 block">Answer</span>
+                <span className={`text-sm mb-2 block ${dark ? 'text-gray-400' : 'text-gray-500'}`}>Answer</span>
                 <p
-                  className="text-xl text-gray-800 font-medium"
+                  className={`text-xl font-medium ${dark ? 'text-white' : 'text-gray-800'}`}
                   style={{
                     fontSize: textStyle.fontSize || '20px',
-                    color: textStyle.color,
+                    color: textStyle.color || (dark ? '#ffffff' : undefined),
                     lineHeight: textStyle.lineHeight || '1.5',
                   }}
                 >
@@ -113,31 +115,31 @@ export default function FlashCardBlock({
         <div className="flex items-center justify-between mt-6">
           <button
             onClick={goToPrevious}
-            className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            className={`p-3 rounded-full transition-colors ${dark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
             aria-label="Previous card"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-600" />
+            <ChevronLeft className={`w-5 h-5 ${dark ? 'text-gray-300' : 'text-gray-600'}`} />
           </button>
 
           <div className="flex items-center gap-4">
-            <span className="text-gray-500">
+            <span className={dark ? 'text-gray-400' : 'text-gray-500'}>
               {currentIndex + 1} / {items.length}
             </span>
             <button
               onClick={() => setIsFlipped(false)}
-              className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              className={`p-2 rounded-full transition-colors ${dark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
               aria-label="Reset card"
             >
-              <RotateCcw className="w-4 h-4 text-gray-600" />
+              <RotateCcw className={`w-4 h-4 ${dark ? 'text-gray-300' : 'text-gray-600'}`} />
             </button>
           </div>
 
           <button
             onClick={goToNext}
-            className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+            className={`p-3 rounded-full transition-colors ${dark ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
             aria-label="Next card"
           >
-            <ChevronRight className="w-5 h-5 text-gray-600" />
+            <ChevronRight className={`w-5 h-5 ${dark ? 'text-gray-300' : 'text-gray-600'}`} />
           </button>
         </div>
       </div>

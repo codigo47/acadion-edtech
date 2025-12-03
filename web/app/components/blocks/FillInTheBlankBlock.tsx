@@ -15,6 +15,7 @@ export interface FillInTheBlankBlockProps {
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
   placeholder?: string;
+  dark?: boolean;
 }
 
 export default function FillInTheBlankBlock({
@@ -22,6 +23,7 @@ export default function FillInTheBlankBlock({
   textStyle = {},
   textBackgroundStyle = {},
   placeholder = '___',
+  dark = false,
 }: FillInTheBlankBlockProps) {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [showResults, setShowResults] = useState<Record<string, boolean>>({});
@@ -53,7 +55,7 @@ export default function FillInTheBlankBlock({
             <span
               style={{
                 fontSize: textStyle.fontSize,
-                color: textStyle.color,
+                color: textStyle.color || (dark ? '#d1d5db' : undefined),
                 lineHeight: textStyle.lineHeight,
               }}
             >
@@ -71,7 +73,9 @@ export default function FillInTheBlankBlock({
                       ? correct
                         ? 'border-green-500 bg-green-50'
                         : 'border-red-500 bg-red-50'
-                      : 'border-gray-300 focus:border-primary'
+                      : dark
+                        ? 'border-gray-600 bg-gray-700 text-white focus:border-primary'
+                        : 'border-gray-300 focus:border-primary'
                   }`}
                   placeholder="Type answer"
                   disabled={showResult && correct}
@@ -106,16 +110,16 @@ export default function FillInTheBlankBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
     >
       <div className="space-y-6">
         {items.map((item) => (
-          <div key={item.id} className="p-4 bg-white rounded-lg border border-gray-200">
+          <div key={item.id} className={`p-4 rounded-lg border ${dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
             {renderTextWithBlank(item)}
           </div>
         ))}

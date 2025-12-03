@@ -7,12 +7,14 @@ export interface HeadingBlockProps {
   heading: string;
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   textStyle?: TextStyle;
+  dark?: boolean;
 }
 
 export default function HeadingBlock({
   heading,
   level = 1,
   textStyle = {},
+  dark = false,
 }: HeadingBlockProps) {
   const sizeClasses = {
     1: 'text-4xl font-bold',
@@ -24,11 +26,11 @@ export default function HeadingBlock({
   }[level];
 
   const commonProps = {
-    className: `${sizeClasses} p-4`,
+    className: `${sizeClasses} p-4 ${dark ? 'text-white' : ''}`,
     style: {
       fontSize: textStyle.fontSize,
       fontWeight: textStyle.fontWeight,
-      color: textStyle.color,
+      color: textStyle.color || (dark ? '#ffffff' : undefined),
       fontStyle: textStyle.fontStyle,
       textAlign: textStyle.textAlign,
       lineHeight: textStyle.lineHeight,

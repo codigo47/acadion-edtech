@@ -39,11 +39,13 @@ export interface ButtonItem {
 export interface ButtonBlockProps {
   items: ButtonItem[];
   textStyle?: TextStyle;
+  dark?: boolean;
 }
 
 export default function ButtonBlock({
   items,
   textStyle = {},
+  dark = false,
 }: ButtonBlockProps) {
   const getButtonClasses = (style: ButtonStyle = 'primary', size: ButtonSize = 'medium') => {
     const styleClasses = {
@@ -84,7 +86,7 @@ export default function ButtonBlock({
   };
 
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="space-y-4">
         {items.map((item) => (
           <div
@@ -93,10 +95,10 @@ export default function ButtonBlock({
           >
             {item.label && (
               <span
-                className="text-gray-600"
+                className={dark ? 'text-gray-400' : 'text-gray-600'}
                 style={{
                   fontSize: textStyle.fontSize,
-                  color: textStyle.color,
+                  color: textStyle.color || (dark ? '#9ca3af' : undefined),
                 }}
               >
                 {item.label}

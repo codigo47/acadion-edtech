@@ -12,9 +12,10 @@ export interface SortingItem {
 
 export interface SortingBlockProps {
   items: SortingItem[];
+  dark?: boolean;
 }
 
-export default function SortingBlock({ items: initialItems }: SortingBlockProps) {
+export default function SortingBlock({ items: initialItems, dark = false }: SortingBlockProps) {
   const [items, setItems] = useState(initialItems);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -53,7 +54,7 @@ export default function SortingBlock({ items: initialItems }: SortingBlockProps)
   };
 
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="space-y-2">
         {items.map((item, index) => (
           <div
@@ -62,21 +63,23 @@ export default function SortingBlock({ items: initialItems }: SortingBlockProps)
             onDragStart={() => handleDragStart(index)}
             onDragOver={(e) => handleDragOver(e, index)}
             onDragEnd={handleDragEnd}
-            className={`flex items-center gap-3 p-4 bg-white border-2 rounded-lg cursor-move transition-all ${
+            className={`flex items-center gap-3 p-4 border-2 rounded-lg cursor-move transition-all ${
               draggedIndex === index ? 'opacity-50 scale-105' : ''
             } ${
               showResult
                 ? item.correctOrder === index + 1
                   ? 'border-green-500 bg-green-50'
                   : 'border-red-500 bg-red-50'
-                : 'border-gray-200 hover:border-gray-300'
+                : dark
+                  ? 'bg-gray-800 border-gray-700 hover:border-gray-600'
+                  : 'bg-white border-gray-200 hover:border-gray-300'
             }`}
           >
-            <GripVertical className="w-5 h-5 text-gray-400 flex-shrink-0" />
+            <GripVertical className={`w-5 h-5 flex-shrink-0 ${dark ? 'text-gray-500' : 'text-gray-400'}`} />
             <div className="flex-1">
-              <p className="font-medium text-gray-900">{item.title}</p>
+              <p className={`font-medium ${showResult ? 'text-gray-900' : (dark ? 'text-white' : 'text-gray-900')}`}>{item.title}</p>
               {item.content && (
-                <p className="text-sm text-gray-600 mt-1">{item.content}</p>
+                <p className={`text-sm mt-1 ${showResult ? 'text-gray-600' : (dark ? 'text-gray-400' : 'text-gray-600')}`}>{item.content}</p>
               )}
             </div>
             {showResult && (
@@ -101,7 +104,7 @@ export default function SortingBlock({ items: initialItems }: SortingBlockProps)
         </button>
         <button
           onClick={reset}
-          className="px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+          className={`px-6 py-2 rounded-lg transition-colors ${dark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
           Reset
         </button>

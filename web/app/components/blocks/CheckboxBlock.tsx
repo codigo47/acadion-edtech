@@ -15,6 +15,7 @@ export interface CheckboxBlockProps {
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
   blockStyle?: BlockStyle;
+  dark?: boolean;
 }
 
 export default function CheckboxBlock({
@@ -22,6 +23,7 @@ export default function CheckboxBlock({
   textStyle = {},
   textBackgroundStyle = {},
   blockStyle = 'A',
+  dark = false,
 }: CheckboxBlockProps) {
   const [items, setItems] = useState(initialItems);
 
@@ -33,7 +35,26 @@ export default function CheckboxBlock({
     );
   };
 
-  const styleClasses = {
+  const styleClasses = dark ? {
+    A: {
+      checkbox: 'border-2 border-gray-600 rounded',
+      checkedCheckbox: 'bg-green-600 border-green-600',
+      text: 'text-gray-300',
+      checkedText: 'text-green-400 line-through',
+    },
+    B: {
+      checkbox: 'border-2 border-primary rounded-full',
+      checkedCheckbox: 'bg-primary border-primary',
+      text: 'text-gray-300',
+      checkedText: 'text-gray-500 line-through',
+    },
+    C: {
+      checkbox: 'border-2 border-blue-500 rounded-md',
+      checkedCheckbox: 'bg-blue-600 border-blue-600',
+      text: 'text-gray-200',
+      checkedText: 'text-blue-400 line-through opacity-70',
+    },
+  }[blockStyle] : {
     A: {
       checkbox: 'border-2 border-gray-300 rounded',
       checkedCheckbox: 'bg-green-500 border-green-500',
@@ -56,9 +77,9 @@ export default function CheckboxBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}

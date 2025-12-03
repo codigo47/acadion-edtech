@@ -14,12 +14,14 @@ export interface ScenarioBlockProps {
   image: string;
   question: string;
   answers: ScenarioAnswer[];
+  dark?: boolean;
 }
 
 export default function ScenarioBlock({
   image,
   question,
   answers,
+  dark = false,
 }: ScenarioBlockProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -52,7 +54,7 @@ export default function ScenarioBlock({
   };
 
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="relative w-full min-h-[500px] rounded-lg overflow-hidden">
         <Image src={image} alt="Scenario" fill className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />

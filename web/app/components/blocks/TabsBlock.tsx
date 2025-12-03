@@ -15,12 +15,14 @@ export interface TabsBlockProps {
   items: TabItem[];
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  dark?: boolean;
 }
 
 export default function TabsBlock({
   items,
   textStyle = {},
   textBackgroundStyle = {},
+  dark = false,
 }: TabsBlockProps) {
   const [activeTab, setActiveTab] = useState(items[0]?.id || '');
 
@@ -28,23 +30,23 @@ export default function TabsBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
     >
       {/* Tab headers */}
-      <div className="flex border-b border-gray-200">
+      <div className={`flex border-b ${dark ? 'border-gray-700' : 'border-gray-200'}`}>
         {items.map((item) => (
           <button
             key={item.id}
             onClick={() => setActiveTab(item.id)}
             className={`px-6 py-3 font-medium transition-colors border-b-2 -mb-px ${
               activeTab === item.id
-                ? 'border-primary text-primary bg-primary/5'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                ? `border-primary text-primary ${dark ? 'bg-primary/10' : 'bg-primary/5'}`
+                : `border-transparent ${dark ? 'text-gray-400 hover:text-gray-200 hover:border-gray-600' : 'text-gray-500 hover:text-gray-700 hover:border-gray-300'}`
             }`}
             style={{
               fontSize: textStyle.fontSize,
@@ -72,7 +74,7 @@ export default function TabsBlock({
           <p
             style={{
               fontSize: textStyle.fontSize,
-              color: textStyle.color || '#374151',
+              color: textStyle.color || (dark ? '#d1d5db' : '#374151'),
               lineHeight: textStyle.lineHeight || '1.6',
             }}
           >

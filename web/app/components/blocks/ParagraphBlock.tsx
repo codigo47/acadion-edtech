@@ -9,6 +9,7 @@ export interface ParagraphBlockProps {
   columns?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
   headingStyle?: TextStyle;
   contentStyle?: TextStyle;
+  dark?: boolean;
 }
 
 export default function ParagraphBlock({
@@ -17,6 +18,7 @@ export default function ParagraphBlock({
   columns = 1,
   headingStyle = {},
   contentStyle = {},
+  dark = false,
 }: ParagraphBlockProps) {
   const columnClass = {
     1: 'columns-1',
@@ -30,14 +32,14 @@ export default function ParagraphBlock({
   }[columns];
 
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       {heading && (
         <h2
-          className="mb-4 text-2xl font-bold"
+          className={`mb-4 text-2xl font-bold ${dark ? 'text-white' : ''}`}
           style={{
             fontSize: headingStyle.fontSize,
             fontWeight: headingStyle.fontWeight,
-            color: headingStyle.color,
+            color: headingStyle.color || (dark ? '#ffffff' : undefined),
             fontStyle: headingStyle.fontStyle,
             textAlign: headingStyle.textAlign,
             lineHeight: headingStyle.lineHeight,
@@ -51,13 +53,13 @@ export default function ParagraphBlock({
         style={{
           fontSize: contentStyle.fontSize,
           fontWeight: contentStyle.fontWeight,
-          color: contentStyle.color,
+          color: contentStyle.color || (dark ? '#d1d5db' : undefined),
           fontStyle: contentStyle.fontStyle,
           textAlign: contentStyle.textAlign,
           lineHeight: contentStyle.lineHeight,
         }}
       >
-        <p className="text-base leading-relaxed">{content}</p>
+        <p className={`text-base leading-relaxed ${dark ? 'text-gray-300' : ''}`}>{content}</p>
       </div>
     </div>
   );

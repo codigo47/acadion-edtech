@@ -12,9 +12,10 @@ export interface CarouselImage {
 
 export interface CarouselBlockProps {
   images: CarouselImage[];
+  dark?: boolean;
 }
 
-export default function CarouselBlock({ images }: CarouselBlockProps) {
+export default function CarouselBlock({ images, dark = false }: CarouselBlockProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToPrevious = () => {
@@ -28,7 +29,7 @@ export default function CarouselBlock({ images }: CarouselBlockProps) {
   const currentImage = images[currentIndex];
 
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="relative">
         <div className="relative h-80 w-full overflow-hidden rounded-lg">
           <Image
@@ -46,18 +47,18 @@ export default function CarouselBlock({ images }: CarouselBlockProps) {
 
         <button
           onClick={goToPrevious}
-          className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-colors"
+          className={`absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full shadow-lg transition-colors ${dark ? 'bg-gray-700/80 hover:bg-gray-600' : 'bg-white/80 hover:bg-white'}`}
           aria-label="Previous image"
         >
-          <ChevronLeft className="w-6 h-6 text-gray-800" />
+          <ChevronLeft className={`w-6 h-6 ${dark ? 'text-white' : 'text-gray-800'}`} />
         </button>
 
         <button
           onClick={goToNext}
-          className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-colors"
+          className={`absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full shadow-lg transition-colors ${dark ? 'bg-gray-700/80 hover:bg-gray-600' : 'bg-white/80 hover:bg-white'}`}
           aria-label="Next image"
         >
-          <ChevronRight className="w-6 h-6 text-gray-800" />
+          <ChevronRight className={`w-6 h-6 ${dark ? 'text-white' : 'text-gray-800'}`} />
         </button>
 
         <div className="flex items-center justify-center gap-2 mt-4">
@@ -66,7 +67,7 @@ export default function CarouselBlock({ images }: CarouselBlockProps) {
               key={index}
               onClick={() => setCurrentIndex(index)}
               className={`w-3 h-3 rounded-full transition-colors ${
-                index === currentIndex ? 'bg-primary' : 'bg-gray-300'
+                index === currentIndex ? 'bg-primary' : (dark ? 'bg-gray-600' : 'bg-gray-300')
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

@@ -9,6 +9,7 @@ export interface TableBlockProps {
   content: string[][];
   textStyle?: TextStyle;
   headerRow?: boolean;
+  dark?: boolean;
 }
 
 export default function TableBlock({
@@ -17,20 +18,21 @@ export default function TableBlock({
   content,
   textStyle = {},
   headerRow = true,
+  dark = false,
 }: TableBlockProps) {
   const headers = headerRow && content.length > 0 ? content[0]?.slice(0, columns) : [];
   const dataRows = content.slice(headerRow ? 1 : 0, rows);
 
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       {/* Desktop table view */}
       <div className="hidden md:block overflow-x-auto">
         <table
-          className="w-full border-collapse border border-gray-300"
+          className={`w-full border-collapse ${dark ? 'border-gray-700' : 'border border-gray-300'}`}
           style={{
             fontSize: textStyle.fontSize,
             fontWeight: textStyle.fontWeight,
-            color: textStyle.color,
+            color: textStyle.color || (dark ? '#d1d5db' : undefined),
             fontStyle: textStyle.fontStyle,
             textAlign: textStyle.textAlign,
             lineHeight: textStyle.lineHeight,
@@ -38,11 +40,11 @@ export default function TableBlock({
         >
           {headerRow && content.length > 0 && (
             <thead>
-              <tr className="bg-gray-100">
+              <tr className={dark ? 'bg-gray-800' : 'bg-gray-100'}>
                 {headers.map((cell, cellIndex) => (
                   <th
                     key={cellIndex}
-                    className="border border-gray-300 px-4 py-2 font-semibold text-left"
+                    className={`border px-4 py-2 font-semibold text-left ${dark ? 'border-gray-700 text-white' : 'border-gray-300'}`}
                   >
                     {cell}
                   </th>
@@ -52,11 +54,11 @@ export default function TableBlock({
           )}
           <tbody>
             {dataRows.map((row, rowIndex) => (
-              <tr key={rowIndex} className="hover:bg-gray-50">
+              <tr key={rowIndex} className={dark ? 'hover:bg-gray-800' : 'hover:bg-gray-50'}>
                 {row.slice(0, columns).map((cell, cellIndex) => (
                   <td
                     key={cellIndex}
-                    className="border border-gray-300 px-4 py-2"
+                    className={`border px-4 py-2 ${dark ? 'border-gray-700 text-gray-300' : 'border-gray-300'}`}
                   >
                     {cell}
                   </td>
@@ -72,24 +74,24 @@ export default function TableBlock({
         {dataRows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className="border border-gray-300 rounded-lg overflow-hidden"
+            className={`border rounded-lg overflow-hidden ${dark ? 'border-gray-700' : 'border-gray-300'}`}
             style={{
               fontSize: textStyle.fontSize,
-              color: textStyle.color,
+              color: textStyle.color || (dark ? '#d1d5db' : undefined),
               lineHeight: textStyle.lineHeight,
             }}
           >
             {row.slice(0, columns).map((cell, cellIndex) => (
               <div
                 key={cellIndex}
-                className={`px-4 py-3 ${cellIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
+                className={`px-4 py-3 ${dark ? (cellIndex % 2 === 0 ? 'bg-gray-800' : 'bg-gray-900') : (cellIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white')}`}
               >
                 {headerRow && headers[cellIndex] && (
-                  <span className="font-semibold text-gray-600 text-sm block mb-1">
+                  <span className={`font-semibold text-sm block mb-1 ${dark ? 'text-gray-400' : 'text-gray-600'}`}>
                     {headers[cellIndex]}
                   </span>
                 )}
-                <span>{cell}</span>
+                <span className={dark ? 'text-gray-300' : ''}>{cell}</span>
               </div>
             ))}
           </div>

@@ -16,12 +16,14 @@ export interface LabeledImageBlockProps {
   image: string;
   items: LabeledImageItem[];
   alt?: string;
+  dark?: boolean;
 }
 
 export default function LabeledImageBlock({
   image,
   items,
   alt = 'Labeled image',
+  dark = false,
 }: LabeledImageBlockProps) {
   const [activeItem, setActiveItem] = useState<string | null>(null);
 
@@ -32,7 +34,7 @@ export default function LabeledImageBlock({
   const activeItemData = items.find((item) => item.id === activeItem);
 
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="relative w-full h-96 rounded-lg overflow-hidden">
         <Image src={image} alt={alt} fill className="object-cover" />
 
@@ -66,16 +68,16 @@ export default function LabeledImageBlock({
         {/* Popup */}
         {activeItemData && (
           <div
-            className="absolute bg-white rounded-lg shadow-xl p-4 max-w-xs z-10 animate-in fade-in duration-200"
+            className={`absolute rounded-lg shadow-xl p-4 max-w-xs z-10 animate-in fade-in duration-200 ${dark ? 'bg-gray-800' : 'bg-white'}`}
             style={{
               left: `${Math.min(activeItemData.x, 70)}%`,
               top: `${Math.min(activeItemData.y + 5, 60)}%`,
             }}
           >
-            <h4 className="font-semibold text-gray-900 mb-2">
+            <h4 className={`font-semibold mb-2 ${dark ? 'text-white' : 'text-gray-900'}`}>
               {activeItemData.title}
             </h4>
-            <p className="text-sm text-gray-600">{activeItemData.content}</p>
+            <p className={`text-sm ${dark ? 'text-gray-300' : 'text-gray-600'}`}>{activeItemData.content}</p>
           </div>
         )}
       </div>

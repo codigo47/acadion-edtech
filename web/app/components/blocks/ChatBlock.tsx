@@ -27,6 +27,7 @@ export interface ChatBlockProps {
   showNames?: boolean;
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  dark?: boolean;
 }
 
 export default function ChatBlock({
@@ -41,6 +42,7 @@ export default function ChatBlock({
   showNames = true,
   textStyle = {},
   textBackgroundStyle = {},
+  dark = false,
 }: ChatBlockProps) {
   const getParticipant = (id: 'sender' | 'receiver') => {
     return id === 'sender' ? sender : receiver;
@@ -48,9 +50,9 @@ export default function ChatBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor || '#F9FAFB',
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : '#F9FAFB'),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -76,8 +78,8 @@ export default function ChatBlock({
                 </div>
               )}
               {showAvatars && !participant.avatar && (
-                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0">
-                  <span className="text-xs font-semibold text-gray-600">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${dark ? 'bg-gray-700' : 'bg-gray-300'}`}>
+                  <span className={`text-xs font-semibold ${dark ? 'text-gray-300' : 'text-gray-600'}`}>
                     {participant.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
@@ -85,7 +87,7 @@ export default function ChatBlock({
 
               <div className={`flex flex-col ${isSender ? 'items-end' : 'items-start'}`}>
                 {showNames && (
-                  <span className="text-xs text-gray-500 mb-1 px-2">
+                  <span className={`text-xs mb-1 px-2 ${dark ? 'text-gray-400' : 'text-gray-500'}`}>
                     {participant.name}
                   </span>
                 )}
@@ -110,7 +112,7 @@ export default function ChatBlock({
                   </p>
                 </div>
                 {message.time && (
-                  <span className="text-xs text-gray-400 mt-1 px-2">
+                  <span className={`text-xs mt-1 px-2 ${dark ? 'text-gray-500' : 'text-gray-400'}`}>
                     {message.time}
                   </span>
                 )}

@@ -13,6 +13,7 @@ export interface ImageBlockProps {
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
   alt?: string;
+  dark?: boolean;
 }
 
 export default function ImageBlock({
@@ -22,6 +23,7 @@ export default function ImageBlock({
   textStyle = {},
   textBackgroundStyle = {},
   alt = 'Image',
+  dark = false,
 }: ImageBlockProps) {
   const layoutClasses = {
     'image-left': 'flex flex-row gap-4',
@@ -44,7 +46,7 @@ export default function ImageBlock({
     : 'w-full';
 
   return (
-    <div className={`${layoutClasses} p-4 w-full`}>
+    <div className={`${layoutClasses} p-4 w-full ${dark ? 'bg-gray-900' : ''}`}>
       <div className={imageContainerClass}>
         <Image
           src={image}
@@ -55,9 +57,9 @@ export default function ImageBlock({
       </div>
       {text && (
         <div
-          className={`${textContainerClass} p-4 rounded-lg`}
+          className={`${textContainerClass} p-4 rounded-lg ${dark && layout !== 'stretched' ? 'bg-gray-800' : ''}`}
           style={{
-            backgroundColor: textBackgroundStyle.backgroundColor,
+            backgroundColor: textBackgroundStyle.backgroundColor || (dark && layout !== 'stretched' ? '#1f2937' : undefined),
             padding: textBackgroundStyle.padding,
             borderRadius: textBackgroundStyle.borderRadius,
           }}
@@ -66,7 +68,7 @@ export default function ImageBlock({
             style={{
               fontSize: textStyle.fontSize,
               fontWeight: textStyle.fontWeight,
-              color: textStyle.color || (layout === 'stretched' ? 'white' : undefined),
+              color: textStyle.color || (layout === 'stretched' ? 'white' : (dark ? '#d1d5db' : undefined)),
               fontStyle: textStyle.fontStyle,
               textAlign: textStyle.textAlign,
               lineHeight: textStyle.lineHeight,

@@ -17,6 +17,7 @@ export interface QuoteBlockProps {
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
   backgroundImage?: string;
+  dark?: boolean;
 }
 
 export default function QuoteBlock({
@@ -24,6 +25,7 @@ export default function QuoteBlock({
   textStyle = {},
   textBackgroundStyle = {},
   backgroundImage,
+  dark = false,
 }: QuoteBlockProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const hasMultipleQuotes = quotes.length > 1;
@@ -40,9 +42,9 @@ export default function QuoteBlock({
 
   return (
     <div
-      className="w-full p-8 rounded-lg relative overflow-hidden min-h-[200px] flex items-center justify-center"
+      className={`w-full p-8 rounded-lg relative overflow-hidden min-h-[200px] flex items-center justify-center ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor || '#F3F4F6',
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : '#F3F4F6'),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -64,18 +66,18 @@ export default function QuoteBlock({
           className="w-12 h-12 mx-auto mb-4 opacity-30"
           fill="currentColor"
           viewBox="0 0 24 24"
-          style={{ color: backgroundImage ? '#FFFFFF' : textStyle.color || '#9F80DA' }}
+          style={{ color: backgroundImage ? '#FFFFFF' : (dark ? '#9F80DA' : textStyle.color || '#9F80DA') }}
         >
           <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
         </svg>
 
         {currentQuote.title && (
           <h3
-            className="text-xl font-semibold mb-3"
+            className={`text-xl font-semibold mb-3 ${dark && !backgroundImage ? 'text-white' : ''}`}
             style={{
               fontSize: textStyle.fontSize,
               fontWeight: textStyle.fontWeight || '600',
-              color: backgroundImage ? '#FFFFFF' : textStyle.color,
+              color: backgroundImage ? '#FFFFFF' : (dark ? '#ffffff' : textStyle.color),
               fontStyle: textStyle.fontStyle,
             }}
           >
@@ -84,10 +86,10 @@ export default function QuoteBlock({
         )}
 
         <p
-          className="text-lg italic mb-4"
+          className={`text-lg italic mb-4 ${dark && !backgroundImage ? 'text-gray-300' : ''}`}
           style={{
             fontSize: textStyle.fontSize || '18px',
-            color: backgroundImage ? '#FFFFFF' : textStyle.color,
+            color: backgroundImage ? '#FFFFFF' : (dark ? '#d1d5db' : textStyle.color),
             lineHeight: textStyle.lineHeight || '1.6',
           }}
         >
@@ -108,9 +110,9 @@ export default function QuoteBlock({
             )}
             {currentQuote.author && (
               <span
-                className="font-medium"
+                className={`font-medium ${dark && !backgroundImage ? 'text-gray-400' : ''}`}
                 style={{
-                  color: backgroundImage ? '#FFFFFF' : textStyle.color || '#6B7280',
+                  color: backgroundImage ? '#FFFFFF' : (dark ? '#9ca3af' : textStyle.color || '#6B7280'),
                 }}
               >
                 — {currentQuote.author}
@@ -123,28 +125,28 @@ export default function QuoteBlock({
           <div className="flex items-center justify-center gap-4 mt-6">
             <button
               onClick={goToPrevious}
-              className="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+              className={`p-2 rounded-full transition-colors ${dark && !backgroundImage ? 'bg-gray-700/50 hover:bg-gray-700' : 'bg-white/20 hover:bg-white/30'}`}
               aria-label="Previous quote"
             >
               <ChevronLeft
                 className="w-5 h-5"
-                style={{ color: backgroundImage ? '#FFFFFF' : '#6B7280' }}
+                style={{ color: backgroundImage ? '#FFFFFF' : (dark ? '#9ca3af' : '#6B7280') }}
               />
             </button>
             <span
               className="text-sm"
-              style={{ color: backgroundImage ? '#FFFFFF' : '#6B7280' }}
+              style={{ color: backgroundImage ? '#FFFFFF' : (dark ? '#9ca3af' : '#6B7280') }}
             >
               {currentIndex + 1} / {quotes.length}
             </span>
             <button
               onClick={goToNext}
-              className="p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+              className={`p-2 rounded-full transition-colors ${dark && !backgroundImage ? 'bg-gray-700/50 hover:bg-gray-700' : 'bg-white/20 hover:bg-white/30'}`}
               aria-label="Next quote"
             >
               <ChevronRight
                 className="w-5 h-5"
-                style={{ color: backgroundImage ? '#FFFFFF' : '#6B7280' }}
+                style={{ color: backgroundImage ? '#FFFFFF' : (dark ? '#9ca3af' : '#6B7280') }}
               />
             </button>
           </div>

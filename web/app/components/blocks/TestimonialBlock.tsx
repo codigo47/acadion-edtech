@@ -17,6 +17,7 @@ export interface TestimonialBlockProps {
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
   backgroundImage?: string;
+  dark?: boolean;
 }
 
 export default function TestimonialBlock({
@@ -24,12 +25,13 @@ export default function TestimonialBlock({
   textStyle = {},
   textBackgroundStyle = {},
   backgroundImage,
+  dark = false,
 }: TestimonialBlockProps) {
   return (
     <div
-      className="w-full p-6 rounded-lg relative overflow-hidden"
+      className={`w-full p-6 rounded-lg relative overflow-hidden ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -58,7 +60,7 @@ export default function TestimonialBlock({
         {testimonials.map((testimonial, index) => (
           <div
             key={index}
-            className="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg"
+            className={`backdrop-blur-sm p-6 rounded-xl shadow-lg ${dark ? 'bg-gray-800/90' : 'bg-white/90'}`}
           >
             <svg
               className="w-8 h-8 mb-3 opacity-30 text-primary"
@@ -70,11 +72,11 @@ export default function TestimonialBlock({
 
             {testimonial.title && (
               <h4
-                className="text-lg font-semibold mb-2"
+                className={`text-lg font-semibold mb-2 ${dark ? 'text-white' : ''}`}
                 style={{
                   fontSize: textStyle.fontSize,
                   fontWeight: textStyle.fontWeight || '600',
-                  color: textStyle.color,
+                  color: textStyle.color || (dark ? '#ffffff' : undefined),
                   fontStyle: textStyle.fontStyle,
                 }}
               >
@@ -83,10 +85,10 @@ export default function TestimonialBlock({
             )}
 
             <p
-              className="text-gray-600 mb-4"
+              className={dark ? 'text-gray-300 mb-4' : 'text-gray-600 mb-4'}
               style={{
                 fontSize: textStyle.fontSize || '14px',
-                color: textStyle.color || '#4B5563',
+                color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
                 lineHeight: textStyle.lineHeight || '1.5',
               }}
             >
@@ -94,7 +96,7 @@ export default function TestimonialBlock({
             </p>
 
             {(testimonial.name || testimonial.avatar) && (
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-200">
+              <div className={`flex items-center gap-3 pt-4 border-t ${dark ? 'border-gray-700' : 'border-gray-200'}`}>
                 {testimonial.avatar && (
                   <div className="relative w-10 h-10">
                     <Image
@@ -107,10 +109,10 @@ export default function TestimonialBlock({
                 )}
                 <div>
                   {testimonial.name && (
-                    <p className="font-medium text-gray-900">{testimonial.name}</p>
+                    <p className={`font-medium ${dark ? 'text-white' : 'text-gray-900'}`}>{testimonial.name}</p>
                   )}
                   {testimonial.role && (
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
+                    <p className={`text-sm ${dark ? 'text-gray-400' : 'text-gray-500'}`}>{testimonial.role}</p>
                   )}
                 </div>
               </div>

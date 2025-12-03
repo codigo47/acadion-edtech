@@ -15,6 +15,7 @@ export interface MultipleChoiceBlockProps {
   question?: string;
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  dark?: boolean;
 }
 
 export default function MultipleChoiceBlock({
@@ -22,6 +23,7 @@ export default function MultipleChoiceBlock({
   question,
   textStyle = {},
   textBackgroundStyle = {},
+  dark = false,
 }: MultipleChoiceBlockProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -39,7 +41,9 @@ export default function MultipleChoiceBlock({
 
   const getOptionStyle = (option: MultipleChoiceOption) => {
     if (!showResult) {
-      return 'bg-white border-gray-200 hover:border-primary hover:bg-primary/5';
+      return dark
+        ? 'bg-gray-800 border-gray-700 hover:border-primary hover:bg-primary/10'
+        : 'bg-white border-gray-200 hover:border-primary hover:bg-primary/5';
     }
     if (selectedId === option.id) {
       return option.isCorrect
@@ -49,25 +53,25 @@ export default function MultipleChoiceBlock({
     if (option.isCorrect) {
       return 'bg-green-50 border-green-300';
     }
-    return 'bg-gray-50 border-gray-200';
+    return dark ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200';
   };
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
     >
       {question && (
         <h3
-          className="text-lg font-semibold mb-4"
+          className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : ''}`}
           style={{
             fontSize: textStyle.fontSize,
             fontWeight: textStyle.fontWeight || '600',
-            color: textStyle.color,
+            color: textStyle.color || (dark ? '#ffffff' : undefined),
           }}
         >
           {question}
@@ -87,7 +91,7 @@ export default function MultipleChoiceBlock({
             <span
               style={{
                 fontSize: textStyle.fontSize,
-                color: textStyle.color,
+                color: showResult ? undefined : (textStyle.color || (dark ? '#d1d5db' : undefined)),
                 lineHeight: textStyle.lineHeight,
               }}
             >

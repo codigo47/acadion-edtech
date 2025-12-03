@@ -13,6 +13,7 @@ export interface ComparisonBlockProps {
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
   blockStyle?: BlockStyle;
+  dark?: boolean;
 }
 
 export default function ComparisonBlock({
@@ -20,8 +21,25 @@ export default function ComparisonBlock({
   textStyle = {},
   textBackgroundStyle = {},
   blockStyle = 'A',
+  dark = false,
 }: ComparisonBlockProps) {
-  const styleClasses = {
+  const styleClasses = dark ? {
+    A: {
+      container: 'bg-gray-800 border border-gray-700',
+      header: 'bg-primary text-white',
+      content: 'bg-gray-800',
+    },
+    B: {
+      container: 'bg-gradient-to-b from-blue-900/50 to-gray-800 border border-blue-700',
+      header: 'bg-blue-600 text-white',
+      content: 'bg-transparent',
+    },
+    C: {
+      container: 'bg-gray-800 border-2 border-gray-600',
+      header: 'bg-gray-700 text-white',
+      content: 'bg-gray-800',
+    },
+  }[blockStyle] : {
     A: {
       container: 'bg-white border border-gray-200',
       header: 'bg-primary text-white',
@@ -49,9 +67,9 @@ export default function ComparisonBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -76,10 +94,10 @@ export default function ComparisonBlock({
             </div>
             <div className={`${styleClasses.content} p-4`}>
               <p
-                className="text-center"
+                className={`text-center ${dark ? 'text-gray-300' : ''}`}
                 style={{
                   fontSize: textStyle.fontSize,
-                  color: textStyle.color,
+                  color: textStyle.color || (dark ? '#d1d5db' : undefined),
                   lineHeight: textStyle.lineHeight,
                 }}
               >

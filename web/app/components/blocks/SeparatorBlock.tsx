@@ -10,6 +10,7 @@ export interface SeparatorBlockProps {
   showNumber?: boolean;
   showLine?: boolean;
   number?: number;
+  dark?: boolean;
 }
 
 export default function SeparatorBlock({
@@ -18,8 +19,15 @@ export default function SeparatorBlock({
   showNumber = false,
   showLine = true,
   number = 1,
+  dark = false,
 }: SeparatorBlockProps) {
-  const colorClasses = {
+  const colorClasses = dark ? {
+    gray: 'bg-gray-600 text-gray-400 border-gray-600',
+    red: 'bg-red-500 text-red-400 border-red-500',
+    green: 'bg-green-500 text-green-400 border-green-500',
+    blue: 'bg-blue-500 text-blue-400 border-blue-500',
+    yellow: 'bg-yellow-500 text-yellow-400 border-yellow-500',
+  }[color] : {
     gray: 'bg-gray-300 text-gray-600 border-gray-300',
     red: 'bg-red-400 text-red-600 border-red-400',
     green: 'bg-green-400 text-green-600 border-green-400',

@@ -15,6 +15,7 @@ export interface MatchingPairsBlockProps {
   itemsB: MatchingItem[];
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  dark?: boolean;
 }
 
 interface Match {
@@ -39,6 +40,7 @@ export default function MatchingPairsBlock({
   itemsB,
   textStyle = {},
   textBackgroundStyle = {},
+  dark = false,
 }: MatchingPairsBlockProps) {
   const [matches, setMatches] = useState<Match[]>([]);
   const [showResults, setShowResults] = useState(false);
@@ -196,9 +198,13 @@ export default function MatchingPairsBlock({
       return 'bg-blue-100 border-blue-500 text-blue-800 ring-2 ring-blue-300 ring-offset-1';
     }
     if (isDragging) {
-      return 'bg-gray-100 border-dashed border-gray-400 opacity-60 scale-95';
+      return dark
+        ? 'bg-gray-700 border-dashed border-gray-500 opacity-60 scale-95'
+        : 'bg-gray-100 border-dashed border-gray-400 opacity-60 scale-95';
     }
-    return 'bg-white border-gray-200 hover:border-primary hover:bg-primary/5 cursor-grab active:cursor-grabbing';
+    return dark
+      ? 'bg-gray-800 border-gray-700 hover:border-primary hover:bg-primary/10 text-gray-200 cursor-grab active:cursor-grabbing'
+      : 'bg-white border-gray-200 hover:border-primary hover:bg-primary/5 cursor-grab active:cursor-grabbing';
   };
 
   const reset = () => {
@@ -257,9 +263,9 @@ export default function MatchingPairsBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -312,7 +318,7 @@ export default function MatchingPairsBlock({
 
         {/* Column A */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-gray-700 mb-2">Column A</h4>
+          <h4 className={`font-semibold mb-2 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>Column A</h4>
           {itemsA.map((item) => {
             const matchNumber = getMatchNumber(item.id, 'A');
             const matchColor = getMatchColor(item.id, 'A');
@@ -358,7 +364,7 @@ export default function MatchingPairsBlock({
 
         {/* Column B */}
         <div className="space-y-3">
-          <h4 className="font-semibold text-gray-700 mb-2">Column B</h4>
+          <h4 className={`font-semibold mb-2 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>Column B</h4>
           {itemsB.map((item) => {
             const matchNumber = getMatchNumber(item.id, 'B');
             const matchColor = getMatchColor(item.id, 'B');
@@ -406,7 +412,7 @@ export default function MatchingPairsBlock({
       <div className="flex items-center gap-4 mt-6">
         <button
           onClick={reset}
-          className="flex items-center gap-2 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${dark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
         >
           <RotateCcw className="w-4 h-4" />
           Reset
@@ -438,7 +444,7 @@ export default function MatchingPairsBlock({
         )}
       </div>
 
-      <p className="text-sm text-gray-500 mt-4">
+      <p className={`text-sm mt-4 ${dark ? 'text-gray-400' : 'text-gray-500'}`}>
         Matched: {matches.length} / {itemsA.length}
       </p>
     </div>

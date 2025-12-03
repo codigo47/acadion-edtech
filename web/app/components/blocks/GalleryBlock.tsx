@@ -10,11 +10,12 @@ export interface GalleryImage {
 
 export interface GalleryBlockProps {
   images: GalleryImage[];
+  dark?: boolean;
 }
 
-export default function GalleryBlock({ images }: GalleryBlockProps) {
+export default function GalleryBlock({ images, dark = false }: GalleryBlockProps) {
   return (
-    <div className="w-full p-4">
+    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div
         className="flex flex-row gap-4 overflow-x-auto"
         style={{

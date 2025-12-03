@@ -15,6 +15,7 @@ export interface MultipleResponseBlockProps {
   question?: string;
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  dark?: boolean;
 }
 
 export default function MultipleResponseBlock({
@@ -22,6 +23,7 @@ export default function MultipleResponseBlock({
   question,
   textStyle = {},
   textBackgroundStyle = {},
+  dark = false,
 }: MultipleResponseBlockProps) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [showResult, setShowResult] = useState(false);
@@ -48,7 +50,9 @@ export default function MultipleResponseBlock({
     if (!showResult) {
       return isSelected
         ? 'bg-primary/10 border-primary'
-        : 'bg-white border-gray-200 hover:border-primary hover:bg-primary/5';
+        : dark
+          ? 'bg-gray-800 border-gray-700 hover:border-primary hover:bg-primary/10'
+          : 'bg-white border-gray-200 hover:border-primary hover:bg-primary/5';
     }
 
     if (isSelected && option.isCorrect) {
@@ -60,7 +64,7 @@ export default function MultipleResponseBlock({
     if (!isSelected && option.isCorrect) {
       return 'bg-yellow-50 border-yellow-500';
     }
-    return 'bg-gray-50 border-gray-200';
+    return dark ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200';
   };
 
   const isAllCorrect = showResult &&
@@ -71,27 +75,27 @@ export default function MultipleResponseBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
     >
       {question && (
         <h3
-          className="text-lg font-semibold mb-2"
+          className={`text-lg font-semibold mb-2 ${dark ? 'text-white' : ''}`}
           style={{
             fontSize: textStyle.fontSize,
             fontWeight: textStyle.fontWeight || '600',
-            color: textStyle.color,
+            color: textStyle.color || (dark ? '#ffffff' : undefined),
           }}
         >
           {question}
         </h3>
       )}
 
-      <p className="text-sm text-gray-500 mb-4">Select all that apply</p>
+      <p className={`text-sm mb-4 ${dark ? 'text-gray-400' : 'text-gray-500'}`}>Select all that apply</p>
 
       <div className="space-y-3">
         {items.map((option) => {
@@ -121,7 +125,7 @@ export default function MultipleResponseBlock({
               <span
                 style={{
                   fontSize: textStyle.fontSize,
-                  color: textStyle.color,
+                  color: showResult ? undefined : (textStyle.color || (dark ? '#d1d5db' : undefined)),
                   lineHeight: textStyle.lineHeight,
                 }}
               >

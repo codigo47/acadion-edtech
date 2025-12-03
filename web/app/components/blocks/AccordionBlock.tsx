@@ -16,6 +16,7 @@ export interface AccordionBlockProps {
   textBackgroundStyle?: BackgroundStyle;
   blockStyle?: BlockStyle;
   allowMultiple?: boolean;
+  dark?: boolean;
 }
 
 export default function AccordionBlock({
@@ -24,6 +25,7 @@ export default function AccordionBlock({
   textBackgroundStyle = {},
   blockStyle = 'A',
   allowMultiple = false,
+  dark = false,
 }: AccordionBlockProps) {
   const [openItems, setOpenItems] = useState<string[]>([]);
 
@@ -39,7 +41,29 @@ export default function AccordionBlock({
 
   const isOpen = (id: string) => openItems.includes(id);
 
-  const styleClasses = {
+  const styleClasses = dark ? {
+    A: {
+      container: 'border border-gray-700 rounded-lg',
+      header: 'bg-gray-800 hover:bg-gray-700',
+      headerOpen: 'bg-primary/20',
+      content: 'bg-gray-800',
+      icon: 'text-gray-400',
+    },
+    B: {
+      container: 'border-l-4 border-primary shadow-sm',
+      header: 'bg-gray-800 hover:bg-gray-700',
+      headerOpen: 'bg-primary/30',
+      content: 'bg-gray-800',
+      icon: 'text-primary',
+    },
+    C: {
+      container: 'border-2 border-gray-600 rounded-xl',
+      header: 'bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-700',
+      headerOpen: 'bg-gradient-to-r from-blue-900/50 to-gray-900',
+      content: 'bg-gray-800',
+      icon: 'text-blue-400',
+    },
+  }[blockStyle] : {
     A: {
       container: 'border border-gray-200 rounded-lg',
       header: 'bg-white hover:bg-gray-50',
@@ -65,9 +89,9 @@ export default function AccordionBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -83,11 +107,11 @@ export default function AccordionBlock({
               aria-expanded={isOpen(item.id)}
             >
               <span
-                className="font-medium text-left"
+                className={`font-medium text-left ${dark ? 'text-white' : ''}`}
                 style={{
                   fontSize: textStyle.fontSize,
                   fontWeight: textStyle.fontWeight || '500',
-                  color: textStyle.color,
+                  color: textStyle.color || (dark ? '#ffffff' : undefined),
                   fontStyle: textStyle.fontStyle,
                 }}
               >
@@ -105,11 +129,11 @@ export default function AccordionBlock({
                 isOpen(item.id) ? 'max-h-96' : 'max-h-0'
               }`}
             >
-              <div className={`${styleClasses.content} p-4 border-t border-gray-100`}>
+              <div className={`${styleClasses.content} p-4 border-t ${dark ? 'border-gray-700' : 'border-gray-100'}`}>
                 <p
                   style={{
                     fontSize: textStyle.fontSize,
-                    color: textStyle.color || '#4B5563',
+                    color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
                     lineHeight: textStyle.lineHeight || '1.5',
                   }}
                 >

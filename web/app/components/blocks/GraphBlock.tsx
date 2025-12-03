@@ -33,6 +33,7 @@ export interface GraphBlockProps {
   textBackgroundStyle?: BackgroundStyle;
   title?: string;
   colors?: string[];
+  dark?: boolean;
 }
 
 const COLORS = ['#9F80DA', '#8A6BC5', '#B8A0E8', '#6B4FA0', '#D4C4F0', '#4A3570'];
@@ -44,6 +45,7 @@ export default function GraphBlock({
   textBackgroundStyle = {},
   title,
   colors = COLORS,
+  dark = false,
 }: GraphBlockProps) {
   const renderChart = () => {
     switch (graphType) {
@@ -131,20 +133,20 @@ export default function GraphBlock({
 
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
     >
       {title && (
         <h3
-          className="text-xl font-semibold mb-4 text-center"
+          className={`text-xl font-semibold mb-4 text-center ${dark ? 'text-white' : ''}`}
           style={{
             fontSize: textStyle.fontSize,
             fontWeight: textStyle.fontWeight,
-            color: textStyle.color,
+            color: textStyle.color || (dark ? '#ffffff' : undefined),
             fontStyle: textStyle.fontStyle,
             textAlign: textStyle.textAlign,
             lineHeight: textStyle.lineHeight,

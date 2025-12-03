@@ -13,18 +13,20 @@ export interface TimelineBlockProps {
   events: TimelineEvent[];
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  dark?: boolean;
 }
 
 export default function TimelineBlock({
   events,
   textStyle = {},
   textBackgroundStyle = {},
+  dark = false,
 }: TimelineBlockProps) {
   return (
     <div
-      className="w-full p-4 rounded-lg"
+      className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}
       style={{
-        backgroundColor: textBackgroundStyle.backgroundColor,
+        backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#111827' : undefined),
         padding: textBackgroundStyle.padding,
         borderRadius: textBackgroundStyle.borderRadius,
       }}
@@ -37,28 +39,28 @@ export default function TimelineBlock({
           {events.map((event, index) => (
             <div key={index} className="relative pl-12">
               {/* Dot on the line */}
-              <div className="absolute left-2.5 top-1.5 w-4 h-4 bg-primary rounded-full border-2 border-white shadow" />
+              <div className={`absolute left-2.5 top-1.5 w-4 h-4 bg-primary rounded-full border-2 shadow ${dark ? 'border-gray-800' : 'border-white'}`} />
 
-              <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <div className={`p-4 rounded-lg shadow-sm border ${dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100'}`}>
                 {event.date && (
-                  <span className="text-sm text-gray-500 mb-1 block">{event.date}</span>
+                  <span className={`text-sm mb-1 block ${dark ? 'text-gray-400' : 'text-gray-500'}`}>{event.date}</span>
                 )}
                 <h4
-                  className="text-lg font-semibold mb-2"
+                  className={`text-lg font-semibold mb-2 ${dark ? 'text-white' : ''}`}
                   style={{
                     fontSize: textStyle.fontSize,
                     fontWeight: textStyle.fontWeight || '600',
-                    color: textStyle.color,
+                    color: textStyle.color || (dark ? '#ffffff' : undefined),
                     fontStyle: textStyle.fontStyle,
                   }}
                 >
                   {event.title}
                 </h4>
                 <p
-                  className="text-gray-600"
+                  className={dark ? 'text-gray-300' : 'text-gray-600'}
                   style={{
                     fontSize: textStyle.fontSize,
-                    color: textStyle.color || '#4B5563',
+                    color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
                     lineHeight: textStyle.lineHeight,
                   }}
                 >
