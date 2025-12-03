@@ -977,69 +977,164 @@ export default function Home() {
             className="text-center mb-16"
           >
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-              Get started in 3 simple steps
+              Get started in 5 simple steps
             </h2>
             <p className="text-xl text-gray-600">
               From content to course in minutes
             </p>
           </motion.div>
 
+          {/* Steps Header Row */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
-            className="grid md:grid-cols-3 gap-12"
+            className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12"
           >
             {[
-              {
-                step: '01',
-                title: 'Sign Up',
-                description: 'Create your free account in seconds. No credit card required.',
-                icon: (
-                  <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                  </svg>
-                )
-              },
-              {
-                step: '02',
-                title: 'Upload Your Content',
-                description: 'Drop in your videos, documents, presentations, or any content. Our AI processes everything instantly.',
-                icon: (
-                  <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                  </svg>
-                )
-              },
-              {
-                step: '03',
-                title: 'Customize and Publish',
-                description: 'Review, edit, and customize your course. Export to any format or LMS with a single click.',
-                icon: (
-                  <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                  </svg>
-                )
-              }
+              { step: '1', title: 'Analysis' },
+              { step: '2', title: 'Design' },
+              { step: '3', title: 'Development', highlight: true },
+              { step: '4', title: 'QA & Editing' },
+              { step: '5', title: 'Export' },
             ].map((item, index) => (
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="relative"
+                className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full text-sm sm:text-base font-semibold ${
+                  item.highlight
+                    ? 'bg-[#9F80DA] text-white shadow-lg shadow-purple-300'
+                    : 'bg-purple-100 text-[#9F80DA]'
+                }`}
               >
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-[#9F80DA] text-white rounded-2xl mb-6">
-                    {item.icon}
-                  </div>
-                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-[#9F80DA]">{item.step}</span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{item.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{item.description}</p>
-                </div>
+                {item.step}. {item.title}
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Steps Content Grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6"
+          >
+            {/* Step 1: Analysis */}
+            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center">
+              <div className="mb-4">
+                <span className="text-sm font-bold text-[#9F80DA]">01</span>
+                <h3 className="text-xl font-bold text-gray-900">Analysis</h3>
+              </div>
+              <div className="relative mb-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-purple-50 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                  </svg>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2">
+                  <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Enter your objectives, audience, and topic. Upload all the materials you want to use in your eLearning: videos, images, audio, and PDFs.
+              </p>
+            </motion.div>
+
+            {/* Step 2: Design */}
+            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center">
+              <div className="mb-4">
+                <span className="text-sm font-bold text-[#9F80DA]">02</span>
+                <h3 className="text-xl font-bold text-gray-900">Design</h3>
+              </div>
+              <div className="relative mb-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-purple-50 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                  </svg>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2">
+                  <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Specify how many modules, units, and activities you want. Upload your guidelines, colors, fonts, and logo.
+              </p>
+            </motion.div>
+
+            {/* Step 3: Development (Highlighted) */}
+            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center sm:col-span-2 lg:col-span-1">
+              <div className="mb-4">
+                <span className="text-sm font-bold text-white bg-[#9F80DA] px-2 py-0.5 rounded">03</span>
+                <h3 className="text-xl font-bold text-gray-900 mt-1">Development</h3>
+              </div>
+              <div className="relative mb-6">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 bg-[#9F80DA] rounded-2xl flex items-center justify-center shadow-lg shadow-purple-300">
+                  <svg className="w-12 h-12 sm:w-14 sm:h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-purple-200 rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2">
+                  <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Acadion.ai will generate your eLearning with visually stunning components.
+              </p>
+            </motion.div>
+
+            {/* Step 4: QA & Editing */}
+            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center">
+              <div className="mb-4">
+                <span className="text-sm font-bold text-[#9F80DA]">04</span>
+                <h3 className="text-xl font-bold text-gray-900">QA & Editing</h3>
+              </div>
+              <div className="relative mb-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-purple-50 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <div className="hidden lg:block absolute top-1/2 -right-6 transform -translate-y-1/2">
+                  <svg className="w-5 h-5 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Share your eLearning with your team, gather feedback, and edit it manually or with AI assistance.
+              </p>
+            </motion.div>
+
+            {/* Step 5: Export */}
+            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center">
+              <div className="mb-4">
+                <span className="text-sm font-bold text-[#9F80DA]">05</span>
+                <h3 className="text-xl font-bold text-gray-900">Export</h3>
+              </div>
+              <div className="relative mb-6">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 bg-purple-50 rounded-2xl flex items-center justify-center">
+                  <svg className="w-10 h-10 sm:w-12 sm:h-12 text-[#9F80DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Download your eLearning as a SCORM or xAPI package ready to integrate with your LMS.
+              </p>
+            </motion.div>
           </motion.div>
         </div>
       </section>
