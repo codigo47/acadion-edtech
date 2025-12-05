@@ -72,6 +72,7 @@ import MultipleResponseBlock from '../components/blocks/MultipleResponseBlock';
 import FillInTheBlankBlock from '../components/blocks/FillInTheBlankBlock';
 import MatchingPairsBlock from '../components/blocks/MatchingPairsBlock';
 import ButtonBlock from '../components/blocks/ButtonBlock';
+import StoryTellingBlock, { BubbleShape } from '../components/blocks/StoryTellingBlock';
 
 // New Components
 import ReviewsBlock from '../components/blocks/ReviewsBlock';
@@ -82,6 +83,57 @@ import EmbedBlock from '../components/blocks/EmbedBlock';
 import ButtonStackBlock from '../components/blocks/ButtonStackBlock';
 
 const sampleImage = '/sample.jpeg';
+
+// StoryTelling images
+const storyTellingImages = {
+  torsoGrande: [
+    '/story-telling-block/torso-grande1.png',
+    '/story-telling-block/torso-grande-1.png',
+    '/story-telling-block/torso-grande-2.png',
+    '/story-telling-block/torso-grande-4.png',
+    '/story-telling-block/torso-grande-5.png',
+  ],
+  torsoAlto: [
+    '/story-telling-block/torso-alto-1.png',
+    '/story-telling-block/torso-alto-2.png',
+    '/story-telling-block/torso-alto-3.png',
+    '/story-telling-block/torso-alto-4.png',
+    '/story-telling-block/torso-alto-5.png',
+    '/story-telling-block/torso-alto-6.png',
+    '/story-telling-block/torso-alto-7.png',
+    '/story-telling-block/torso-alto-8.png',
+    '/story-telling-block/torso-alto-9.png',
+    '/story-telling-block/torso-alto-10.png',
+    '/story-telling-block/torso-alto-11.png',
+    '/story-telling-block/torso-alto-12.png',
+  ],
+  sinPiernas: [
+    '/story-telling-block/sin-piernas-1.png',
+    '/story-telling-block/sin-piernas-2.png',
+    '/story-telling-block/sin-piernas-3.png',
+    '/story-telling-block/sin-piernas-4.png',
+    '/story-telling-block/sin-piernas-5.png',
+    '/story-telling-block/sin-piernas-6.png',
+  ],
+};
+
+const sampleTexts = [
+  "Welcome to our learning platform! I'm here to guide you through your educational journey.",
+  "Did you know? Studies show that interactive learning can improve retention by up to 75%.",
+  "Let me share a quick tip: Taking notes while learning helps consolidate your memory.",
+  "Great job on completing this module! You're making excellent progress.",
+  "Remember to take breaks every 25 minutes to maintain focus and productivity.",
+  "Here's an interesting fact about the topic we're covering today...",
+  "I'm thinking about the best way to explain this concept to you.",
+  "Have you tried practicing with real-world examples? It makes a huge difference!",
+  "Let's review what we've learned so far before moving on to the next section.",
+  "This is one of the most important concepts in this course. Pay close attention!",
+  "Don't worry if this seems complex at first - everyone starts somewhere.",
+  "Excellent question! Let me break this down into simpler parts for you.",
+];
+
+const bubbleShapes = [BubbleShape.Classic, BubbleShape.Rounded, BubbleShape.Cloud, BubbleShape.Square, BubbleShape.Thought];
+const bubbleColors = ['#FFFFFF', '#E8F4FD', '#FEF3C7', '#DCFCE7', '#FCE7F3', '#F3E8FF'];
 
 export default function PreviewPage() {
   const [dark, setDark] = useState(false);
@@ -642,6 +694,62 @@ export default function PreviewPage() {
         <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={14} dark={dark} />
 
         {/* ============================================ */}
+        {/* STORYTELLING BLOCK */}
+        {/* ============================================ */}
+        <HeadingBlock heading="StoryTellingBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="Torso Grande Style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        {storyTellingImages.torsoGrande.map((image, index) => (
+          <StoryTellingBlock
+            key={`torso-grande-${index}`}
+            avatarImage={image}
+            avatarName={`Character ${index + 1}`}
+            text={sampleTexts[index % sampleTexts.length]}
+            avatarPosition={index % 2 === 0 ? 'left' : 'right'}
+            bubbleStyle={{
+              shape: bubbleShapes[index % bubbleShapes.length],
+              backgroundColor: dark ? undefined : bubbleColors[index % bubbleColors.length],
+            }}
+            dark={dark}
+          />
+        ))}
+
+        <ParagraphBlock content="Torso Alto Style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        {storyTellingImages.torsoAlto.map((image, index) => (
+          <StoryTellingBlock
+            key={`torso-alto-${index}`}
+            avatarImage={image}
+            avatarName={`Guide ${index + 1}`}
+            text={sampleTexts[index % sampleTexts.length]}
+            avatarPosition={index % 2 === 0 ? 'left' : 'right'}
+            bubbleStyle={{
+              shape: bubbleShapes[index % bubbleShapes.length],
+              backgroundColor: dark ? undefined : bubbleColors[index % bubbleColors.length],
+            }}
+            dark={dark}
+          />
+        ))}
+
+        <ParagraphBlock content="Sin Piernas Style:" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        {storyTellingImages.sinPiernas.map((image, index) => (
+          <StoryTellingBlock
+            key={`sin-piernas-${index}`}
+            avatarImage={image}
+            avatarName={`Instructor ${index + 1}`}
+            text={sampleTexts[index % sampleTexts.length]}
+            avatarPosition={index % 2 === 0 ? 'left' : 'right'}
+            bubbleStyle={{
+              shape: bubbleShapes[index % bubbleShapes.length],
+              backgroundColor: dark ? undefined : bubbleColors[index % bubbleColors.length],
+              borderColor: index % 2 === 0 ? '#9F80DA' : undefined,
+            }}
+            dark={dark}
+          />
+        ))}
+
+        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={15} dark={dark} />
+
+        {/* ============================================ */}
         {/* TESTIMONIAL BLOCK */}
         {/* ============================================ */}
         <HeadingBlock heading="TestimonialBlock" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
@@ -669,7 +777,7 @@ export default function PreviewPage() {
         <HeadingBlock heading="Interactive Blocks" level={2} textStyle={{ textAlign: 'center', color: dark ? '#ffffff' : '#1a1a1a' }} dark={dark} />
         <SeparatorBlock height={40} color="red" showLine={true} showNumber={false} dark={dark} />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={15} dark={dark} />
+        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={16} dark={dark} />
 
         {/* ============================================ */}
         {/* CHECKBOX BLOCK */}
@@ -685,7 +793,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={16} dark={dark} />
+        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={17} dark={dark} />
 
         {/* ============================================ */}
         {/* CAROUSEL BLOCK */}
@@ -700,7 +808,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={17} dark={dark} />
+        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={18} dark={dark} />
 
         {/* ============================================ */}
         {/* ACCORDION BLOCK (with images) */}
@@ -734,7 +842,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={18} dark={dark} />
+        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={19} dark={dark} />
 
         {/* ============================================ */}
         {/* TABS BLOCK */}
@@ -749,7 +857,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={19} dark={dark} />
+        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={20} dark={dark} />
 
         {/* ============================================ */}
         {/* LABELED IMAGE BLOCK (with navigation) */}
@@ -766,7 +874,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={20} dark={dark} />
+        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={21} dark={dark} />
 
         {/* ============================================ */}
         {/* SCENARIO BLOCK */}
@@ -784,7 +892,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={21} dark={dark} />
+        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={22} dark={dark} />
 
         {/* ============================================ */}
         {/* SORTING BLOCKS */}
@@ -820,7 +928,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={22} dark={dark} />
+        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={23} dark={dark} />
 
         {/* ============================================ */}
         {/* FLASH CARD BLOCK */}
@@ -835,7 +943,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={23} dark={dark} />
+        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={24} dark={dark} />
 
         {/* ============================================ */}
         {/* MULTIPLE CHOICE BLOCK (with feedback) */}
@@ -852,7 +960,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={24} dark={dark} />
+        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={25} dark={dark} />
 
         {/* ============================================ */}
         {/* MULTIPLE RESPONSE BLOCK (with feedback) */}
@@ -872,7 +980,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={25} dark={dark} />
+        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={26} dark={dark} />
 
         {/* ============================================ */}
         {/* FILL IN THE BLANK BLOCK (multiple answers) */}
@@ -887,7 +995,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={26} dark={dark} />
+        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={27} dark={dark} />
 
         {/* ============================================ */}
         {/* MATCHING PAIRS BLOCK */}
@@ -910,7 +1018,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={27} dark={dark} />
+        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={28} dark={dark} />
 
         {/* ============================================ */}
         {/* BUTTON BLOCK */}

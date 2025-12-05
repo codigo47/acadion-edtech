@@ -16,6 +16,7 @@ export { default as ComparisonBlock } from './ComparisonBlock';
 export { default as ChatBlock } from './ChatBlock';
 export { default as QuoteBlock } from './QuoteBlock';
 export { default as TestimonialBlock } from './TestimonialBlock';
+export { default as StoryTellingBlock } from './StoryTellingBlock';
 
 // Interactive Blocks
 export { default as CheckboxBlock } from './CheckboxBlock';

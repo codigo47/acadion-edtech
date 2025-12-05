@@ -404,7 +404,7 @@ export default function NewProject() {
 
   // Handle evaluation continue
   const handleEvaluationContinue = () => {
-    const evalSummary = [];
+    const evalSummary: string[] = [];
     if (evaluationSettings.unitKnowledgeCheck) evalSummary.push('Unit checks');
     if (evaluationSettings.moduleKnowledgeCheck) evalSummary.push('Module checks');
     if (evaluationSettings.finalExercise) evalSummary.push('Final exercise');
