@@ -66,8 +66,35 @@ model Course {
 
   organization Organization? @relation(fields: [orgId], references: [id], onDelete: SetNull)
   user         User          @relation("UserCourses", fields: [userId], references: [id], onDelete: Cascade)
+  steps        CourseStep[]
 
   @@map("courses")
+}
+
+enum StepStatus {
+  pending
+  running
+  completed
+  failed
+
+  @@map("step_status")
+}
+
+model CourseStep {
+  id        Int        @id @default(autoincrement())
+  courseId  Int        @map("course_id")
+  title     String
+  index     Int
+  content   String?    @db.Text
+  status    StepStatus @default(pending)
+  payload   Json?      @db.JsonB
+  error     Json?      @db.JsonB
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @default(now()) @updatedAt @map("updated_at")
+
+  course    Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@map("course_steps")
 }
 
 enum MessageRole {
