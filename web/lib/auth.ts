@@ -100,6 +100,11 @@ export function clearAuth(): void {
   }
 }
 
+export function getUserId(): string | null {
+  const user = getUser();
+  return user?.id || null;
+}
+
 export function isAuthenticated(): boolean {
   return !!getToken();
 }

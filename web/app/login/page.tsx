@@ -1,16 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
-import { login, register, saveAuth, getGoogleLoginUrl } from '../../lib/auth';
+import { useLogin, useRegister, getGoogleLoginUrl } from '../../lib/hooks/use-auth';
 
 export default function LoginPage() {
-  const router = useRouter();
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const [formData, setFormData] = useState({
     email: '',
@@ -18,27 +14,32 @@ export default function LoginPage() {
     name: '',
   });
 
+  const loginMutation = useLogin();
+  const registerMutation = useRegister();
+
+  const isLoading = loginMutation.isPending || registerMutation.isPending;
+  const error = loginMutation.error || registerMutation.error;
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(null);
+    loginMutation.reset();
+    registerMutation.reset();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
 
-    try {
-      const response = isLogin
-        ? await login(formData.email, formData.password)
-        : await register(formData.email, formData.password, formData.name);
-
-      saveAuth(response);
-      router.push('/dashboard');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-    } finally {
-      setLoading(false);
+    if (isLogin) {
+      loginMutation.mutate({
+        email: formData.email,
+        password: formData.password,
+      });
+    } else {
+      registerMutation.mutate({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name || undefined,
+      });
     }
   };
 
@@ -148,16 +149,16 @@ export default function LoginPage() {
 
             {error && (
               <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3 text-red-300 text-sm">
-                {error}
+                {error.message}
               </div>
             )}
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={isLoading}
               className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
-              {loading ? (
+              {isLoading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
                   {isLogin ? 'Signing in...' : 'Creating account...'}
@@ -176,7 +177,8 @@ export default function LoginPage() {
             <button
               onClick={() => {
                 setIsLogin(!isLogin);
-                setError(null);
+                loginMutation.reset();
+                registerMutation.reset();
               }}
               className="text-purple-400 hover:text-purple-300 font-medium transition-colors"
             >
