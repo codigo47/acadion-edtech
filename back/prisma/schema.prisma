@@ -25,3 +25,121 @@ model Component {
 
   @@map("components")
 }
+
+model Course {
+  id        Int      @id @default(autoincrement())
+  key       String   @default(uuid()) @db.Uuid
+  title     String
+  data      Json?    @db.JsonB // { index, structure, exercises, evaluation, branding: { primaryColor, secondaryColor, typo1, typo2, logo, guidelines } }
+  orgId     Int?     @map("org_id")
+  userId    String?  @map("user_id") @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  user      User?    @relation("UserCourses", fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("courses")
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+
+  @@map("message_role")
+}
+
+model Conversation {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  title      String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
+  isArchived Boolean   @default(false) @map("is_archived")
+  messages   Message[]
+
+  user       User      @relation("UserConversations", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(uuid()) @db.Uuid
+  conversationId String       @map("conversation_id") @db.Uuid
+  role           MessageRole
+  content        String
+  createdAt      DateTime     @default(now()) @map("created_at")
+  sequence       BigInt       @default(autoincrement())
+  modelName      String?      @map("model_name")
+  tokensUsed     Int?         @map("tokens_used")
+  metadata       Json?        @db.JsonB
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+// Auth Models (NextAuth.js / Auth.js compatible)
+model User {
+  id            String    @id @default(uuid()) @db.Uuid
+  name          String?
+  email         String    @unique
+  emailVerified DateTime? @map("email_verified")
+  image         String?
+  password      String?   // For email/password auth (hashed)
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  accounts      Account[]
+  sessions      Session[]
+
+  // App-specific relations
+  courses       Course[]       @relation("UserCourses")
+  conversations Conversation[] @relation("UserConversations")
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(uuid()) @db.Uuid
+  userId            String  @map("user_id") @db.Uuid
+  type              String  // "oauth" | "oidc" | "email" | "credentials"
+  provider          String  // "google" | "credentials"
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid()) @db.Uuid
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id") @db.Uuid
+  expires      DateTime
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
