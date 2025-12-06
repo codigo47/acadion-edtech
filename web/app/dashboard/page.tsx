@@ -105,7 +105,7 @@ export default function Dashboard() {
             <div className="p-4">
               <nav className="space-y-1 mb-6">
                 <button
-                  onClick={() => router.push('/new-project')}
+                  onClick={() => router.push('/project')}
                   className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-200 rounded text-left font-medium"
                 >
                   <span className="text-sm">+</span>

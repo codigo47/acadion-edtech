@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective } from '../../../lib/hooks/use-course';
 
 // Exercise types available
 const exerciseTypes = [
@@ -215,16 +217,62 @@ function CompletionPopup({ onClose }: { onClose: () => void }) {
   );
 }
 
-export default function NewProject() {
+export default function ProjectPage() {
+  const params = useParams();
+  const courseKey = params.courseKey as string;
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [prompt, setPrompt] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [isLoadingCourse, setIsLoadingCourse] = useState(true);
   const [chatInput, setChatInput] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   // Conversation state
   const [currentStep, setCurrentStep] = useState<ChatStep>('audience');
   const [messages, setMessages] = useState<Message[]>([]);
+
+  // React Query hooks
+  const generateTitleMutation = useGenerateTitle();
+  const setAudienceMutation = useSetAudience();
+  const setObjectiveMutation = useSetObjective();
+  const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
+
+  // Get conversationKey from courseData
+  const resolvedConversationKey = courseData?.conversations?.[0]?.id || null;
+
+  // Load existing messages from course data
+  useEffect(() => {
+    if (!isCourseLoading && courseData) {
+      const existingMessages = courseData.conversations?.[0]?.messages || [];
+
+      if (existingMessages.length > 0) {
+        // Course has existing messages - show chat directly
+        const formattedMessages: Message[] = existingMessages.map((msg) => ({
+          type: msg.role === 'user' ? 'user' : 'ai',
+          content: msg.content,
+        }));
+
+        setMessages(formattedMessages);
+        setHasSubmitted(true);
+
+        // Set topic from first user message
+        const firstUserMessage = existingMessages.find((msg) => msg.role === 'user');
+        if (firstUserMessage) {
+          setTopic(firstUserMessage.content);
+        }
+      }
+
+      setIsLoadingCourse(false);
+    }
+  }, [isCourseLoading, courseData]);
+
+  // Update title when course data changes
+  useEffect(() => {
+    if (courseData?.title) {
+      console.log('Course title generated:', courseData.title);
+    }
+  }, [courseData?.title]);
 
   // Form data
   const [topic, setTopic] = useState('');
@@ -260,29 +308,45 @@ export default function NewProject() {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, currentStep]);
 
-  // Handle initial submit
-  const handleSubmit = () => {
-    if (prompt.trim()) {
+  // Handle initial topic submission - calls /course/title endpoint
+  const handleTopicSubmit = async () => {
+    if (prompt.trim() && courseKey && resolvedConversationKey) {
       setTopic(prompt);
       setHasSubmitted(true);
-      // Add initial AI message after a short delay
-      setTimeout(() => {
-        setMessages([
-          { type: 'user', content: prompt },
+
+      // Add initial user message
+      setMessages([{ type: 'user', content: prompt }]);
+
+      try {
+        // Call backend to generate title and get AI response
+        const result = await generateTitleMutation.mutateAsync({
+          courseKey,
+          conversationKey: resolvedConversationKey,
+          topic: prompt,
+        });
+
+        // Add AI response message from backend
+        setMessages((prev) => [
+          ...prev,
+          { type: 'ai', content: result.aiMessage },
         ]);
-      }, 100);
+
+        console.log('Title generation started');
+      } catch (error) {
+        console.error('Failed to generate title:', error);
+      }
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleTopicInputKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleSubmit();
+      handleTopicSubmit();
     }
   };
 
-  // Handle chat input submit
-  const handleChatSubmit = () => {
+  // Handle chat message submission during conversation flow
+  const handleChatMessageSubmit = async () => {
     if (!chatInput.trim()) return;
 
     const userMessage = chatInput;
@@ -292,25 +356,57 @@ export default function NewProject() {
       setAudienceResponse(userMessage);
       setMessages((prev) => [
         ...prev,
-        { type: 'ai', content: `Let's start designing your course. Tell me, who are the target learners?\n\n• Who are they?\n• What knowledge do they have about the topic?\n• Why do they need to learn about ${topic}?\n\n* The more details and context you provide, the better` },
         { type: 'user', content: userMessage },
       ]);
-      setCurrentStep('objectives');
+
+      if (courseKey && resolvedConversationKey) {
+        try {
+          const result = await setAudienceMutation.mutateAsync({
+            courseKey,
+            conversationKey: resolvedConversationKey,
+            audience: userMessage,
+          });
+
+          setMessages((prev) => [
+            ...prev,
+            { type: 'ai', content: result.aiMessage },
+          ]);
+          setCurrentStep('objectives');
+        } catch (error) {
+          console.error('Failed to set audience:', error);
+        }
+      }
     } else if (currentStep === 'objectives') {
       setObjectivesResponse(userMessage);
       setMessages((prev) => [
         ...prev,
-        { type: 'ai', content: 'Now tell me about the course objectives. What do you want them to learn and at what depth?' },
         { type: 'user', content: userMessage },
       ]);
-      setCurrentStep('paraphrasing');
+
+      if (courseKey && resolvedConversationKey) {
+        try {
+          const result = await setObjectiveMutation.mutateAsync({
+            courseKey,
+            conversationKey: resolvedConversationKey,
+            objective: userMessage,
+          });
+
+          setMessages((prev) => [
+            ...prev,
+            { type: 'ai', content: result.aiMessage },
+          ]);
+          setCurrentStep('paraphrasing');
+        } catch (error) {
+          console.error('Failed to set objective:', error);
+        }
+      }
     }
   };
 
-  const handleChatKeyDown = (e: React.KeyboardEvent) => {
+  const handleChatInputKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      handleChatSubmit();
+      handleChatMessageSubmit();
     }
   };
 
@@ -469,38 +565,15 @@ export default function NewProject() {
   const renderCurrentStepContent = () => {
     switch (currentStep) {
       case 'audience':
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="flex justify-start"
-          >
-            <div className="max-w-2xl">
-              <p className="text-gray-700 whitespace-pre-line">
-                {`Let's start designing your course. Tell me, who are the target learners?\n\n• Who are they?\n• What knowledge do they have about the topic?\n• Why do they need to learn about ${topic}?\n\n* The more details and context you provide, the better`}
-              </p>
-            </div>
-          </motion.div>
-        );
+        // AI message comes from backend via handleTopicSubmit
+        return null;
 
       case 'objectives':
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="flex justify-start"
-          >
-            <div className="max-w-2xl">
-              <p className="text-gray-700">
-                Now tell me about the course objectives. What do you want them to learn and at what depth?
-              </p>
-            </div>
-          </motion.div>
-        );
+        // AI message comes from backend via handleChatMessageSubmit (audience step)
+        return null;
 
       case 'paraphrasing':
+        // AI message comes from backend via handleChatMessageSubmit (objectives step)
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -508,7 +581,6 @@ export default function NewProject() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <p className="text-gray-700">Paraphrasing.......</p>
             <CTAButton onClick={handleParaphrasingContinue}>
               Continue
             </CTAButton>
@@ -1003,6 +1075,22 @@ export default function NewProject() {
     }
   };
 
+  // Show loading while fetching course data
+  if (isLoadingCourse) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="flex items-center gap-3">
+          <div className="flex gap-1">
+            <span className="w-2 h-2 bg-[#9F80DA] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+            <span className="w-2 h-2 bg-[#9F80DA] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+            <span className="w-2 h-2 bg-[#9F80DA] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+          </div>
+          <span className="text-gray-500">Loading course...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white text-[#1a1a1a] font-[var(--font-onest)]">
       {/* Completion Popup */}
@@ -1142,13 +1230,13 @@ export default function NewProject() {
                     <textarea
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      onKeyDown={handleKeyDown}
+                      onKeyDown={handleTopicInputKeyDown}
                       placeholder="Describe your eLearning project..."
                       rows={2}
                       className="w-full px-5 py-4 pr-14 text-base border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent transition-all resize-none"
                     />
                     <button
-                      onClick={handleSubmit}
+                      onClick={handleTopicSubmit}
                       className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[#9F80DA] hover:bg-[#8A6BC5] text-white rounded-xl transition-colors"
                     >
                       <svg
@@ -1248,13 +1336,13 @@ export default function NewProject() {
                         <textarea
                           value={chatInput}
                           onChange={(e) => setChatInput(e.target.value)}
-                          onKeyDown={handleChatKeyDown}
+                          onKeyDown={handleChatInputKeyDown}
                           placeholder="Type your message..."
                           rows={2}
                           className="w-full px-5 py-4 pr-14 text-base border border-gray-300 rounded-2xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent transition-all resize-none"
                         />
                         <button
-                          onClick={handleChatSubmit}
+                          onClick={handleChatMessageSubmit}
                           className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-[#9F80DA] hover:bg-[#8A6BC5] text-white rounded-xl transition-colors"
                         >
                           <svg

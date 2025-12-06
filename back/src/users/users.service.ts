@@ -7,14 +7,14 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async findByEmail(email: string) {
-    return this.prisma.client.user.findUnique({
+    return this.prisma.user.findUnique({
       where: { email },
       include: { accounts: true },
     });
   }
 
   async findById(id: string) {
-    return this.prisma.client.user.findUnique({
+    return this.prisma.user.findUnique({
       where: { id },
     });
   }
@@ -29,7 +29,7 @@ export class UsersService {
       ? await bcrypt.hash(data.password, 10)
       : null;
 
-    return this.prisma.client.user.create({
+    return this.prisma.user.create({
       data: {
         email: data.email,
         name: data.name,
@@ -62,7 +62,7 @@ export class UsersService {
 
       if (!existingAccount) {
         // Link the OAuth account to existing user
-        await this.prisma.client.account.create({
+        await this.prisma.account.create({
           data: {
             userId: existingUser.id,
             type: 'oauth',
@@ -75,7 +75,7 @@ export class UsersService {
         });
       } else {
         // Update tokens
-        await this.prisma.client.account.update({
+        await this.prisma.account.update({
           where: { id: existingAccount.id },
           data: {
             access_token: data.accessToken,
@@ -89,7 +89,7 @@ export class UsersService {
     }
 
     // Create new user with OAuth account
-    return this.prisma.client.user.create({
+    return this.prisma.user.create({
       data: {
         email: data.email,
         name: data.name,
