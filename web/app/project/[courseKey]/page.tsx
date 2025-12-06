@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus } from '../../../lib/hooks/use-course';
 
 // Exercise types available
 const exerciseTypes = [
@@ -219,6 +219,7 @@ function CompletionPopup({ onClose }: { onClose: () => void }) {
 
 export default function ProjectPage() {
   const params = useParams();
+  const router = useRouter();
   const courseKey = params.courseKey as string;
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -227,16 +228,21 @@ export default function ProjectPage() {
   const [isLoadingCourse, setIsLoadingCourse] = useState(true);
   const [chatInput, setChatInput] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const chatInputRef = useRef<HTMLTextAreaElement>(null);
 
   // Conversation state
   const [currentStep, setCurrentStep] = useState<ChatStep>('audience');
   const [messages, setMessages] = useState<Message[]>([]);
+
+  // State for objective generation polling
+  const [isPollingObjective, setIsPollingObjective] = useState(false);
 
   // React Query hooks
   const generateTitleMutation = useGenerateTitle();
   const setAudienceMutation = useSetAudience();
   const setObjectiveMutation = useSetObjective();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
+  const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
 
   // Get conversationKey from courseData
   const resolvedConversationKey = courseData?.conversations?.[0]?.id || null;
@@ -273,6 +279,24 @@ export default function ProjectPage() {
       console.log('Course title generated:', courseData.title);
     }
   }, [courseData?.title]);
+
+  // Handle objective generation completion
+  useEffect(() => {
+    if (objectiveStatus?.status === 'completed' && objectiveStatus.message) {
+      setIsPollingObjective(false);
+      // Add the generated objectives message
+      setMessages((prev) => [
+        ...prev,
+        { type: 'ai', content: objectiveStatus.message! },
+      ]);
+      setCurrentStep('buildMethod');
+      // Focus chat input after AI response
+      setTimeout(() => chatInputRef.current?.focus(), 100);
+    } else if (objectiveStatus?.status === 'failed') {
+      setIsPollingObjective(false);
+      console.error('Objective generation failed');
+    }
+  }, [objectiveStatus]);
 
   // Form data
   const [topic, setTopic] = useState('');
@@ -332,6 +356,8 @@ export default function ProjectPage() {
         ]);
 
         console.log('Title generation started');
+        // Focus chat input after AI response
+        setTimeout(() => chatInputRef.current?.focus(), 100);
       } catch (error) {
         console.error('Failed to generate title:', error);
       }
@@ -372,6 +398,8 @@ export default function ProjectPage() {
             { type: 'ai', content: result.aiMessage },
           ]);
           setCurrentStep('objectives');
+          // Focus chat input after AI response
+          setTimeout(() => chatInputRef.current?.focus(), 100);
         } catch (error) {
           console.error('Failed to set audience:', error);
         }
@@ -385,17 +413,15 @@ export default function ProjectPage() {
 
       if (courseKey && resolvedConversationKey) {
         try {
-          const result = await setObjectiveMutation.mutateAsync({
+          await setObjectiveMutation.mutateAsync({
             courseKey,
             conversationKey: resolvedConversationKey,
             objective: userMessage,
           });
 
-          setMessages((prev) => [
-            ...prev,
-            { type: 'ai', content: result.aiMessage },
-          ]);
           setCurrentStep('paraphrasing');
+          // Start polling for objective generation
+          setIsPollingObjective(true);
         } catch (error) {
           console.error('Failed to set objective:', error);
         }
@@ -408,15 +434,6 @@ export default function ProjectPage() {
       e.preventDefault();
       handleChatMessageSubmit();
     }
-  };
-
-  // Handle paraphrasing continue
-  const handleParaphrasingContinue = () => {
-    setMessages((prev) => [
-      ...prev,
-      { type: 'ai', content: 'Paraphrasing.......' },
-    ]);
-    setCurrentStep('buildMethod');
   };
 
   // Handle build method selection
@@ -573,19 +590,20 @@ export default function ProjectPage() {
         return null;
 
       case 'paraphrasing':
-        // AI message comes from backend via handleChatMessageSubmit (objectives step)
-        return (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-4"
-          >
-            <CTAButton onClick={handleParaphrasingContinue}>
-              Continue
-            </CTAButton>
-          </motion.div>
-        );
+        // Show loading while generating objectives, then show continue button
+        if (isPollingObjective) {
+          return (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              className="space-y-4"
+            >
+              <LoadingIndicator />
+            </motion.div>
+          );
+        }
+        return null;
 
       case 'buildMethod':
         return (
@@ -1115,7 +1133,10 @@ export default function ProjectPage() {
             </svg>
           </button>
 
-          <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => router.push('/dashboard')}
+          >
             <img
               src="/landing/acadion2.png"
               alt="Acadion Logo"
@@ -1334,6 +1355,7 @@ export default function ProjectPage() {
                     <div className="max-w-3xl mx-auto">
                       <div className="relative">
                         <textarea
+                          ref={chatInputRef}
                           value={chatInput}
                           onChange={(e) => setChatInput(e.target.value)}
                           onKeyDown={handleChatInputKeyDown}

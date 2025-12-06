@@ -84,7 +84,11 @@ interface SetObjectiveParams {
 
 interface SetObjectiveResponse {
   success: boolean;
-  aiMessage: string;
+}
+
+interface ObjectiveStatusResponse {
+  status: 'pending' | 'running' | 'completed' | 'failed' | 'not_found';
+  message: string | null;
 }
 
 export function useCreateCourse() {
@@ -117,6 +121,21 @@ export function useSetObjective() {
   return useMutation({
     mutationFn: (params: SetObjectiveParams) =>
       api.post<SetObjectiveResponse>('/v1/course/objective', params),
+  });
+}
+
+export function useObjectiveStatus(courseKey: string | null, enabled: boolean = false) {
+  return useQuery({
+    queryKey: ['objective-status', courseKey],
+    queryFn: () => api.get<ObjectiveStatusResponse>(`/v1/course/${courseKey}/objective`),
+    enabled: !!courseKey && enabled,
+    refetchInterval: (data) => {
+      const status = data.state.data?.status;
+      if (status === 'pending' || status === 'running') {
+        return 2000;
+      }
+      return false;
+    },
   });
 }
 

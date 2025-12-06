@@ -62,7 +62,10 @@ export default function Dashboard() {
             </svg>
           </button>
 
-          <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => router.push('/dashboard')}
+          >
             <img
               src="/landing/acadion2.png"
               alt="Acadion Logo"

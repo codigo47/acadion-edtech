@@ -84,6 +84,7 @@ enum StepStatus {
 
 enum StepType {
   generating_title
+  generating_objectives
   generating_index
   generating_content
   generating_image

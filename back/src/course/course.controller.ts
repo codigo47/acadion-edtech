@@ -31,6 +31,11 @@ export class CourseController {
     return this.courseService.setObjective(setObjectiveDto);
   }
 
+  @Get(':key/objective')
+  async getObjectiveStatus(@Param('key') key: string) {
+    return this.courseService.getObjectiveStatus(key);
+  }
+
   @Get(':key')
   async findOne(@Param('key') key: string) {
     return this.courseService.findByKey(key);

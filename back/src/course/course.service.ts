@@ -223,21 +223,61 @@ export class CourseService {
       },
     });
 
-    // AI response message
-    const aiMessage = `Paraphrasing.......`;
-
-    // Save AI message to conversation
-    await this.prisma.message.create({
+    // Create step for generating objectives
+    await this.prisma.courseStep.create({
       data: {
-        conversationId: conversationKey,
-        role: 'assistant',
-        content: aiMessage,
+        courseId: course.id,
+        type: 'generating_objectives',
+        status: 'pending',
       },
     });
 
+    // Add job to queue for objectives generation
+    await this.courseQueue.add('generate_objectives', {
+      courseId: course.id,
+      objective,
+    });
+
+    // AI message will be saved by the worker when objectives are generated
+
     return {
       success: true,
-      aiMessage,
+    };
+  }
+
+  async getObjectiveStatus(courseKey: string) {
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+      include: {
+        steps: {
+          where: { type: 'generating_objectives' },
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+        },
+        conversations: {
+          take: 1,
+          orderBy: { createdAt: 'asc' },
+          include: {
+            messages: {
+              where: { role: 'assistant' },
+              orderBy: { createdAt: 'desc' },
+              take: 1,
+            },
+          },
+        },
+      },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    const step = course.steps[0];
+    const lastMessage = course.conversations[0]?.messages[0];
+
+    return {
+      status: step?.status || 'not_found',
+      message: lastMessage?.content || null,
     };
   }
 
