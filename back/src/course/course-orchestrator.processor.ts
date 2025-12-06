@@ -16,6 +16,10 @@ interface GenerateObjectivesJobData {
   objective: string;
 }
 
+interface GenerateIndexJobData {
+  courseId: number;
+}
+
 @Processor(COURSE_ORCHESTRATION_QUEUE)
 export class CourseOrchestratorProcessor extends WorkerHost {
   private readonly logger = new Logger(CourseOrchestratorProcessor.name);
@@ -31,7 +35,7 @@ export class CourseOrchestratorProcessor extends WorkerHost {
   }
 
   async process(
-    job: Job<GenerateTitleJobData | GenerateObjectivesJobData>,
+    job: Job<GenerateTitleJobData | GenerateObjectivesJobData | GenerateIndexJobData>,
   ): Promise<any> {
     this.logger.log(`Processing job ${job.id} - ${job.name}`);
 
@@ -41,6 +45,10 @@ export class CourseOrchestratorProcessor extends WorkerHost {
 
     if (job.name === 'generate_objectives') {
       return this.handleGenerateObjectives(job as Job<GenerateObjectivesJobData>);
+    }
+
+    if (job.name === 'generate_index') {
+      return this.handleGenerateIndex(job as Job<GenerateIndexJobData>);
     }
 
     this.logger.warn(`Unknown job name: ${job.name}`);
@@ -72,10 +80,6 @@ Respond with ONLY the title, nothing else.`;
 
       const userPrompt = `Create a course title for the following topic: ${topic}`;
 
-      this.logger.log(`[LangChain] Sending prompt to OpenAI...`);
-      this.logger.log(`[LangChain] System: ${systemPrompt}`);
-      this.logger.log(`[LangChain] User: ${userPrompt}`);
-
       const response = await this.llm.invoke([
         new SystemMessage(systemPrompt),
         new HumanMessage(userPrompt),
@@ -86,11 +90,6 @@ Respond with ONLY the title, nothing else.`;
       // Extract token usage from response
       const promptTokens = response.usage_metadata?.input_tokens ?? null;
       const completionTokens = response.usage_metadata?.output_tokens ?? null;
-
-      this.logger.log(`[LangChain] Response: ${title}`);
-      this.logger.log(
-        `[LangChain] Tokens - Prompt: ${promptTokens}, Completion: ${completionTokens}`,
-      );
 
       // Update course title
       await this.prisma.course.update({
@@ -193,8 +192,6 @@ User's Learning Objectives: ${objective}
 
 Please convert the user's learning objectives above into 4-6 well-defined learning objectives following Bloom's Taxonomy.`;
 
-      this.logger.log(`[LangChain] Sending prompt to OpenAI for objectives...`);
-
       const response = await this.llm.invoke([
         new SystemMessage(systemPrompt),
         new HumanMessage(userPrompt),
@@ -206,11 +203,6 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
       const promptTokens = response.usage_metadata?.input_tokens ?? null;
       const completionTokens = response.usage_metadata?.output_tokens ?? null;
 
-      this.logger.log(`[LangChain] Objectives generated: ${objectives}`);
-      this.logger.log(
-        `[LangChain] Tokens - Prompt: ${promptTokens}, Completion: ${completionTokens}`,
-      );
-
       // Update course input with generated objectives
       const currentInput = (course.input as Record<string, unknown>) || {};
       await this.prisma.course.update({
@@ -220,13 +212,23 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
         },
       });
 
-      // Save AI message to conversation
+      // Save AI messages to conversation
       if (conversationId) {
+        // First message: generated objectives
         await this.prisma.message.create({
           data: {
             conversationId,
             role: 'assistant',
             content: objectives,
+          },
+        });
+
+        // Second message: build method question
+        await this.prisma.message.create({
+          data: {
+            conversationId,
+            role: 'assistant',
+            content: 'How do you want to build the course?',
           },
         });
       }
@@ -255,6 +257,159 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
       // Mark step as failed
       await this.prisma.courseStep.updateMany({
         where: { courseId, type: 'generating_objectives' },
+        data: {
+          status: 'failed',
+          error: {
+            message: error.message,
+            stack: error.stack,
+          },
+        },
+      });
+
+      throw error;
+    }
+  }
+
+  private async handleGenerateIndex(job: Job<GenerateIndexJobData>) {
+    const { courseId } = job.data;
+
+    this.logger.log(`Generating index for course ${courseId}`);
+
+    // Get course with all necessary data
+    const course = await this.prisma.course.findUnique({
+      where: { id: courseId },
+      include: {
+        conversations: {
+          take: 1,
+          orderBy: { createdAt: 'asc' },
+          include: {
+            messages: {
+              orderBy: { createdAt: 'asc' },
+            },
+          },
+        },
+      },
+    });
+
+    if (!course) {
+      throw new Error(`Course ${courseId} not found`);
+    }
+
+    const input = course.input as Record<string, unknown>;
+    const topic = input?.topic || '';
+    const audience = input?.audience || '';
+    const objective = input?.objective || '';
+    const generatedObjectives = input?.generatedObjectives || '';
+    const modules = input?.modules as Record<string, { units: number }> || {};
+    const conversationId = course.conversations[0]?.id;
+
+    // Mark step as running
+    await this.prisma.courseStep.updateMany({
+      where: { courseId, type: 'generating_index' },
+      data: { status: 'running' },
+    });
+
+    try {
+      // Build the modules structure description for the prompt
+      const modulesDescription = Object.entries(modules)
+        .map(([moduleNum, data]) => `Module ${moduleNum}: ${data.units} units`)
+        .join('\n');
+
+      const systemPrompt = `You are an expert instructional designer. Your task is to create a detailed course index/outline based on the provided information.
+
+The index should:
+1. Have clear, descriptive titles for each module
+2. Have clear, descriptive titles for each unit within modules
+3. Follow a logical learning progression
+4. Be appropriate for the target audience
+5. Cover the learning objectives
+
+Output format - use this exact tree structure with proper indentation:
+${course.title || topic}
+├── 1. [Module 1 Title]
+│   ├── 1.1. [Unit 1 Title]
+│   ├── 1.2. [Unit 2 Title]
+│   └── 1.3. [Unit 3 Title]
+├── 2. [Module 2 Title]
+│   ├── 2.1. [Unit 1 Title]
+│   └── 2.2. [Unit 2 Title]
+└── 3. [Module 3 Title]
+    ├── 3.1. [Unit 1 Title]
+    └── 3.2. [Unit 2 Title]
+
+Rules:
+- Use ├── for items that have siblings after them
+- Use └── for the last item in a group
+- Use │ for vertical continuation lines
+- Indent units under their module
+- Number modules as 1, 2, 3...
+- Number units as 1.1, 1.2, 2.1, 2.2...
+- Generate ONLY the tree structure, no additional text`;
+
+      const userPrompt = `Course Topic: ${topic}
+Course Title: ${course.title || topic}
+Target Audience: ${audience}
+User's Learning Objectives: ${objective}
+Generated Learning Objectives: ${generatedObjectives}
+
+Module Structure:
+${modulesDescription}
+
+Generate the course index with descriptive titles for each module and unit.`;
+
+      const response = await this.llm.invoke([
+        new SystemMessage(systemPrompt),
+        new HumanMessage(userPrompt),
+      ]);
+
+      const indexContent = response.content.toString().trim();
+
+      // Extract token usage from response
+      const promptTokens = response.usage_metadata?.input_tokens ?? null;
+      const completionTokens = response.usage_metadata?.output_tokens ?? null;
+
+      // Update course output with generated index
+      const currentOutput = (course.output as Record<string, unknown>) || {};
+      await this.prisma.course.update({
+        where: { id: courseId },
+        data: {
+          output: { ...currentOutput, index: indexContent },
+        },
+      });
+
+      // Save AI message to conversation
+      if (conversationId) {
+        await this.prisma.message.create({
+          data: {
+            conversationId,
+            role: 'assistant',
+            content: indexContent,
+          },
+        });
+      }
+
+      // Mark step as completed with token usage
+      await this.prisma.courseStep.updateMany({
+        where: { courseId, type: 'generating_index' },
+        data: {
+          status: 'completed',
+          payload: { index: indexContent },
+          promptTokens,
+          completionTokens,
+        },
+      });
+
+      this.logger.log(`Index generated successfully for course ${courseId}`);
+
+      return { success: true, index: indexContent };
+    } catch (error) {
+      this.logger.error(
+        `Failed to generate index for course ${courseId}: ${error.message}`,
+      );
+
+      // Mark step as failed
+      await this.prisma.courseStep.updateMany({
+        where: { courseId, type: 'generating_index' },
         data: {
           status: 'failed',
           error: {

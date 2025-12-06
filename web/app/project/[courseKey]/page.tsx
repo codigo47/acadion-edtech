@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus } from '../../../lib/hooks/use-course';
 
 // Exercise types available
 const exerciseTypes = [
@@ -33,77 +33,6 @@ const fontOptions = [
   'Work Sans',
 ];
 
-// Course index structure type
-interface CourseItem {
-  id: string;
-  title: string;
-  children?: CourseItem[];
-}
-
-// Recursive component to render course tree
-function CourseTreeItem({
-  item,
-  isLast,
-  depth,
-}: {
-  item: CourseItem;
-  isLast: boolean;
-  depth: number;
-}) {
-  const isModule = depth === 0;
-  const prefix = isLast ? '└──' : '├──';
-  const paddingLeft = depth * 24;
-
-  return (
-    <div>
-      <div
-        className={`${isModule ? 'font-medium text-[#9F80DA] mt-2 first:mt-0' : ''}`}
-        style={{ paddingLeft: `${paddingLeft}px` }}
-      >
-        {prefix} {item.id}. {item.title}
-      </div>
-      {item.children?.map((child, index) => (
-        <CourseTreeItem
-          key={child.id}
-          item={child}
-          isLast={index === item.children!.length - 1}
-          depth={depth + 1}
-        />
-      ))}
-    </div>
-  );
-}
-
-// Generate course index based on modules and units
-function generateCourseIndex(modulesCount: number, unitsPerModule: number[]): CourseItem[] {
-  const moduleNames = [
-    'Introduction',
-    'Core Concepts',
-    'Key Principles',
-    'Practical Applications',
-    'Advanced Topics',
-    'Best Practices',
-    'Case Studies',
-    'Implementation Strategies',
-    'Tools and Techniques',
-    'Summary and Next Steps',
-  ];
-
-  return Array.from({ length: modulesCount }, (_, moduleIndex) => {
-    const moduleNum = moduleIndex + 1;
-    const unitCount = unitsPerModule[moduleIndex] || 3;
-
-    return {
-      id: `${moduleNum}`,
-      title: moduleNames[moduleIndex] || `Module ${moduleNum}`,
-      children: Array.from({ length: unitCount }, (_, unitIndex) => ({
-        id: `${moduleNum}.${unitIndex + 1}`,
-        title: `Unit ${unitIndex + 1}`,
-      })),
-    };
-  });
-}
-
 // Chat step types
 type ChatStep =
   | 'audience'
@@ -112,7 +41,7 @@ type ChatStep =
   | 'buildMethod'
   | 'modulesCount'
   | 'unitsPerModule'
-  | 'courseIndex'
+  | 'generatingIndex'
   | 'exerciseTypes'
   | 'evaluation'
   | 'visualIdentity'
@@ -237,12 +166,19 @@ export default function ProjectPage() {
   // State for objective generation polling
   const [isPollingObjective, setIsPollingObjective] = useState(false);
 
+  // State for index generation polling
+  const [isPollingIndex, setIsPollingIndex] = useState(false);
+
   // React Query hooks
   const generateTitleMutation = useGenerateTitle();
   const setAudienceMutation = useSetAudience();
   const setObjectiveMutation = useSetObjective();
+  const setBuildingMethodMutation = useSetBuildingMethod();
+  const setModulesMutation = useSetModules();
+  const setUnitsMutation = useSetUnits();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
   const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
+  const { data: indexStatus } = useIndexStatus(courseKey, isPollingIndex);
 
   // Get conversationKey from courseData
   const resolvedConversationKey = courseData?.conversations?.[0]?.id || null;
@@ -282,12 +218,13 @@ export default function ProjectPage() {
 
   // Handle objective generation completion
   useEffect(() => {
-    if (objectiveStatus?.status === 'completed' && objectiveStatus.message) {
+    if (objectiveStatus?.status === 'completed' && objectiveStatus.objectivesMessage) {
       setIsPollingObjective(false);
-      // Add the generated objectives message
+      // Add the generated objectives message and build method question
       setMessages((prev) => [
         ...prev,
-        { type: 'ai', content: objectiveStatus.message! },
+        { type: 'ai', content: objectiveStatus.objectivesMessage! },
+        { type: 'ai', content: objectiveStatus.buildMethodMessage! },
       ]);
       setCurrentStep('buildMethod');
       // Focus chat input after AI response
@@ -298,12 +235,32 @@ export default function ProjectPage() {
     }
   }, [objectiveStatus]);
 
+  // Handle index generation completion
+  useEffect(() => {
+    if (indexStatus?.status === 'completed' && indexStatus.indexMessage) {
+      setIsPollingIndex(false);
+      // Add the generated index message
+      setMessages((prev) => [
+        ...prev,
+        { type: 'ai', content: indexStatus.indexMessage! },
+      ]);
+      setCurrentStep('exerciseTypes');
+      // Focus chat input after AI response
+      setTimeout(() => chatInputRef.current?.focus(), 100);
+    } else if (indexStatus?.status === 'failed') {
+      setIsPollingIndex(false);
+      console.error('Index generation failed');
+    }
+  }, [indexStatus]);
+
   // Form data
   const [topic, setTopic] = useState('');
   const [audienceResponse, setAudienceResponse] = useState('');
   const [objectivesResponse, setObjectivesResponse] = useState('');
   const [buildMethod, setBuildMethod] = useState<string>('');
   const [modulesCount, setModulesCount] = useState(0);
+  const [maxModules, setMaxModules] = useState(10);
+  const [maxUnits, setMaxUnits] = useState(10);
   const [unitsPerModule, setUnitsPerModule] = useState<number[]>([]);
   const [selectedExercises, setSelectedExercises] = useState<string[]>([]);
   const [evaluationSettings, setEvaluationSettings] = useState({
@@ -321,7 +278,6 @@ export default function ProjectPage() {
 
   // Editor layout state
   const [showEditorLayout, setShowEditorLayout] = useState(false);
-  const [courseIndex, setCourseIndex] = useState<CourseItem[]>([]);
 
   // Loading state
   const [isGenerating, setIsGenerating] = useState(false);
@@ -331,6 +287,17 @@ export default function ProjectPage() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, currentStep]);
+
+  // Focus chat input when messages change and chat is visible
+  useEffect(() => {
+    if (hasSubmitted && !showEditorLayout && messages.length > 0) {
+      // Wait for the chat view animation to complete
+      const timer = setTimeout(() => {
+        chatInputRef.current?.focus();
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [hasSubmitted, showEditorLayout, messages.length]);
 
   // Handle initial topic submission - calls /course/title endpoint
   const handleTopicSubmit = async () => {
@@ -356,8 +323,6 @@ export default function ProjectPage() {
         ]);
 
         console.log('Title generation started');
-        // Focus chat input after AI response
-        setTimeout(() => chatInputRef.current?.focus(), 100);
       } catch (error) {
         console.error('Failed to generate title:', error);
       }
@@ -437,34 +402,69 @@ export default function ProjectPage() {
   };
 
   // Handle build method selection
-  const handleBuildMethodSelect = (method: string) => {
+  const handleBuildMethodSelect = async (method: 'ai' | 'references_ai' | 'material_only') => {
     setBuildMethod(method);
     const methodLabels: Record<string, string> = {
       ai: 'With AI',
-      hybrid: 'With my references + AI',
-      manual: 'Only with my material',
+      references_ai: 'With my references + AI',
+      material_only: 'Only with my material',
     };
+
+    // Add user message immediately
     setMessages((prev) => [
       ...prev,
-      { type: 'ai', content: 'How do you want to build the course?' },
-      { type: 'user', content: methodLabels[method] || method },
+      { type: 'user', content: methodLabels[method] },
     ]);
-    if (method === 'ai') {
-      setCurrentStep('modulesCount');
+
+    if (courseKey && resolvedConversationKey) {
+      try {
+        const result = await setBuildingMethodMutation.mutateAsync({
+          courseKey,
+          conversationKey: resolvedConversationKey,
+          buildingMethod: method,
+        });
+
+        setMessages((prev) => [
+          ...prev,
+          { type: 'ai', content: result.aiMessage },
+        ]);
+        setMaxModules(result.maxModules);
+        setCurrentStep('modulesCount');
+      } catch (error) {
+        console.error('Failed to set building method:', error);
+      }
     }
-    // For other methods, could add different flows
   };
 
   // Handle modules count selection
-  const handleModulesCountSelect = (count: number) => {
+  const handleModulesCountSelect = async (count: number) => {
     setModulesCount(count);
     setUnitsPerModule(Array(count).fill(3)); // Default 3 units per module
+
+    // Add user message immediately
     setMessages((prev) => [
       ...prev,
-      { type: 'ai', content: "Great! Now let's define the structure. How many modules will the course have?" },
       { type: 'user', content: `${count} modules` },
     ]);
-    setCurrentStep('unitsPerModule');
+
+    if (courseKey && resolvedConversationKey) {
+      try {
+        const result = await setModulesMutation.mutateAsync({
+          courseKey,
+          conversationKey: resolvedConversationKey,
+          modulesCount: count,
+        });
+
+        setMessages((prev) => [
+          ...prev,
+          { type: 'ai', content: result.aiMessage },
+        ]);
+        setMaxUnits(result.maxUnits);
+        setCurrentStep('unitsPerModule');
+      } catch (error) {
+        console.error('Failed to set modules:', error);
+      }
+    }
   };
 
   // Handle units per module change
@@ -477,25 +477,36 @@ export default function ProjectPage() {
   };
 
   // Handle units continue
-  const handleUnitsContinue = () => {
-    const generatedIndex = generateCourseIndex(modulesCount, unitsPerModule);
-    setCourseIndex(generatedIndex);
+  const handleUnitsContinue = async () => {
     const unitsSummary = unitsPerModule.map((u, i) => `Module ${i + 1}: ${u} units`).join(', ');
+
+    // Add user message immediately
     setMessages((prev) => [
       ...prev,
-      { type: 'ai', content: 'How many units per module?' },
       { type: 'user', content: unitsSummary },
     ]);
-    setCurrentStep('courseIndex');
-  };
 
-  // Handle course index continue
-  const handleCourseIndexContinue = () => {
-    setMessages((prev) => [
-      ...prev,
-      { type: 'ai', content: 'Course structure confirmed.' },
-    ]);
-    setCurrentStep('exerciseTypes');
+    if (courseKey && resolvedConversationKey) {
+      try {
+        // Build modules object for API
+        const modulesData: Record<number, { units: number }> = {};
+        unitsPerModule.forEach((units, index) => {
+          modulesData[index + 1] = { units };
+        });
+
+        await setUnitsMutation.mutateAsync({
+          courseKey,
+          conversationKey: resolvedConversationKey,
+          modules: modulesData,
+        });
+
+        // Start polling for index generation
+        setCurrentStep('generatingIndex');
+        setIsPollingIndex(true);
+      } catch (error) {
+        console.error('Failed to set units:', error);
+      }
+    }
   };
 
   // Handle exercise toggle
@@ -606,6 +617,7 @@ export default function ProjectPage() {
         return null;
 
       case 'buildMethod':
+        // Build method message comes from backend, just show the buttons
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -613,7 +625,6 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-5 max-w-2xl"
           >
-            <p className="text-gray-700">How do you want to build the course?</p>
             <div className="space-y-3">
               <button
                 onClick={() => handleBuildMethodSelect('ai')}
@@ -634,7 +645,7 @@ export default function ProjectPage() {
                 </div>
               </button>
               <button
-                onClick={() => handleBuildMethodSelect('hybrid')}
+                onClick={() => handleBuildMethodSelect('references_ai')}
                 className="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-[#9F80DA] hover:shadow-md transition-all group"
               >
                 <div className="flex items-center gap-3">
@@ -652,7 +663,7 @@ export default function ProjectPage() {
                 </div>
               </button>
               <button
-                onClick={() => handleBuildMethodSelect('manual')}
+                onClick={() => handleBuildMethodSelect('material_only')}
                 className="w-full text-left p-4 bg-white border-2 border-gray-200 rounded-xl hover:border-[#9F80DA] hover:shadow-md transition-all group"
               >
                 <div className="flex items-center gap-3">
@@ -674,6 +685,7 @@ export default function ProjectPage() {
         );
 
       case 'modulesCount':
+        // AI message already shown from API response, just render buttons
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -681,10 +693,8 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-4 max-w-2xl"
           >
-            <p className="text-gray-700">Great! Now let&apos;s define the structure.</p>
-            <p className="text-gray-700">How many modules will the course have?</p>
             <div className="flex flex-wrap gap-2">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+              {Array.from({ length: maxModules }, (_, i) => i + 1).map((num) => (
                 <button
                   key={num}
                   onClick={() => handleModulesCountSelect(num)}
@@ -698,6 +708,7 @@ export default function ProjectPage() {
         );
 
       case 'unitsPerModule':
+        // AI message already shown from API response, just render unit selectors
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -705,13 +716,12 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-5 max-w-2xl"
           >
-            <p className="text-gray-700">How many units per module?</p>
             <div className="space-y-3">
               {Array.from({ length: modulesCount }, (_, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <span className="text-sm font-medium text-gray-700 w-24">Module {i + 1}:</span>
                   <div className="flex gap-1">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                    {Array.from({ length: maxUnits }, (_, j) => j + 1).map((num) => (
                       <button
                         key={num}
                         onClick={() => handleUnitsChange(i, num)}
@@ -734,33 +744,16 @@ export default function ProjectPage() {
           </motion.div>
         );
 
-      case 'courseIndex':
+      case 'generatingIndex':
+        // Show loading while generating index
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="space-y-5 max-w-2xl"
+            className="space-y-4"
           >
-            <div className="bg-white border-2 border-gray-200 rounded-xl p-5 font-mono text-sm">
-              <div className="text-[#1a1a1a] font-semibold mb-3">{topic}</div>
-              <div className="space-y-1 text-gray-700">
-                {courseIndex.map((item, index) => (
-                  <CourseTreeItem
-                    key={item.id}
-                    item={item}
-                    isLast={index === courseIndex.length - 1}
-                    depth={0}
-                  />
-                ))}
-              </div>
-            </div>
-            <CTAButton onClick={handleCourseIndexContinue}>
-              Looks good, continue
-            </CTAButton>
-            <p className="text-sm text-gray-500">
-              If this looks good, continue. Otherwise, describe what you would change about the index.
-            </p>
+            <LoadingIndicator />
           </motion.div>
         );
 
@@ -1204,20 +1197,13 @@ export default function ProjectPage() {
               className="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto flex-shrink-0"
             >
               <div className="p-4">
-                {showEditorLayout && courseIndex.length > 0 ? (
+                {showEditorLayout && indexStatus?.index ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-500 mb-3 px-1 uppercase tracking-wide">
                       Course Structure
                     </h3>
-                    <div className="text-sm text-gray-700 space-y-1">
-                      {courseIndex.map((item, index) => (
-                        <CourseTreeItem
-                          key={item.id}
-                          item={item}
-                          isLast={index === courseIndex.length - 1}
-                          depth={0}
-                        />
-                      ))}
+                    <div className="text-sm text-gray-700 font-mono whitespace-pre-wrap">
+                      {indexStatus.index}
                     </div>
                   </>
                 ) : null}

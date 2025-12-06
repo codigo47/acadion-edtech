@@ -7,6 +7,9 @@ import {
   GenerateTitleDto,
   SetAudienceDto,
   SetObjectiveDto,
+  SetBuildingMethodDto,
+  SetModulesDto,
+  SetUnitsDto,
 } from './dto/create-course.dto';
 import { COURSE_ORCHESTRATION_QUEUE } from './constants';
 
@@ -261,6 +264,208 @@ export class CourseService {
             messages: {
               where: { role: 'assistant' },
               orderBy: { createdAt: 'desc' },
+              take: 2,
+            },
+          },
+        },
+      },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    const step = course.steps[0];
+    const messages = course.conversations[0]?.messages || [];
+    // Messages are ordered desc, so [0] is buildMethod question, [1] is objectives
+    const objectivesMessage = messages[1]?.content || null;
+    const buildMethodMessage = messages[0]?.content || null;
+
+    return {
+      status: step?.status || 'not_found',
+      objectivesMessage,
+      buildMethodMessage,
+    };
+  }
+
+  async setBuildingMethod(courseKey: string, dto: SetBuildingMethodDto) {
+    const { conversationKey, buildingMethod } = dto;
+
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    // Map building method to label
+    const methodLabels: Record<string, string> = {
+      ai: 'With AI',
+      references_ai: 'With my references + AI',
+      material_only: 'Only with my material',
+    };
+
+    const userMessage = methodLabels[buildingMethod];
+
+    // Update course input with building method
+    const currentInput = (course.input as Record<string, unknown>) || {};
+    await this.prisma.course.update({
+      where: { id: course.id },
+      data: {
+        input: { ...currentInput, buildingMethod },
+      },
+    });
+
+    // Save user message to conversation
+    await this.prisma.message.create({
+      data: {
+        conversationId: conversationKey,
+        role: 'user',
+        content: userMessage,
+      },
+    });
+
+    // AI response message
+    const aiMessage = `Great! Now let's define the structure.\n\nHow many modules will the course have?`;
+    const maxModules = 10;
+
+    // Save AI message to conversation
+    await this.prisma.message.create({
+      data: {
+        conversationId: conversationKey,
+        role: 'assistant',
+        content: aiMessage,
+      },
+    });
+
+    return {
+      success: true,
+      aiMessage,
+      maxModules,
+    };
+  }
+
+  async setModules(courseKey: string, dto: SetModulesDto) {
+    const { conversationKey, modulesCount } = dto;
+
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    // Update course input with modules count
+    const currentInput = (course.input as Record<string, unknown>) || {};
+    await this.prisma.course.update({
+      where: { id: course.id },
+      data: {
+        input: { ...currentInput, modulesCount },
+      },
+    });
+
+    // Save user message to conversation
+    await this.prisma.message.create({
+      data: {
+        conversationId: conversationKey,
+        role: 'user',
+        content: `${modulesCount} modules`,
+      },
+    });
+
+    // AI response message
+    const aiMessage = `How many units per module?`;
+    const maxUnits = 10;
+
+    // Save AI message to conversation
+    await this.prisma.message.create({
+      data: {
+        conversationId: conversationKey,
+        role: 'assistant',
+        content: aiMessage,
+      },
+    });
+
+    return {
+      success: true,
+      aiMessage,
+      modulesCount,
+      maxUnits,
+    };
+  }
+
+  async setUnits(courseKey: string, dto: SetUnitsDto) {
+    const { conversationKey, modules } = dto;
+
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    // Update course input with modules structure
+    const currentInput = (course.input as Record<string, unknown>) || {};
+    await this.prisma.course.update({
+      where: { id: course.id },
+      data: {
+        input: { ...currentInput, modules },
+      },
+    });
+
+    // Build user message showing units per module
+    const unitsDescription = Object.entries(modules)
+      .map(([moduleNum, data]) => `Module ${moduleNum}: ${data.units} units`)
+      .join(', ');
+
+    // Save user message to conversation
+    await this.prisma.message.create({
+      data: {
+        conversationId: conversationKey,
+        role: 'user',
+        content: unitsDescription,
+      },
+    });
+
+    // Create step for generating index
+    await this.prisma.courseStep.create({
+      data: {
+        courseId: course.id,
+        type: 'generating_index',
+        status: 'pending',
+      },
+    });
+
+    // Add job to queue for index generation
+    await this.courseQueue.add('generate_index', {
+      courseId: course.id,
+    });
+
+    return {
+      success: true,
+      modules,
+    };
+  }
+
+  async getIndexStatus(courseKey: string) {
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+      include: {
+        steps: {
+          where: { type: 'generating_index' },
+          orderBy: { createdAt: 'desc' },
+          take: 1,
+        },
+        conversations: {
+          take: 1,
+          orderBy: { createdAt: 'asc' },
+          include: {
+            messages: {
+              where: { role: 'assistant' },
+              orderBy: { createdAt: 'desc' },
               take: 1,
             },
           },
@@ -273,11 +478,13 @@ export class CourseService {
     }
 
     const step = course.steps[0];
-    const lastMessage = course.conversations[0]?.messages[0];
+    const output = course.output as Record<string, unknown>;
+    const indexMessage = course.conversations[0]?.messages[0]?.content || null;
 
     return {
       status: step?.status || 'not_found',
-      message: lastMessage?.content || null,
+      index: output?.index || null,
+      indexMessage,
     };
   }
 

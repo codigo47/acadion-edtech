@@ -88,7 +88,50 @@ interface SetObjectiveResponse {
 
 interface ObjectiveStatusResponse {
   status: 'pending' | 'running' | 'completed' | 'failed' | 'not_found';
-  message: string | null;
+  objectivesMessage: string | null;
+  buildMethodMessage: string | null;
+}
+
+interface SetBuildingMethodParams {
+  courseKey: string;
+  conversationKey: string;
+  buildingMethod: 'ai' | 'references_ai' | 'material_only';
+}
+
+interface SetBuildingMethodResponse {
+  success: boolean;
+  aiMessage: string;
+  maxModules: number;
+}
+
+interface SetModulesParams {
+  courseKey: string;
+  conversationKey: string;
+  modulesCount: number;
+}
+
+interface SetModulesResponse {
+  success: boolean;
+  aiMessage: string;
+  modulesCount: number;
+  maxUnits: number;
+}
+
+interface SetUnitsParams {
+  courseKey: string;
+  conversationKey: string;
+  modules: Record<number, { units: number }>;
+}
+
+interface SetUnitsResponse {
+  success: boolean;
+  modules: Record<number, { units: number }>;
+}
+
+interface IndexStatusResponse {
+  status: 'pending' | 'running' | 'completed' | 'failed' | 'not_found';
+  index: string | null;
+  indexMessage: string | null;
 }
 
 export function useCreateCourse() {
@@ -128,6 +171,51 @@ export function useObjectiveStatus(courseKey: string | null, enabled: boolean = 
   return useQuery({
     queryKey: ['objective-status', courseKey],
     queryFn: () => api.get<ObjectiveStatusResponse>(`/v1/course/${courseKey}/objective`),
+    enabled: !!courseKey && enabled,
+    refetchInterval: (data) => {
+      const status = data.state.data?.status;
+      if (status === 'pending' || status === 'running') {
+        return 2000;
+      }
+      return false;
+    },
+  });
+}
+
+export function useSetBuildingMethod() {
+  return useMutation({
+    mutationFn: (params: SetBuildingMethodParams) =>
+      api.post<SetBuildingMethodResponse>(`/v1/course/${params.courseKey}/building`, {
+        conversationKey: params.conversationKey,
+        buildingMethod: params.buildingMethod,
+      }),
+  });
+}
+
+export function useSetModules() {
+  return useMutation({
+    mutationFn: (params: SetModulesParams) =>
+      api.post<SetModulesResponse>(`/v1/course/${params.courseKey}/modules`, {
+        conversationKey: params.conversationKey,
+        modulesCount: params.modulesCount,
+      }),
+  });
+}
+
+export function useSetUnits() {
+  return useMutation({
+    mutationFn: (params: SetUnitsParams) =>
+      api.post<SetUnitsResponse>(`/v1/course/${params.courseKey}/units`, {
+        conversationKey: params.conversationKey,
+        modules: params.modules,
+      }),
+  });
+}
+
+export function useIndexStatus(courseKey: string | null, enabled: boolean = false) {
+  return useQuery({
+    queryKey: ['index-status', courseKey],
+    queryFn: () => api.get<IndexStatusResponse>(`/v1/course/${courseKey}/index`),
     enabled: !!courseKey && enabled,
     refetchInterval: (data) => {
       const status = data.state.data?.status;

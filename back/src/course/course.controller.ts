@@ -5,6 +5,9 @@ import {
   GenerateTitleDto,
   SetAudienceDto,
   SetObjectiveDto,
+  SetBuildingMethodDto,
+  SetModulesDto,
+  SetUnitsDto,
 } from './dto/create-course.dto';
 
 @Controller('course')
@@ -34,6 +37,29 @@ export class CourseController {
   @Get(':key/objective')
   async getObjectiveStatus(@Param('key') key: string) {
     return this.courseService.getObjectiveStatus(key);
+  }
+
+  @Post(':key/building')
+  async setBuildingMethod(
+    @Param('key') key: string,
+    @Body() dto: SetBuildingMethodDto,
+  ) {
+    return this.courseService.setBuildingMethod(key, dto);
+  }
+
+  @Post(':key/modules')
+  async setModules(@Param('key') key: string, @Body() dto: SetModulesDto) {
+    return this.courseService.setModules(key, dto);
+  }
+
+  @Post(':key/units')
+  async setUnits(@Param('key') key: string, @Body() dto: SetUnitsDto) {
+    return this.courseService.setUnits(key, dto);
+  }
+
+  @Get(':key/index')
+  async getIndexStatus(@Param('key') key: string) {
+    return this.courseService.getIndexStatus(key);
   }
 
   @Get(':key')
