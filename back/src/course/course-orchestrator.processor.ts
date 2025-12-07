@@ -60,18 +60,7 @@ const unitContentSchema = z.object({
     z.object({
       componentName: z.string().describe('The internal name of the component'),
       order: z.number().describe('Order of the component in the unit'),
-      content: z.object({
-        title: z.string().optional().describe('Title if applicable'),
-        text: z.string().optional().describe('Main text content'),
-        items: z.array(z.string()).optional().describe('List items if applicable'),
-        question: z.string().optional().describe('Question for interactive components'),
-        options: z.array(z.object({
-          text: z.string(),
-          isCorrect: z.boolean().optional(),
-        })).optional().describe('Options for multiple choice or matching'),
-        correctAnswer: z.string().optional().describe('Correct answer for fill-in-blank'),
-        image: z.string().optional().describe('Image path - always use /sample.jpeg'),
-      }),
+      content: z.record(z.string(), z.any()).describe('Component-specific content object'),
       styles: z.object({
         backgroundColor: z.string().optional(),
         textColor: z.string().optional(),
@@ -557,7 +546,7 @@ Generate the course index with descriptive titles for each module and unit.`,
     const componentType = needsEvaluation ? undefined : { not: 'evaluation' as const };
     const components = await this.prisma.component.findMany({
       where: componentType ? { type: componentType } : {},
-      select: { internalName: true, name: true, type: true, description: true },
+      select: { internalName: true, name: true, type: true, description: true, properties: true },
     });
 
     // Separate content components and evaluation components
@@ -577,13 +566,22 @@ Generate the course index with descriptive titles for each module and unit.`,
     try {
       const parser = StructuredOutputParser.fromZodSchema(unitContentSchema);
 
+      const formatComponentProps = (props: unknown) => {
+        if (!props || typeof props !== 'object') return '';
+        // Escape braces for LangChain template by doubling them
+        const jsonStr = JSON.stringify(props).replace(/\{/g, '{{').replace(/\}/g, '}}');
+        return `\n    Content structure: ${jsonStr}`;
+      };
+
       const componentsList = contentComponents
-        .map(c => `- ${c.internalName}: ${c.name} - ${c.description || 'No description'}`)
+        .map(c => `- ${c.internalName}: ${c.name} - ${c.description || 'No description'}${formatComponentProps(c.properties)}`)
         .join('\n');
 
       const evaluationList = needsEvaluation && evaluationComponents.length > 0
-        ? `\n\nEvaluation components available (include 1-2 at the end of the unit):\n${evaluationComponents.map(c => `- ${c.internalName}: ${c.name}`).join('\n')}`
+        ? `\n\nEvaluation components available (include 1-2 at the end of the unit):\n${evaluationComponents.map(c => `- ${c.internalName}: ${c.name}${formatComponentProps(c.properties)}`).join('\n')}`
         : '';
+
+      const evaluationRule = needsEvaluation ? '\n6. Include 1-2 evaluation components at the end to test understanding' : '';
 
       const prompt = ChatPromptTemplate.fromMessages([
         [
@@ -604,10 +602,10 @@ Rules:
 2. Start with an introduction/title component
 3. Mix different component types for engagement
 4. For any image component, ALWAYS use "/sample.jpeg" as the image path
-5. End with a summary or key takeaways
-${needsEvaluation ? '6. Include 1-2 evaluation components at the end to test understanding' : ''}
+5. End with a summary or key takeaways${evaluationRule}
 7. Apply the branding colors in styles where appropriate
 8. Content should be educational, clear, and appropriate for the target audience
+9. IMPORTANT: The "content" object must EXACTLY match the "Content structure" shown for each component. Use only the fields specified in the structure.
 
 {format_instructions}`,
         ],

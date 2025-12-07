@@ -488,6 +488,7 @@ export default function ProjectPage() {
   const [chatInput, setChatInput] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
   const chatInputRef = useRef<HTMLTextAreaElement>(null);
+  const initialInputRef = useRef<HTMLTextAreaElement>(null);
 
   // Conversation state
   const [currentStep, setCurrentStep] = useState<ChatStep>('audience');
@@ -669,6 +670,11 @@ export default function ProjectPage() {
       }
 
       setIsLoadingCourse(false);
+
+      // Focus initial input when loaded and not submitted
+      if (!hasSubmitted) {
+        setTimeout(() => initialInputRef.current?.focus(), 100);
+      }
     }
   }, [isCourseLoading, courseData]);
 
@@ -1734,7 +1740,13 @@ export default function ProjectPage() {
                 </div>
                 {generationStatus.units && generationStatus.units.length > 0 && (
                   <div className="mt-3 space-y-1">
-                    {generationStatus.units.map((unit) => (
+                    {[...generationStatus.units]
+                      .sort((a, b) => {
+                        const [aModule, aUnit] = a.unitCode.split('.').map(Number);
+                        const [bModule, bUnit] = b.unitCode.split('.').map(Number);
+                        return aModule - bModule || aUnit - bUnit;
+                      })
+                      .map((unit) => (
                       <div key={unit.unitCode} className="flex items-center gap-2 text-xs">
                         {unit.status === 'completed' && (
                           <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1940,6 +1952,7 @@ export default function ProjectPage() {
 
                   <div className="relative">
                     <textarea
+                      ref={initialInputRef}
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
                       onKeyDown={handleTopicInputKeyDown}

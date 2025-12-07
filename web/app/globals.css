@@ -27,6 +27,19 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Cursor pointer for interactive elements */
+button,
+a,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+label[for],
+select,
+.cursor-pointer {
+  cursor: pointer;
+}
+
 /* Blob Animation */
 @keyframes blob {
   0%, 100% {
