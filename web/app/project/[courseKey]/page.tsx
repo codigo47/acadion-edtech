@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding } from '../../../lib/hooks/use-course';
 
 // Exercise type from backend
 interface ExerciseType {
@@ -102,6 +102,89 @@ function EvaluationDetailsView({ details }: { details: EvaluationDetailsData }) 
           <div className="pt-2 border-t border-gray-100">
             <span className="text-gray-600">Restrictions: </span>
             <span className="text-gray-800">{details.restrictions}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Exercise types data type
+interface ExerciseTypesData {
+  exerciseTypes: string[];
+}
+
+// Component to render exercise types summary
+function ExerciseTypesView({ data }: { data: ExerciseTypesData }) {
+  return (
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-4 max-w-md">
+      <div className="flex flex-wrap gap-2">
+        {data.exerciseTypes.map((type, index) => (
+          <span
+            key={index}
+            className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 text-purple-700"
+          >
+            {type}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// Branding data type
+interface BrandingData {
+  primaryColor: string;
+  secondaryColor: string;
+  typo1: string;
+  typo2: string;
+  logo: string;
+  guidelines: string;
+}
+
+// Component to render branding summary
+function BrandingView({ branding }: { branding: BrandingData }) {
+  return (
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-4 max-w-md">
+      <div className="space-y-3 text-sm">
+        <div className="flex items-center gap-3">
+          <span className="text-gray-600">Primary Color:</span>
+          <div className="flex items-center gap-2">
+            <div
+              className="w-6 h-6 rounded-md border border-gray-300"
+              style={{ backgroundColor: branding.primaryColor }}
+            />
+            <span className="text-gray-800 font-mono">{branding.primaryColor}</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-gray-600">Secondary Color:</span>
+          <div className="flex items-center gap-2">
+            <div
+              className="w-6 h-6 rounded-md border border-gray-300"
+              style={{ backgroundColor: branding.secondaryColor }}
+            />
+            <span className="text-gray-800 font-mono">{branding.secondaryColor}</span>
+          </div>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-600">Typography 1:</span>
+          <span className="text-gray-800">{branding.typo1}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-600">Typography 2:</span>
+          <span className="text-gray-800">{branding.typo2}</span>
+        </div>
+        {branding.logo && (
+          <div className="flex items-center justify-between">
+            <span className="text-gray-600">Logo:</span>
+            <span className="text-gray-800">{branding.logo}</span>
+          </div>
+        )}
+        {branding.guidelines && (
+          <div className="flex items-center justify-between">
+            <span className="text-gray-600">Guidelines:</span>
+            <span className="text-gray-800">{branding.guidelines}</span>
           </div>
         )}
       </div>
@@ -256,6 +339,7 @@ export default function ProjectPage() {
   const getExerciseTypesMutation = useGetExerciseTypes();
   const setEvaluationMutation = useSetEvaluation();
   const setEvaluationDetailsMutation = useSetEvaluationDetails();
+  const setBrandingMutation = useSetBranding();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
   const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
   const { data: indexStatus } = useIndexStatus(courseKey, isPollingIndex);
@@ -277,6 +361,45 @@ export default function ProjectPage() {
     return null;
   };
 
+  // Helper to parse evaluation details from message content
+  const parseEvaluationDetailsFromContent = (content: string): EvaluationDetailsData | null => {
+    try {
+      const parsed = JSON.parse(content);
+      if (parsed && parsed.evaluationDetails) {
+        return parsed.evaluationDetails as EvaluationDetailsData;
+      }
+    } catch {
+      // Not JSON, return null
+    }
+    return null;
+  };
+
+  // Helper to parse exercise types from message content
+  const parseExerciseTypesFromContent = (content: string): ExerciseTypesData | null => {
+    try {
+      const parsed = JSON.parse(content);
+      if (parsed && Array.isArray(parsed.exerciseTypes)) {
+        return parsed as ExerciseTypesData;
+      }
+    } catch {
+      // Not JSON, return null
+    }
+    return null;
+  };
+
+  // Helper to parse branding from message content
+  const parseBrandingFromContent = (content: string): BrandingData | null => {
+    try {
+      const parsed = JSON.parse(content);
+      if (parsed && parsed.branding) {
+        return parsed.branding as BrandingData;
+      }
+    } catch {
+      // Not JSON, return null
+    }
+    return null;
+  };
+
   // Load existing messages from course data
   useEffect(() => {
     if (!isCourseLoading && courseData) {
@@ -287,17 +410,51 @@ export default function ProjectPage() {
         // Course has existing messages - show chat directly
         let foundIndex: ProposedIndex | null = null;
         const formattedMessages: Message[] = existingMessages.map((msg) => {
-          const indexData = msg.role === 'assistant' ? parseIndexFromContent(msg.content) : null;
+          // Check for course index (assistant message)
+          if (msg.role === 'assistant') {
+            const indexData = parseIndexFromContent(msg.content);
+            if (indexData) {
+              foundIndex = indexData;
+              setProposedIndex(indexData);
+              return {
+                type: 'ai' as const,
+                content: "Here's the proposed course structure:",
+                component: <CourseIndexView index={indexData} />,
+              };
+            }
+          }
 
-          if (indexData) {
-            // Store the index in state for later use
-            foundIndex = indexData;
-            setProposedIndex(indexData);
-            return {
-              type: 'ai' as const,
-              content: "Here's the proposed course structure:",
-              component: <CourseIndexView index={indexData} />,
-            };
+          // Check for user message JSON types
+          if (msg.role === 'user') {
+            // Check for exercise types
+            const exerciseTypesData = parseExerciseTypesFromContent(msg.content);
+            if (exerciseTypesData) {
+              return {
+                type: 'user' as const,
+                content: 'Selected exercise types',
+                component: <ExerciseTypesView data={exerciseTypesData} />,
+              };
+            }
+
+            // Check for evaluation details
+            const evaluationData = parseEvaluationDetailsFromContent(msg.content);
+            if (evaluationData) {
+              return {
+                type: 'user' as const,
+                content: 'Evaluation settings',
+                component: <EvaluationDetailsView details={evaluationData} />,
+              };
+            }
+
+            // Check for branding
+            const brandingData = parseBrandingFromContent(msg.content);
+            if (brandingData) {
+              return {
+                type: 'user' as const,
+                content: 'Visual identity settings',
+                component: <BrandingView branding={brandingData} />,
+              };
+            }
           }
 
           return {
@@ -651,15 +808,24 @@ export default function ProjectPage() {
 
     if (courseKey && resolvedConversationKey) {
       try {
+        const exerciseTypesData: ExerciseTypesData = {
+          exerciseTypes: selectedComponents.map((c) => c.name),
+        };
+
         const result = await setEvaluationMutation.mutateAsync({
           courseKey,
           conversationKey: resolvedConversationKey,
           selectedComponents,
         });
 
-        // Add AI message from backend
+        // Add user message with component, then AI message from backend
         setMessages((prev) => [
           ...prev,
+          {
+            type: 'user',
+            content: 'Selected exercise types',
+            component: <ExerciseTypesView data={exerciseTypesData} />,
+          },
           { type: 'ai', content: result.aiMessage },
         ]);
 
@@ -706,13 +872,40 @@ export default function ProjectPage() {
   };
 
   // Handle visual identity continue
-  const handleVisualIdentityContinue = () => {
-    setMessages((prev) => [
-      ...prev,
-      { type: 'ai', content: "Excellent! Now we just need to define how your course will look." },
-      { type: 'user', content: `Colors: ${visualIdentity.primaryColor}, ${visualIdentity.secondaryColor}` },
-    ]);
-    setCurrentStep('finalConfirmation');
+  const handleVisualIdentityContinue = async () => {
+    if (courseKey && resolvedConversationKey) {
+      try {
+        const brandingData: BrandingData = {
+          primaryColor: visualIdentity.primaryColor,
+          secondaryColor: visualIdentity.secondaryColor,
+          typo1: visualIdentity.font1,
+          typo2: visualIdentity.font2,
+          logo: '', // File upload not implemented yet
+          guidelines: '', // File upload not implemented yet
+        };
+
+        const result = await setBrandingMutation.mutateAsync({
+          courseKey,
+          conversationKey: resolvedConversationKey,
+          ...brandingData,
+        });
+
+        // Add branding as user message with component, then AI message
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: 'user',
+            content: 'Visual identity settings',
+            component: <BrandingView branding={brandingData} />,
+          },
+          { type: 'ai', content: result.aiMessage },
+        ]);
+
+        setCurrentStep('finalConfirmation');
+      } catch (error) {
+        console.error('Failed to set branding:', error);
+      }
+    }
   };
 
   // Handle final create course
@@ -1282,9 +1475,16 @@ export default function ProjectPage() {
                 </div>
               </div>
             </div>
-            <CTAButton onClick={handleVisualIdentityContinue}>
-              Continue
-            </CTAButton>
+            <button
+              onClick={handleVisualIdentityContinue}
+              disabled={setBrandingMutation.isPending}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50"
+            >
+              {setBrandingMutation.isPending ? 'Loading...' : 'Continue'}
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
           </motion.div>
         );
 

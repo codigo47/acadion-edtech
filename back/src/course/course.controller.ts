@@ -8,6 +8,7 @@ import {
   SetBuildingMethodDto,
   SetModulesDto,
   SetUnitsDto,
+  SetBrandingDto,
 } from './dto/create-course.dto';
 
 @Controller('course')
@@ -96,5 +97,10 @@ export class CourseController {
   @Get(':key')
   async findOne(@Param('key') key: string) {
     return this.courseService.findByKey(key);
+  }
+
+  @Post(':key/branding')
+  async setBranding(@Param('key') key: string, @Body() dto: SetBrandingDto) {
+    return this.courseService.setBranding(key, dto);
   }
 }

@@ -109,10 +109,12 @@ export default function Dashboard() {
               <nav className="space-y-1 mb-6">
                 <button
                   onClick={() => router.push('/project')}
-                  className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-200 rounded text-left font-medium"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold rounded-xl shadow-md hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200"
                 >
-                  <span className="text-sm">+</span>
-                  <span className="text-sm">New Project</span>
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span>New Project</span>
                 </button>
               </nav>
 

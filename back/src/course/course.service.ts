@@ -10,6 +10,7 @@ import {
   SetBuildingMethodDto,
   SetModulesDto,
   SetUnitsDto,
+  SetBrandingDto,
 } from './dto/create-course.dto';
 import { COURSE_ORCHESTRATION_QUEUE } from './constants';
 
@@ -471,8 +472,8 @@ export class CourseService {
       },
     });
 
-    // Save user message with selected components
-    const userMessage = selectedComponents.map((c) => c.name).join(', ');
+    // Save user message with selected components as JSON
+    const userMessage = JSON.stringify({ exerciseTypes: selectedComponents.map((c) => c.name) });
     await this.createMessage(conversationKey, 'user', userMessage);
 
     // Create step for generating evaluation
@@ -593,5 +594,41 @@ If you have this information, complete the form. If something is missing, we'll 
         ...(error && { error }),
       },
     });
+  }
+
+  async setBranding(courseKey: string, dto: SetBrandingDto) {
+    const { conversationKey, ...brandingData } = dto;
+
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    // Update course input with branding
+    const currentInput = (course.input as Record<string, unknown>) || {};
+    await this.prisma.course.update({
+      where: { id: course.id },
+      data: {
+        input: { ...currentInput, branding: brandingData },
+      },
+    });
+
+    // Save user message with JSON of branding data
+    const userMessage = JSON.stringify({ branding: brandingData });
+    await this.createMessage(conversationKey, 'user', userMessage);
+
+    // AI response message
+    const aiMessage = `Tell us any other information we need to know before moving forward with the final design.`;
+
+    // Save AI message to conversation
+    await this.createMessage(conversationKey, 'assistant', aiMessage);
+
+    return {
+      success: true,
+      aiMessage,
+    };
   }
 }

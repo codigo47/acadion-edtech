@@ -169,6 +169,22 @@ interface SetEvaluationDetailsResponse {
   aiMessage: string;
 }
 
+interface SetBrandingParams {
+  courseKey: string;
+  conversationKey: string;
+  primaryColor: string;
+  secondaryColor: string;
+  typo1: string;
+  typo2: string;
+  logo: string;
+  guidelines: string;
+}
+
+interface SetBrandingResponse {
+  success: boolean;
+  aiMessage: string;
+}
+
 interface ProposedIndex {
   title: string;
   modules: Array<{
@@ -324,5 +340,20 @@ export function useCourse(key: string | null) {
 
       return hasActiveSteps ? 2000 : false;
     },
+  });
+}
+
+export function useSetBranding() {
+  return useMutation({
+    mutationFn: (params: SetBrandingParams) =>
+      api.post<SetBrandingResponse>(`/v1/course/${params.courseKey}/branding`, {
+        conversationKey: params.conversationKey,
+        primaryColor: params.primaryColor,
+        secondaryColor: params.secondaryColor,
+        typo1: params.typo1,
+        typo2: params.typo2,
+        logo: params.logo,
+        guidelines: params.guidelines,
+      }),
   });
 }

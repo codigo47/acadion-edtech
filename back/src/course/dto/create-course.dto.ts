@@ -77,3 +77,31 @@ export class SetUnitsDto {
   @IsNotEmpty()
   modules: Record<number, { units: number }>;
 }
+
+export class SetBrandingDto {
+  @IsString()
+  @IsNotEmpty()
+  conversationKey: string;
+
+  @IsString()
+  @IsNotEmpty()
+  primaryColor: string;
+
+  @IsString()
+  @IsNotEmpty()
+  secondaryColor: string;
+
+  @IsString()
+  @IsNotEmpty()
+  typo1: string;
+
+  @IsString()
+  @IsNotEmpty()
+  typo2: string;
+
+  @IsString()
+  logo: string;
+
+  @IsString()
+  guidelines: string;
+}
