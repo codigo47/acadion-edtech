@@ -58,6 +58,28 @@ export class CourseOrchestratorProcessor extends WorkerHost {
     });
   }
 
+  // Helper to create a message with auto-incrementing sequence per conversation
+  private async createMessage(
+    conversationId: string,
+    role: 'user' | 'assistant' | 'system',
+    content: string,
+  ) {
+    const lastMessage = await this.prisma.message.findFirst({
+      where: { conversationId },
+      orderBy: { sequence: 'desc' },
+      select: { sequence: true },
+    });
+    const sequence = Number(lastMessage?.sequence ?? 0) + 1;
+    return this.prisma.message.create({
+      data: {
+        conversationId,
+        role,
+        content,
+        sequence,
+      },
+    });
+  }
+
   async process(
     job: Job<
       GenerateTitleJobData | GenerateObjectivesJobData | GenerateIndexJobData
@@ -243,22 +265,14 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
       // Save AI messages to conversation
       if (conversationId) {
         // First message: generated objectives
-        await this.prisma.message.create({
-          data: {
-            conversationId,
-            role: 'assistant',
-            content: objectives,
-          },
-        });
+        await this.createMessage(conversationId, 'assistant', objectives);
 
         // Second message: build method question
-        await this.prisma.message.create({
-          data: {
-            conversationId,
-            role: 'assistant',
-            content: 'How do you want to build the course?',
-          },
-        });
+        await this.createMessage(
+          conversationId,
+          'assistant',
+          'How do you want to build the course?',
+        );
       }
 
       // Mark step as completed with token usage
@@ -431,13 +445,11 @@ Generate the course index with descriptive titles for each module and unit.`,
 
       // Save AI message to conversation as JSON string
       if (conversationId) {
-        await this.prisma.message.create({
-          data: {
-            conversationId,
-            role: 'assistant',
-            content: JSON.stringify(proposedIndex),
-          },
-        });
+        await this.createMessage(
+          conversationId,
+          'assistant',
+          JSON.stringify(proposedIndex),
+        );
       }
 
       // Mark step as completed

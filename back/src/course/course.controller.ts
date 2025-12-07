@@ -62,6 +62,22 @@ export class CourseController {
     return this.courseService.getIndexStatus(key);
   }
 
+  @Post(':key/indexes')
+  async getExerciseTypes(
+    @Param('key') key: string,
+    @Body() dto: { conversationKey: string },
+  ) {
+    return this.courseService.getExerciseTypes(key, dto.conversationKey);
+  }
+
+  @Post(':key/evaluation')
+  async setEvaluation(
+    @Param('key') key: string,
+    @Body() dto: { conversationKey: string; selectedComponents: Array<{ id: number; name: string }> },
+  ) {
+    return this.courseService.setEvaluation(key, dto.conversationKey, dto.selectedComponents);
+  }
+
   @Get(':key')
   async findOne(@Param('key') key: string) {
     return this.courseService.findByKey(key);

@@ -3,21 +3,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation } from '../../../lib/hooks/use-course';
 
-// Exercise types available
-const exerciseTypes = [
-  'Multiple Choice',
-  'Drag and Drop',
-  'Fill in the Blanks',
-  'Matching',
-  'True or False',
-  'Sorting / Ordering',
-  'Hotspot / Image Click',
-  'Flashcards',
-  'Scenario-based Questions',
-  'Short Answer',
-];
+// Exercise type from backend
+interface ExerciseType {
+  id: number;
+  name: string;
+}
 
 // Font options for visual identity
 const fontOptions = [
@@ -219,6 +211,8 @@ export default function ProjectPage() {
   const setBuildingMethodMutation = useSetBuildingMethod();
   const setModulesMutation = useSetModules();
   const setUnitsMutation = useSetUnits();
+  const getExerciseTypesMutation = useGetExerciseTypes();
+  const setEvaluationMutation = useSetEvaluation();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
   const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
   const { data: indexStatus } = useIndexStatus(courseKey, isPollingIndex);
@@ -226,17 +220,48 @@ export default function ProjectPage() {
   // Get conversationKey from courseData
   const resolvedConversationKey = courseData?.conversations?.[0]?.id || null;
 
+  // Helper to check if content is a course index JSON and parse it
+  const parseIndexFromContent = (content: string): ProposedIndex | null => {
+    try {
+      const parsed = JSON.parse(content);
+      // Check if it has the expected structure of a course index
+      if (parsed && typeof parsed.title === 'string' && Array.isArray(parsed.modules)) {
+        return parsed as ProposedIndex;
+      }
+    } catch {
+      // Not JSON, return null
+    }
+    return null;
+  };
+
   // Load existing messages from course data
   useEffect(() => {
     if (!isCourseLoading && courseData) {
       const existingMessages = courseData.conversations?.[0]?.messages || [];
+      const steps = courseData.steps || [];
 
       if (existingMessages.length > 0) {
         // Course has existing messages - show chat directly
-        const formattedMessages: Message[] = existingMessages.map((msg) => ({
-          type: msg.role === 'user' ? 'user' : 'ai',
-          content: msg.content,
-        }));
+        let foundIndex: ProposedIndex | null = null;
+        const formattedMessages: Message[] = existingMessages.map((msg) => {
+          const indexData = msg.role === 'assistant' ? parseIndexFromContent(msg.content) : null;
+
+          if (indexData) {
+            // Store the index in state for later use
+            foundIndex = indexData;
+            setProposedIndex(indexData);
+            return {
+              type: 'ai' as const,
+              content: "Here's the proposed course structure:",
+              component: <CourseIndexView index={indexData} />,
+            };
+          }
+
+          return {
+            type: msg.role === 'user' ? 'user' : 'ai',
+            content: msg.content,
+          } as Message;
+        });
 
         setMessages(formattedMessages);
         setHasSubmitted(true);
@@ -245,6 +270,26 @@ export default function ProjectPage() {
         const firstUserMessage = existingMessages.find((msg) => msg.role === 'user');
         if (firstUserMessage) {
           setTopic(firstUserMessage.content);
+        }
+
+        // Determine current step based on course steps status
+        const indexStep = steps.find((s) => s.type === 'generating_index');
+        const objectivesStep = steps.find((s) => s.type === 'generating_objectives');
+
+        if (indexStep?.status === 'completed' && foundIndex) {
+          // Index is generated, show courseIndex step with continue button
+          setCurrentStep('courseIndex');
+        } else if (indexStep?.status === 'pending' || indexStep?.status === 'running') {
+          // Index is being generated
+          setCurrentStep('generatingIndex');
+          setIsPollingIndex(true);
+        } else if (objectivesStep?.status === 'completed') {
+          // Objectives completed, waiting for build method
+          setCurrentStep('buildMethod');
+        } else if (objectivesStep?.status === 'pending' || objectivesStep?.status === 'running') {
+          // Objectives being generated
+          setCurrentStep('paraphrasing');
+          setIsPollingObjective(true);
         }
       }
 
@@ -278,10 +323,14 @@ export default function ProjectPage() {
     }
   }, [objectiveStatus]);
 
+  // State to store the proposed index
+  const [proposedIndex, setProposedIndex] = useState<ProposedIndex | null>(null);
+
   // Handle index generation completion
   useEffect(() => {
     if (indexStatus?.status === 'completed' && indexStatus.proposedIndex) {
       setIsPollingIndex(false);
+      setProposedIndex(indexStatus.proposedIndex);
       setCurrentStep('courseIndex');
     } else if (indexStatus?.status === 'failed') {
       setIsPollingIndex(false);
@@ -298,7 +347,8 @@ export default function ProjectPage() {
   const [maxModules, setMaxModules] = useState(10);
   const [maxUnits, setMaxUnits] = useState(10);
   const [unitsPerModule, setUnitsPerModule] = useState<number[]>([]);
-  const [selectedExercises, setSelectedExercises] = useState<string[]>([]);
+  const [exerciseTypes, setExerciseTypes] = useState<ExerciseType[]>([]);
+  const [selectedExercises, setSelectedExercises] = useState<number[]>([]);
   const [evaluationSettings, setEvaluationSettings] = useState({
     unitKnowledgeCheck: false,
     moduleKnowledgeCheck: false,
@@ -546,20 +596,35 @@ export default function ProjectPage() {
   };
 
   // Handle exercise toggle
-  const handleExerciseToggle = (exercise: string) => {
+  const handleExerciseToggle = (exerciseId: number) => {
     setSelectedExercises((prev) =>
-      prev.includes(exercise) ? prev.filter((e) => e !== exercise) : [...prev, exercise]
+      prev.includes(exerciseId) ? prev.filter((e) => e !== exerciseId) : [...prev, exerciseId]
     );
   };
 
   // Handle exercises continue
-  const handleExercisesContinue = () => {
-    setMessages((prev) => [
-      ...prev,
-      { type: 'ai', content: "To design your eLearning, let's select all the exercise types you want to include:" },
-      { type: 'user', content: selectedExercises.length > 0 ? selectedExercises.join(', ') : 'No exercises selected' },
-    ]);
-    setCurrentStep('evaluation');
+  const handleExercisesContinue = async () => {
+    const selectedComponents = exerciseTypes.filter((e) => selectedExercises.includes(e.id));
+
+    if (courseKey && resolvedConversationKey) {
+      try {
+        const result = await setEvaluationMutation.mutateAsync({
+          courseKey,
+          conversationKey: resolvedConversationKey,
+          selectedComponents,
+        });
+
+        // Add AI message from backend
+        setMessages((prev) => [
+          ...prev,
+          { type: 'ai', content: result.aiMessage },
+        ]);
+
+        setCurrentStep('evaluation');
+      } catch (error) {
+        console.error('Failed to set evaluation:', error);
+      }
+    }
   };
 
   // Handle evaluation continue
@@ -793,9 +858,13 @@ export default function ProjectPage() {
           </motion.div>
         );
 
-      case 'courseIndex':
+      case 'courseIndex': {
         // Show the generated course index
-        if (!indexStatus?.proposedIndex) return null;
+        if (!proposedIndex) return null;
+
+        // Check if the index is already in the messages (e.g., after page reload)
+        const indexAlreadyInMessages = messages.some((msg) => msg.component !== undefined);
+
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -803,14 +872,58 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-5"
           >
-            <p className="text-gray-700">Here&apos;s the proposed course structure:</p>
-            <CourseIndexView index={indexStatus.proposedIndex} />
+            {/* Only show index if not already in messages */}
+            {!indexAlreadyInMessages && (
+              <>
+                <p className="text-gray-700">Here&apos;s the proposed course structure:</p>
+                <CourseIndexView index={proposedIndex} />
+              </>
+            )}
             <div className="flex gap-3">
               <button
-                onClick={() => setCurrentStep('exerciseTypes')}
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+                onClick={async () => {
+                  // Only add the index as a message if it's not already there
+                  if (!indexAlreadyInMessages) {
+                    setMessages((prev) => [
+                      ...prev,
+                      { type: 'ai', content: "Here's the proposed course structure:", component: <CourseIndexView index={proposedIndex} /> },
+                      { type: 'user', content: 'Looks good, continue' },
+                    ]);
+                  } else {
+                    setMessages((prev) => [
+                      ...prev,
+                      { type: 'user', content: 'Looks good, continue' },
+                    ]);
+                  }
+
+                  // Fetch exercise types from backend
+                  if (courseKey && resolvedConversationKey) {
+                    try {
+                      const result = await getExerciseTypesMutation.mutateAsync({
+                        courseKey,
+                        conversationKey: resolvedConversationKey,
+                      });
+
+                      // Store exercise types and select all by default
+                      setExerciseTypes(result.exerciseTypes || []);
+                      setSelectedExercises((result.exerciseTypes || []).map((e) => e.id));
+
+                      // Add AI message to chat
+                      setMessages((prev) => [
+                        ...prev,
+                        { type: 'ai', content: result.aiMessage },
+                      ]);
+                    } catch (error) {
+                      console.error('Failed to get exercise types:', error);
+                    }
+                  }
+
+                  setCurrentStep('exerciseTypes');
+                }}
+                disabled={getExerciseTypesMutation.isPending}
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50"
               >
-                Looks good, continue
+                {getExerciseTypesMutation.isPending ? 'Loading...' : 'Looks good, continue'}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -821,6 +934,7 @@ export default function ProjectPage() {
             </p>
           </motion.div>
         );
+      }
 
       case 'exerciseTypes':
         return (
@@ -830,32 +944,38 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-5 max-w-2xl"
           >
-            <p className="text-gray-700">
-              To design your eLearning, let&apos;s select all the exercise types you want to include:
-            </p>
+            {/* Message already shown from API response in messages */}
             <div className="grid grid-cols-2 gap-2">
               {exerciseTypes.map((exercise) => (
                 <label
-                  key={exercise}
+                  key={exercise.id}
                   className={`flex items-center gap-3 p-3 rounded-xl cursor-pointer transition-all border-2 ${
-                    selectedExercises.includes(exercise)
+                    selectedExercises.includes(exercise.id)
                       ? 'border-[#9F80DA] bg-purple-50'
                       : 'border-gray-200 bg-white hover:border-gray-300'
                   }`}
                 >
                   <input
                     type="checkbox"
-                    checked={selectedExercises.includes(exercise)}
-                    onChange={() => handleExerciseToggle(exercise)}
+                    checked={selectedExercises.includes(exercise.id)}
+                    onChange={() => handleExerciseToggle(exercise.id)}
                     className="w-5 h-5 accent-[#9F80DA]"
+                    disabled={setEvaluationMutation.isPending}
                   />
-                  <span className="text-gray-700 text-sm">{exercise}</span>
+                  <span className="text-gray-700 text-sm">{exercise.name}</span>
                 </label>
               ))}
             </div>
-            <CTAButton onClick={handleExercisesContinue}>
-              Continue
-            </CTAButton>
+            <button
+              onClick={handleExercisesContinue}
+              disabled={setEvaluationMutation.isPending}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50"
+            >
+              {setEvaluationMutation.isPending ? 'Loading...' : 'Continue'}
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
           </motion.div>
         );
 
@@ -867,7 +987,7 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-5 max-w-2xl"
           >
-            <p className="text-gray-700">How will the evaluation be?</p>
+            {/* Message already shown from API response in messages */}
             <div className="space-y-4">
               <div className="flex items-center justify-between p-3 bg-white border-2 border-gray-200 rounded-xl">
                 <span className="text-gray-700">Knowledge check at the end of each unit?</span>
@@ -1262,13 +1382,13 @@ export default function ProjectPage() {
               className="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto flex-shrink-0"
             >
               <div className="p-4">
-                {showEditorLayout && indexStatus?.proposedIndex ? (
+                {showEditorLayout && proposedIndex ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-500 mb-3 px-1 uppercase tracking-wide">
                       Course Structure
                     </h3>
                     <div className="space-y-3">
-                      {indexStatus.proposedIndex.modules.map((module) => (
+                      {proposedIndex.modules.map((module) => (
                         <div key={module.number} className="space-y-1">
                           <div className="flex items-center gap-2 font-medium text-[#9F80DA]">
                             <span className="text-xs">{module.number}.</span>
@@ -1398,8 +1518,9 @@ export default function ProjectPage() {
                             <p>{message.content}</p>
                           </div>
                         ) : (
-                          <div className="max-w-2xl">
+                          <div className="max-w-2xl space-y-4">
                             <p className="text-gray-700 whitespace-pre-line">{message.content}</p>
+                            {message.component && message.component}
                           </div>
                         )}
                       </motion.div>
@@ -1482,8 +1603,9 @@ export default function ProjectPage() {
                           <p>{message.content}</p>
                         </div>
                       ) : (
-                        <div className="max-w-xl">
+                        <div className="max-w-xl space-y-4">
                           <p className="text-gray-700 whitespace-pre-line">{message.content}</p>
+                          {message.component && message.component}
                         </div>
                       )}
                     </div>

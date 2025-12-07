@@ -12,16 +12,25 @@ datasource db {
   provider = "postgresql"
 }
 
+enum ComponentType {
+  static
+  interactive
+  evaluation
+
+  @@map("component_type")
+}
+
 model Component {
-  id          Int      @id @default(autoincrement())
-  key         String   @default(uuid()) @db.Uuid
+  id           Int           @id @default(autoincrement())
+  key          String        @default(uuid()) @db.Uuid
+  type         ComponentType @default(static)
   internalName String
-  name        String
-  description String?  @db.Text
-  properties  Json?    @db.JsonB
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  version     Int      @default(1)
+  name         String
+  description  String?       @db.Text
+  properties   Json?         @db.JsonB
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now()) @updatedAt
+  version      Int           @default(1)
 
   @@map("components")
 }
@@ -88,6 +97,7 @@ enum StepType {
   generating_index
   generating_content
   generating_image
+  generating_evaluation
   calling_third_party
 
   @@map("step_type")
@@ -140,7 +150,7 @@ model Message {
   role           MessageRole
   content        String
   createdAt      DateTime     @default(now()) @map("created_at")
-  sequence       BigInt       @default(autoincrement())
+  sequence       Int          @default(0)
   modelName      String?      @map("model_name")
   tokensUsed     Int?         @map("tokens_used")
   metadata       Json?        @db.JsonB

@@ -123,9 +123,36 @@ interface SetUnitsParams {
   modules: Record<number, { units: number }>;
 }
 
+interface ExerciseType {
+  id: number;
+  name: string;
+}
+
 interface SetUnitsResponse {
   success: boolean;
   modules: Record<number, { units: number }>;
+}
+
+interface GetExerciseTypesParams {
+  courseKey: string;
+  conversationKey: string;
+}
+
+interface GetExerciseTypesResponse {
+  success: boolean;
+  aiMessage: string;
+  exerciseTypes: ExerciseType[];
+}
+
+interface SetEvaluationParams {
+  courseKey: string;
+  conversationKey: string;
+  selectedComponents: Array<{ id: number; name: string }>;
+}
+
+interface SetEvaluationResponse {
+  success: boolean;
+  aiMessage: string;
 }
 
 interface ProposedIndex {
@@ -232,6 +259,25 @@ export function useIndexStatus(courseKey: string | null, enabled: boolean = fals
       }
       return false;
     },
+  });
+}
+
+export function useGetExerciseTypes() {
+  return useMutation({
+    mutationFn: (params: GetExerciseTypesParams) =>
+      api.post<GetExerciseTypesResponse>(`/v1/course/${params.courseKey}/indexes`, {
+        conversationKey: params.conversationKey,
+      }),
+  });
+}
+
+export function useSetEvaluation() {
+  return useMutation({
+    mutationFn: (params: SetEvaluationParams) =>
+      api.post<SetEvaluationResponse>(`/v1/course/${params.courseKey}/evaluation`, {
+        conversationKey: params.conversationKey,
+        selectedComponents: params.selectedComponents,
+      }),
   });
 }
 
