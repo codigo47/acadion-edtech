@@ -496,6 +496,53 @@ export class CourseService {
     };
   }
 
+  async setEvaluationDetails(
+    courseKey: string,
+    dto: {
+      conversationKey: string;
+      knowledgeCheckEndUnit: boolean;
+      knowledgeCheckEndModule: boolean;
+      finalExercise: boolean;
+      restrictions: string;
+    },
+  ) {
+    const { conversationKey, ...evaluationDetails } = dto;
+
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    // Update course input with evaluation details
+    const currentInput = (course.input as Record<string, unknown>) || {};
+    await this.prisma.course.update({
+      where: { id: course.id },
+      data: {
+        input: { ...currentInput, evaluationDetails },
+      },
+    });
+
+    // Save user message with JSON of evaluation details
+    const userMessage = JSON.stringify({ evaluationDetails });
+    await this.createMessage(conversationKey, 'user', userMessage);
+
+    // AI response message
+    const aiMessage = `Excellent! Now we just need to define how your course will look.
+
+If you have this information, complete the form. If something is missing, we'll choose a visual identity proposal based on what we know about the eLearning.`;
+
+    // Save AI message to conversation
+    await this.createMessage(conversationKey, 'assistant', aiMessage);
+
+    return {
+      success: true,
+      aiMessage,
+    };
+  }
+
   async getIndexStatus(courseKey: string) {
     const course = await this.prisma.course.findFirst({
       where: { key: courseKey },

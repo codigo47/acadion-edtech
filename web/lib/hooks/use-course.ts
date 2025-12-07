@@ -155,6 +155,20 @@ interface SetEvaluationResponse {
   aiMessage: string;
 }
 
+interface SetEvaluationDetailsParams {
+  courseKey: string;
+  conversationKey: string;
+  knowledgeCheckEndUnit: boolean;
+  knowledgeCheckEndModule: boolean;
+  finalExercise: boolean;
+  restrictions: string;
+}
+
+interface SetEvaluationDetailsResponse {
+  success: boolean;
+  aiMessage: string;
+}
+
 interface ProposedIndex {
   title: string;
   modules: Array<{
@@ -277,6 +291,19 @@ export function useSetEvaluation() {
       api.post<SetEvaluationResponse>(`/v1/course/${params.courseKey}/evaluation`, {
         conversationKey: params.conversationKey,
         selectedComponents: params.selectedComponents,
+      }),
+  });
+}
+
+export function useSetEvaluationDetails() {
+  return useMutation({
+    mutationFn: (params: SetEvaluationDetailsParams) =>
+      api.post<SetEvaluationDetailsResponse>(`/v1/course/${params.courseKey}/evaluation-details`, {
+        conversationKey: params.conversationKey,
+        knowledgeCheckEndUnit: params.knowledgeCheckEndUnit,
+        knowledgeCheckEndModule: params.knowledgeCheckEndModule,
+        finalExercise: params.finalExercise,
+        restrictions: params.restrictions,
       }),
   });
 }

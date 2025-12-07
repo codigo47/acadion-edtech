@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails } from '../../../lib/hooks/use-course';
 
 // Exercise type from backend
 interface ExerciseType {
@@ -62,6 +62,48 @@ function CourseIndexView({ index }: { index: ProposedIndex }) {
             </div>
           </div>
         ))}
+      </div>
+    </div>
+  );
+}
+
+// Evaluation details type
+interface EvaluationDetailsData {
+  knowledgeCheckEndUnit: boolean;
+  knowledgeCheckEndModule: boolean;
+  finalExercise: boolean;
+  restrictions: string;
+}
+
+// Component to render evaluation details summary
+function EvaluationDetailsView({ details }: { details: EvaluationDetailsData }) {
+  return (
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-4 max-w-md">
+      <div className="space-y-2 text-sm">
+        <div className="flex items-center justify-between">
+          <span className="text-gray-600">Knowledge check at end of unit:</span>
+          <span className={details.knowledgeCheckEndUnit ? 'text-green-600 font-medium' : 'text-gray-400'}>
+            {details.knowledgeCheckEndUnit ? 'Yes' : 'No'}
+          </span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-600">Knowledge check at end of module:</span>
+          <span className={details.knowledgeCheckEndModule ? 'text-green-600 font-medium' : 'text-gray-400'}>
+            {details.knowledgeCheckEndModule ? 'Yes' : 'No'}
+          </span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-gray-600">Final exercise:</span>
+          <span className={details.finalExercise ? 'text-green-600 font-medium' : 'text-gray-400'}>
+            {details.finalExercise ? 'Yes' : 'No'}
+          </span>
+        </div>
+        {details.restrictions && (
+          <div className="pt-2 border-t border-gray-100">
+            <span className="text-gray-600">Restrictions: </span>
+            <span className="text-gray-800">{details.restrictions}</span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -213,6 +255,7 @@ export default function ProjectPage() {
   const setUnitsMutation = useSetUnits();
   const getExerciseTypesMutation = useGetExerciseTypes();
   const setEvaluationMutation = useSetEvaluation();
+  const setEvaluationDetailsMutation = useSetEvaluationDetails();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
   const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
   const { data: indexStatus } = useIndexStatus(courseKey, isPollingIndex);
@@ -628,17 +671,38 @@ export default function ProjectPage() {
   };
 
   // Handle evaluation continue
-  const handleEvaluationContinue = () => {
-    const evalSummary: string[] = [];
-    if (evaluationSettings.unitKnowledgeCheck) evalSummary.push('Unit checks');
-    if (evaluationSettings.moduleKnowledgeCheck) evalSummary.push('Module checks');
-    if (evaluationSettings.finalExercise) evalSummary.push('Final exercise');
-    setMessages((prev) => [
-      ...prev,
-      { type: 'ai', content: 'How will the evaluation be?' },
-      { type: 'user', content: evalSummary.length > 0 ? evalSummary.join(', ') : 'No evaluation settings' },
-    ]);
-    setCurrentStep('visualIdentity');
+  const handleEvaluationContinue = async () => {
+    if (courseKey && resolvedConversationKey) {
+      try {
+        const evaluationDetailsData: EvaluationDetailsData = {
+          knowledgeCheckEndUnit: evaluationSettings.unitKnowledgeCheck,
+          knowledgeCheckEndModule: evaluationSettings.moduleKnowledgeCheck,
+          finalExercise: evaluationSettings.finalExercise,
+          restrictions: evaluationSettings.restrictions,
+        };
+
+        const result = await setEvaluationDetailsMutation.mutateAsync({
+          courseKey,
+          conversationKey: resolvedConversationKey,
+          ...evaluationDetailsData,
+        });
+
+        // Add evaluation details as user message with component, then AI message
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: 'user',
+            content: 'Evaluation settings',
+            component: <EvaluationDetailsView details={evaluationDetailsData} />,
+          },
+          { type: 'ai', content: result.aiMessage },
+        ]);
+
+        setCurrentStep('visualIdentity');
+      } catch (error) {
+        console.error('Failed to set evaluation details:', error);
+      }
+    }
   };
 
   // Handle visual identity continue
@@ -1064,9 +1128,16 @@ export default function ProjectPage() {
                 />
               </div>
             </div>
-            <CTAButton onClick={handleEvaluationContinue}>
-              Continue
-            </CTAButton>
+            <button
+              onClick={handleEvaluationContinue}
+              disabled={setEvaluationDetailsMutation.isPending}
+              className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50"
+            >
+              {setEvaluationDetailsMutation.isPending ? 'Loading...' : 'Continue'}
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </button>
           </motion.div>
         );
 
@@ -1078,15 +1149,7 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-5 max-w-2xl"
           >
-            <div>
-              <p className="text-gray-700 mb-1">
-                Excellent! Now we just need to define how your course will look.
-              </p>
-              <p className="text-gray-500 text-sm">
-                If you have this information, complete the form. If something is missing, we&apos;ll
-                choose a visual identity proposal based on what we know about the eLearning.
-              </p>
-            </div>
+            {/* Message already shown from API response in messages */}
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -1514,8 +1577,11 @@ export default function ProjectPage() {
                         className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
                         {message.type === 'user' ? (
-                          <div className="bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl rounded-br-md max-w-md shadow-sm">
-                            <p>{message.content}</p>
+                          <div className="space-y-3">
+                            <div className="bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl rounded-br-md max-w-md shadow-sm">
+                              <p>{message.content}</p>
+                            </div>
+                            {message.component && message.component}
                           </div>
                         ) : (
                           <div className="max-w-2xl space-y-4">
@@ -1599,8 +1665,11 @@ export default function ProjectPage() {
                       className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       {message.type === 'user' ? (
-                        <div className="bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl rounded-br-md max-w-md shadow-sm">
-                          <p>{message.content}</p>
+                        <div className="space-y-3">
+                          <div className="bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl rounded-br-md max-w-md shadow-sm">
+                            <p>{message.content}</p>
+                          </div>
+                          {message.component && message.component}
                         </div>
                       ) : (
                         <div className="max-w-xl space-y-4">

@@ -78,6 +78,21 @@ export class CourseController {
     return this.courseService.setEvaluation(key, dto.conversationKey, dto.selectedComponents);
   }
 
+  @Post(':key/evaluation-details')
+  async setEvaluationDetails(
+    @Param('key') key: string,
+    @Body()
+    dto: {
+      conversationKey: string;
+      knowledgeCheckEndUnit: boolean;
+      knowledgeCheckEndModule: boolean;
+      finalExercise: boolean;
+      restrictions: string;
+    },
+  ) {
+    return this.courseService.setEvaluationDetails(key, dto);
+  }
+
   @Get(':key')
   async findOne(@Param('key') key: string) {
     return this.courseService.findByKey(key);
