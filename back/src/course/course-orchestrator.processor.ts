@@ -546,7 +546,7 @@ Generate the course index with descriptive titles for each module and unit.`,
     const componentType = needsEvaluation ? undefined : { not: 'evaluation' as const };
     const components = await this.prisma.component.findMany({
       where: componentType ? { type: componentType } : {},
-      select: { internalName: true, name: true, type: true, description: true, properties: true },
+      select: { id: true, internalName: true, name: true, type: true, description: true, properties: true },
     });
 
     // Separate content components and evaluation components
@@ -658,6 +658,33 @@ Generate the complete content for this unit with appropriate components, content
         throw lastError || new Error('Failed to generate unit content');
       }
 
+      // Parse unit code to get module and unit numbers
+      const [moduleNum, unitNum] = unitCode.split('.').map(Number);
+
+      // Create a map of component internalName to id for lookup
+      const componentIdMap = new Map(components.map(c => [c.internalName, c.id]));
+
+      // Save each component to CourseComponent table
+      for (const comp of unitContent.components) {
+        const componentId = componentIdMap.get(comp.componentName);
+
+        if (componentId) {
+          await this.prisma.courseComponent.create({
+            data: {
+              courseId,
+              componentId,
+              module: moduleNum,
+              unit: unitNum,
+              sequence: comp.order,
+              data: comp as any,
+              userId: course.userId,
+            },
+          });
+        } else {
+          this.logger.warn(`Component ${comp.componentName} not found in database, skipping`);
+        }
+      }
+
       // Update course output with generated unit
       const currentOutput = (course.output as Record<string, unknown>) || {};
       const existingUnits = (currentOutput.units as Record<string, unknown>) || {};
@@ -689,6 +716,29 @@ Generate the complete content for this unit with appropriate components, content
           payload: { unitCode, unitTitle, componentsCount: unitContent.components.length },
         },
       });
+
+      // Check if all units are completed to update course status
+      const allUnitSteps = await this.prisma.courseStep.findMany({
+        where: { courseId, type: 'generating_unit' },
+        select: { status: true },
+      });
+
+      const allCompleted = allUnitSteps.every((s) => s.status === 'completed');
+      const anyFailed = allUnitSteps.some((s) => s.status === 'failed');
+
+      if (allCompleted) {
+        await this.prisma.course.update({
+          where: { id: courseId },
+          data: { status: 'completed' },
+        });
+        this.logger.log(`Course ${courseId} generation completed successfully`);
+      } else if (anyFailed) {
+        await this.prisma.course.update({
+          where: { id: courseId },
+          data: { status: 'failed' },
+        });
+        this.logger.log(`Course ${courseId} generation failed`);
+      }
 
       this.logger.log(`Unit ${unitCode} generated successfully for course ${courseId}`);
 

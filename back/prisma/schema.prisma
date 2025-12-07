@@ -32,7 +32,28 @@ model Component {
   updatedAt    DateTime      @default(now()) @updatedAt
   version      Int           @default(1)
 
+  courseComponents CourseComponent[]
+
   @@map("components")
+}
+
+model CourseComponent {
+  id          Int      @id @default(autoincrement())
+  courseId    Int      @map("course_id")
+  componentId Int      @map("component_id")
+  module      Int
+  unit        Int
+  sequence    Int
+  data        Json?    @db.JsonB
+  userId      String   @map("user_id") @db.Uuid
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
+
+  course    Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  component Component @relation(fields: [componentId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("course_components")
 }
 
 model Organization {
@@ -63,10 +84,20 @@ model UserOrganization {
   @@map("users_organizations")
 }
 
+enum CourseStatus {
+  draft
+  generating
+  completed
+  failed
+
+  @@map("course_status")
+}
+
 model Course {
   id        Int          @id @default(autoincrement())
   key       String       @default(uuid()) @db.Uuid
   title     String?
+  status    CourseStatus @default(draft)
   input      Json?        @db.JsonB // { topic, audience, index, structure, exercises, evaluation, branding: { primaryColor, secondaryColor, typo1, typo2, logo, guidelines } }
   output      Json?        @db.JsonB // { components }
   orgId     Int?         @map("org_id")
@@ -74,10 +105,11 @@ model Course {
   createdAt DateTime     @default(now())
   updatedAt DateTime     @default(now()) @updatedAt
 
-  organization  Organization?  @relation(fields: [orgId], references: [id], onDelete: SetNull)
-  user          User           @relation("UserCourses", fields: [userId], references: [id], onDelete: Cascade)
-  steps         CourseStep[]
-  conversations Conversation[]
+  organization     Organization?     @relation(fields: [orgId], references: [id], onDelete: SetNull)
+  user             User              @relation("UserCourses", fields: [userId], references: [id], onDelete: Cascade)
+  steps            CourseStep[]
+  conversations    Conversation[]
+  courseComponents CourseComponent[]
 
   @@map("courses")
 }
@@ -177,9 +209,10 @@ model User {
   sessions      Session[]
 
   // App-specific relations
-  courses       Course[]           @relation("UserCourses")
-  conversations Conversation[]     @relation("UserConversations")
-  organizations UserOrganization[]
+  courses          Course[]           @relation("UserCourses")
+  conversations    Conversation[]     @relation("UserConversations")
+  organizations    UserOrganization[]
+  courseComponents CourseComponent[]
 
   @@map("users")
 }

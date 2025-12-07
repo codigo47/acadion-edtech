@@ -113,4 +113,9 @@ export class CourseController {
   async getGenerationStatus(@Param('key') key: string) {
     return this.courseService.getGenerationStatus(key);
   }
+
+  @Get(':key/components')
+  async getCourseComponents(@Param('key') key: string) {
+    return this.courseService.getCourseComponents(key);
+  }
 }

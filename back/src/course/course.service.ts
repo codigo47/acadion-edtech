@@ -633,6 +633,12 @@ If you have this information, complete the form. If something is missing, we'll 
       }
     }
 
+    // Update course status to generating
+    await this.prisma.course.update({
+      where: { id: course.id },
+      data: { status: 'generating' },
+    });
+
     // Create all steps as pending
     await Promise.all(
       jobs.map((job) =>
@@ -743,6 +749,43 @@ If you have this information, complete the form. If something is missing, we'll 
     return {
       success: true,
       aiMessage,
+    };
+  }
+
+  async getCourseComponents(courseKey: string) {
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    const components = await this.prisma.courseComponent.findMany({
+      where: { courseId: course.id },
+      include: {
+        component: {
+          select: {
+            internalName: true,
+            name: true,
+            type: true,
+          },
+        },
+      },
+      orderBy: [{ module: 'asc' }, { unit: 'asc' }, { sequence: 'asc' }],
+    });
+
+    return {
+      courseId: course.id,
+      components: components.map((c) => ({
+        id: c.id,
+        module: c.module,
+        unit: c.unit,
+        sequence: c.sequence,
+        componentName: c.component.internalName,
+        componentType: c.component.type,
+        data: c.data,
+      })),
     };
   }
 }

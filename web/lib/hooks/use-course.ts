@@ -35,8 +35,10 @@ interface Course {
   id: number;
   key: string;
   title: string | null;
+  status: 'draft' | 'generating' | 'completed' | 'failed';
   topic: string | null;
-  data: Record<string, unknown> | null;
+  input: Record<string, unknown> | null;
+  output: Record<string, unknown> | null;
   orgId: number | null;
   userId: string;
   createdAt: string;
@@ -399,5 +401,28 @@ export function useGenerationStatus(courseKey: string | null, enabled: boolean =
       }
       return false;
     },
+  });
+}
+
+interface CourseComponentData {
+  id: number;
+  module: number;
+  unit: number;
+  sequence: number;
+  componentName: string;
+  componentType: 'static' | 'interactive' | 'evaluation';
+  data: Record<string, unknown>;
+}
+
+interface CourseComponentsResponse {
+  courseId: number;
+  components: CourseComponentData[];
+}
+
+export function useCourseComponents(courseKey: string | null, enabled: boolean = true) {
+  return useQuery({
+    queryKey: ['course-components', courseKey],
+    queryFn: () => api.get<CourseComponentsResponse>(`/v1/course/${courseKey}/components`),
+    enabled: !!courseKey && enabled,
   });
 }

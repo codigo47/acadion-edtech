@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useGenerationStatus } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useGenerationStatus, useCourseComponents } from '../../../lib/hooks/use-course';
 
 // Exercise type from backend
 interface ExerciseType {
@@ -229,12 +229,25 @@ function CourseComponent({ component }: { component: UnitComponent }) {
     fontFamily: styles?.fontFamily || 'Inter',
   };
 
-  // Title component
-  if (componentName.toLowerCase().includes('title') || componentName.toLowerCase().includes('header')) {
+  // Helper to get text content from various field names
+  const getText = () => content.text || content.content || '';
+  const getTitle = () => content.title || content.heading || '';
+
+  // Heading component
+  if (componentName.toLowerCase().includes('heading')) {
     return (
       <div className="py-8 px-6 text-center" style={baseStyles}>
-        <h1 className="text-3xl font-bold">{content.title || content.text}</h1>
-        {content.text && content.title && <p className="mt-2 text-lg opacity-80">{content.text}</p>}
+        <h1 className="text-3xl font-bold">{getTitle()}</h1>
+      </div>
+    );
+  }
+
+  // Title component
+  if (componentName.toLowerCase().includes('title')) {
+    return (
+      <div className="py-8 px-6 text-center" style={baseStyles}>
+        <h1 className="text-3xl font-bold">{getTitle() || getText()}</h1>
+        {getText() && getTitle() && <p className="mt-2 text-lg opacity-80">{getText()}</p>}
       </div>
     );
   }
@@ -255,14 +268,23 @@ function CourseComponent({ component }: { component: UnitComponent }) {
 
   // List component
   if (componentName.toLowerCase().includes('list') || content.items) {
+    const getItemText = (item: unknown): string => {
+      if (typeof item === 'string') return item;
+      if (typeof item === 'object' && item !== null) {
+        const it = item as Record<string, unknown>;
+        return String(it.text || it.label || it.content || '');
+      }
+      return '';
+    };
+
     return (
       <div className="py-6 px-6" style={baseStyles}>
-        {content.title && <h3 className="text-xl font-semibold mb-4">{content.title}</h3>}
+        {getTitle() && <h3 className="text-xl font-semibold mb-4">{getTitle()}</h3>}
         <ul className="space-y-2">
-          {content.items?.map((item, idx) => (
+          {content.items?.map((item: unknown, idx: number) => (
             <li key={idx} className="flex items-start gap-2">
               <span className="text-purple-500 mt-1">•</span>
-              <span>{item}</span>
+              <span>{getItemText(item)}</span>
             </li>
           ))}
         </ul>
@@ -272,16 +294,25 @@ function CourseComponent({ component }: { component: UnitComponent }) {
 
   // Multiple choice / Quiz component
   if (componentName.toLowerCase().includes('multiple') || componentName.toLowerCase().includes('choice') || componentName.toLowerCase().includes('quiz')) {
+    const getOptionText = (option: unknown): string => {
+      if (typeof option === 'string') return option;
+      if (typeof option === 'object' && option !== null) {
+        const opt = option as Record<string, unknown>;
+        return String(opt.text || opt.label || opt.content || '');
+      }
+      return '';
+    };
+
     return (
       <div className="py-6 px-6 bg-purple-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#faf5ff' }}>
         {content.question && <p className="text-lg font-medium mb-4">{content.question}</p>}
         <div className="space-y-2">
-          {content.options?.map((option, idx) => (
+          {content.options?.map((option: unknown, idx: number) => (
             <div
               key={idx}
               className="p-3 bg-white rounded-lg border border-gray-200 hover:border-purple-300 cursor-pointer transition-colors"
             >
-              {option.text}
+              {getOptionText(option)}
             </div>
           ))}
         </div>
@@ -305,14 +336,23 @@ function CourseComponent({ component }: { component: UnitComponent }) {
 
   // Matching component
   if (componentName.toLowerCase().includes('match')) {
+    const getOptionText = (option: unknown): string => {
+      if (typeof option === 'string') return option;
+      if (typeof option === 'object' && option !== null) {
+        const opt = option as Record<string, unknown>;
+        return String(opt.text || opt.label || opt.content || '');
+      }
+      return '';
+    };
+
     return (
       <div className="py-6 px-6 bg-green-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#f0fdf4' }}>
-        {content.title && <h3 className="text-xl font-semibold mb-4">{content.title}</h3>}
+        {getTitle() && <h3 className="text-xl font-semibold mb-4">{getTitle()}</h3>}
         {content.question && <p className="mb-4">{content.question}</p>}
         <div className="grid grid-cols-2 gap-4">
-          {content.options?.map((option, idx) => (
+          {content.options?.map((option: unknown, idx: number) => (
             <div key={idx} className="p-3 bg-white rounded-lg border border-gray-200 text-center">
-              {option.text}
+              {getOptionText(option)}
             </div>
           ))}
         </div>
@@ -322,15 +362,24 @@ function CourseComponent({ component }: { component: UnitComponent }) {
 
   // Sorting component
   if (componentName.toLowerCase().includes('sort')) {
+    const getItemText = (item: unknown): string => {
+      if (typeof item === 'string') return item;
+      if (typeof item === 'object' && item !== null) {
+        const it = item as Record<string, unknown>;
+        return String(it.text || it.label || it.content || '');
+      }
+      return '';
+    };
+
     return (
       <div className="py-6 px-6 bg-amber-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#fffbeb' }}>
-        {content.title && <h3 className="text-xl font-semibold mb-4">{content.title}</h3>}
+        {getTitle() && <h3 className="text-xl font-semibold mb-4">{getTitle()}</h3>}
         {content.question && <p className="mb-4">{content.question}</p>}
         <div className="space-y-2">
-          {content.items?.map((item, idx) => (
+          {content.items?.map((item: unknown, idx: number) => (
             <div key={idx} className="p-3 bg-white rounded-lg border border-gray-200 cursor-move flex items-center gap-2">
               <span className="text-gray-400">⋮⋮</span>
-              {item}
+              {getItemText(item)}
             </div>
           ))}
         </div>
@@ -338,11 +387,64 @@ function CourseComponent({ component }: { component: UnitComponent }) {
     );
   }
 
+  // Table component
+  if (componentName.toLowerCase().includes('table') && content.content && Array.isArray(content.content)) {
+    const tableData = content.content as string[][];
+    const hasHeader = content.headerRow !== false;
+    return (
+      <div className="py-6 px-6" style={baseStyles}>
+        <table className="w-full border-collapse">
+          <thead>
+            {hasHeader && tableData[0] && (
+              <tr>
+                {tableData[0].map((cell, idx) => (
+                  <th key={idx} className="border border-gray-300 px-4 py-2 bg-gray-100 font-semibold text-left">
+                    {cell}
+                  </th>
+                ))}
+              </tr>
+            )}
+          </thead>
+          <tbody>
+            {tableData.slice(hasHeader ? 1 : 0).map((row, rowIdx) => (
+              <tr key={rowIdx}>
+                {row.map((cell, cellIdx) => (
+                  <td key={cellIdx} className="border border-gray-300 px-4 py-2">
+                    {cell}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  // Separator component
+  if (componentName.toLowerCase().includes('separator')) {
+    return (
+      <div className="py-4 px-6" style={baseStyles}>
+        <hr className="border-gray-300" />
+      </div>
+    );
+  }
+
+  // Paragraph component
+  if (componentName.toLowerCase().includes('paragraph')) {
+    return (
+      <div className="py-6 px-6" style={baseStyles}>
+        {getTitle() && <h3 className="text-xl font-semibold mb-3">{getTitle()}</h3>}
+        <p className="leading-relaxed whitespace-pre-line">{getText()}</p>
+      </div>
+    );
+  }
+
   // Default text/paragraph component
   return (
     <div className="py-6 px-6" style={baseStyles}>
-      {content.title && <h3 className="text-xl font-semibold mb-3">{content.title}</h3>}
-      {content.text && <p className="leading-relaxed whitespace-pre-line">{content.text}</p>}
+      {getTitle() && <h3 className="text-xl font-semibold mb-3">{getTitle()}</h3>}
+      {getText() && <p className="leading-relaxed whitespace-pre-line">{getText()}</p>}
     </div>
   );
 }
@@ -519,6 +621,7 @@ export default function ProjectPage() {
   const { data: generationStatus } = useGenerationStatus(courseKey, isPollingGeneration);
   const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
   const { data: indexStatus } = useIndexStatus(courseKey, isPollingIndex);
+  const { data: courseComponentsData } = useCourseComponents(courseKey);
 
   // Get conversationKey from courseData
   const resolvedConversationKey = courseData?.conversations?.[0]?.id || null;
@@ -646,6 +749,26 @@ export default function ProjectPage() {
         const firstUserMessage = existingMessages.find((msg) => msg.role === 'user');
         if (firstUserMessage) {
           setTopic(firstUserMessage.content);
+        }
+
+        // Check if course is already completed - show editor layout directly
+        if (courseData.status === 'completed') {
+          // Get index from output if not found in messages
+          const indexFromOutput = courseData.output?.proposedIndex as ProposedIndex | undefined;
+          const courseIndex = foundIndex || indexFromOutput;
+
+          if (courseIndex) {
+            setProposedIndex(courseIndex);
+            // Auto-select first unit if available
+            if (courseIndex.modules.length > 0 && courseIndex.modules[0].units.length > 0) {
+              setSelectedUnitCode(courseIndex.modules[0].units[0].code);
+            }
+          }
+
+          setShowEditorLayout(true);
+          setCurrentStep('complete');
+          setIsLoadingCourse(false);
+          return;
         }
 
         // Determine current step based on course steps status
@@ -781,6 +904,16 @@ export default function ProjectPage() {
       return () => clearTimeout(timer);
     }
   }, [hasSubmitted, showEditorLayout, messages.length]);
+
+  // Scroll to selected unit when it changes
+  useEffect(() => {
+    if (selectedUnitCode && showEditorLayout) {
+      const element = document.getElementById(`unit-${selectedUnitCode}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, [selectedUnitCode, showEditorLayout]);
 
   // Handle initial topic submission - calls /course/title endpoint
   const handleTopicSubmit = async () => {
@@ -1990,40 +2123,76 @@ export default function ProjectPage() {
                 transition={{ duration: 0.4 }}
                 className="flex-1 overflow-y-auto bg-gray-50"
               >
-                {selectedUnitCode && generationStatus?.generatedContent ? (
-                  (() => {
-                    const units = generationStatus.generatedContent as Record<string, UnitContent>;
-                    const unitContent = units[selectedUnitCode];
-                    if (unitContent) {
-                      return <UnitContentViewer unitContent={unitContent} />;
-                    }
-                    return (
-                      <div className="flex-1 flex items-center justify-center h-full">
-                        <div className="text-center text-gray-400">
-                          <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                          <p className="text-lg">Loading unit content...</p>
-                        </div>
+                {courseComponentsData?.components && proposedIndex ? (
+                  <div className="max-w-4xl mx-auto py-8 px-4">
+                    {/* Course title */}
+                    {courseData?.title && (
+                      <div className="mb-12 text-center">
+                        <h1 className="text-4xl font-bold text-[#1a1a1a]">{courseData.title}</h1>
                       </div>
-                    );
-                  })()
+                    )}
+
+                    {proposedIndex.modules.map((module) => (
+                      <div key={module.number} className="mb-12">
+                        {/* Module header */}
+                        <div className="mb-6">
+                          <h2 className="text-2xl font-bold text-[#1a1a1a]">
+                            Module {module.number}: {module.title}
+                          </h2>
+                        </div>
+
+                        {/* Units in this module */}
+                        {module.units.map((unit) => {
+                          const unitComponents = courseComponentsData.components.filter(
+                            (c) => c.module === module.number && c.unit === parseInt(unit.code.split('.')[1])
+                          );
+
+                          if (unitComponents.length === 0) return null;
+
+                          const unitContent: UnitContent = {
+                            unitCode: unit.code,
+                            unitTitle: unit.title,
+                            components: unitComponents.map((c) => ({
+                              componentName: c.componentName,
+                              order: c.sequence,
+                              content: (c.data as any)?.content || {},
+                              styles: (c.data as any)?.styles,
+                            })),
+                          };
+
+                          return (
+                            <div
+                              key={unit.code}
+                              id={`unit-${unit.code}`}
+                              className="mb-8"
+                            >
+                              {/* Unit header */}
+                              <div className="mb-4 flex items-center gap-3">
+                                <span className="px-3 py-1 bg-[#9F80DA] text-white text-sm font-medium rounded-full">
+                                  {unit.code}
+                                </span>
+                                <h3 className="text-xl font-semibold text-[#1a1a1a]">{unit.title}</h3>
+                              </div>
+
+                              {/* Unit content */}
+                              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                                {unitContent.components
+                                  .sort((a, b) => a.order - b.order)
+                                  .map((component, idx) => (
+                                    <CourseComponent key={idx} component={component} />
+                                  ))}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </div>
                 ) : (
                   <div className="flex-1 flex items-center justify-center h-full">
                     <div className="text-center text-gray-400">
-                      <svg
-                        className="w-16 h-16 mx-auto mb-4 opacity-50"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={1.5}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                      </svg>
-                      <p className="text-lg">Select a topic from the course structure</p>
-                      <p className="text-sm mt-1">Click on any item in the sidebar to start editing</p>
+                      <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                      <p className="text-lg">Loading course content...</p>
                     </div>
                   </div>
                 )}
