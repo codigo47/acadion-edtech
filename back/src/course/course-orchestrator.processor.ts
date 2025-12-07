@@ -3,8 +3,32 @@ import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
 import { ChatOpenAI } from '@langchain/openai';
 import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import { StructuredOutputParser } from '@langchain/core/output_parsers';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { z } from 'zod';
 import { PrismaService } from '../prisma/prisma.service';
 import { COURSE_ORCHESTRATION_QUEUE } from './constants';
+
+// Schema for course index
+const courseIndexSchema = z.object({
+  title: z.string().describe('The course title'),
+  modules: z.array(
+    z.object({
+      number: z.number().describe('Module number starting from 1'),
+      title: z.string().describe('Descriptive module title'),
+      units: z.array(
+        z.object({
+          code: z
+            .string()
+            .describe(
+              'Unit code in format moduleNumber.unitNumber (e.g., 1.1, 1.2)',
+            ),
+          title: z.string().describe('Descriptive unit title'),
+        }),
+      ),
+    }),
+  ),
+});
 
 interface GenerateTitleJobData {
   courseId: number;
@@ -35,7 +59,9 @@ export class CourseOrchestratorProcessor extends WorkerHost {
   }
 
   async process(
-    job: Job<GenerateTitleJobData | GenerateObjectivesJobData | GenerateIndexJobData>,
+    job: Job<
+      GenerateTitleJobData | GenerateObjectivesJobData | GenerateIndexJobData
+    >,
   ): Promise<any> {
     this.logger.log(`Processing job ${job.id} - ${job.name}`);
 
@@ -44,7 +70,9 @@ export class CourseOrchestratorProcessor extends WorkerHost {
     }
 
     if (job.name === 'generate_objectives') {
-      return this.handleGenerateObjectives(job as Job<GenerateObjectivesJobData>);
+      return this.handleGenerateObjectives(
+        job as Job<GenerateObjectivesJobData>,
+      );
     }
 
     if (job.name === 'generate_index') {
@@ -300,7 +328,7 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
     const audience = input?.audience || '';
     const objective = input?.objective || '';
     const generatedObjectives = input?.generatedObjectives || '';
-    const modules = input?.modules as Record<string, { units: number }> || {};
+    const modules = (input?.modules as Record<string, { units: number }>) || {};
     const conversationId = course.conversations[0]?.id;
 
     // Mark step as running
@@ -315,7 +343,14 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
         .map(([moduleNum, data]) => `Module ${moduleNum}: ${data.units} units`)
         .join('\n');
 
-      const systemPrompt = `You are an expert instructional designer. Your task is to create a detailed course index/outline based on the provided information.
+      // Create structured output parser with schema validation
+      const parser = StructuredOutputParser.fromZodSchema(courseIndexSchema);
+
+      // Create prompt template with format instructions
+      const prompt = ChatPromptTemplate.fromMessages([
+        [
+          'system',
+          `You are an expert instructional designer. Your task is to create a detailed course index/outline based on the provided information.
 
 The index should:
 1. Have clear, descriptive titles for each module
@@ -324,84 +359,99 @@ The index should:
 4. Be appropriate for the target audience
 5. Cover the learning objectives
 
-Output format - use this exact tree structure with proper indentation:
-${course.title || topic}
-├── 1. [Module 1 Title]
-│   ├── 1.1. [Unit 1 Title]
-│   ├── 1.2. [Unit 2 Title]
-│   └── 1.3. [Unit 3 Title]
-├── 2. [Module 2 Title]
-│   ├── 2.1. [Unit 1 Title]
-│   └── 2.2. [Unit 2 Title]
-└── 3. [Module 3 Title]
-    ├── 3.1. [Unit 1 Title]
-    └── 3.2. [Unit 2 Title]
-
 Rules:
-- Use ├── for items that have siblings after them
-- Use └── for the last item in a group
-- Use │ for vertical continuation lines
-- Indent units under their module
-- Number modules as 1, 2, 3...
-- Number units as 1.1, 1.2, 2.1, 2.2...
-- Generate ONLY the tree structure, no additional text`;
+- Use the provided course title
+- Number modules sequentially starting from 1
+- Unit codes follow the pattern: moduleNumber.unitNumber (e.g., 1.1, 1.2, 2.1)
+- Create descriptive, meaningful titles for modules and units
+- Ensure the number of modules and units matches the provided structure
 
-      const userPrompt = `Course Topic: ${topic}
-Course Title: ${course.title || topic}
-Target Audience: ${audience}
-User's Learning Objectives: ${objective}
-Generated Learning Objectives: ${generatedObjectives}
+{format_instructions}`,
+        ],
+        [
+          'human',
+          `Course Topic: {topic}
+Course Title: {courseTitle}
+Target Audience: {audience}
+User's Learning Objectives: {objective}
+Generated Learning Objectives: {generatedObjectives}
 
 Module Structure:
-${modulesDescription}
+{modulesDescription}
 
-Generate the course index with descriptive titles for each module and unit.`;
-
-      const response = await this.llm.invoke([
-        new SystemMessage(systemPrompt),
-        new HumanMessage(userPrompt),
+Generate the course index with descriptive titles for each module and unit.`,
+        ],
       ]);
 
-      const indexContent = response.content.toString().trim();
+      // Create the chain
+      const chain = prompt.pipe(this.llm).pipe(parser);
 
-      // Extract token usage from response
-      const promptTokens = response.usage_metadata?.input_tokens ?? null;
-      const completionTokens = response.usage_metadata?.output_tokens ?? null;
+      // Execute with retry logic (max 3 attempts)
+      const maxRetries = 3;
+      let lastError: Error | null = null;
+      let proposedIndex: z.infer<typeof courseIndexSchema> | null = null;
+
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          proposedIndex = await chain.invoke({
+            topic,
+            courseTitle: course.title || topic,
+            audience,
+            objective,
+            generatedObjectives,
+            modulesDescription,
+            format_instructions: parser.getFormatInstructions(),
+          });
+          break; // Success, exit retry loop
+        } catch (err) {
+          lastError = err as Error;
+          this.logger.warn(
+            `Index generation attempt ${attempt}/${maxRetries} failed: ${lastError.message}`,
+          );
+          if (attempt === maxRetries) {
+            throw new Error(
+              `Failed to generate valid index after ${maxRetries} attempts: ${lastError.message}`,
+            );
+          }
+        }
+      }
+
+      if (!proposedIndex) {
+        throw lastError || new Error('Failed to generate index');
+      }
 
       // Update course output with generated index
       const currentOutput = (course.output as Record<string, unknown>) || {};
       await this.prisma.course.update({
         where: { id: courseId },
         data: {
-          output: { ...currentOutput, index: indexContent },
+          output: { ...currentOutput, proposedIndex },
         },
       });
 
-      // Save AI message to conversation
+      // Save AI message to conversation as JSON string
       if (conversationId) {
         await this.prisma.message.create({
           data: {
             conversationId,
             role: 'assistant',
-            content: indexContent,
+            content: JSON.stringify(proposedIndex),
           },
         });
       }
 
-      // Mark step as completed with token usage
+      // Mark step as completed
       await this.prisma.courseStep.updateMany({
         where: { courseId, type: 'generating_index' },
         data: {
           status: 'completed',
-          payload: { index: indexContent },
-          promptTokens,
-          completionTokens,
+          payload: { proposedIndex },
         },
       });
 
       this.logger.log(`Index generated successfully for course ${courseId}`);
 
-      return { success: true, index: indexContent };
+      return { success: true, proposedIndex };
     } catch (error) {
       this.logger.error(
         `Failed to generate index for course ${courseId}: ${error.message}`,

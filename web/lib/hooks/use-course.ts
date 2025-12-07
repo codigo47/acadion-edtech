@@ -128,10 +128,18 @@ interface SetUnitsResponse {
   modules: Record<number, { units: number }>;
 }
 
+interface ProposedIndex {
+  title: string;
+  modules: Array<{
+    number: number;
+    title: string;
+    units: Array<{ code: string; title: string }>;
+  }>;
+}
+
 interface IndexStatusResponse {
   status: 'pending' | 'running' | 'completed' | 'failed' | 'not_found';
-  index: string | null;
-  indexMessage: string | null;
+  proposedIndex: ProposedIndex | null;
 }
 
 export function useCreateCourse() {

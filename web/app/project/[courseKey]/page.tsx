@@ -33,6 +33,48 @@ const fontOptions = [
   'Work Sans',
 ];
 
+// Proposed index structure type
+interface ProposedIndex {
+  title: string;
+  modules: Array<{
+    number: number;
+    title: string;
+    units: Array<{ code: string; title: string }>;
+  }>;
+}
+
+// Component to render the course index
+function CourseIndexView({ index }: { index: ProposedIndex }) {
+  return (
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-5 max-w-2xl">
+      <div className="text-lg font-semibold text-[#1a1a1a] mb-4">{index.title}</div>
+      <div className="space-y-4">
+        {index.modules.map((module, moduleIdx) => (
+          <div key={module.number} className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#9F80DA] text-white text-sm font-medium">
+                {module.number}
+              </span>
+              <span className="font-medium text-[#1a1a1a]">{module.title}</span>
+            </div>
+            <div className="ml-9 space-y-1">
+              {module.units.map((unit) => (
+                <div
+                  key={unit.code}
+                  className="flex items-center gap-2 text-sm text-gray-600 py-1 px-3 bg-gray-50 rounded-lg"
+                >
+                  <span className="text-[#9F80DA] font-medium">{unit.code}</span>
+                  <span>{unit.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Chat step types
 type ChatStep =
   | 'audience'
@@ -42,6 +84,7 @@ type ChatStep =
   | 'modulesCount'
   | 'unitsPerModule'
   | 'generatingIndex'
+  | 'courseIndex'
   | 'exerciseTypes'
   | 'evaluation'
   | 'visualIdentity'
@@ -237,16 +280,9 @@ export default function ProjectPage() {
 
   // Handle index generation completion
   useEffect(() => {
-    if (indexStatus?.status === 'completed' && indexStatus.indexMessage) {
+    if (indexStatus?.status === 'completed' && indexStatus.proposedIndex) {
       setIsPollingIndex(false);
-      // Add the generated index message
-      setMessages((prev) => [
-        ...prev,
-        { type: 'ai', content: indexStatus.indexMessage! },
-      ]);
-      setCurrentStep('exerciseTypes');
-      // Focus chat input after AI response
-      setTimeout(() => chatInputRef.current?.focus(), 100);
+      setCurrentStep('courseIndex');
     } else if (indexStatus?.status === 'failed') {
       setIsPollingIndex(false);
       console.error('Index generation failed');
@@ -757,6 +793,35 @@ export default function ProjectPage() {
           </motion.div>
         );
 
+      case 'courseIndex':
+        // Show the generated course index
+        if (!indexStatus?.proposedIndex) return null;
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-5"
+          >
+            <p className="text-gray-700">Here&apos;s the proposed course structure:</p>
+            <CourseIndexView index={indexStatus.proposedIndex} />
+            <div className="flex gap-3">
+              <button
+                onClick={() => setCurrentStep('exerciseTypes')}
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+              >
+                Looks good, continue
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-sm text-gray-500">
+              If this looks good, continue. Otherwise, describe what you would change about the structure.
+            </p>
+          </motion.div>
+        );
+
       case 'exerciseTypes':
         return (
           <motion.div
@@ -1197,13 +1262,30 @@ export default function ProjectPage() {
               className="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto flex-shrink-0"
             >
               <div className="p-4">
-                {showEditorLayout && indexStatus?.index ? (
+                {showEditorLayout && indexStatus?.proposedIndex ? (
                   <>
                     <h3 className="text-sm font-semibold text-gray-500 mb-3 px-1 uppercase tracking-wide">
                       Course Structure
                     </h3>
-                    <div className="text-sm text-gray-700 font-mono whitespace-pre-wrap">
-                      {indexStatus.index}
+                    <div className="space-y-3">
+                      {indexStatus.proposedIndex.modules.map((module) => (
+                        <div key={module.number} className="space-y-1">
+                          <div className="flex items-center gap-2 font-medium text-[#9F80DA]">
+                            <span className="text-xs">{module.number}.</span>
+                            <span className="text-sm">{module.title}</span>
+                          </div>
+                          <div className="ml-4 space-y-0.5">
+                            {module.units.map((unit) => (
+                              <div
+                                key={unit.code}
+                                className="text-xs text-gray-600 py-0.5 cursor-pointer hover:text-[#9F80DA]"
+                              >
+                                {unit.code} {unit.title}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </>
                 ) : null}

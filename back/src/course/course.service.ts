@@ -459,17 +459,6 @@ export class CourseService {
           orderBy: { createdAt: 'desc' },
           take: 1,
         },
-        conversations: {
-          take: 1,
-          orderBy: { createdAt: 'asc' },
-          include: {
-            messages: {
-              where: { role: 'assistant' },
-              orderBy: { createdAt: 'desc' },
-              take: 1,
-            },
-          },
-        },
       },
     });
 
@@ -479,12 +468,10 @@ export class CourseService {
 
     const step = course.steps[0];
     const output = course.output as Record<string, unknown>;
-    const indexMessage = course.conversations[0]?.messages[0]?.content || null;
 
     return {
       status: step?.status || 'not_found',
-      index: output?.index || null,
-      indexMessage,
+      proposedIndex: output?.proposedIndex || null,
     };
   }
 
