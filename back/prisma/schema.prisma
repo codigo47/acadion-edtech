@@ -96,6 +96,7 @@ enum StepType {
   generating_objectives
   generating_index
   generating_content
+  generating_course
   generating_image
   generating_evaluation
   calling_third_party
