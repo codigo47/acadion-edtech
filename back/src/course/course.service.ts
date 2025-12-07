@@ -596,6 +596,120 @@ If you have this information, complete the form. If something is missing, we'll 
     });
   }
 
+  async generateCourse(courseKey: string) {
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    const output = course.output as Record<string, unknown>;
+    const proposedIndex = output?.proposedIndex as {
+      title: string;
+      modules: Array<{
+        number: number;
+        title: string;
+        units: Array<{ code: string; title: string }>;
+      }>;
+    };
+
+    if (!proposedIndex) {
+      throw new NotFoundException('Course index not found. Generate index first.');
+    }
+
+    // Create a step and job for each unit
+    const jobs: Array<{ unitCode: string; unitTitle: string; moduleNumber: number; moduleTitle: string }> = [];
+
+    for (const module of proposedIndex.modules) {
+      for (const unit of module.units) {
+        jobs.push({
+          unitCode: unit.code,
+          unitTitle: unit.title,
+          moduleNumber: module.number,
+          moduleTitle: module.title,
+        });
+      }
+    }
+
+    // Create all steps as pending
+    await Promise.all(
+      jobs.map((job) =>
+        this.prisma.courseStep.create({
+          data: {
+            courseId: course.id,
+            type: 'generating_unit',
+            status: 'pending',
+            payload: { unitCode: job.unitCode, unitTitle: job.unitTitle },
+          },
+        }),
+      ),
+    );
+
+    // Add all jobs to the queue
+    await Promise.all(
+      jobs.map((job) =>
+        this.courseQueue.add('generate_unit', {
+          courseId: course.id,
+          unitCode: job.unitCode,
+          unitTitle: job.unitTitle,
+          moduleNumber: job.moduleNumber,
+          moduleTitle: job.moduleTitle,
+        }),
+      ),
+    );
+
+    return {
+      success: true,
+      totalUnits: jobs.length,
+    };
+  }
+
+  async getGenerationStatus(courseKey: string) {
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+      include: {
+        steps: {
+          where: { type: 'generating_unit' },
+          orderBy: { createdAt: 'asc' },
+        },
+      },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    const steps = course.steps;
+    const totalUnits = steps.length;
+    const completedUnits = steps.filter((s) => s.status === 'completed').length;
+    const failedUnits = steps.filter((s) => s.status === 'failed').length;
+    const runningUnits = steps.filter((s) => s.status === 'running').length;
+    const pendingUnits = steps.filter((s) => s.status === 'pending').length;
+
+    const isComplete = completedUnits === totalUnits && totalUnits > 0;
+    const hasFailed = failedUnits > 0;
+
+    // Get the generated content from output
+    const output = course.output as Record<string, unknown>;
+
+    return {
+      totalUnits,
+      completedUnits,
+      failedUnits,
+      runningUnits,
+      pendingUnits,
+      isComplete,
+      hasFailed,
+      units: steps.map((s) => ({
+        unitCode: (s.payload as any)?.unitCode,
+        status: s.status,
+      })),
+      generatedContent: output?.units || null,
+    };
+  }
+
   async setBranding(courseKey: string, dto: SetBrandingDto) {
     const { conversationKey, ...brandingData } = dto;
 

@@ -103,4 +103,14 @@ export class CourseController {
   async setBranding(@Param('key') key: string, @Body() dto: SetBrandingDto) {
     return this.courseService.setBranding(key, dto);
   }
+
+  @Post(':key/generate')
+  async generateCourse(@Param('key') key: string) {
+    return this.courseService.generateCourse(key);
+  }
+
+  @Get(':key/generation-status')
+  async getGenerationStatus(@Param('key') key: string) {
+    return this.courseService.getGenerationStatus(key);
+  }
 }

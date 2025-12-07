@@ -185,6 +185,28 @@ interface SetBrandingResponse {
   aiMessage: string;
 }
 
+interface GenerateCourseResponse {
+  success: boolean;
+  totalUnits: number;
+}
+
+interface UnitStatus {
+  unitCode: string;
+  status: 'pending' | 'running' | 'completed' | 'failed';
+}
+
+interface GenerationStatusResponse {
+  totalUnits: number;
+  completedUnits: number;
+  failedUnits: number;
+  runningUnits: number;
+  pendingUnits: number;
+  isComplete: boolean;
+  hasFailed: boolean;
+  units: UnitStatus[];
+  generatedContent: Record<string, unknown> | null;
+}
+
 interface ProposedIndex {
   title: string;
   modules: Array<{
@@ -355,5 +377,27 @@ export function useSetBranding() {
         logo: params.logo,
         guidelines: params.guidelines,
       }),
+  });
+}
+
+export function useGenerateCourse() {
+  return useMutation({
+    mutationFn: (courseKey: string) =>
+      api.post<GenerateCourseResponse>(`/v1/course/${courseKey}/generate`, {}),
+  });
+}
+
+export function useGenerationStatus(courseKey: string | null, enabled: boolean = false) {
+  return useQuery({
+    queryKey: ['generation-status', courseKey],
+    queryFn: () => api.get<GenerationStatusResponse>(`/v1/course/${courseKey}/generation-status`),
+    enabled: !!courseKey && enabled,
+    refetchInterval: (data) => {
+      const status = data.state.data;
+      if (status && !status.isComplete && !status.hasFailed) {
+        return 2000; // Poll every 2 seconds while generating
+      }
+      return false;
+    },
   });
 }

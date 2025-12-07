@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useGenerationStatus } from '../../../lib/hooks/use-course';
 
 // Exercise type from backend
 interface ExerciseType {
@@ -192,6 +192,176 @@ function BrandingView({ branding }: { branding: BrandingData }) {
   );
 }
 
+// Unit content types
+interface UnitComponent {
+  componentName: string;
+  order: number;
+  content: {
+    title?: string;
+    text?: string;
+    items?: string[];
+    question?: string;
+    options?: Array<{ text: string; isCorrect?: boolean }>;
+    correctAnswer?: string;
+    image?: string;
+  };
+  styles?: {
+    backgroundColor?: string;
+    textColor?: string;
+    accentColor?: string;
+    fontFamily?: string;
+  };
+}
+
+interface UnitContent {
+  unitCode: string;
+  unitTitle: string;
+  components: UnitComponent[];
+}
+
+// Component to render a single course component
+function CourseComponent({ component }: { component: UnitComponent }) {
+  const { componentName, content, styles } = component;
+
+  const baseStyles = {
+    backgroundColor: styles?.backgroundColor || '#ffffff',
+    color: styles?.textColor || '#1a1a1a',
+    fontFamily: styles?.fontFamily || 'Inter',
+  };
+
+  // Title component
+  if (componentName.toLowerCase().includes('title') || componentName.toLowerCase().includes('header')) {
+    return (
+      <div className="py-8 px-6 text-center" style={baseStyles}>
+        <h1 className="text-3xl font-bold">{content.title || content.text}</h1>
+        {content.text && content.title && <p className="mt-2 text-lg opacity-80">{content.text}</p>}
+      </div>
+    );
+  }
+
+  // Image component
+  if (componentName.toLowerCase().includes('image') || componentName.toLowerCase().includes('banner')) {
+    return (
+      <div className="py-4" style={baseStyles}>
+        <img
+          src="/sample.jpeg"
+          alt={content.title || 'Course image'}
+          className="w-full max-h-80 object-cover rounded-lg"
+        />
+        {content.title && <p className="mt-2 text-center text-sm opacity-70">{content.title}</p>}
+      </div>
+    );
+  }
+
+  // List component
+  if (componentName.toLowerCase().includes('list') || content.items) {
+    return (
+      <div className="py-6 px-6" style={baseStyles}>
+        {content.title && <h3 className="text-xl font-semibold mb-4">{content.title}</h3>}
+        <ul className="space-y-2">
+          {content.items?.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2">
+              <span className="text-purple-500 mt-1">•</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
+  // Multiple choice / Quiz component
+  if (componentName.toLowerCase().includes('multiple') || componentName.toLowerCase().includes('choice') || componentName.toLowerCase().includes('quiz')) {
+    return (
+      <div className="py-6 px-6 bg-purple-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#faf5ff' }}>
+        {content.question && <p className="text-lg font-medium mb-4">{content.question}</p>}
+        <div className="space-y-2">
+          {content.options?.map((option, idx) => (
+            <div
+              key={idx}
+              className="p-3 bg-white rounded-lg border border-gray-200 hover:border-purple-300 cursor-pointer transition-colors"
+            >
+              {option.text}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Fill in the blank component
+  if (componentName.toLowerCase().includes('fill') || componentName.toLowerCase().includes('blank')) {
+    return (
+      <div className="py-6 px-6 bg-blue-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#eff6ff' }}>
+        {content.question && <p className="text-lg font-medium mb-4">{content.question}</p>}
+        <input
+          type="text"
+          placeholder="Type your answer..."
+          className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-300"
+        />
+      </div>
+    );
+  }
+
+  // Matching component
+  if (componentName.toLowerCase().includes('match')) {
+    return (
+      <div className="py-6 px-6 bg-green-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#f0fdf4' }}>
+        {content.title && <h3 className="text-xl font-semibold mb-4">{content.title}</h3>}
+        {content.question && <p className="mb-4">{content.question}</p>}
+        <div className="grid grid-cols-2 gap-4">
+          {content.options?.map((option, idx) => (
+            <div key={idx} className="p-3 bg-white rounded-lg border border-gray-200 text-center">
+              {option.text}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Sorting component
+  if (componentName.toLowerCase().includes('sort')) {
+    return (
+      <div className="py-6 px-6 bg-amber-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#fffbeb' }}>
+        {content.title && <h3 className="text-xl font-semibold mb-4">{content.title}</h3>}
+        {content.question && <p className="mb-4">{content.question}</p>}
+        <div className="space-y-2">
+          {content.items?.map((item, idx) => (
+            <div key={idx} className="p-3 bg-white rounded-lg border border-gray-200 cursor-move flex items-center gap-2">
+              <span className="text-gray-400">⋮⋮</span>
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Default text/paragraph component
+  return (
+    <div className="py-6 px-6" style={baseStyles}>
+      {content.title && <h3 className="text-xl font-semibold mb-3">{content.title}</h3>}
+      {content.text && <p className="leading-relaxed whitespace-pre-line">{content.text}</p>}
+    </div>
+  );
+}
+
+// Component to render unit content
+function UnitContentViewer({ unitContent }: { unitContent: UnitContent }) {
+  return (
+    <div className="max-w-4xl mx-auto py-8">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        {unitContent.components
+          .sort((a, b) => a.order - b.order)
+          .map((component, idx) => (
+            <CourseComponent key={idx} component={component} />
+          ))}
+      </div>
+    </div>
+  );
+}
+
 // Chat step types
 type ChatStep =
   | 'audience'
@@ -329,6 +499,9 @@ export default function ProjectPage() {
   // State for index generation polling
   const [isPollingIndex, setIsPollingIndex] = useState(false);
 
+  // State for course generation polling
+  const [isPollingGeneration, setIsPollingGeneration] = useState(false);
+
   // React Query hooks
   const generateTitleMutation = useGenerateTitle();
   const setAudienceMutation = useSetAudience();
@@ -340,7 +513,9 @@ export default function ProjectPage() {
   const setEvaluationMutation = useSetEvaluation();
   const setEvaluationDetailsMutation = useSetEvaluationDetails();
   const setBrandingMutation = useSetBranding();
+  const generateCourseMutation = useGenerateCourse();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
+  const { data: generationStatus } = useGenerationStatus(courseKey, isPollingGeneration);
   const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
   const { data: indexStatus } = useIndexStatus(courseKey, isPollingIndex);
 
@@ -538,6 +713,21 @@ export default function ProjectPage() {
     }
   }, [indexStatus]);
 
+  // Handle course generation completion
+  useEffect(() => {
+    if (generationStatus?.isComplete) {
+      setIsPollingGeneration(false);
+      setIsGenerating(false);
+      setShowEditorLayout(true);
+      setShowCompletionPopup(true);
+      setCurrentStep('complete');
+    } else if (generationStatus?.hasFailed) {
+      setIsPollingGeneration(false);
+      setIsGenerating(false);
+      console.error('Course generation failed');
+    }
+  }, [generationStatus]);
+
   // Form data
   const [topic, setTopic] = useState('');
   const [audienceResponse, setAudienceResponse] = useState('');
@@ -564,6 +754,7 @@ export default function ProjectPage() {
 
   // Editor layout state
   const [showEditorLayout, setShowEditorLayout] = useState(false);
+  const [selectedUnitCode, setSelectedUnitCode] = useState<string | null>(null);
 
   // Loading state
   const [isGenerating, setIsGenerating] = useState(false);
@@ -909,22 +1100,24 @@ export default function ProjectPage() {
   };
 
   // Handle final create course
-  const handleCreateCourse = () => {
+  const handleCreateCourse = async () => {
+    if (!courseKey) return;
+
     setMessages((prev) => [
       ...prev,
-      { type: 'ai', content: 'Tell us any other information we need to know before moving forward with the final design.' },
       { type: 'user', content: "I'm ready, create course!" },
     ]);
     setCurrentStep('generating');
     setIsGenerating(true);
 
-    // Show loading for 6 seconds, then complete
-    setTimeout(() => {
+    try {
+      await generateCourseMutation.mutateAsync(courseKey);
+      // Start polling for generation status
+      setIsPollingGeneration(true);
+    } catch (error) {
+      console.error('Failed to start course generation:', error);
       setIsGenerating(false);
-      setShowEditorLayout(true);
-      setShowCompletionPopup(true);
-      setCurrentStep('complete');
-    }, 6000);
+    }
   };
 
   // Handle popup close
@@ -1496,13 +1689,10 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-5 max-w-2xl"
           >
-            <p className="text-gray-700">
-              Tell us any other information we need to know before moving forward with the final
-              design.
-            </p>
             <button
               onClick={handleCreateCourse}
-              className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 text-lg"
+              disabled={generateCourseMutation.isPending}
+              className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-4 px-10 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 text-lg disabled:opacity-50"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -1512,7 +1702,7 @@ export default function ProjectPage() {
                   d="M13 10V3L4 14h7v7l9-11h-7z"
                 />
               </svg>
-              I&apos;m ready, create course
+              {generateCourseMutation.isPending ? 'Starting...' : "I'm ready, create course"}
             </button>
           </motion.div>
         );
@@ -1523,9 +1713,54 @@ export default function ProjectPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="max-w-2xl"
+            className="max-w-2xl space-y-4"
           >
             <LoadingIndicator />
+            {generationStatus && (
+              <div className="bg-white border border-gray-200 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-700">Generating units</span>
+                  <span className="text-sm text-gray-500">
+                    {generationStatus.completedUnits} / {generationStatus.totalUnits}
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className="bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] h-2 rounded-full transition-all duration-300"
+                    style={{
+                      width: `${generationStatus.totalUnits > 0 ? (generationStatus.completedUnits / generationStatus.totalUnits) * 100 : 0}%`,
+                    }}
+                  />
+                </div>
+                {generationStatus.units && generationStatus.units.length > 0 && (
+                  <div className="mt-3 space-y-1">
+                    {generationStatus.units.map((unit) => (
+                      <div key={unit.unitCode} className="flex items-center gap-2 text-xs">
+                        {unit.status === 'completed' && (
+                          <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        )}
+                        {unit.status === 'running' && (
+                          <div className="w-4 h-4 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin" />
+                        )}
+                        {unit.status === 'pending' && (
+                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full" />
+                        )}
+                        {unit.status === 'failed' && (
+                          <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        )}
+                        <span className={unit.status === 'completed' ? 'text-gray-500' : 'text-gray-700'}>
+                          Unit {unit.unitCode}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </motion.div>
         );
 
@@ -1661,7 +1896,12 @@ export default function ProjectPage() {
                             {module.units.map((unit) => (
                               <div
                                 key={unit.code}
-                                className="text-xs text-gray-600 py-0.5 cursor-pointer hover:text-[#9F80DA]"
+                                onClick={() => setSelectedUnitCode(unit.code)}
+                                className={`text-xs py-1 px-2 rounded cursor-pointer transition-colors ${
+                                  selectedUnitCode === unit.code
+                                    ? 'bg-[#9F80DA] text-white'
+                                    : 'text-gray-600 hover:bg-gray-100 hover:text-[#9F80DA]'
+                                }`}
                               >
                                 {unit.code} {unit.title}
                               </div>
@@ -1729,31 +1969,51 @@ export default function ProjectPage() {
                 </div>
               </motion.div>
             ) : showEditorLayout ? (
-              /* Editor layout - empty main content with loading or placeholder */
+              /* Editor layout - show selected unit content or placeholder */
               <motion.div
                 key="editor"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="flex-1 flex items-center justify-center bg-white"
+                className="flex-1 overflow-y-auto bg-gray-50"
               >
-                <div className="text-center text-gray-400">
-                  <svg
-                    className="w-16 h-16 mx-auto mb-4 opacity-50"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                    />
-                  </svg>
-                  <p className="text-lg">Select a topic from the course structure</p>
-                  <p className="text-sm mt-1">Click on any item in the sidebar to start editing</p>
-                </div>
+                {selectedUnitCode && generationStatus?.generatedContent ? (
+                  (() => {
+                    const units = generationStatus.generatedContent as Record<string, UnitContent>;
+                    const unitContent = units[selectedUnitCode];
+                    if (unitContent) {
+                      return <UnitContentViewer unitContent={unitContent} />;
+                    }
+                    return (
+                      <div className="flex-1 flex items-center justify-center h-full">
+                        <div className="text-center text-gray-400">
+                          <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                          <p className="text-lg">Loading unit content...</p>
+                        </div>
+                      </div>
+                    );
+                  })()
+                ) : (
+                  <div className="flex-1 flex items-center justify-center h-full">
+                    <div className="text-center text-gray-400">
+                      <svg
+                        className="w-16 h-16 mx-auto mb-4 opacity-50"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      <p className="text-lg">Select a topic from the course structure</p>
+                      <p className="text-sm mt-1">Click on any item in the sidebar to start editing</p>
+                    </div>
+                  </div>
+                )}
               </motion.div>
             ) : (
               /* Chat interface */

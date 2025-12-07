@@ -44,6 +44,44 @@ interface GenerateIndexJobData {
   courseId: number;
 }
 
+interface GenerateUnitJobData {
+  courseId: number;
+  unitCode: string;
+  unitTitle: string;
+  moduleNumber: number;
+  moduleTitle: string;
+}
+
+// Schema for generated unit content
+const unitContentSchema = z.object({
+  unitCode: z.string(),
+  unitTitle: z.string(),
+  components: z.array(
+    z.object({
+      componentName: z.string().describe('The internal name of the component'),
+      order: z.number().describe('Order of the component in the unit'),
+      content: z.object({
+        title: z.string().optional().describe('Title if applicable'),
+        text: z.string().optional().describe('Main text content'),
+        items: z.array(z.string()).optional().describe('List items if applicable'),
+        question: z.string().optional().describe('Question for interactive components'),
+        options: z.array(z.object({
+          text: z.string(),
+          isCorrect: z.boolean().optional(),
+        })).optional().describe('Options for multiple choice or matching'),
+        correctAnswer: z.string().optional().describe('Correct answer for fill-in-blank'),
+        image: z.string().optional().describe('Image path - always use /sample.jpeg'),
+      }),
+      styles: z.object({
+        backgroundColor: z.string().optional(),
+        textColor: z.string().optional(),
+        accentColor: z.string().optional(),
+        fontFamily: z.string().optional(),
+      }).optional(),
+    }),
+  ),
+});
+
 @Processor(COURSE_ORCHESTRATION_QUEUE)
 export class CourseOrchestratorProcessor extends WorkerHost {
   private readonly logger = new Logger(CourseOrchestratorProcessor.name);
@@ -82,7 +120,7 @@ export class CourseOrchestratorProcessor extends WorkerHost {
 
   async process(
     job: Job<
-      GenerateTitleJobData | GenerateObjectivesJobData | GenerateIndexJobData
+      GenerateTitleJobData | GenerateObjectivesJobData | GenerateIndexJobData | GenerateUnitJobData
     >,
   ): Promise<any> {
     this.logger.log(`Processing job ${job.id} - ${job.name}`);
@@ -99,6 +137,10 @@ export class CourseOrchestratorProcessor extends WorkerHost {
 
     if (job.name === 'generate_index') {
       return this.handleGenerateIndex(job as Job<GenerateIndexJobData>);
+    }
+
+    if (job.name === 'generate_unit') {
+      return this.handleGenerateUnit(job as Job<GenerateUnitJobData>);
     }
 
     this.logger.warn(`Unknown job name: ${job.name}`);
@@ -472,6 +514,199 @@ Generate the course index with descriptive titles for each module and unit.`,
       // Mark step as failed
       await this.prisma.courseStep.updateMany({
         where: { courseId, type: 'generating_index' },
+        data: {
+          status: 'failed',
+          error: {
+            message: error.message,
+            stack: error.stack,
+          },
+        },
+      });
+
+      throw error;
+    }
+  }
+
+  private async handleGenerateUnit(job: Job<GenerateUnitJobData>) {
+    const { courseId, unitCode, unitTitle, moduleNumber, moduleTitle } = job.data;
+
+    this.logger.log(`Generating unit ${unitCode} for course ${courseId}`);
+
+    // Get course with all necessary data
+    const course = await this.prisma.course.findUnique({
+      where: { id: courseId },
+    });
+
+    if (!course) {
+      throw new Error(`Course ${courseId} not found`);
+    }
+
+    const input = course.input as Record<string, unknown>;
+    const output = course.output as Record<string, unknown>;
+    const branding = input?.branding as { primaryColor: string; secondaryColor: string; typo1: string; typo2: string } || {};
+    const topic = input?.topic || '';
+    const audience = input?.audience || '';
+    const generatedObjectives = input?.generatedObjectives || '';
+    const evaluationDetails = input?.evaluationDetails as { knowledgeCheckEndUnit?: boolean } || {};
+
+    // Determine if this unit needs evaluation components
+    const isLastUnitOfModule = unitCode.endsWith('.1') === false; // Simplified check
+    const needsEvaluation = evaluationDetails.knowledgeCheckEndUnit === true;
+
+    // Get available components based on whether we need evaluation
+    const componentType = needsEvaluation ? undefined : { not: 'evaluation' as const };
+    const components = await this.prisma.component.findMany({
+      where: componentType ? { type: componentType } : {},
+      select: { internalName: true, name: true, type: true, description: true },
+    });
+
+    // Separate content components and evaluation components
+    const contentComponents = components.filter(c => c.type !== 'evaluation');
+    const evaluationComponents = components.filter(c => c.type === 'evaluation');
+
+    // Mark step as running
+    await this.prisma.courseStep.updateMany({
+      where: {
+        courseId,
+        type: 'generating_unit',
+        payload: { path: ['unitCode'], equals: unitCode },
+      },
+      data: { status: 'running' },
+    });
+
+    try {
+      const parser = StructuredOutputParser.fromZodSchema(unitContentSchema);
+
+      const componentsList = contentComponents
+        .map(c => `- ${c.internalName}: ${c.name} - ${c.description || 'No description'}`)
+        .join('\n');
+
+      const evaluationList = needsEvaluation && evaluationComponents.length > 0
+        ? `\n\nEvaluation components available (include 1-2 at the end of the unit):\n${evaluationComponents.map(c => `- ${c.internalName}: ${c.name}`).join('\n')}`
+        : '';
+
+      const prompt = ChatPromptTemplate.fromMessages([
+        [
+          'system',
+          `You are an expert instructional designer creating e-learning content. Generate content for a single unit of a course.
+
+Available content components:
+${componentsList}
+${evaluationList}
+
+Branding guidelines:
+- Primary color: ${branding.primaryColor || '#9F80DA'}
+- Secondary color: ${branding.secondaryColor || '#1a1a1a'}
+- Font: ${branding.typo1 || 'Inter'}
+
+Rules:
+1. Use 4-8 components per unit for a well-structured lesson
+2. Start with an introduction/title component
+3. Mix different component types for engagement
+4. For any image component, ALWAYS use "/sample.jpeg" as the image path
+5. End with a summary or key takeaways
+${needsEvaluation ? '6. Include 1-2 evaluation components at the end to test understanding' : ''}
+7. Apply the branding colors in styles where appropriate
+8. Content should be educational, clear, and appropriate for the target audience
+
+{format_instructions}`,
+        ],
+        [
+          'human',
+          `Course Topic: {topic}
+Target Audience: {audience}
+Learning Objectives: {objectives}
+
+Module {moduleNumber}: {moduleTitle}
+Unit {unitCode}: {unitTitle}
+
+Generate the complete content for this unit with appropriate components, content, and styling.`,
+        ],
+      ]);
+
+      const chain = prompt.pipe(this.llm).pipe(parser);
+
+      const maxRetries = 3;
+      let lastError: Error | null = null;
+      let unitContent: z.infer<typeof unitContentSchema> | null = null;
+
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          unitContent = await chain.invoke({
+            topic,
+            audience,
+            objectives: generatedObjectives,
+            moduleNumber,
+            moduleTitle,
+            unitCode,
+            unitTitle,
+            format_instructions: parser.getFormatInstructions(),
+          });
+          break;
+        } catch (err) {
+          lastError = err as Error;
+          this.logger.warn(
+            `Unit generation attempt ${attempt}/${maxRetries} failed: ${lastError.message}`,
+          );
+          if (attempt === maxRetries) {
+            throw new Error(
+              `Failed to generate unit after ${maxRetries} attempts: ${lastError.message}`,
+            );
+          }
+        }
+      }
+
+      if (!unitContent) {
+        throw lastError || new Error('Failed to generate unit content');
+      }
+
+      // Update course output with generated unit
+      const currentOutput = (course.output as Record<string, unknown>) || {};
+      const existingUnits = (currentOutput.units as Record<string, unknown>) || {};
+
+      const newOutput = {
+        ...currentOutput,
+        units: {
+          ...existingUnits,
+          [unitCode]: unitContent,
+        },
+      };
+
+      await this.prisma.course.update({
+        where: { id: courseId },
+        data: {
+          output: newOutput as any,
+        },
+      });
+
+      // Mark step as completed
+      await this.prisma.courseStep.updateMany({
+        where: {
+          courseId,
+          type: 'generating_unit',
+          payload: { path: ['unitCode'], equals: unitCode },
+        },
+        data: {
+          status: 'completed',
+          payload: { unitCode, unitTitle, componentsCount: unitContent.components.length },
+        },
+      });
+
+      this.logger.log(`Unit ${unitCode} generated successfully for course ${courseId}`);
+
+      return { success: true, unitCode, unitContent };
+    } catch (error) {
+      this.logger.error(
+        `Failed to generate unit ${unitCode} for course ${courseId}: ${error.message}`,
+      );
+
+      // Mark step as failed
+      await this.prisma.courseStep.updateMany({
+        where: {
+          courseId,
+          type: 'generating_unit',
+          payload: { path: ['unitCode'], equals: unitCode },
+        },
         data: {
           status: 'failed',
           error: {
