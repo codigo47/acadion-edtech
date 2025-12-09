@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, ComponentType } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useGenerationStatus, useCourseComponents } from '../../../lib/hooks/use-course';
+import * as Blocks from '../../components/blocks';
 
 // Exercise type from backend
 interface ExerciseType {
@@ -219,232 +220,101 @@ interface UnitContent {
   components: UnitComponent[];
 }
 
-// Component to render a single course component
+// Map of component names to their React components
+const BlockComponents: Record<string, ComponentType<any>> = {
+  // Paragraph Blocks
+  ParagraphBlock: Blocks.ParagraphBlock,
+  ParagraphWithHeadingBlock: Blocks.ParagraphWithHeadingBlock,
+  ParagraphWithSubheadingBlock: Blocks.ParagraphWithSubheadingBlock,
+  // Heading Blocks
+  HeadingBlock: Blocks.HeadingBlock,
+  SubheadingBlock: Blocks.SubheadingBlock,
+  // Highlight Blocks
+  HighlightBlock: Blocks.HighlightBlock,
+  HighlightNoteBlock: Blocks.HighlightNoteBlock,
+  HighlightColumnBlock: Blocks.HighlightColumnBlock,
+  HighlightCenterLineBlock: Blocks.HighlightCenterLineBlock,
+  HighlightLeftLineBlock: Blocks.HighlightLeftLineBlock,
+  HighlightBackgroundBlock: Blocks.HighlightBackgroundBlock,
+  // Image Blocks
+  ImageBlock: Blocks.ImageBlock,
+  ImageWithTextBlock: Blocks.ImageWithTextBlock,
+  ImageWithTextLeftBlock: Blocks.ImageWithTextLeftBlock,
+  ImageWithTextCenterBlock: Blocks.ImageWithTextCenterBlock,
+  ImageWithTextBottomBlock: Blocks.ImageWithTextBottomBlock,
+  ImageWithTextTopBlock: Blocks.ImageWithTextTopBlock,
+  // Quote Blocks
+  QuoteBlock: Blocks.QuoteBlock,
+  QuoteCenterBorderBlock: Blocks.QuoteCenterBorderBlock,
+  QuoteCenterLightBlock: Blocks.QuoteCenterLightBlock,
+  QuoteLeftLightBlock: Blocks.QuoteLeftLightBlock,
+  QuoteLeftBlock: Blocks.QuoteLeftBlock,
+  QuoteImageBlock: Blocks.QuoteImageBlock,
+  // Comparison Blocks
+  ComparisonBlock: Blocks.ComparisonBlock,
+  ComparisonProsConsBlock: Blocks.ComparisonProsConsBlock,
+  ComparisonCauseEffectBlock: Blocks.ComparisonCauseEffectBlock,
+  ComparisonDosDontsBlock: Blocks.ComparisonDosDontsBlock,
+  ComparisonMythFactBlock: Blocks.ComparisonMythFactBlock,
+  ComparisonBeforeAfterBlock: Blocks.ComparisonBeforeAfterBlock,
+  // Chat Blocks
+  ChatBlock: Blocks.ChatBlock,
+  ChatFeedbackBlock: Blocks.ChatFeedbackBlock,
+  ChatQABlock: Blocks.ChatQABlock,
+  ChatQuestionWallBlock: Blocks.ChatQuestionWallBlock,
+  ChatDialogBlock: Blocks.ChatDialogBlock,
+  // Other Static Blocks
+  TableBlock: Blocks.TableBlock,
+  ListBlock: Blocks.ListBlock,
+  GalleryBlock: Blocks.GalleryBlock,
+  GraphBlock: Blocks.GraphBlock,
+  TimelineBlock: Blocks.TimelineBlock,
+  SeparatorBlock: Blocks.SeparatorBlock,
+  TestimonialBlock: Blocks.TestimonialBlock,
+  StoryTellingBlock: Blocks.StoryTellingBlock,
+  ColumnsBlock: Blocks.ColumnsBlock,
+  ReviewsBlock: Blocks.ReviewsBlock,
+  VideoBlock: Blocks.VideoBlock,
+  AudioBlock: Blocks.AudioBlock,
+  AttachmentBlock: Blocks.AttachmentBlock,
+  EmbedBlock: Blocks.EmbedBlock,
+  // Interactive Blocks
+  CheckboxBlock: Blocks.CheckboxBlock,
+  CarouselBlock: Blocks.CarouselBlock,
+  AccordionBlock: Blocks.AccordionBlock,
+  TabsBlock: Blocks.TabsBlock,
+  LabeledImageBlock: Blocks.LabeledImageBlock,
+  ScenarioBlock: Blocks.ScenarioBlock,
+  SortingBlock: Blocks.SortingBlock,
+  SortingStepsBlock: Blocks.SortingStepsBlock,
+  FlashCardBlock: Blocks.FlashCardBlock,
+  MultipleChoiceBlock: Blocks.MultipleChoiceBlock,
+  MultipleResponseBlock: Blocks.MultipleResponseBlock,
+  FillInTheBlankBlock: Blocks.FillInTheBlankBlock,
+  MatchingPairsBlock: Blocks.MatchingPairsBlock,
+  ButtonBlock: Blocks.ButtonBlock,
+  ButtonStackBlock: Blocks.ButtonStackBlock,
+};
+
+// Component to render a single course component using the actual block components
 function CourseComponent({ component }: { component: UnitComponent }) {
-  const { componentName, content, styles } = component;
+  const { componentName, content } = component;
 
-  const baseStyles = {
-    backgroundColor: styles?.backgroundColor || '#ffffff',
-    color: styles?.textColor || '#1a1a1a',
-    fontFamily: styles?.fontFamily || 'Inter',
-  };
+  // Get the corresponding block component
+  const BlockComponent = BlockComponents[componentName];
 
-  // Helper to get text content from various field names
-  const getText = () => content.text || content.content || '';
-  const getTitle = () => content.title || content.heading || '';
-
-  // Heading component
-  if (componentName.toLowerCase().includes('heading')) {
-    return (
-      <div className="py-8 px-6 text-center" style={baseStyles}>
-        <h1 className="text-3xl font-bold">{getTitle()}</h1>
-      </div>
-    );
+  if (BlockComponent) {
+    // Pass the content directly as props to the block component
+    return <BlockComponent {...content} />;
   }
 
-  // Title component
-  if (componentName.toLowerCase().includes('title')) {
-    return (
-      <div className="py-8 px-6 text-center" style={baseStyles}>
-        <h1 className="text-3xl font-bold">{getTitle() || getText()}</h1>
-        {getText() && getTitle() && <p className="mt-2 text-lg opacity-80">{getText()}</p>}
-      </div>
-    );
-  }
-
-  // Image component
-  if (componentName.toLowerCase().includes('image') || componentName.toLowerCase().includes('banner')) {
-    return (
-      <div className="py-4" style={baseStyles}>
-        <img
-          src="/sample.jpeg"
-          alt={content.title || 'Course image'}
-          className="w-full max-h-80 object-cover rounded-lg"
-        />
-        {content.title && <p className="mt-2 text-center text-sm opacity-70">{content.title}</p>}
-      </div>
-    );
-  }
-
-  // List component
-  if (componentName.toLowerCase().includes('list') || content.items) {
-    const getItemText = (item: unknown): string => {
-      if (typeof item === 'string') return item;
-      if (typeof item === 'object' && item !== null) {
-        const it = item as Record<string, unknown>;
-        return String(it.text || it.label || it.content || '');
-      }
-      return '';
-    };
-
-    return (
-      <div className="py-6 px-6" style={baseStyles}>
-        {getTitle() && <h3 className="text-xl font-semibold mb-4">{getTitle()}</h3>}
-        <ul className="space-y-2">
-          {content.items?.map((item: unknown, idx: number) => (
-            <li key={idx} className="flex items-start gap-2">
-              <span className="text-purple-500 mt-1">•</span>
-              <span>{getItemText(item)}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-
-  // Multiple choice / Quiz component
-  if (componentName.toLowerCase().includes('multiple') || componentName.toLowerCase().includes('choice') || componentName.toLowerCase().includes('quiz')) {
-    const getOptionText = (option: unknown): string => {
-      if (typeof option === 'string') return option;
-      if (typeof option === 'object' && option !== null) {
-        const opt = option as Record<string, unknown>;
-        return String(opt.text || opt.label || opt.content || '');
-      }
-      return '';
-    };
-
-    return (
-      <div className="py-6 px-6 bg-purple-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#faf5ff' }}>
-        {content.question && <p className="text-lg font-medium mb-4">{content.question}</p>}
-        <div className="space-y-2">
-          {content.options?.map((option: unknown, idx: number) => (
-            <div
-              key={idx}
-              className="p-3 bg-white rounded-lg border border-gray-200 hover:border-purple-300 cursor-pointer transition-colors"
-            >
-              {getOptionText(option)}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // Fill in the blank component
-  if (componentName.toLowerCase().includes('fill') || componentName.toLowerCase().includes('blank')) {
-    return (
-      <div className="py-6 px-6 bg-blue-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#eff6ff' }}>
-        {content.question && <p className="text-lg font-medium mb-4">{content.question}</p>}
-        <input
-          type="text"
-          placeholder="Type your answer..."
-          className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-300"
-        />
-      </div>
-    );
-  }
-
-  // Matching component
-  if (componentName.toLowerCase().includes('match')) {
-    const getOptionText = (option: unknown): string => {
-      if (typeof option === 'string') return option;
-      if (typeof option === 'object' && option !== null) {
-        const opt = option as Record<string, unknown>;
-        return String(opt.text || opt.label || opt.content || '');
-      }
-      return '';
-    };
-
-    return (
-      <div className="py-6 px-6 bg-green-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#f0fdf4' }}>
-        {getTitle() && <h3 className="text-xl font-semibold mb-4">{getTitle()}</h3>}
-        {content.question && <p className="mb-4">{content.question}</p>}
-        <div className="grid grid-cols-2 gap-4">
-          {content.options?.map((option: unknown, idx: number) => (
-            <div key={idx} className="p-3 bg-white rounded-lg border border-gray-200 text-center">
-              {getOptionText(option)}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // Sorting component
-  if (componentName.toLowerCase().includes('sort')) {
-    const getItemText = (item: unknown): string => {
-      if (typeof item === 'string') return item;
-      if (typeof item === 'object' && item !== null) {
-        const it = item as Record<string, unknown>;
-        return String(it.text || it.label || it.content || '');
-      }
-      return '';
-    };
-
-    return (
-      <div className="py-6 px-6 bg-amber-50 rounded-xl" style={{ ...baseStyles, backgroundColor: styles?.backgroundColor || '#fffbeb' }}>
-        {getTitle() && <h3 className="text-xl font-semibold mb-4">{getTitle()}</h3>}
-        {content.question && <p className="mb-4">{content.question}</p>}
-        <div className="space-y-2">
-          {content.items?.map((item: unknown, idx: number) => (
-            <div key={idx} className="p-3 bg-white rounded-lg border border-gray-200 cursor-move flex items-center gap-2">
-              <span className="text-gray-400">⋮⋮</span>
-              {getItemText(item)}
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // Table component
-  if (componentName.toLowerCase().includes('table') && content.content && Array.isArray(content.content)) {
-    const tableData = content.content as string[][];
-    const hasHeader = content.headerRow !== false;
-    return (
-      <div className="py-6 px-6" style={baseStyles}>
-        <table className="w-full border-collapse">
-          <thead>
-            {hasHeader && tableData[0] && (
-              <tr>
-                {tableData[0].map((cell, idx) => (
-                  <th key={idx} className="border border-gray-300 px-4 py-2 bg-gray-100 font-semibold text-left">
-                    {cell}
-                  </th>
-                ))}
-              </tr>
-            )}
-          </thead>
-          <tbody>
-            {tableData.slice(hasHeader ? 1 : 0).map((row, rowIdx) => (
-              <tr key={rowIdx}>
-                {row.map((cell, cellIdx) => (
-                  <td key={cellIdx} className="border border-gray-300 px-4 py-2">
-                    {cell}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  }
-
-  // Separator component
-  if (componentName.toLowerCase().includes('separator')) {
-    return (
-      <div className="py-4 px-6" style={baseStyles}>
-        <hr className="border-gray-300" />
-      </div>
-    );
-  }
-
-  // Paragraph component
-  if (componentName.toLowerCase().includes('paragraph')) {
-    return (
-      <div className="py-6 px-6" style={baseStyles}>
-        {getTitle() && <h3 className="text-xl font-semibold mb-3">{getTitle()}</h3>}
-        <p className="leading-relaxed whitespace-pre-line">{getText()}</p>
-      </div>
-    );
-  }
-
-  // Default text/paragraph component
+  // Fallback for unknown components
   return (
-    <div className="py-6 px-6" style={baseStyles}>
-      {getTitle() && <h3 className="text-xl font-semibold mb-3">{getTitle()}</h3>}
-      {getText() && <p className="leading-relaxed whitespace-pre-line">{getText()}</p>}
+    <div className="py-6 px-6 bg-yellow-50 border border-yellow-200 rounded-lg">
+      <p className="text-yellow-700 text-sm">Unknown component: {componentName}</p>
+      <pre className="mt-2 text-xs text-gray-600 overflow-auto">
+        {JSON.stringify(content, null, 2)}
+      </pre>
     </div>
   );
 }
@@ -2149,38 +2019,51 @@ export default function ProjectPage() {
 
                           if (unitComponents.length === 0) return null;
 
-                          const unitContent: UnitContent = {
-                            unitCode: unit.code,
-                            unitTitle: unit.title,
-                            components: unitComponents.map((c) => ({
-                              componentName: c.componentName,
-                              order: c.sequence,
-                              content: (c.data as any)?.content || {},
-                              styles: (c.data as any)?.styles,
-                            })),
-                          };
-
                           return (
                             <div
                               key={unit.code}
                               id={`unit-${unit.code}`}
-                              className="mb-8"
+                              className="mb-10"
                             >
                               {/* Unit header */}
-                              <div className="mb-4 flex items-center gap-3">
+                              <div className="mb-6 flex items-center gap-3">
                                 <span className="px-3 py-1 bg-[#9F80DA] text-white text-sm font-medium rounded-full">
                                   {unit.code}
                                 </span>
                                 <h3 className="text-xl font-semibold text-[#1a1a1a]">{unit.title}</h3>
                               </div>
 
-                              {/* Unit content */}
-                              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                                {unitContent.components
-                                  .sort((a, b) => a.order - b.order)
-                                  .map((component, idx) => (
-                                    <CourseComponent key={idx} component={component} />
-                                  ))}
+                              {/* Unit components */}
+                              <div className="space-y-4">
+                                {unitComponents
+                                  .sort((a, b) => a.sequence - b.sequence)
+                                  .map((comp, idx) => {
+                                    const component: UnitComponent = {
+                                      componentName: comp.componentName,
+                                      order: comp.sequence,
+                                      content: (comp.data as any)?.content || {},
+                                      styles: (comp.data as any)?.styles,
+                                    };
+
+                                    return (
+                                      <div
+                                        key={idx}
+                                        className="group relative bg-white rounded-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-colors overflow-hidden"
+                                      >
+                                        {/* Component type label */}
+                                        <div className="absolute top-2 right-2 z-10">
+                                          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md group-hover:bg-[#9F80DA] group-hover:text-white transition-colors">
+                                            {comp.componentName}
+                                          </span>
+                                        </div>
+
+                                        {/* Component content */}
+                                        <div className="pt-8">
+                                          <CourseComponent component={component} />
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
                               </div>
                             </div>
                           );

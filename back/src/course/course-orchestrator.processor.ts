@@ -60,13 +60,17 @@ const unitContentSchema = z.object({
     z.object({
       componentName: z.string().describe('The internal name of the component'),
       order: z.number().describe('Order of the component in the unit'),
-      content: z.record(z.string(), z.any()).describe('Component-specific content object'),
-      styles: z.object({
-        backgroundColor: z.string().optional(),
-        textColor: z.string().optional(),
-        accentColor: z.string().optional(),
-        fontFamily: z.string().optional(),
-      }).optional(),
+      content: z
+        .record(z.string(), z.any())
+        .describe('Component-specific content object'),
+      styles: z
+        .object({
+          backgroundColor: z.string().optional(),
+          textColor: z.string().optional(),
+          accentColor: z.string().optional(),
+          fontFamily: z.string().optional(),
+        })
+        .optional(),
     }),
   ),
 });
@@ -79,8 +83,8 @@ export class CourseOrchestratorProcessor extends WorkerHost {
   constructor(private prisma: PrismaService) {
     super();
     this.llm = new ChatOpenAI({
-      model: 'gpt-4o-mini',
-      temperature: 0.7,
+      model: 'gpt-5',
+      temperature: 1,
       verbose: true, // Enable langchain logs
     });
   }
@@ -109,7 +113,10 @@ export class CourseOrchestratorProcessor extends WorkerHost {
 
   async process(
     job: Job<
-      GenerateTitleJobData | GenerateObjectivesJobData | GenerateIndexJobData | GenerateUnitJobData
+      | GenerateTitleJobData
+      | GenerateObjectivesJobData
+      | GenerateIndexJobData
+      | GenerateUnitJobData
     >,
   ): Promise<any> {
     this.logger.log(`Processing job ${job.id} - ${job.name}`);
@@ -517,7 +524,8 @@ Generate the course index with descriptive titles for each module and unit.`,
   }
 
   private async handleGenerateUnit(job: Job<GenerateUnitJobData>) {
-    const { courseId, unitCode, unitTitle, moduleNumber, moduleTitle } = job.data;
+    const { courseId, unitCode, unitTitle, moduleNumber, moduleTitle } =
+      job.data;
 
     this.logger.log(`Generating unit ${unitCode} for course ${courseId}`);
 
@@ -532,26 +540,44 @@ Generate the course index with descriptive titles for each module and unit.`,
 
     const input = course.input as Record<string, unknown>;
     const output = course.output as Record<string, unknown>;
-    const branding = input?.branding as { primaryColor: string; secondaryColor: string; typo1: string; typo2: string } || {};
+    const branding =
+      (input?.branding as {
+        primaryColor: string;
+        secondaryColor: string;
+        typo1: string;
+        typo2: string;
+      }) || {};
     const topic = input?.topic || '';
     const audience = input?.audience || '';
     const generatedObjectives = input?.generatedObjectives || '';
-    const evaluationDetails = input?.evaluationDetails as { knowledgeCheckEndUnit?: boolean } || {};
+    const evaluationDetails =
+      (input?.evaluationDetails as { knowledgeCheckEndUnit?: boolean }) || {};
 
     // Determine if this unit needs evaluation components
     const isLastUnitOfModule = unitCode.endsWith('.1') === false; // Simplified check
     const needsEvaluation = evaluationDetails.knowledgeCheckEndUnit === true;
 
     // Get available components based on whether we need evaluation
-    const componentType = needsEvaluation ? undefined : { not: 'evaluation' as const };
+    const componentType = needsEvaluation
+      ? undefined
+      : { not: 'evaluation' as const };
     const components = await this.prisma.component.findMany({
       where: componentType ? { type: componentType } : {},
-      select: { id: true, internalName: true, name: true, type: true, description: true, properties: true },
+      select: {
+        id: true,
+        internalName: true,
+        name: true,
+        type: true,
+        description: true,
+        properties: true,
+      },
     });
 
     // Separate content components and evaluation components
-    const contentComponents = components.filter(c => c.type !== 'evaluation');
-    const evaluationComponents = components.filter(c => c.type === 'evaluation');
+    const contentComponents = components.filter((c) => c.type !== 'evaluation');
+    const evaluationComponents = components.filter(
+      (c) => c.type === 'evaluation',
+    );
 
     // Mark step as running
     await this.prisma.courseStep.updateMany({
@@ -569,19 +595,27 @@ Generate the course index with descriptive titles for each module and unit.`,
       const formatComponentProps = (props: unknown) => {
         if (!props || typeof props !== 'object') return '';
         // Escape braces for LangChain template by doubling them
-        const jsonStr = JSON.stringify(props).replace(/\{/g, '{{').replace(/\}/g, '}}');
+        const jsonStr = JSON.stringify(props)
+          .replace(/\{/g, '{{')
+          .replace(/\}/g, '}}');
         return `\n    Content structure: ${jsonStr}`;
       };
 
       const componentsList = contentComponents
-        .map(c => `- ${c.internalName}: ${c.name} - ${c.description || 'No description'}${formatComponentProps(c.properties)}`)
+        .map(
+          (c) =>
+            `- ${c.internalName}: ${c.name} - ${c.description || 'No description'}${formatComponentProps(c.properties)}`,
+        )
         .join('\n');
 
-      const evaluationList = needsEvaluation && evaluationComponents.length > 0
-        ? `\n\nEvaluation components available (include 1-2 at the end of the unit):\n${evaluationComponents.map(c => `- ${c.internalName}: ${c.name}${formatComponentProps(c.properties)}`).join('\n')}`
-        : '';
+      const evaluationList =
+        needsEvaluation && evaluationComponents.length > 0
+          ? `\n\nEvaluation components available (include 1-2 at the end of the unit):\n${evaluationComponents.map((c) => `- ${c.internalName}: ${c.name}${formatComponentProps(c.properties)}`).join('\n')}`
+          : '';
 
-      const evaluationRule = needsEvaluation ? '\n6. Include 1-2 evaluation components at the end to test understanding' : '';
+      const evaluationRule = needsEvaluation
+        ? '\n6. Include 1-2 evaluation components at the end to test understanding'
+        : '';
 
       const prompt = ChatPromptTemplate.fromMessages([
         [
@@ -662,7 +696,9 @@ Generate the complete content for this unit with appropriate components, content
       const [moduleNum, unitNum] = unitCode.split('.').map(Number);
 
       // Create a map of component internalName to id for lookup
-      const componentIdMap = new Map(components.map(c => [c.internalName, c.id]));
+      const componentIdMap = new Map(
+        components.map((c) => [c.internalName, c.id]),
+      );
 
       // Save each component to CourseComponent table
       for (const comp of unitContent.components) {
@@ -681,13 +717,16 @@ Generate the complete content for this unit with appropriate components, content
             },
           });
         } else {
-          this.logger.warn(`Component ${comp.componentName} not found in database, skipping`);
+          this.logger.warn(
+            `Component ${comp.componentName} not found in database, skipping`,
+          );
         }
       }
 
       // Update course output with generated unit
       const currentOutput = (course.output as Record<string, unknown>) || {};
-      const existingUnits = (currentOutput.units as Record<string, unknown>) || {};
+      const existingUnits =
+        (currentOutput.units as Record<string, unknown>) || {};
 
       const newOutput = {
         ...currentOutput,
@@ -713,7 +752,11 @@ Generate the complete content for this unit with appropriate components, content
         },
         data: {
           status: 'completed',
-          payload: { unitCode, unitTitle, componentsCount: unitContent.components.length },
+          payload: {
+            unitCode,
+            unitTitle,
+            componentsCount: unitContent.components.length,
+          },
         },
       });
 
@@ -740,7 +783,9 @@ Generate the complete content for this unit with appropriate components, content
         this.logger.log(`Course ${courseId} generation failed`);
       }
 
-      this.logger.log(`Unit ${unitCode} generated successfully for course ${courseId}`);
+      this.logger.log(
+        `Unit ${unitCode} generated successfully for course ${courseId}`,
+      );
 
       return { success: true, unitCode, unitContent };
     } catch (error) {
