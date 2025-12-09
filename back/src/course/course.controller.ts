@@ -1,5 +1,16 @@
-import { Controller, Post, Get, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Param,
+  Logger,
+  Sse,
+  MessageEvent,
+} from '@nestjs/common';
+import { Observable, map } from 'rxjs';
 import { CourseService } from './course.service';
+import { CourseSSEService, SSEEvent } from './course-sse.service';
 import {
   CreateCourseDto,
   GenerateTitleDto,
@@ -8,31 +19,122 @@ import {
   SetBuildingMethodDto,
   SetModulesDto,
   SetUnitsDto,
+  SetEvaluationDetailsDto,
   SetBrandingDto,
 } from './dto/create-course.dto';
+import { TaskDto } from './dto/task.dto';
+import { TaskName } from './enums/task-name.enum';
+
+// DTOs are used via TaskDto casting in executeTask
 
 @Controller('course')
 export class CourseController {
-  constructor(private readonly courseService: CourseService) {}
+  private readonly logger = new Logger(CourseController.name);
 
-  @Post()
-  async create(@Body() createCourseDto: CreateCourseDto) {
-    return this.courseService.create(createCourseDto);
-  }
+  constructor(
+    private readonly courseService: CourseService,
+    private readonly sseService: CourseSSEService,
+  ) {}
 
-  @Post('title')
-  async generateTitle(@Body() generateTitleDto: GenerateTitleDto) {
-    return this.courseService.generateTitle(generateTitleDto);
-  }
+  @Post('tasks')
+  async executeTask(@Body() taskDto: TaskDto) {
+    this.logger.log(`Executing task: ${taskDto.taskName}`);
 
-  @Post('audience')
-  async setAudience(@Body() setAudienceDto: SetAudienceDto) {
-    return this.courseService.setAudience(setAudienceDto);
-  }
+    switch (taskDto.taskName) {
+      case TaskName.CREATE_COURSE:
+        this.logger.log(`Creating course for user: ${taskDto.userId}`);
+        return this.courseService.create(taskDto as CreateCourseDto);
 
-  @Post('objective')
-  async setObjective(@Body() setObjectiveDto: SetObjectiveDto) {
-    return this.courseService.setObjective(setObjectiveDto);
+      case TaskName.GENERATE_TITLE:
+        this.logger.log(
+          `Generating title for course: ${taskDto.courseKey}, topic: ${taskDto.topic}`,
+        );
+        return this.courseService.generateTitle(taskDto as GenerateTitleDto);
+
+      case TaskName.SET_AUDIENCE:
+        this.logger.log(
+          `Setting audience for course: ${taskDto.courseKey}, audience: ${taskDto.audience}`,
+        );
+        return this.courseService.setAudience(taskDto as SetAudienceDto);
+
+      case TaskName.SET_OBJECTIVE:
+        this.logger.log(
+          `Setting objective for course: ${taskDto.courseKey}, objective: ${taskDto.objective}`,
+        );
+        return this.courseService.setObjective(taskDto as SetObjectiveDto);
+
+      case TaskName.SET_BUILDING_METHOD:
+        this.logger.log(
+          `Setting building method for course: ${taskDto.courseKey}, method: ${taskDto.buildingMethod}`,
+        );
+        return this.courseService.setBuildingMethod(
+          taskDto.courseKey!,
+          taskDto as SetBuildingMethodDto,
+        );
+
+      case TaskName.SET_MODULES:
+        this.logger.log(
+          `Setting modules for course: ${taskDto.courseKey}, count: ${taskDto.modulesCount}`,
+        );
+        return this.courseService.setModules(
+          taskDto.courseKey!,
+          taskDto as SetModulesDto,
+        );
+
+      case TaskName.SET_UNITS:
+        this.logger.log(
+          `Setting units for course: ${taskDto.courseKey}, modules: ${JSON.stringify(taskDto.modules)}`,
+        );
+        return this.courseService.setUnits(
+          taskDto.courseKey!,
+          taskDto as SetUnitsDto,
+        );
+
+      case TaskName.GET_EXERCISE_TYPES:
+        this.logger.log(
+          `Getting exercise types for course: ${taskDto.courseKey}`,
+        );
+        return this.courseService.getExerciseTypes(
+          taskDto.courseKey!,
+          taskDto.conversationKey!,
+        );
+
+      case TaskName.SET_EVALUATION:
+        this.logger.log(
+          `Setting evaluation for course: ${taskDto.courseKey}, components: ${JSON.stringify(taskDto.selectedComponents)}`,
+        );
+        return this.courseService.setEvaluation(
+          taskDto.courseKey!,
+          taskDto.conversationKey!,
+          taskDto.selectedComponents!,
+        );
+
+      case TaskName.SET_EVALUATION_DETAILS:
+        this.logger.log(
+          `Setting evaluation details for course: ${taskDto.courseKey}`,
+        );
+        return this.courseService.setEvaluationDetails(
+          taskDto.courseKey!,
+          taskDto as SetEvaluationDetailsDto,
+        );
+
+      case TaskName.SET_BRANDING:
+        this.logger.log(`Setting branding for course: ${taskDto.courseKey}`);
+        return this.courseService.setBranding(
+          taskDto.courseKey!,
+          taskDto as SetBrandingDto,
+        );
+
+      case TaskName.GENERATE_COURSE:
+        this.logger.log(`Generating course: ${taskDto.courseKey}`);
+        return this.courseService.generateCourse(taskDto.courseKey!);
+
+      default: {
+        const unknownTask: string = taskDto.taskName;
+        this.logger.error(`Unknown task: ${unknownTask}`);
+        throw new Error(`Unknown task: ${unknownTask}`);
+      }
+    }
   }
 
   @Get(':key/objective')
@@ -40,73 +142,14 @@ export class CourseController {
     return this.courseService.getObjectiveStatus(key);
   }
 
-  @Post(':key/building')
-  async setBuildingMethod(
-    @Param('key') key: string,
-    @Body() dto: SetBuildingMethodDto,
-  ) {
-    return this.courseService.setBuildingMethod(key, dto);
-  }
-
-  @Post(':key/modules')
-  async setModules(@Param('key') key: string, @Body() dto: SetModulesDto) {
-    return this.courseService.setModules(key, dto);
-  }
-
-  @Post(':key/units')
-  async setUnits(@Param('key') key: string, @Body() dto: SetUnitsDto) {
-    return this.courseService.setUnits(key, dto);
-  }
-
   @Get(':key/index')
   async getIndexStatus(@Param('key') key: string) {
     return this.courseService.getIndexStatus(key);
   }
 
-  @Post(':key/indexes')
-  async getExerciseTypes(
-    @Param('key') key: string,
-    @Body() dto: { conversationKey: string },
-  ) {
-    return this.courseService.getExerciseTypes(key, dto.conversationKey);
-  }
-
-  @Post(':key/evaluation')
-  async setEvaluation(
-    @Param('key') key: string,
-    @Body() dto: { conversationKey: string; selectedComponents: Array<{ id: number; name: string }> },
-  ) {
-    return this.courseService.setEvaluation(key, dto.conversationKey, dto.selectedComponents);
-  }
-
-  @Post(':key/evaluation-details')
-  async setEvaluationDetails(
-    @Param('key') key: string,
-    @Body()
-    dto: {
-      conversationKey: string;
-      knowledgeCheckEndUnit: boolean;
-      knowledgeCheckEndModule: boolean;
-      finalExercise: boolean;
-      restrictions: string;
-    },
-  ) {
-    return this.courseService.setEvaluationDetails(key, dto);
-  }
-
   @Get(':key')
   async findOne(@Param('key') key: string) {
     return this.courseService.findByKey(key);
-  }
-
-  @Post(':key/branding')
-  async setBranding(@Param('key') key: string, @Body() dto: SetBrandingDto) {
-    return this.courseService.setBranding(key, dto);
-  }
-
-  @Post(':key/generate')
-  async generateCourse(@Param('key') key: string) {
-    return this.courseService.generateCourse(key);
   }
 
   @Get(':key/generation-status')
@@ -117,5 +160,19 @@ export class CourseController {
   @Get(':key/components')
   async getCourseComponents(@Param('key') key: string) {
     return this.courseService.getCourseComponents(key);
+  }
+
+  @Sse(':key/events')
+  events(@Param('key') key: string): Observable<MessageEvent> {
+    this.logger.log(`SSE connection opened for course: ${key}`);
+
+    return this.sseService.getEventStream(key).pipe(
+      map((event: SSEEvent): MessageEvent => {
+        return {
+          data: event,
+          type: event.type,
+        };
+      }),
+    );
   }
 }

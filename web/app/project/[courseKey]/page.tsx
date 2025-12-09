@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef, ComponentType } from 'react';
+import { useState, useEffect, useRef, useCallback, ComponentType } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useObjectiveStatus, useSetBuildingMethod, useSetModules, useSetUnits, useIndexStatus, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useGenerationStatus, useCourseComponents } from '../../../lib/hooks/use-course';
+import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useSetBuildingMethod, useSetModules, useSetUnits, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useCourseComponents } from '../../../lib/hooks/use-course';
+import { useCourseSSE, type ProposedIndex as SSEProposedIndex, type SSEEventData } from '../../../lib/hooks/use-course-sse';
 import * as Blocks from '../../components/blocks';
 
 // Exercise type from backend
@@ -358,29 +359,9 @@ interface Message {
   component?: React.ReactNode;
 }
 
-// Loading messages array
-const loadingMessages = [
-  'Analyzing course requirements...',
-  'Generating module structure...',
-  'Creating lesson content...',
-  'Building interactive components...',
-  'Generating images and media...',
-  'Preparing assessments...',
-  'Optimizing learning flow...',
-  'Finalizing course layout...',
-];
-
-// ChatGPT/Anthropic style loading indicator
-function LoadingIndicator() {
-  const [messageIndex, setMessageIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setMessageIndex((prev) => (prev + 1) % loadingMessages.length);
-    }, 600);
-
-    return () => clearInterval(interval);
-  }, []);
+// ChatGPT/Anthropic style loading indicator - now receives text from SSE
+function LoadingIndicator({ loadingText }: { loadingText: string | null }) {
+  const displayText = loadingText || 'Processing...';
 
   return (
     <div className="flex justify-start">
@@ -392,17 +373,17 @@ function LoadingIndicator() {
             <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
             <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
           </div>
-          {/* Rotating message */}
+          {/* Loading message from SSE */}
           <AnimatePresence mode="wait">
             <motion.span
-              key={messageIndex}
+              key={displayText}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
               className="text-gray-500 text-sm"
             >
-              {loadingMessages[messageIndex]}
+              {displayText}
             </motion.span>
           </AnimatePresence>
         </div>
@@ -466,14 +447,61 @@ export default function ProjectPage() {
   const [currentStep, setCurrentStep] = useState<ChatStep>('audience');
   const [messages, setMessages] = useState<Message[]>([]);
 
-  // State for objective generation polling
-  const [isPollingObjective, setIsPollingObjective] = useState(false);
+  // State for SSE connection
+  const [isSSEEnabled, setIsSSEEnabled] = useState(false);
 
-  // State for index generation polling
-  const [isPollingIndex, setIsPollingIndex] = useState(false);
+  // State to store the proposed index
+  const [proposedIndex, setProposedIndex] = useState<ProposedIndex | null>(null);
 
-  // State for course generation polling
-  const [isPollingGeneration, setIsPollingGeneration] = useState(false);
+  // Editor layout state
+  const [showEditorLayout, setShowEditorLayout] = useState(false);
+  const [selectedUnitCode, setSelectedUnitCode] = useState<string | null>(null);
+
+  // Loading state
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [showCompletionPopup, setShowCompletionPopup] = useState(false);
+
+  // SSE event handlers
+  const handleObjectivesCompleted = useCallback((objectivesMessage: string, buildMethodMessage: string) => {
+    setMessages((prev) => [
+      ...prev,
+      { type: 'ai', content: objectivesMessage },
+      { type: 'ai', content: buildMethodMessage },
+    ]);
+    setCurrentStep('buildMethod');
+    setTimeout(() => chatInputRef.current?.focus(), 100);
+  }, []);
+
+  const handleIndexCompleted = useCallback((index: SSEProposedIndex) => {
+    setProposedIndex(index);
+    setCurrentStep('courseIndex');
+  }, []);
+
+  const handleUnitCompleted = useCallback((unitCode: string, unitTitle: string, progress: SSEEventData['progress']) => {
+    console.log(`Unit ${unitCode} completed:`, progress);
+  }, []);
+
+  const handleGenerationComplete = useCallback(() => {
+    setIsGenerating(false);
+    setShowEditorLayout(true);
+    setShowCompletionPopup(true);
+    setCurrentStep('complete');
+    setIsSSEEnabled(false);
+  }, []);
+
+  const handleSSEError = useCallback((error: string) => {
+    console.error('SSE Error:', error);
+  }, []);
+
+  // SSE Hook
+  const sseState = useCourseSSE(courseKey, {
+    enabled: isSSEEnabled,
+    onObjectivesCompleted: handleObjectivesCompleted,
+    onIndexCompleted: handleIndexCompleted,
+    onUnitCompleted: handleUnitCompleted,
+    onGenerationComplete: handleGenerationComplete,
+    onError: handleSSEError,
+  });
 
   // React Query hooks
   const generateTitleMutation = useGenerateTitle();
@@ -488,9 +516,6 @@ export default function ProjectPage() {
   const setBrandingMutation = useSetBranding();
   const generateCourseMutation = useGenerateCourse();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
-  const { data: generationStatus } = useGenerationStatus(courseKey, isPollingGeneration);
-  const { data: objectiveStatus } = useObjectiveStatus(courseKey, isPollingObjective);
-  const { data: indexStatus } = useIndexStatus(courseKey, isPollingIndex);
   const { data: courseComponentsData } = useCourseComponents(courseKey);
 
   // Get conversationKey from courseData
@@ -649,16 +674,16 @@ export default function ProjectPage() {
           // Index is generated, show courseIndex step with continue button
           setCurrentStep('courseIndex');
         } else if (indexStep?.status === 'pending' || indexStep?.status === 'running') {
-          // Index is being generated
+          // Index is being generated - enable SSE
           setCurrentStep('generatingIndex');
-          setIsPollingIndex(true);
+          setIsSSEEnabled(true);
         } else if (objectivesStep?.status === 'completed') {
           // Objectives completed, waiting for build method
           setCurrentStep('buildMethod');
         } else if (objectivesStep?.status === 'pending' || objectivesStep?.status === 'running') {
-          // Objectives being generated
+          // Objectives being generated - enable SSE
           setCurrentStep('paraphrasing');
-          setIsPollingObjective(true);
+          setIsSSEEnabled(true);
         }
       }
 
@@ -677,55 +702,6 @@ export default function ProjectPage() {
       console.log('Course title generated:', courseData.title);
     }
   }, [courseData?.title]);
-
-  // Handle objective generation completion
-  useEffect(() => {
-    if (objectiveStatus?.status === 'completed' && objectiveStatus.objectivesMessage) {
-      setIsPollingObjective(false);
-      // Add the generated objectives message and build method question
-      setMessages((prev) => [
-        ...prev,
-        { type: 'ai', content: objectiveStatus.objectivesMessage! },
-        { type: 'ai', content: objectiveStatus.buildMethodMessage! },
-      ]);
-      setCurrentStep('buildMethod');
-      // Focus chat input after AI response
-      setTimeout(() => chatInputRef.current?.focus(), 100);
-    } else if (objectiveStatus?.status === 'failed') {
-      setIsPollingObjective(false);
-      console.error('Objective generation failed');
-    }
-  }, [objectiveStatus]);
-
-  // State to store the proposed index
-  const [proposedIndex, setProposedIndex] = useState<ProposedIndex | null>(null);
-
-  // Handle index generation completion
-  useEffect(() => {
-    if (indexStatus?.status === 'completed' && indexStatus.proposedIndex) {
-      setIsPollingIndex(false);
-      setProposedIndex(indexStatus.proposedIndex);
-      setCurrentStep('courseIndex');
-    } else if (indexStatus?.status === 'failed') {
-      setIsPollingIndex(false);
-      console.error('Index generation failed');
-    }
-  }, [indexStatus]);
-
-  // Handle course generation completion
-  useEffect(() => {
-    if (generationStatus?.isComplete) {
-      setIsPollingGeneration(false);
-      setIsGenerating(false);
-      setShowEditorLayout(true);
-      setShowCompletionPopup(true);
-      setCurrentStep('complete');
-    } else if (generationStatus?.hasFailed) {
-      setIsPollingGeneration(false);
-      setIsGenerating(false);
-      console.error('Course generation failed');
-    }
-  }, [generationStatus]);
 
   // Form data
   const [topic, setTopic] = useState('');
@@ -750,14 +726,6 @@ export default function ProjectPage() {
     font1: 'Inter',
     font2: 'Inter',
   });
-
-  // Editor layout state
-  const [showEditorLayout, setShowEditorLayout] = useState(false);
-  const [selectedUnitCode, setSelectedUnitCode] = useState<string | null>(null);
-
-  // Loading state
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [showCompletionPopup, setShowCompletionPopup] = useState(false);
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -871,8 +839,8 @@ export default function ProjectPage() {
           });
 
           setCurrentStep('paraphrasing');
-          // Start polling for objective generation
-          setIsPollingObjective(true);
+          // Enable SSE for objective generation updates
+          setIsSSEEnabled(true);
         } catch (error) {
           console.error('Failed to set objective:', error);
         }
@@ -986,9 +954,9 @@ export default function ProjectPage() {
           modules: modulesData,
         });
 
-        // Start polling for index generation
+        // Enable SSE for index generation updates
         setCurrentStep('generatingIndex');
-        setIsPollingIndex(true);
+        setIsSSEEnabled(true);
       } catch (error) {
         console.error('Failed to set units:', error);
       }
@@ -1121,8 +1089,8 @@ export default function ProjectPage() {
 
     try {
       await generateCourseMutation.mutateAsync(courseKey);
-      // Start polling for generation status
-      setIsPollingGeneration(true);
+      // Enable SSE for generation status updates
+      setIsSSEEnabled(true);
     } catch (error) {
       console.error('Failed to start course generation:', error);
       setIsGenerating(false);
@@ -1161,20 +1129,17 @@ export default function ProjectPage() {
         return null;
 
       case 'paraphrasing':
-        // Show loading while generating objectives, then show continue button
-        if (isPollingObjective) {
-          return (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-4"
-            >
-              <LoadingIndicator />
-            </motion.div>
-          );
-        }
-        return null;
+        // Show loading while generating objectives via SSE
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            <LoadingIndicator loadingText={sseState.loadingText} />
+          </motion.div>
+        );
 
       case 'buildMethod':
         // Build method message comes from backend, just show the buttons
@@ -1313,7 +1278,7 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <LoadingIndicator />
+            <LoadingIndicator loadingText={sseState.loadingText} />
           </motion.div>
         );
 
@@ -1724,26 +1689,26 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="max-w-2xl space-y-4"
           >
-            <LoadingIndicator />
-            {generationStatus && (
+            <LoadingIndicator loadingText={sseState.loadingText} />
+            {sseState.progress && (
               <div className="bg-white border border-gray-200 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-gray-700">Generating units</span>
                   <span className="text-sm text-gray-500">
-                    {generationStatus.completedUnits} / {generationStatus.totalUnits}
+                    {sseState.progress.completedUnits} / {sseState.progress.totalUnits}
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
                     className="bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] h-2 rounded-full transition-all duration-300"
                     style={{
-                      width: `${generationStatus.totalUnits > 0 ? (generationStatus.completedUnits / generationStatus.totalUnits) * 100 : 0}%`,
+                      width: `${sseState.progress.totalUnits > 0 ? (sseState.progress.completedUnits / sseState.progress.totalUnits) * 100 : 0}%`,
                     }}
                   />
                 </div>
-                {generationStatus.units && generationStatus.units.length > 0 && (
+                {sseState.units.length > 0 && (
                   <div className="mt-3 space-y-1">
-                    {[...generationStatus.units]
+                    {[...sseState.units]
                       .sort((a, b) => {
                         const [aModule, aUnit] = a.unitCode.split('.').map(Number);
                         const [bModule, bUnit] = b.unitCode.split('.').map(Number);
@@ -1768,7 +1733,7 @@ export default function ProjectPage() {
                           </svg>
                         )}
                         <span className={unit.status === 'completed' ? 'text-gray-500' : 'text-gray-700'}>
-                          Unit {unit.unitCode}
+                          Unit {unit.unitCode}: {unit.unitTitle}
                         </span>
                       </div>
                     ))}

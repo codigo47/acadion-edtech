@@ -7,6 +7,22 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { RegisterDto } from './dto/register.dto';
 
+interface AuthUser {
+  id: string;
+  email: string;
+  name?: string | null;
+  image?: string | null;
+}
+
+interface GoogleUser {
+  email: string;
+  name: string;
+  image?: string;
+  accessToken: string;
+  refreshToken: string;
+  providerAccountId: string;
+}
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -18,7 +34,7 @@ export class AuthService {
     return this.usersService.validatePassword(email, password);
   }
 
-  async login(user: any) {
+  login(user: AuthUser) {
     const payload = { email: user.email, sub: user.id };
     return {
       user: {
@@ -47,7 +63,7 @@ export class AuthService {
     return this.login(user);
   }
 
-  async googleLogin(googleUser: any) {
+  async googleLogin(googleUser: GoogleUser) {
     if (!googleUser) {
       throw new UnauthorizedException('No user from Google');
     }

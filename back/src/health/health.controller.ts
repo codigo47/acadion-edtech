@@ -99,7 +99,7 @@ export class HealthController {
       const jobs = activeJobs.map((job) => ({
         jobId: job.id,
         name: job.name,
-        data: job.data,
+        data: job.data as Record<string, unknown>,
         progress: job.progress,
         timestamp: job.timestamp,
         processedOn: job.processedOn,

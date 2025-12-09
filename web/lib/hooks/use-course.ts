@@ -1,5 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '../api-client';
+import { TaskName } from '../enums/task-name.enum';
+
+export { TaskName };
 
 interface CourseStep {
   id: number;
@@ -86,12 +89,6 @@ interface SetObjectiveParams {
 
 interface SetObjectiveResponse {
   success: boolean;
-}
-
-interface ObjectiveStatusResponse {
-  status: 'pending' | 'running' | 'completed' | 'failed' | 'not_found';
-  objectivesMessage: string | null;
-  buildMethodMessage: string | null;
 }
 
 interface SetBuildingMethodParams {
@@ -192,43 +189,15 @@ interface GenerateCourseResponse {
   totalUnits: number;
 }
 
-interface UnitStatus {
-  unitCode: string;
-  status: 'pending' | 'running' | 'completed' | 'failed';
-}
-
-interface GenerationStatusResponse {
-  totalUnits: number;
-  completedUnits: number;
-  failedUnits: number;
-  runningUnits: number;
-  pendingUnits: number;
-  isComplete: boolean;
-  hasFailed: boolean;
-  units: UnitStatus[];
-  generatedContent: Record<string, unknown> | null;
-}
-
-interface ProposedIndex {
-  title: string;
-  modules: Array<{
-    number: number;
-    title: string;
-    units: Array<{ code: string; title: string }>;
-  }>;
-}
-
-interface IndexStatusResponse {
-  status: 'pending' | 'running' | 'completed' | 'failed' | 'not_found';
-  proposedIndex: ProposedIndex | null;
-}
-
 export function useCreateCourse() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (params: CreateCourseParams) =>
-      api.post<CreateCourseResponse>('/v1/course', params),
+      api.post<CreateCourseResponse>('/v1/course/tasks', {
+        taskName: TaskName.CREATE_COURSE,
+        userId: params.userId,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['courses'] });
     },
@@ -238,43 +207,45 @@ export function useCreateCourse() {
 export function useGenerateTitle() {
   return useMutation({
     mutationFn: (params: GenerateTitleParams) =>
-      api.post<GenerateTitleResponse>('/v1/course/title', params),
+      api.post<GenerateTitleResponse>('/v1/course/tasks', {
+        taskName: TaskName.GENERATE_TITLE,
+        courseKey: params.courseKey,
+        conversationKey: params.conversationKey,
+        topic: params.topic,
+      }),
   });
 }
 
 export function useSetAudience() {
   return useMutation({
     mutationFn: (params: SetAudienceParams) =>
-      api.post<SetAudienceResponse>('/v1/course/audience', params),
+      api.post<SetAudienceResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_AUDIENCE,
+        courseKey: params.courseKey,
+        conversationKey: params.conversationKey,
+        audience: params.audience,
+      }),
   });
 }
 
 export function useSetObjective() {
   return useMutation({
     mutationFn: (params: SetObjectiveParams) =>
-      api.post<SetObjectiveResponse>('/v1/course/objective', params),
-  });
-}
-
-export function useObjectiveStatus(courseKey: string | null, enabled: boolean = false) {
-  return useQuery({
-    queryKey: ['objective-status', courseKey],
-    queryFn: () => api.get<ObjectiveStatusResponse>(`/v1/course/${courseKey}/objective`),
-    enabled: !!courseKey && enabled,
-    refetchInterval: (data) => {
-      const status = data.state.data?.status;
-      if (status === 'pending' || status === 'running') {
-        return 2000;
-      }
-      return false;
-    },
+      api.post<SetObjectiveResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_OBJECTIVE,
+        courseKey: params.courseKey,
+        conversationKey: params.conversationKey,
+        objective: params.objective,
+      }),
   });
 }
 
 export function useSetBuildingMethod() {
   return useMutation({
     mutationFn: (params: SetBuildingMethodParams) =>
-      api.post<SetBuildingMethodResponse>(`/v1/course/${params.courseKey}/building`, {
+      api.post<SetBuildingMethodResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_BUILDING_METHOD,
+        courseKey: params.courseKey,
         conversationKey: params.conversationKey,
         buildingMethod: params.buildingMethod,
       }),
@@ -284,7 +255,9 @@ export function useSetBuildingMethod() {
 export function useSetModules() {
   return useMutation({
     mutationFn: (params: SetModulesParams) =>
-      api.post<SetModulesResponse>(`/v1/course/${params.courseKey}/modules`, {
+      api.post<SetModulesResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_MODULES,
+        courseKey: params.courseKey,
         conversationKey: params.conversationKey,
         modulesCount: params.modulesCount,
       }),
@@ -294,32 +267,21 @@ export function useSetModules() {
 export function useSetUnits() {
   return useMutation({
     mutationFn: (params: SetUnitsParams) =>
-      api.post<SetUnitsResponse>(`/v1/course/${params.courseKey}/units`, {
+      api.post<SetUnitsResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_UNITS,
+        courseKey: params.courseKey,
         conversationKey: params.conversationKey,
         modules: params.modules,
       }),
   });
 }
 
-export function useIndexStatus(courseKey: string | null, enabled: boolean = false) {
-  return useQuery({
-    queryKey: ['index-status', courseKey],
-    queryFn: () => api.get<IndexStatusResponse>(`/v1/course/${courseKey}/index`),
-    enabled: !!courseKey && enabled,
-    refetchInterval: (data) => {
-      const status = data.state.data?.status;
-      if (status === 'pending' || status === 'running') {
-        return 2000;
-      }
-      return false;
-    },
-  });
-}
-
 export function useGetExerciseTypes() {
   return useMutation({
     mutationFn: (params: GetExerciseTypesParams) =>
-      api.post<GetExerciseTypesResponse>(`/v1/course/${params.courseKey}/indexes`, {
+      api.post<GetExerciseTypesResponse>('/v1/course/tasks', {
+        taskName: TaskName.GET_EXERCISE_TYPES,
+        courseKey: params.courseKey,
         conversationKey: params.conversationKey,
       }),
   });
@@ -328,7 +290,9 @@ export function useGetExerciseTypes() {
 export function useSetEvaluation() {
   return useMutation({
     mutationFn: (params: SetEvaluationParams) =>
-      api.post<SetEvaluationResponse>(`/v1/course/${params.courseKey}/evaluation`, {
+      api.post<SetEvaluationResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_EVALUATION,
+        courseKey: params.courseKey,
         conversationKey: params.conversationKey,
         selectedComponents: params.selectedComponents,
       }),
@@ -338,7 +302,9 @@ export function useSetEvaluation() {
 export function useSetEvaluationDetails() {
   return useMutation({
     mutationFn: (params: SetEvaluationDetailsParams) =>
-      api.post<SetEvaluationDetailsResponse>(`/v1/course/${params.courseKey}/evaluation-details`, {
+      api.post<SetEvaluationDetailsResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_EVALUATION_DETAILS,
+        courseKey: params.courseKey,
         conversationKey: params.conversationKey,
         knowledgeCheckEndUnit: params.knowledgeCheckEndUnit,
         knowledgeCheckEndModule: params.knowledgeCheckEndModule,
@@ -353,24 +319,15 @@ export function useCourse(key: string | null) {
     queryKey: ['course', key],
     queryFn: () => api.get<Course>(`/v1/course/${key}`),
     enabled: !!key,
-    refetchInterval: (data) => {
-      // Poll every 2 seconds while steps are still pending or running
-      const course = data.state.data;
-      if (!course) return false;
-
-      const hasActiveSteps = course.steps.some(
-        (step) => step.status === 'pending' || step.status === 'running'
-      );
-
-      return hasActiveSteps ? 2000 : false;
-    },
   });
 }
 
 export function useSetBranding() {
   return useMutation({
     mutationFn: (params: SetBrandingParams) =>
-      api.post<SetBrandingResponse>(`/v1/course/${params.courseKey}/branding`, {
+      api.post<SetBrandingResponse>('/v1/course/tasks', {
+        taskName: TaskName.SET_BRANDING,
+        courseKey: params.courseKey,
         conversationKey: params.conversationKey,
         primaryColor: params.primaryColor,
         secondaryColor: params.secondaryColor,
@@ -385,22 +342,10 @@ export function useSetBranding() {
 export function useGenerateCourse() {
   return useMutation({
     mutationFn: (courseKey: string) =>
-      api.post<GenerateCourseResponse>(`/v1/course/${courseKey}/generate`, {}),
-  });
-}
-
-export function useGenerationStatus(courseKey: string | null, enabled: boolean = false) {
-  return useQuery({
-    queryKey: ['generation-status', courseKey],
-    queryFn: () => api.get<GenerationStatusResponse>(`/v1/course/${courseKey}/generation-status`),
-    enabled: !!courseKey && enabled,
-    refetchInterval: (data) => {
-      const status = data.state.data;
-      if (status && !status.isComplete && !status.hasFailed) {
-        return 2000; // Poll every 2 seconds while generating
-      }
-      return false;
-    },
+      api.post<GenerateCourseResponse>('/v1/course/tasks', {
+        taskName: TaskName.GENERATE_COURSE,
+        courseKey,
+      }),
   });
 }
 

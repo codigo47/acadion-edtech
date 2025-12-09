@@ -6,7 +6,9 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { StructuredOutputParser } from '@langchain/core/output_parsers';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { z } from 'zod';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
+import { CourseSSEService } from './course-sse.service';
 import { COURSE_ORCHESTRATION_QUEUE } from './constants';
 
 // Schema for course index
@@ -32,20 +34,24 @@ const courseIndexSchema = z.object({
 
 interface GenerateTitleJobData {
   courseId: number;
+  courseKey: string;
   topic: string;
 }
 
 interface GenerateObjectivesJobData {
   courseId: number;
+  courseKey: string;
   objective: string;
 }
 
 interface GenerateIndexJobData {
   courseId: number;
+  courseKey: string;
 }
 
 interface GenerateUnitJobData {
   courseId: number;
+  courseKey: string;
   unitCode: string;
   unitTitle: string;
   moduleNumber: number;
@@ -80,7 +86,10 @@ export class CourseOrchestratorProcessor extends WorkerHost {
   private readonly logger = new Logger(CourseOrchestratorProcessor.name);
   private readonly llm: ChatOpenAI;
 
-  constructor(private prisma: PrismaService) {
+  constructor(
+    private prisma: PrismaService,
+    private sseService: CourseSSEService,
+  ) {
     super();
     this.llm = new ChatOpenAI({
       model: 'gpt-5',
@@ -144,17 +153,18 @@ export class CourseOrchestratorProcessor extends WorkerHost {
   }
 
   private async handleGenerateTitle(job: Job<GenerateTitleJobData>) {
-    const { courseId, topic } = job.data;
+    const { courseId, courseKey, topic } = job.data;
 
     this.logger.log(
       `Generating title for course ${courseId} with topic: ${topic}`,
     );
 
-    // Mark step as running
+    // Mark step as running and emit SSE event
     await this.prisma.courseStep.updateMany({
       where: { courseId, type: 'generating_title' },
       data: { status: 'running' },
     });
+    this.sseService.emitStatusChange(courseKey, 'GENERATING_TITLE', 'running');
 
     try {
       const systemPrompt = `You are an expert course designer. Your task is to create a compelling, concise, and professional title for an online course.
@@ -173,7 +183,10 @@ Respond with ONLY the title, nothing else.`;
         new HumanMessage(userPrompt),
       ]);
 
-      const title = response.content.toString().trim();
+      const content = response.content;
+      const title = (
+        typeof content === 'string' ? content : JSON.stringify(content)
+      ).trim();
 
       // Extract token usage from response
       const promptTokens = response.usage_metadata?.input_tokens ?? null;
@@ -185,7 +198,7 @@ Respond with ONLY the title, nothing else.`;
         data: { title },
       });
 
-      // Mark step as completed with token usage
+      // Mark step as completed with token usage and emit SSE event
       await this.prisma.courseStep.updateMany({
         where: { courseId, type: 'generating_title' },
         data: {
@@ -195,6 +208,11 @@ Respond with ONLY the title, nothing else.`;
           completionTokens,
         },
       });
+      this.sseService.emitStatusChange(
+        courseKey,
+        'GENERATING_TITLE',
+        'completed',
+      );
 
       this.logger.log(
         `Title generated successfully for course ${courseId}: ${title}`,
@@ -202,28 +220,30 @@ Respond with ONLY the title, nothing else.`;
 
       return { success: true, title };
     } catch (error) {
+      const err = error as Error;
       this.logger.error(
-        `Failed to generate title for course ${courseId}: ${error.message}`,
+        `Failed to generate title for course ${courseId}: ${err.message}`,
       );
 
-      // Mark step as failed
+      // Mark step as failed and emit SSE error
       await this.prisma.courseStep.updateMany({
         where: { courseId, type: 'generating_title' },
         data: {
           status: 'failed',
           error: {
-            message: error.message,
-            stack: error.stack,
+            message: err.message,
+            stack: err.stack,
           },
         },
       });
+      this.sseService.emitError(courseKey, err.message);
 
       throw error;
     }
   }
 
   private async handleGenerateObjectives(job: Job<GenerateObjectivesJobData>) {
-    const { courseId, objective } = job.data;
+    const { courseId, courseKey, objective } = job.data;
 
     this.logger.log(
       `Generating objectives for course ${courseId} with user objective: ${objective}`,
@@ -245,15 +265,26 @@ Respond with ONLY the title, nothing else.`;
     }
 
     const input = course.input as Record<string, unknown>;
-    const topic = input?.topic || '';
-    const audience = input?.audience || '';
+    const rawTopic = input?.topic;
+    const rawAudience = input?.audience;
+    const topic =
+      typeof rawTopic === 'string' ? rawTopic : JSON.stringify(rawTopic ?? '');
+    const audience =
+      typeof rawAudience === 'string'
+        ? rawAudience
+        : JSON.stringify(rawAudience ?? '');
     const conversationId = course.conversations[0]?.id;
 
-    // Mark step as running
+    // Mark step as running and emit SSE event
     await this.prisma.courseStep.updateMany({
       where: { courseId, type: 'generating_objectives' },
       data: { status: 'running' },
     });
+    this.sseService.emitStatusChange(
+      courseKey,
+      'GENERATING_OBJECTIVES',
+      'running',
+    );
 
     try {
       const systemPrompt = `You are an expert instructional designer specializing in Bloom's Taxonomy. Your task is to transform user-provided learning objectives into well-structured objectives following Bloom's Taxonomy levels.
@@ -285,7 +316,12 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
         new HumanMessage(userPrompt),
       ]);
 
-      const objectives = response.content.toString().trim();
+      const responseContent = response.content;
+      const objectives = (
+        typeof responseContent === 'string'
+          ? responseContent
+          : JSON.stringify(responseContent)
+      ).trim();
 
       // Extract token usage from response
       const promptTokens = response.usage_metadata?.input_tokens ?? null;
@@ -324,34 +360,43 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
         },
       });
 
+      // Emit SSE event with objectives and build method message
+      this.sseService.emitObjectivesCompleted(
+        courseKey,
+        objectives,
+        'How do you want to build the course?',
+      );
+
       this.logger.log(
         `Objectives generated successfully for course ${courseId}`,
       );
 
       return { success: true, objectives };
     } catch (error) {
+      const err = error as Error;
       this.logger.error(
-        `Failed to generate objectives for course ${courseId}: ${error.message}`,
+        `Failed to generate objectives for course ${courseId}: ${err.message}`,
       );
 
-      // Mark step as failed
+      // Mark step as failed and emit SSE error
       await this.prisma.courseStep.updateMany({
         where: { courseId, type: 'generating_objectives' },
         data: {
           status: 'failed',
           error: {
-            message: error.message,
-            stack: error.stack,
+            message: err.message,
+            stack: err.stack,
           },
         },
       });
+      this.sseService.emitError(courseKey, err.message);
 
       throw error;
     }
   }
 
   private async handleGenerateIndex(job: Job<GenerateIndexJobData>) {
-    const { courseId } = job.data;
+    const { courseId, courseKey } = job.data;
 
     this.logger.log(`Generating index for course ${courseId}`);
 
@@ -383,11 +428,12 @@ Please convert the user's learning objectives above into 4-6 well-defined learni
     const modules = (input?.modules as Record<string, { units: number }>) || {};
     const conversationId = course.conversations[0]?.id;
 
-    // Mark step as running
+    // Mark step as running and emit SSE event
     await this.prisma.courseStep.updateMany({
       where: { courseId, type: 'generating_index' },
       data: { status: 'running' },
     });
+    this.sseService.emitStatusChange(courseKey, 'GENERATING_INDEX', 'running');
 
     try {
       // Build the modules structure description for the prompt
@@ -499,33 +545,44 @@ Generate the course index with descriptive titles for each module and unit.`,
         },
       });
 
+      // Emit SSE event with the proposed index
+      this.sseService.emitIndexCompleted(courseKey, proposedIndex);
+
       this.logger.log(`Index generated successfully for course ${courseId}`);
 
       return { success: true, proposedIndex };
     } catch (error) {
+      const err = error as Error;
       this.logger.error(
-        `Failed to generate index for course ${courseId}: ${error.message}`,
+        `Failed to generate index for course ${courseId}: ${err.message}`,
       );
 
-      // Mark step as failed
+      // Mark step as failed and emit SSE error
       await this.prisma.courseStep.updateMany({
         where: { courseId, type: 'generating_index' },
         data: {
           status: 'failed',
           error: {
-            message: error.message,
-            stack: error.stack,
+            message: err.message,
+            stack: err.stack,
           },
         },
       });
+      this.sseService.emitError(courseKey, err.message);
 
       throw error;
     }
   }
 
   private async handleGenerateUnit(job: Job<GenerateUnitJobData>) {
-    const { courseId, unitCode, unitTitle, moduleNumber, moduleTitle } =
-      job.data;
+    const {
+      courseId,
+      courseKey,
+      unitCode,
+      unitTitle,
+      moduleNumber,
+      moduleTitle,
+    } = job.data;
 
     this.logger.log(`Generating unit ${unitCode} for course ${courseId}`);
 
@@ -539,7 +596,6 @@ Generate the course index with descriptive titles for each module and unit.`,
     }
 
     const input = course.input as Record<string, unknown>;
-    const output = course.output as Record<string, unknown>;
     const branding =
       (input?.branding as {
         primaryColor: string;
@@ -554,7 +610,6 @@ Generate the course index with descriptive titles for each module and unit.`,
       (input?.evaluationDetails as { knowledgeCheckEndUnit?: boolean }) || {};
 
     // Determine if this unit needs evaluation components
-    const isLastUnitOfModule = unitCode.endsWith('.1') === false; // Simplified check
     const needsEvaluation = evaluationDetails.knowledgeCheckEndUnit === true;
 
     // Get available components based on whether we need evaluation
@@ -579,7 +634,7 @@ Generate the course index with descriptive titles for each module and unit.`,
       (c) => c.type === 'evaluation',
     );
 
-    // Mark step as running
+    // Mark step as running and emit SSE event
     await this.prisma.courseStep.updateMany({
       where: {
         courseId,
@@ -588,6 +643,9 @@ Generate the course index with descriptive titles for each module and unit.`,
       },
       data: { status: 'running' },
     });
+    // Emit unit started event and start loading texts
+    this.sseService.emitUnitStarted(courseKey, unitCode, unitTitle);
+    this.sseService.startLoadingTexts(courseKey, 'GENERATING_UNIT');
 
     try {
       const parser = StructuredOutputParser.fromZodSchema(unitContentSchema);
@@ -712,7 +770,7 @@ Generate the complete content for this unit with appropriate components, content
               module: moduleNum,
               unit: unitNum,
               sequence: comp.order,
-              data: comp as any,
+              data: comp as Prisma.InputJsonValue,
               userId: course.userId,
             },
           });
@@ -739,7 +797,7 @@ Generate the complete content for this unit with appropriate components, content
       await this.prisma.course.update({
         where: { id: courseId },
         data: {
-          output: newOutput as any,
+          output: newOutput as Prisma.InputJsonValue,
         },
       });
 
@@ -766,6 +824,36 @@ Generate the complete content for this unit with appropriate components, content
         select: { status: true },
       });
 
+      const totalUnits = allUnitSteps.length;
+      const completedUnits = allUnitSteps.filter(
+        (s) => s.status === 'completed',
+      ).length;
+      const failedUnits = allUnitSteps.filter(
+        (s) => s.status === 'failed',
+      ).length;
+      const runningUnits = allUnitSteps.filter(
+        (s) => s.status === 'running',
+      ).length;
+      const pendingUnits = allUnitSteps.filter(
+        (s) => s.status === 'pending',
+      ).length;
+
+      const progress = {
+        totalUnits,
+        completedUnits,
+        failedUnits,
+        runningUnits,
+        pendingUnits,
+      };
+
+      // Emit unit completed SSE event
+      this.sseService.emitUnitCompleted(
+        courseKey,
+        unitCode,
+        unitTitle,
+        progress,
+      );
+
       const allCompleted = allUnitSteps.every((s) => s.status === 'completed');
       const anyFailed = allUnitSteps.some((s) => s.status === 'failed');
 
@@ -774,12 +862,15 @@ Generate the complete content for this unit with appropriate components, content
           where: { id: courseId },
           data: { status: 'completed' },
         });
+        // Emit generation complete SSE event
+        this.sseService.emitGenerationComplete(courseKey);
         this.logger.log(`Course ${courseId} generation completed successfully`);
       } else if (anyFailed) {
         await this.prisma.course.update({
           where: { id: courseId },
           data: { status: 'failed' },
         });
+        this.sseService.emitError(courseKey, 'Some units failed to generate');
         this.logger.log(`Course ${courseId} generation failed`);
       }
 
@@ -789,11 +880,12 @@ Generate the complete content for this unit with appropriate components, content
 
       return { success: true, unitCode, unitContent };
     } catch (error) {
+      const err = error as Error;
       this.logger.error(
-        `Failed to generate unit ${unitCode} for course ${courseId}: ${error.message}`,
+        `Failed to generate unit ${unitCode} for course ${courseId}: ${err.message}`,
       );
 
-      // Mark step as failed
+      // Mark step as failed and emit SSE unit failed event
       await this.prisma.courseStep.updateMany({
         where: {
           courseId,
@@ -803,11 +895,17 @@ Generate the complete content for this unit with appropriate components, content
         data: {
           status: 'failed',
           error: {
-            message: error.message,
-            stack: error.stack,
+            message: err.message,
+            stack: err.stack,
           },
         },
       });
+      this.sseService.emitUnitFailed(
+        courseKey,
+        unitCode,
+        unitTitle,
+        err.message,
+      );
 
       throw error;
     }

@@ -16,11 +16,12 @@ export class HealthService {
         },
       };
     } catch (error) {
+      const err = error as Error;
       return {
         status: 'error',
         postgres: {
           connected: false,
-          error: error.message,
+          error: err.message,
         },
       };
     }

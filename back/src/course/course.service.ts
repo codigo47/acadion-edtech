@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
+import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import {
   CreateCourseDto,
@@ -109,6 +110,7 @@ export class CourseService {
     // Add job to queue for title generation
     await this.courseQueue.add('generate_title', {
       courseId: course.id,
+      courseKey,
       topic,
     });
 
@@ -236,6 +238,7 @@ export class CourseService {
     // Add job to queue for objectives generation
     await this.courseQueue.add('generate_objectives', {
       courseId: course.id,
+      courseKey,
       objective,
     });
 
@@ -353,7 +356,11 @@ export class CourseService {
     });
 
     // Save user message to conversation
-    await this.createMessage(conversationKey, 'user', `${modulesCount} modules`);
+    await this.createMessage(
+      conversationKey,
+      'user',
+      `${modulesCount} modules`,
+    );
 
     // AI response message
     const aiMessage = `How many units per module?`;
@@ -410,6 +417,7 @@ export class CourseService {
     // Add job to queue for index generation
     await this.courseQueue.add('generate_index', {
       courseId: course.id,
+      courseKey,
     });
 
     return {
@@ -473,7 +481,9 @@ export class CourseService {
     });
 
     // Save user message with selected components as JSON
-    const userMessage = JSON.stringify({ exerciseTypes: selectedComponents.map((c) => c.name) });
+    const userMessage = JSON.stringify({
+      exerciseTypes: selectedComponents.map((c) => c.name),
+    });
     await this.createMessage(conversationKey, 'user', userMessage);
 
     // Create step for generating evaluation
@@ -585,7 +595,7 @@ If you have this information, complete the form. If something is missing, we'll 
       | 'generating_image'
       | 'calling_third_party',
     status: 'pending' | 'running' | 'completed' | 'failed',
-    error?: any,
+    error?: Prisma.InputJsonValue,
   ) {
     return this.prisma.courseStep.updateMany({
       where: { courseId, type },
@@ -616,11 +626,18 @@ If you have this information, complete the form. If something is missing, we'll 
     };
 
     if (!proposedIndex) {
-      throw new NotFoundException('Course index not found. Generate index first.');
+      throw new NotFoundException(
+        'Course index not found. Generate index first.',
+      );
     }
 
     // Create a step and job for each unit
-    const jobs: Array<{ unitCode: string; unitTitle: string; moduleNumber: number; moduleTitle: string }> = [];
+    const jobs: Array<{
+      unitCode: string;
+      unitTitle: string;
+      moduleNumber: number;
+      moduleTitle: string;
+    }> = [];
 
     for (const module of proposedIndex.modules) {
       for (const unit of module.units) {
@@ -658,6 +675,7 @@ If you have this information, complete the form. If something is missing, we'll 
       jobs.map((job) =>
         this.courseQueue.add('generate_unit', {
           courseId: course.id,
+          courseKey,
           unitCode: job.unitCode,
           unitTitle: job.unitTitle,
           moduleNumber: job.moduleNumber,
@@ -709,7 +727,7 @@ If you have this information, complete the form. If something is missing, we'll 
       isComplete,
       hasFailed,
       units: steps.map((s) => ({
-        unitCode: (s.payload as any)?.unitCode,
+        unitCode: (s.payload as Record<string, unknown>)?.unitCode as string,
         status: s.status,
       })),
       generatedContent: output?.units || null,

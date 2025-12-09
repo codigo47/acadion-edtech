@@ -8,8 +8,10 @@ import { TestingJobData } from './queue.service';
 export class TestingProcessor extends WorkerHost {
   private readonly logger = new Logger(TestingProcessor.name);
 
-  async process(job: Job<TestingJobData>): Promise<any> {
-    this.logger.log(`Processing job ${job.id} with data: ${JSON.stringify(job.data)}`);
+  async process(job: Job<TestingJobData>): Promise<Record<string, unknown>> {
+    this.logger.log(
+      `Processing job ${job.id} with data: ${JSON.stringify(job.data)}`,
+    );
 
     // Simulate some work
     await this.delay(1000);
@@ -22,7 +24,9 @@ export class TestingProcessor extends WorkerHost {
       result: `Processed message: "${job.data.message}"`,
     };
 
-    this.logger.log(`Job ${job.id} completed with result: ${JSON.stringify(result)}`);
+    this.logger.log(
+      `Job ${job.id} completed with result: ${JSON.stringify(result)}`,
+    );
 
     return result;
   }

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { BullModule } from '@nestjs/bullmq';
 import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
+import { CourseSSEService } from './course-sse.service';
 import { CourseOrchestratorProcessor } from './course-orchestrator.processor';
 import { PrismaModule } from '../prisma/prisma.module';
 import { COURSE_ORCHESTRATION_QUEUE } from './constants';
@@ -14,7 +15,7 @@ import { COURSE_ORCHESTRATION_QUEUE } from './constants';
     }),
   ],
   controllers: [CourseController],
-  providers: [CourseService, CourseOrchestratorProcessor],
-  exports: [CourseService],
+  providers: [CourseService, CourseSSEService, CourseOrchestratorProcessor],
+  exports: [CourseService, CourseSSEService],
 })
 export class CourseModule {}

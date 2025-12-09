@@ -78,6 +78,21 @@ export class SetUnitsDto {
   modules: Record<number, { units: number }>;
 }
 
+export class SetEvaluationDetailsDto {
+  @IsString()
+  @IsNotEmpty()
+  conversationKey: string;
+
+  knowledgeCheckEndUnit: boolean;
+
+  knowledgeCheckEndModule: boolean;
+
+  finalExercise: boolean;
+
+  @IsString()
+  restrictions: string;
+}
+
 export class SetBrandingDto {
   @IsString()
   @IsNotEmpty()

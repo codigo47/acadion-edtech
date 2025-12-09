@@ -22,7 +22,7 @@ export class QueueService {
     return {
       jobId: job.id,
       name: job.name,
-      data: job.data,
+      data: job.data as Record<string, unknown>,
       timestamp: job.timestamp,
     };
   }
@@ -39,10 +39,10 @@ export class QueueService {
     return {
       jobId: job.id,
       name: job.name,
-      data: job.data,
+      data: job.data as Record<string, unknown>,
       state,
       progress: job.progress,
-      returnvalue: job.returnvalue,
+      returnvalue: job.returnvalue as Record<string, unknown>,
       failedReason: job.failedReason,
       timestamp: job.timestamp,
       finishedOn: job.finishedOn,

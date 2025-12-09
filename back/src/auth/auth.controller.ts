@@ -9,14 +9,36 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import type { Response } from 'express';
+import type { Response, Request as ExpressRequest } from 'express';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
+
+interface AuthenticatedUser {
+  id: string;
+  email: string;
+  name?: string;
+}
+
+interface GoogleUser {
+  email: string;
+  name: string;
+  image?: string;
+  accessToken: string;
+  refreshToken: string;
+  providerAccountId: string;
+}
+
+interface RequestWithUser extends ExpressRequest {
+  user: AuthenticatedUser;
+}
+
+interface RequestWithGoogleUser extends ExpressRequest {
+  user: GoogleUser;
+}
 
 @Controller('auth')
 export class AuthController {
@@ -33,7 +55,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  async login(@Request() req, @Body() loginDto: LoginDto) {
+  login(@Request() req: RequestWithUser) {
     return this.authService.login(req.user);
   }
 
@@ -45,7 +67,10 @@ export class AuthController {
 
   @Get('google/callback')
   @UseGuards(GoogleAuthGuard)
-  async googleAuthCallback(@Request() req, @Res() res: Response) {
+  async googleAuthCallback(
+    @Request() req: RequestWithGoogleUser,
+    @Res() res: Response,
+  ) {
     const result = await this.authService.googleLogin(req.user);
     const frontendUrl = this.configService.get<string>('FRONTEND_URL');
 
@@ -57,14 +82,14 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  async getProfile(@Request() req) {
+  async getProfile(@Request() req: RequestWithUser) {
     return this.authService.getProfile(req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('logout')
   @HttpCode(HttpStatus.OK)
-  async logout() {
+  logout() {
     // JWT is stateless, client just needs to remove the token
     return { message: 'Logged out successfully' };
   }
