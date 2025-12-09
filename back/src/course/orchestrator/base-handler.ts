@@ -84,10 +84,10 @@ export abstract class BaseHandler {
       progress.runningUnits === 0 &&
       progress.completedUnits > 0
     ) {
-      // Update course status to completed
+      // Update course status to completed and set completedAt timestamp
       await this.prisma.course.update({
         where: { id: courseId },
-        data: { status: 'completed' },
+        data: { status: 'completed', completedAt: new Date() },
       });
 
       this.sseService.emitGenerationComplete(courseKey);
