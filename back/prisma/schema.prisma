@@ -15,15 +15,23 @@ datasource db {
 enum ComponentType {
   static
   interactive
-  evaluation
 
   @@map("component_type")
+}
+
+enum ComponentSubtype {
+  content
+  exercise
+  navigation
+
+  @@map("component_subtype")
 }
 
 model Component {
   id           Int           @id @default(autoincrement())
   key          String        @default(uuid()) @db.Uuid
   type         ComponentType @default(static)
+  subtype      ComponentSubtype @default(content)
   internalName String
   name         String
   description  String?       @db.Text
