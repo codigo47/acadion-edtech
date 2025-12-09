@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,67 +6,49 @@ datasource db {
   provider = "postgresql"
 }
 
-enum ComponentType {
-  static
-  interactive
-
-  @@map("component_type")
-}
-
-enum ComponentSubtype {
-  content
-  exercise
-  navigation
-
-  @@map("component_subtype")
-}
-
 model Component {
-  id           Int           @id @default(autoincrement())
-  key          String        @default(uuid()) @db.Uuid
-  type         ComponentType @default(static)
-  subtype      ComponentSubtype @default(content)
-  internalName String
-  name         String
-  description  String?       @db.Text
-  properties   Json?         @db.JsonB
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @default(now()) @updatedAt
-  version      Int           @default(1)
-
+  id               Int               @id @default(autoincrement())
+  key              String            @default(uuid()) @db.Uuid
+  name             String
+  description      String?
+  properties       Json?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @default(now()) @updatedAt
+  version          Int               @default(1)
+  internalName     String
+  type             ComponentType     @default(static)
+  subtype          ComponentSubtype  @default(content)
   courseComponents CourseComponent[]
 
   @@map("components")
 }
 
 model CourseComponent {
-  id          Int      @id @default(autoincrement())
-  courseId    Int      @map("course_id")
-  componentId Int      @map("component_id")
+  id          Int       @id @default(autoincrement())
+  courseId    Int       @map("course_id")
+  componentId Int       @map("component_id")
   module      Int
   unit        Int
   sequence    Int
-  data        Json?    @db.JsonB
-  userId      String   @map("user_id") @db.Uuid
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at")
-
-  course    Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  component Component @relation(fields: [componentId], references: [id], onDelete: Cascade)
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  data        Json?
+  userId      String    @map("user_id") @db.Uuid
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+  component   Component @relation(fields: [componentId], references: [id], onDelete: Cascade)
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("course_components")
 }
 
 model Organization {
-  id        Int      @id @default(autoincrement())
-  key       String   @default(uuid()) @db.Uuid
+  id        Int                @id @default(autoincrement())
+  key       String             @default(uuid()) @db.Uuid
   name      String
-  slug      String   @unique
+  slug      String             @unique
   logo      String?
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-
+  createdAt DateTime           @default(now()) @map("created_at")
+  updatedAt DateTime           @default(now()) @updatedAt @map("updated_at")
   courses   Course[]
   users     UserOrganization[]
 
@@ -80,108 +56,64 @@ model Organization {
 }
 
 model UserOrganization {
-  userId    String       @map("user_id") @db.Uuid
-  orgId     Int          @map("org_id")
-  createdAt DateTime     @default(now()) @map("created_at")
-  updatedAt DateTime     @default(now()) @updatedAt @map("updated_at")
-
-  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String       @map("user_id") @db.Uuid
+  orgId        Int          @map("org_id")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @default(now()) @updatedAt @map("updated_at")
   organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([userId, orgId])
   @@map("users_organizations")
 }
 
-enum CourseStatus {
-  draft
-  generating
-  completed
-  failed
-
-  @@map("course_status")
-}
-
 model Course {
-  id        Int          @id @default(autoincrement())
-  key       String       @default(uuid()) @db.Uuid
-  title     String?
-  status    CourseStatus @default(draft)
-  input      Json?        @db.JsonB // { topic, audience, index, structure, exercises, evaluation, branding: { primaryColor, secondaryColor, typo1, typo2, logo, guidelines } }
-  output      Json?        @db.JsonB // { components }
-  orgId     Int?         @map("org_id")
-  userId    String       @map("user_id") @db.Uuid
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @default(now()) @updatedAt
-
-  organization     Organization?     @relation(fields: [orgId], references: [id], onDelete: SetNull)
-  user             User              @relation("UserCourses", fields: [userId], references: [id], onDelete: Cascade)
-  steps            CourseStep[]
+  id               Int               @id @default(autoincrement())
+  key              String            @default(uuid()) @db.Uuid
+  title            String?
+  orgId            Int?              @map("org_id")
+  userId           String            @map("user_id") @db.Uuid
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @default(now()) @updatedAt
+  input            Json?
+  output           Json?
+  status           CourseStatus      @default(draft)
   conversations    Conversation[]
   courseComponents CourseComponent[]
+  steps            CourseStep[]
+  organization     Organization?     @relation(fields: [orgId], references: [id])
+  user             User              @relation("UserCourses", fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("courses")
-}
-
-enum StepStatus {
-  pending
-  running
-  completed
-  failed
-
-  @@map("step_status")
-}
-
-enum StepType {
-  generating_title
-  generating_objectives
-  generating_index
-  generating_content
-  generating_course
-  generating_unit
-  generating_image
-  generating_evaluation
-  calling_third_party
-
-  @@map("step_type")
 }
 
 model CourseStep {
   id               Int        @id @default(autoincrement())
   courseId         Int        @map("course_id")
-  type             StepType
   status           StepStatus @default(pending)
-  payload          Json?      @db.JsonB
-  error            Json?      @db.JsonB
-  promptTokens     Int?       @map("prompt_tokens")
-  completionTokens Int?       @map("completion_tokens")
+  payload          Json?
+  error            Json?
   createdAt        DateTime   @default(now()) @map("created_at")
   updatedAt        DateTime   @default(now()) @updatedAt @map("updated_at")
-
-  course    Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  type             StepType
+  completionTokens Int?       @map("completion_tokens")
+  promptTokens     Int?       @map("prompt_tokens")
+  course           Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@map("course_steps")
-}
-
-enum MessageRole {
-  user
-  assistant
-  system
-
-  @@map("message_role")
 }
 
 model Conversation {
   id         String    @id @default(uuid()) @db.Uuid
   userId     String    @map("user_id") @db.Uuid
-  courseId   Int?      @map("course_id")
   title      String?
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
   isArchived Boolean   @default(false) @map("is_archived")
-  messages   Message[]
-
+  courseId   Int?      @map("course_id")
+  course     Course?   @relation(fields: [courseId], references: [id])
   user       User      @relation("UserConversations", fields: [userId], references: [id], onDelete: Cascade)
-  course     Course?   @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  messages   Message[]
 
   @@map("conversations")
 }
@@ -195,53 +127,47 @@ model Message {
   sequence       Int          @default(0)
   modelName      String?      @map("model_name")
   tokensUsed     Int?         @map("tokens_used")
-  metadata       Json?        @db.JsonB
-
+  metadata       Json?
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
   @@map("messages")
 }
 
-// Auth Models (NextAuth.js / Auth.js compatible)
 model User {
-  id            String    @id @default(uuid()) @db.Uuid
-  name          String?
-  email         String    @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  password      String?   // For email/password auth (hashed)
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
-
-  accounts      Account[]
-  sessions      Session[]
-
-  // App-specific relations
-  courses          Course[]           @relation("UserCourses")
+  id               String             @id @default(uuid()) @db.Uuid
+  name             String?
+  email            String             @unique
+  emailVerified    DateTime?          @map("email_verified")
+  image            String?
+  password         String?
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @default(now()) @updatedAt @map("updated_at")
+  accounts         Account[]
   conversations    Conversation[]     @relation("UserConversations")
-  organizations    UserOrganization[]
   courseComponents CourseComponent[]
+  courses          Course[]           @relation("UserCourses")
+  sessions         Session[]
+  organizations    UserOrganization[]
 
   @@map("users")
 }
 
 model Account {
-  id                String  @id @default(uuid()) @db.Uuid
-  userId            String  @map("user_id") @db.Uuid
-  type              String  // "oauth" | "oidc" | "email" | "credentials"
-  provider          String  // "google" | "credentials"
-  providerAccountId String  @map("provider_account_id")
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @map("user_id") @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String   @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
   createdAt         DateTime @default(now()) @map("created_at")
   updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("accounts")
@@ -254,8 +180,7 @@ model Session {
   expires      DateTime
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
@@ -267,4 +192,57 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+enum ComponentType {
+  static
+  interactive
+  evaluation
+
+  @@map("component_type")
+}
+
+enum ComponentSubtype {
+  content
+  exercise
+  navigation
+
+  @@map("component_subtype")
+}
+
+enum CourseStatus {
+  draft
+  generating
+  completed
+  failed
+
+  @@map("course_status")
+}
+
+enum StepStatus {
+  pending
+  running
+  completed
+  failed
+
+  @@map("step_status")
+}
+
+enum StepType {
+  generating_index
+  generating_objectives
+  generating_intro_unit
+  generating_content_unit
+  generating_module_evaluation
+  generating_course_evaluation
+
+  @@map("step_type")
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+
+  @@map("message_role")
 }

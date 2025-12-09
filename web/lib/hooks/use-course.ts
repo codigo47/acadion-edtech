@@ -130,6 +130,8 @@ interface ExerciseType {
 interface SetUnitsResponse {
   success: boolean;
   modules: Record<number, { units: number }>;
+  aiMessage?: string;
+  nextScreen?: string;
 }
 
 interface GetExerciseTypesParams {
@@ -165,7 +167,8 @@ interface SetEvaluationDetailsParams {
 
 interface SetEvaluationDetailsResponse {
   success: boolean;
-  aiMessage: string;
+  aiMessage?: string;
+  nextScreen?: string;
 }
 
 interface SetBrandingParams {
@@ -181,7 +184,8 @@ interface SetBrandingParams {
 
 interface SetBrandingResponse {
   success: boolean;
-  aiMessage: string;
+  aiMessage?: string;
+  nextScreen?: string;
 }
 
 interface GenerateCourseResponse {

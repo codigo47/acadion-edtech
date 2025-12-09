@@ -3,7 +3,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
 import { CourseSSEService } from './course-sse.service';
-import { CourseOrchestratorProcessor } from './course-orchestrator.processor';
+import { CourseOrchestratorProcessor } from './orchestrator';
 import { PrismaModule } from '../prisma/prisma.module';
 import { COURSE_ORCHESTRATION_QUEUE } from './constants';
 

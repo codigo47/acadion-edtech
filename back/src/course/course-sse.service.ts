@@ -81,7 +81,7 @@ export class CourseSSEService {
       },
     });
 
-    // Rotate through loading texts every 2 seconds
+    // Rotate through loading texts every 6 seconds
     const interval = setInterval(() => {
       const current = this.loadingTextIndexes.get(courseKey);
       if (!current || current.phase !== phase) {
@@ -99,7 +99,7 @@ export class CourseSSEService {
           loadingText: texts[nextIndex],
         },
       });
-    }, 2000);
+    }, 6000);
 
     this.loadingTextIntervals.set(courseKey, interval);
   }

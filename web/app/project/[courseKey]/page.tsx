@@ -111,6 +111,51 @@ function EvaluationDetailsView({ details }: { details: EvaluationDetailsData }) 
   );
 }
 
+// Objectives data type
+interface ObjectivesData {
+  items: Array<{
+    title: string;
+    text: string;
+  }>;
+}
+
+// Component to render objectives summary
+function ObjectivesView({ objectives }: { objectives: ObjectivesData }) {
+  // Group objectives by Bloom level
+  const bloomLevels = ['Remember', 'Understand', 'Apply', 'Analyze', 'Evaluate', 'Create'];
+  const bloomColors: Record<string, { bg: string; border: string; text: string }> = {
+    Remember: { bg: 'bg-blue-50', border: 'border-blue-200', text: 'text-blue-700' },
+    Understand: { bg: 'bg-green-50', border: 'border-green-200', text: 'text-green-700' },
+    Apply: { bg: 'bg-yellow-50', border: 'border-yellow-200', text: 'text-yellow-700' },
+    Analyze: { bg: 'bg-orange-50', border: 'border-orange-200', text: 'text-orange-700' },
+    Evaluate: { bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700' },
+    Create: { bg: 'bg-purple-50', border: 'border-purple-200', text: 'text-purple-700' },
+  };
+
+  return (
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-5 max-w-2xl">
+      <div className="space-y-3">
+        {objectives.items.map((item, index) => {
+          const colors = bloomColors[item.title] || { bg: 'bg-gray-50', border: 'border-gray-200', text: 'text-gray-700' };
+          return (
+            <div
+              key={index}
+              className={`${colors.bg} ${colors.border} border rounded-lg p-3`}
+            >
+              <div className="flex items-start gap-3">
+                <span className={`${colors.text} font-semibold text-sm whitespace-nowrap`}>
+                  {item.title}
+                </span>
+                <span className="text-gray-700 text-sm">{item.text}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // Exercise types data type
 interface ExerciseTypesData {
   exerciseTypes: string[];
@@ -463,10 +508,27 @@ export default function ProjectPage() {
 
   // SSE event handlers
   const handleObjectivesCompleted = useCallback((objectivesMessage: string, buildMethodMessage: string) => {
+    // Try to parse objectives as JSON for widget display
+    let objectivesData: ObjectivesData | null = null;
+    try {
+      const parsed = JSON.parse(objectivesMessage);
+      if (parsed && Array.isArray(parsed.items)) {
+        objectivesData = parsed as ObjectivesData;
+      }
+    } catch {
+      // Not JSON, will display as text
+    }
+
     setMessages((prev) => [
       ...prev,
-      { type: 'ai', content: objectivesMessage },
-      { type: 'ai', content: buildMethodMessage },
+      objectivesData
+        ? {
+            type: 'ai' as const,
+            content: 'Based on your input, here are the learning objectives for your course:',
+            component: <ObjectivesView objectives={objectivesData} />,
+          }
+        : { type: 'ai' as const, content: objectivesMessage },
+      { type: 'ai' as const, content: buildMethodMessage },
     ]);
     setCurrentStep('buildMethod');
     setTimeout(() => chatInputRef.current?.focus(), 100);
@@ -574,6 +636,19 @@ export default function ProjectPage() {
     return null;
   };
 
+  // Helper to parse objectives from message content
+  const parseObjectivesFromContent = (content: string): ObjectivesData | null => {
+    try {
+      const parsed = JSON.parse(content);
+      if (parsed && Array.isArray(parsed.items)) {
+        return parsed as ObjectivesData;
+      }
+    } catch {
+      // Not JSON, return null
+    }
+    return null;
+  };
+
   // Load existing messages from course data
   useEffect(() => {
     if (!isCourseLoading && courseData) {
@@ -594,6 +669,16 @@ export default function ProjectPage() {
                 type: 'ai' as const,
                 content: "Here's the proposed course structure:",
                 component: <CourseIndexView index={indexData} />,
+              };
+            }
+
+            // Check for objectives
+            const objectivesData = parseObjectivesFromContent(msg.content);
+            if (objectivesData) {
+              return {
+                type: 'ai' as const,
+                content: 'Based on your input, here are the learning objectives for your course:',
+                component: <ObjectivesView objectives={objectivesData} />,
               };
             }
           }
@@ -666,13 +751,33 @@ export default function ProjectPage() {
           return;
         }
 
+        // Check if course is currently generating units
+        if (courseData.status === 'generating') {
+          // Get index from output
+          const indexFromOutput = courseData.output?.proposedIndex as ProposedIndex | undefined;
+          if (indexFromOutput) {
+            setProposedIndex(indexFromOutput);
+          }
+          setCurrentStep('generating');
+          setIsGenerating(true);
+          setIsSSEEnabled(true);
+          setIsLoadingCourse(false);
+          return;
+        }
+
         // Determine current step based on course steps status
         const indexStep = steps.find((s) => s.type === 'generating_index');
         const objectivesStep = steps.find((s) => s.type === 'generating_objectives');
 
-        if (indexStep?.status === 'completed' && foundIndex) {
+        if (indexStep?.status === 'completed') {
           // Index is generated, show courseIndex step with continue button
-          setCurrentStep('courseIndex');
+          // Get index from messages or from course output
+          const indexFromOutput = courseData.output?.proposedIndex as ProposedIndex | undefined;
+          const courseIndex = foundIndex || indexFromOutput;
+          if (courseIndex) {
+            setProposedIndex(courseIndex);
+            setCurrentStep('courseIndex');
+          }
         } else if (indexStep?.status === 'pending' || indexStep?.status === 'running') {
           // Index is being generated - enable SSE
           setCurrentStep('generatingIndex');
@@ -948,15 +1053,21 @@ export default function ProjectPage() {
           modulesData[index + 1] = { units };
         });
 
-        await setUnitsMutation.mutateAsync({
+        const result = await setUnitsMutation.mutateAsync({
           courseKey,
           conversationKey: resolvedConversationKey,
           modules: modulesData,
         });
 
-        // Enable SSE for index generation updates
-        setCurrentStep('generatingIndex');
-        setIsSSEEnabled(true);
+        // Add AI message from backend
+        if (result.aiMessage) {
+          const aiMessage = result.aiMessage;
+          setMessages((prev) => [...prev, { type: 'ai' as const, content: aiMessage }]);
+        }
+
+        // Navigate to the screen indicated by backend
+        const nextScreen = (result.nextScreen || 'evaluation') as ChatStep;
+        setCurrentStep(nextScreen);
       } catch (error) {
         console.error('Failed to set units:', error);
       }
@@ -1021,18 +1132,25 @@ export default function ProjectPage() {
           ...evaluationDetailsData,
         });
 
-        // Add evaluation details as user message with component, then AI message
-        setMessages((prev) => [
-          ...prev,
+        // Add evaluation details as user message with component
+        const newMessages: Message[] = [
           {
             type: 'user',
             content: 'Evaluation settings',
             component: <EvaluationDetailsView details={evaluationDetailsData} />,
           },
-          { type: 'ai', content: result.aiMessage },
-        ]);
+        ];
 
-        setCurrentStep('visualIdentity');
+        // Add AI message if present
+        if (result.aiMessage) {
+          newMessages.push({ type: 'ai', content: result.aiMessage });
+        }
+
+        setMessages((prev) => [...prev, ...newMessages]);
+
+        // Navigate to the screen indicated by backend
+        const nextScreen = (result.nextScreen || 'visualIdentity') as ChatStep;
+        setCurrentStep(nextScreen);
       } catch (error) {
         console.error('Failed to set evaluation details:', error);
       }
@@ -1058,7 +1176,7 @@ export default function ProjectPage() {
           ...brandingData,
         });
 
-        // Add branding as user message with component, then AI message
+        // Add branding as user message with component
         setMessages((prev) => [
           ...prev,
           {
@@ -1066,10 +1184,14 @@ export default function ProjectPage() {
             content: 'Visual identity settings',
             component: <BrandingView branding={brandingData} />,
           },
-          { type: 'ai', content: result.aiMessage },
         ]);
 
-        setCurrentStep('finalConfirmation');
+        // Navigate to the screen indicated by backend
+        const nextScreen = (result.nextScreen || 'generatingIndex') as ChatStep;
+        if (nextScreen === 'generatingIndex') {
+          setIsSSEEnabled(true);
+        }
+        setCurrentStep(nextScreen);
       } catch (error) {
         console.error('Failed to set branding:', error);
       }
@@ -1086,14 +1208,15 @@ export default function ProjectPage() {
     ]);
     setCurrentStep('generating');
     setIsGenerating(true);
+    // Enable SSE BEFORE starting generation to catch all events
+    setIsSSEEnabled(true);
 
     try {
       await generateCourseMutation.mutateAsync(courseKey);
-      // Enable SSE for generation status updates
-      setIsSSEEnabled(true);
     } catch (error) {
       console.error('Failed to start course generation:', error);
       setIsGenerating(false);
+      setIsSSEEnabled(false);
     }
   };
 
@@ -1287,7 +1410,10 @@ export default function ProjectPage() {
         if (!proposedIndex) return null;
 
         // Check if the index is already in the messages (e.g., after page reload)
-        const indexAlreadyInMessages = messages.some((msg) => msg.component !== undefined);
+        // Look specifically for the "proposed course structure" message, not just any component
+        const indexAlreadyInMessages = messages.some(
+          (msg) => msg.type === 'ai' && msg.content.includes('proposed course structure')
+        );
 
         return (
           <motion.div
@@ -1320,34 +1446,12 @@ export default function ProjectPage() {
                     ]);
                   }
 
-                  // Fetch exercise types from backend
-                  if (courseKey && resolvedConversationKey) {
-                    try {
-                      const result = await getExerciseTypesMutation.mutateAsync({
-                        courseKey,
-                        conversationKey: resolvedConversationKey,
-                      });
-
-                      // Store exercise types and select all by default
-                      setExerciseTypes(result.exerciseTypes || []);
-                      setSelectedExercises((result.exerciseTypes || []).map((e) => e.id));
-
-                      // Add AI message to chat
-                      setMessages((prev) => [
-                        ...prev,
-                        { type: 'ai', content: result.aiMessage },
-                      ]);
-                    } catch (error) {
-                      console.error('Failed to get exercise types:', error);
-                    }
-                  }
-
-                  setCurrentStep('exerciseTypes');
+                  // Go directly to final confirmation
+                  setCurrentStep('finalConfirmation');
                 }}
-                disabled={getExerciseTypesMutation.isPending}
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 disabled:opacity-50"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] hover:from-[#8A6BC5] hover:to-[#7B5BB5] text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
               >
-                {getExerciseTypesMutation.isPending ? 'Loading...' : 'Looks good, continue'}
+                Looks good, continue
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>

@@ -137,24 +137,9 @@ export class CourseController {
     }
   }
 
-  @Get(':key/objective')
-  async getObjectiveStatus(@Param('key') key: string) {
-    return this.courseService.getObjectiveStatus(key);
-  }
-
-  @Get(':key/index')
-  async getIndexStatus(@Param('key') key: string) {
-    return this.courseService.getIndexStatus(key);
-  }
-
   @Get(':key')
   async findOne(@Param('key') key: string) {
     return this.courseService.findByKey(key);
-  }
-
-  @Get(':key/generation-status')
-  async getGenerationStatus(@Param('key') key: string) {
-    return this.courseService.getGenerationStatus(key);
   }
 
   @Get(':key/components')

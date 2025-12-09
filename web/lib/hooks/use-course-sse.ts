@@ -15,7 +15,8 @@ export type LoadingTextPhase =
   | 'GENERATING_OBJECTIVES'
   | 'GENERATING_INDEX'
   | 'GENERATING_UNIT'
-  | 'GENERATING_TITLE';
+  | 'GENERATING_TITLE'
+  | 'GENERATING_COURSE';
 
 export interface SSEEventData {
   phase?: LoadingTextPhase;

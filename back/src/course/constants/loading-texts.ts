@@ -38,6 +38,21 @@ export const LOADING_TEXTS = {
     'Crafting compelling title...',
     'Optimizing for engagement...',
   ],
+
+  // Course generation phase (when generating all units)
+  GENERATING_COURSE: [
+    'Starting course generation...',
+    'Preparing unit templates...',
+    'Generating introductory content...',
+    'Building learning activities...',
+    'Creating interactive exercises...',
+    'Designing knowledge checks...',
+    'Crafting assessment components...',
+    'Applying instructional design patterns...',
+    'Optimizing content flow...',
+    'Assembling course modules...',
+    'Finalizing course materials...',
+  ],
 } as const;
 
 export type LoadingTextPhase = keyof typeof LOADING_TEXTS;
