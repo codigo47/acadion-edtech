@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { Job } from 'bullmq';
-import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import { StructuredOutputParser } from '@langchain/core/output_parsers';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { z } from 'zod';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { CourseSSEService } from '../../course-sse.service';
 import { BaseHandler } from '../base-handler';
 import { CourseInput, GenerateContentUnitJobData } from '../types';
-import { getComponentLists } from '../utils';
+import { getComponentLists, escapeBracesForLangChain } from '../utils';
+
+// Schema for unit components output
+const unitComponentsSchema = z.array(
+  z.object({
+    component: z.string().describe('The internal name of the component (e.g., ParagraphBlock, HeadingBlock)'),
+    content: z.record(z.string(), z.unknown()).describe('The content/props for the component following its schema'),
+  }),
+);
 
 @Injectable()
 export class ContentUnitHandler extends BaseHandler {
@@ -96,7 +106,12 @@ export class ContentUnitHandler extends BaseHandler {
     this.sseService.emitUnitStarted(courseKey, unitCode, unitTitle);
 
     try {
-      const systemPrompt = `You are an expert instructional designer specialized in digital learning and cognitive instructional sequencing.
+      const parser = StructuredOutputParser.fromZodSchema(unitComponentsSchema);
+
+      const prompt = ChatPromptTemplate.fromMessages([
+        [
+          'system',
+          `You are an expert instructional designer specialized in digital learning and cognitive instructional sequencing.
 Your task is to generate the complete content for one instructional unit of the course.
 This unit is not the course introduction and not an evaluation-only unit.
 Use only the information provided (topic, audience, Bloom objective, evaluation method, and component lists).
@@ -104,11 +119,11 @@ Do NOT invent content from other units.
 
 AVAILABLE COMPONENTS
 Static Components (information display)
-${staticComponentsList}
+${escapeBracesForLangChain(staticComponentsList)}
 Interactive General Components (non-exercise interactions)
-${interactiveGeneralComponentsList}
+${escapeBracesForLangChain(interactiveGeneralComponentsList)}
 Interactive Exercise Components
-${interactiveExerciseComponentsList}
+${escapeBracesForLangChain(interactiveExerciseComponentsList)}
 
 Each component must strictly follow the schema provided in its content structure.
 Do not modify:
@@ -123,15 +138,15 @@ Secondary color: ${branding.secondaryColor || '#1a1a1a'}
 Font: ${branding.typo1 || 'Inter'}
 Apply branding only when a component explicitly supports style fields.
 
-NSTRUCTIONAL DESIGN FRAMEWORK — Use Gagné’s Events (adapted)
+INSTRUCTIONAL DESIGN FRAMEWORK — Use Gagné's Events (adapted)
 Structure the learning experience of this unit following these adapted Gagné events:
 1. Gain attention
-– Start with a concise, engaging idea: a question, scenario, relevant fact, or small challenge related to the learner’s context.
+– Start with a concise, engaging idea: a question, scenario, relevant fact, or small challenge related to the learner's context.
 2. State the purpose (objective)
-– Clearly link what the learner will accomplish to the unit’s Bloom objective and their role/audience profile.
+– Clearly link what the learner will accomplish to the unit's Bloom objective and their role/audience profile.
 3. Stimulate recall of prior learning
 – Briefly connect to knowledge from previous units (without repeating content).
-Example: “You learned previously that… Now we build on that understanding...”
+Example: "You learned previously that… Now we build on that understanding..."
 4. Present the content
 – Use appropriate static or interactive general components to explain concepts.
 5. Provide learning guidance
@@ -161,7 +176,7 @@ The unit must begin with a single Static Component containing:
 - Choose components that support learning, not decoration.
 4. Image Usage
 If using image components:
-- Always use: ""/sample.jpeg""
+- Always use: "/sample.jpeg"
 - Place images early in the unit to support conceptual anchoring.
 - Do not scatter images without pedagogical reason.
 
@@ -172,29 +187,29 @@ Before ANY:
 - interactive exercise component
 Insert one brief instructional sentence describing how to interact AND the purpose.
 Examples:
-“Click each tab to explore the examples.”
-“Select the correct response to practice applying the concept.”
+"Click each tab to explore the examples."
+"Select the correct response to practice applying the concept."
 
 5.2 Exercise placement depending on evaluation method
-Let ${evaluationMethod} be:
-A) If evaluation = “end of unit”
+Let {evaluationMethod} be:
+A) If evaluation = "end of unit"
 Include two exercise components:
 - One mid-unit (any exercise type)
 - One at the end, using multiple choice or multiple responses
 
-B) If evaluation = “end of module”
+B) If evaluation = "end of module"
 Include two exercise components:
 - One mid-unit
 - One immediately before the closing statement
 (These are practice activities; the module contains a separate evaluation unit.)
 
-C) If evaluation = “end of course”
+C) If evaluation = "end of course"
 Include:
 - One or two exercise components
-They may appear mid-unit and/or near the end, but do NOT label them as “assessment”.
+They may appear mid-unit and/or near the end, but do NOT label them as "assessment".
 
 6. Pedagogical Consistency
-Align explanations and exercises to the unit’s Bloom objective(s).
+Align explanations and exercises to the unit's Bloom objective(s).
 Ensure clarity and accessibility for the target audience.
 Introduce concepts once and avoid repeated explanations.
 
@@ -210,36 +225,40 @@ Do NOT use the highlight component for closing.
 
 9. Output Requirements
 - Use 8–12 components
-- Follow Gagné’s sequence integrated into your structure
+- Follow Gagné's sequence integrated into your structure
 - Include instructions before every interactive component
 - Respect evaluation rules
-- No explanatory text outside of {format_instructions}
+- No explanatory text outside of the component structure
 
  YOUR TASK
-Generate the full content for this unit following ALL rules above.`;
+Generate the full content for this unit following ALL rules above.
 
-      const userPrompt = `Course Topic: ${topic}
-Target Audience: ${audience}
-Unit Bloom Objective(s): ${unitBloomObjectives}
+{format_instructions}`,
+        ],
+        [
+          'human',
+          `Course Topic: {topic}
+Target Audience: {audience}
+Unit Bloom Objective(s): {unitBloomObjectives}
 
-Evaluation Method: ${evaluationMethod}
+Evaluation Method: {evaluationMethod}
 
-Module ${moduleNumber}: ${moduleTitle}
-Unit ${unitCode}: ${unitTitle}
+Module {moduleNumber}: {moduleTitle}
+Unit {unitCode}: {unitTitle}
 
 Static Components Available:
-${staticComponentsList}
+{staticComponentsList}
 
 Interactive General Components Available:
-${interactiveGeneralComponentsList}
+{interactiveGeneralComponentsList}
 
 Interactive Exercise Components Available:
-${interactiveExerciseComponentsList}
+{interactiveExerciseComponentsList}
 
 Branding:
-Primary Color: ${branding.primaryColor || '#9F80DA'}
-Secondary Color: ${branding.secondaryColor || '#1a1a1a'}
-Font: ${branding.typo1 || 'Inter'}
+Primary Color: {primaryColor}
+Secondary Color: {secondaryColor}
+Font: {font}
 
 Generate the complete content for THIS unit only, following all rules of the system prompt:
 - The unit is NOT an introduction to the course and NOT an evaluation-only unit.
@@ -248,21 +267,57 @@ Generate the complete content for THIS unit only, following all rules of the sys
 - Align all content with the Bloom objective(s) for this unit and the target audience.
 - Select static, interactive general, and exercise components exactly as required by the evaluation method.
 - Before every interactive component, include one short instruction sentence.
-- Use ""/sample.jpeg"" for any image component.
+- Use "/sample.jpeg" for any image component.
 - Do not repeat content from other units, and do not duplicate paragraphs.
 - Follow the official schemas of each component exactly (no extra fields, no modified names).
-- End with a brief closing sentence reinforcing application of the content.
-
-Respond ONLY with the components in the structure defined by {format_instructions}.`;
-
-      const response = await this.llm.invoke([
-        new SystemMessage(systemPrompt),
-        new HumanMessage(userPrompt),
+- End with a brief closing sentence reinforcing application of the content.`,
+        ],
       ]);
 
-      const content = response.content;
-      const result =
-        typeof content === 'string' ? content : JSON.stringify(content);
+      const chain = prompt.pipe(this.llm).pipe(parser);
+
+      const maxRetries = 3;
+      let lastError: Error | null = null;
+      let components: z.infer<typeof unitComponentsSchema> | null = null;
+
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          components = await chain.invoke({
+            topic,
+            audience,
+            unitBloomObjectives,
+            evaluationMethod,
+            moduleNumber: String(moduleNumber),
+            moduleTitle,
+            unitCode,
+            unitTitle,
+            staticComponentsList: escapeBracesForLangChain(staticComponentsList),
+            interactiveGeneralComponentsList: escapeBracesForLangChain(interactiveGeneralComponentsList),
+            interactiveExerciseComponentsList: escapeBracesForLangChain(interactiveExerciseComponentsList),
+            primaryColor: branding.primaryColor || '#9F80DA',
+            secondaryColor: branding.secondaryColor || '#1a1a1a',
+            font: branding.typo1 || 'Inter',
+            format_instructions: parser.getFormatInstructions(),
+          });
+          break;
+        } catch (err) {
+          lastError = err as Error;
+          this.logger.warn(
+            `Content unit generation attempt ${attempt}/${maxRetries} failed: ${lastError.message}`,
+          );
+          if (attempt === maxRetries) {
+            throw new Error(
+              `Failed to generate content unit after ${maxRetries} attempts: ${lastError.message}`,
+            );
+          }
+        }
+      }
+
+      if (!components) {
+        throw lastError || new Error('Failed to generate content unit');
+      }
+
+      const result = JSON.stringify(components);
 
       await this.prisma.courseStep.updateMany({
         where: {

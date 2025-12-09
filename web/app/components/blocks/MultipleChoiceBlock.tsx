@@ -20,7 +20,7 @@ export interface MultipleChoiceBlockProps {
 }
 
 export default function MultipleChoiceBlock({
-  items,
+  items = [],
   question,
   textStyle = {},
   textBackgroundStyle = {},
@@ -28,6 +28,15 @@ export default function MultipleChoiceBlock({
 }: MultipleChoiceBlockProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+
+  // Handle empty or missing items
+  if (!items || items.length === 0) {
+    return (
+      <div className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
+        <p>No options available</p>
+      </div>
+    );
+  }
 
   const handleSelect = (id: string) => {
     if (showResult) return;

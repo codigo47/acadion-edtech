@@ -575,34 +575,35 @@ export class CourseService {
     const jobs: Job[] = [];
 
     for (const module of proposedIndex.modules) {
-      for (let unitIndex = 0; unitIndex < module.units.length; unitIndex++) {
-        const unit = module.units[unitIndex];
-        const isFirstUnitOfModule = unitIndex === 0;
+      // First, add an introduction unit for each module (auto-generated, not in index)
+      jobs.push({
+        type: 'generate_intro_unit',
+        stepType: 'generating_intro_unit',
+        unitCode: `${module.number}.0`,
+        unitTitle: 'Introduction',
+        moduleNumber: module.number,
+        moduleTitle: module.title,
+      });
 
-        // First unit of each module is intro unit
-        if (isFirstUnitOfModule) {
-          jobs.push({
-            type: 'generate_intro_unit',
-            stepType: 'generating_intro_unit',
-            unitCode: unit.code,
-            unitTitle: unit.title,
-            moduleNumber: module.number,
-            moduleTitle: module.title,
-          });
-        } else {
-          // Regular content units
-          jobs.push({
-            type: 'generate_content_unit',
-            stepType: 'generating_content_unit',
-            unitCode: unit.code,
-            unitTitle: unit.title,
-            moduleNumber: module.number,
-            moduleTitle: module.title,
-          });
+      // Then add all units from the index as content units
+      for (const unit of module.units) {
+        // Skip if this is an "Evaluation" unit (handled separately by module evaluation job)
+        if (unit.title.toLowerCase() === 'evaluation') {
+          continue;
         }
+
+        jobs.push({
+          type: 'generate_content_unit',
+          stepType: 'generating_content_unit',
+          unitCode: unit.code,
+          unitTitle: unit.title,
+          moduleNumber: module.number,
+          moduleTitle: module.title,
+        });
       }
 
       // Add module evaluation if knowledgeCheckEndModule is true
+      // The index should already include an "Evaluation" unit, but we generate it with the specialized handler
       if (evaluationDetails?.knowledgeCheckEndModule) {
         jobs.push({
           type: 'generate_module_evaluation',

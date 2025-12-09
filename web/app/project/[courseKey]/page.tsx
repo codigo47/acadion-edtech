@@ -832,10 +832,10 @@ export default function ProjectPage() {
     font2: 'Inter',
   });
 
-  // Scroll to bottom on new messages
+  // Scroll to bottom on new messages or SSE updates
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, currentStep]);
+  }, [messages, currentStep, sseState.units, sseState.progress, sseState.loadingText]);
 
   // Focus chat input when messages change and chat is visible
   useEffect(() => {
@@ -2071,74 +2071,98 @@ export default function ProjectPage() {
                       </div>
                     )}
 
-                    {proposedIndex.modules.map((module) => (
-                      <div key={module.number} className="mb-12">
-                        {/* Module header */}
-                        <div className="mb-6">
-                          <h2 className="text-2xl font-bold text-[#1a1a1a]">
-                            Module {module.number}: {module.title}
-                          </h2>
+                    {proposedIndex.modules.map((module) => {
+                      // Build complete unit list: Introduction (0) + index units + evaluation
+                      // Get all unique unit numbers from components for this module
+                      const moduleComponents = courseComponentsData.components.filter(
+                        (c) => c.module === module.number
+                      );
+                      const unitNumbers = [...new Set(moduleComponents.map((c) => c.unit))].sort((a, b) => a - b);
+
+                      // Build unit info with titles
+                      const allUnits = unitNumbers.map((unitNum) => {
+                        if (unitNum === 0) {
+                          return { code: `${module.number}.0`, title: 'Introduction', unitNum };
+                        }
+                        if (unitNum === 99) {
+                          return { code: `eval-m${module.number}`, title: 'Evaluation', unitNum };
+                        }
+                        // Find title from proposedIndex
+                        const indexUnit = module.units.find((u) => u.code === `${module.number}.${unitNum}`);
+                        return {
+                          code: `${module.number}.${unitNum}`,
+                          title: indexUnit?.title || `Unit ${unitNum}`,
+                          unitNum,
+                        };
+                      });
+
+                      return (
+                        <div key={module.number} className="mb-12">
+                          {/* Module header */}
+                          <div className="mb-6">
+                            <h2 className="text-2xl font-bold text-[#1a1a1a]">
+                              Module {module.number}: {module.title}
+                            </h2>
+                          </div>
+
+                          {/* Units in this module */}
+                          {allUnits.map((unit) => {
+                            const unitComponents = moduleComponents.filter((c) => c.unit === unit.unitNum);
+
+                            if (unitComponents.length === 0) return null;
+
+                            return (
+                              <div
+                                key={unit.code}
+                                id={`unit-${unit.code}`}
+                                className="mb-10"
+                              >
+                                {/* Unit header */}
+                                <div className="mb-6 flex items-center gap-3">
+                                  <span className="px-3 py-1 bg-[#9F80DA] text-white text-sm font-medium rounded-full">
+                                    {unit.code}
+                                  </span>
+                                  <h3 className="text-xl font-semibold text-[#1a1a1a]">{unit.title}</h3>
+                                </div>
+
+                                {/* Unit components */}
+                                <div className="space-y-4">
+                                  {unitComponents
+                                    .sort((a, b) => a.sequence - b.sequence)
+                                    .map((comp, idx) => {
+                                      const component: UnitComponent = {
+                                        componentName: comp.componentName,
+                                        order: comp.sequence,
+                                        content: (comp.data as Record<string, unknown>) || {},
+                                        styles: undefined,
+                                      };
+
+                                      return (
+                                        <div
+                                          key={idx}
+                                          className="group relative bg-white rounded-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-colors overflow-hidden"
+                                        >
+                                          {/* Component type label */}
+                                          <div className="absolute top-2 right-2 z-10">
+                                            <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md group-hover:bg-[#9F80DA] group-hover:text-white transition-colors">
+                                              {comp.componentName}
+                                            </span>
+                                          </div>
+
+                                          {/* Component content */}
+                                          <div className="pt-8">
+                                            <CourseComponent component={component} />
+                                          </div>
+                                        </div>
+                                      );
+                                    })}
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
-
-                        {/* Units in this module */}
-                        {module.units.map((unit) => {
-                          const unitComponents = courseComponentsData.components.filter(
-                            (c) => c.module === module.number && c.unit === parseInt(unit.code.split('.')[1])
-                          );
-
-                          if (unitComponents.length === 0) return null;
-
-                          return (
-                            <div
-                              key={unit.code}
-                              id={`unit-${unit.code}`}
-                              className="mb-10"
-                            >
-                              {/* Unit header */}
-                              <div className="mb-6 flex items-center gap-3">
-                                <span className="px-3 py-1 bg-[#9F80DA] text-white text-sm font-medium rounded-full">
-                                  {unit.code}
-                                </span>
-                                <h3 className="text-xl font-semibold text-[#1a1a1a]">{unit.title}</h3>
-                              </div>
-
-                              {/* Unit components */}
-                              <div className="space-y-4">
-                                {unitComponents
-                                  .sort((a, b) => a.sequence - b.sequence)
-                                  .map((comp, idx) => {
-                                    const component: UnitComponent = {
-                                      componentName: comp.componentName,
-                                      order: comp.sequence,
-                                      content: (comp.data as any)?.content || {},
-                                      styles: (comp.data as any)?.styles,
-                                    };
-
-                                    return (
-                                      <div
-                                        key={idx}
-                                        className="group relative bg-white rounded-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-colors overflow-hidden"
-                                      >
-                                        {/* Component type label */}
-                                        <div className="absolute top-2 right-2 z-10">
-                                          <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md group-hover:bg-[#9F80DA] group-hover:text-white transition-colors">
-                                            {comp.componentName}
-                                          </span>
-                                        </div>
-
-                                        {/* Component content */}
-                                        <div className="pt-8">
-                                          <CourseComponent component={component} />
-                                        </div>
-                                      </div>
-                                    );
-                                  })}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="flex-1 flex items-center justify-center h-full">

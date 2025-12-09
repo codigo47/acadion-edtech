@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { Job } from 'bullmq';
-import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import { StructuredOutputParser } from '@langchain/core/output_parsers';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { z } from 'zod';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { CourseSSEService } from '../../course-sse.service';
 import { BaseHandler } from '../base-handler';
 import { CourseInput, GenerateCourseEvaluationJobData } from '../types';
-import { getComponentLists } from '../utils';
+import { getComponentLists, escapeBracesForLangChain } from '../utils';
+
+// Schema for unit components output
+const unitComponentsSchema = z.array(
+  z.object({
+    component: z.string().describe('The internal name of the component (e.g., ParagraphBlock, HeadingBlock)'),
+    content: z.record(z.string(), z.unknown()).describe('The content/props for the component following its schema'),
+  }),
+);
 
 @Injectable()
 export class CourseEvaluationHandler extends BaseHandler {
@@ -78,7 +88,12 @@ export class CourseEvaluationHandler extends BaseHandler {
     });
 
     try {
-      const systemPrompt = `You are an expert instructional designer specializing in summative assessment for online learning.
+      const parser = StructuredOutputParser.fromZodSchema(unitComponentsSchema);
+
+      const prompt = ChatPromptTemplate.fromMessages([
+        [
+          'system',
+          `You are an expert instructional designer specializing in summative assessment for online learning.
 Your task is to generate the final course evaluation unit, which assesses the content of all modules and all units in the course.
 
 Use the course outline, all Bloom-aligned objectives, and the target audience description.
@@ -86,7 +101,7 @@ Do NOT invent topics outside the course structure.
 
 AVAILABLE COMPONENTS
 Interactive Exercise Components
-${interactiveExerciseComponentsList}
+${escapeBracesForLangChain(interactiveExerciseComponentsList)}
 (Only exercise components are permitted in this evaluation unit.)
 All components must follow their defined schema exactly.
 
@@ -99,7 +114,7 @@ Apply branding only when supported.
 
 INSTRUCTIONAL DESIGN FRAMEWORK (GAGNÉ ADAPTED FOR SUMMATIVE ASSESSMENT)
 
-Use Gagné’s events to structure a comprehensive final evaluation:
+Use Gagné's events to structure a comprehensive final evaluation:
 
 1. Prepare the learner for assessment
 - Begin with a short paragraph explaining that this evaluation covers the entire course.
@@ -108,7 +123,7 @@ Use Gagné’s events to structure a comprehensive final evaluation:
 - Add a brief prompt that helps the learner mentally organize content from all modules (no explanation, just activation).
 3. Assessment sequence (Event 8)
 - For each unit of the entire course, create 2 to 3 exercise components.
-. Exercises must align with that unit’s Bloom objectives.
+. Exercises must align with that unit's Bloom objectives.
 . Exercises must reference the content actually developed in those units.
 - Exercises must include a variety of formats when possible.
 - All exercises must include feedback.
@@ -131,24 +146,28 @@ OUTPUT REQUIREMENTS
 - All exercises must align with Bloom taxonomy levels defined for each unit.
 
  YOUR TASK
-Generate the final evaluation unit assessing all modules and units of the course, following every rule above.`;
+Generate the final evaluation unit assessing all modules and units of the course, following every rule above.
 
-      const userPrompt = `Course Topic: ${topic}
-Target Audience: ${audience}
+{format_instructions}`,
+        ],
+        [
+          'human',
+          `Course Topic: {topic}
+Target Audience: {audience}
 
 Full Course Outline (Modules and Units):
-${fullCourseStructure}
+{fullCourseStructure}
 
 Bloom-Aligned Learning Objectives for the Entire Course:
-${courseBloomObjectives}
+{courseBloomObjectives}
 
 Interactive Exercise Components Available:
-${interactiveExerciseComponentsList}
+{interactiveExerciseComponentsList}
 
 Branding:
-Primary Color: ${branding.primaryColor || '#9F80DA'}
-Secondary Color: ${branding.secondaryColor || '#1a1a1a'}
-Font: ${branding.typo1 || 'Inter'}
+Primary Color: {primaryColor}
+Secondary Color: {secondaryColor}
+Font: {font}
 
 Generate the final evaluation unit for the entire course, following all rules of the system prompt:
 - The evaluation must assess ALL units from ALL modules.
@@ -158,18 +177,48 @@ Generate the final evaluation unit for the entire course, following all rules of
 - Exercises must align with the Bloom objectives of their corresponding unit.
 - Use only the allowed component schemas.
 - Avoid repeating full explanations from the learning units.
-- End with a brief sentence reinforcing completion and transfer of learning.
-
-Respond ONLY with the components in the structure defined by {format_instructions}.`;
-
-      const response = await this.llm.invoke([
-        new SystemMessage(systemPrompt),
-        new HumanMessage(userPrompt),
+- End with a brief sentence reinforcing completion and transfer of learning.`,
+        ],
       ]);
 
-      const content = response.content;
-      const result =
-        typeof content === 'string' ? content : JSON.stringify(content);
+      const chain = prompt.pipe(this.llm).pipe(parser);
+
+      const maxRetries = 3;
+      let lastError: Error | null = null;
+      let components: z.infer<typeof unitComponentsSchema> | null = null;
+
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          components = await chain.invoke({
+            topic,
+            audience,
+            fullCourseStructure,
+            courseBloomObjectives,
+            interactiveExerciseComponentsList: escapeBracesForLangChain(interactiveExerciseComponentsList),
+            primaryColor: branding.primaryColor || '#9F80DA',
+            secondaryColor: branding.secondaryColor || '#1a1a1a',
+            font: branding.typo1 || 'Inter',
+            format_instructions: parser.getFormatInstructions(),
+          });
+          break;
+        } catch (err) {
+          lastError = err as Error;
+          this.logger.warn(
+            `Course evaluation generation attempt ${attempt}/${maxRetries} failed: ${lastError.message}`,
+          );
+          if (attempt === maxRetries) {
+            throw new Error(
+              `Failed to generate course evaluation after ${maxRetries} attempts: ${lastError.message}`,
+            );
+          }
+        }
+      }
+
+      if (!components) {
+        throw lastError || new Error('Failed to generate course evaluation');
+      }
+
+      const result = JSON.stringify(components);
 
       await this.prisma.courseStep.updateMany({
         where: {

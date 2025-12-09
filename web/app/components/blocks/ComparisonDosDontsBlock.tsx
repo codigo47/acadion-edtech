@@ -12,11 +12,23 @@ export interface ComparisonDosDontsBlockProps {
 }
 
 export default function ComparisonDosDontsBlock({
-  dos,
-  donts,
+  dos = [],
+  donts = [],
   textStyle = {},
   dark = false,
 }: ComparisonDosDontsBlockProps) {
+  // Handle empty data
+  if ((!dos || dos.length === 0) && (!donts || donts.length === 0)) {
+    return (
+      <div className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
+        <p>No comparison data available</p>
+      </div>
+    );
+  }
+
+  const safeDs = dos || [];
+  const safeDonts = donts || [];
+
   return (
     <div className={`w-full p-6 rounded-lg border ${dark ? 'bg-gray-900 border-gray-700' : 'bg-white border-gray-200'}`}>
       <h3 className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}>
@@ -34,7 +46,7 @@ export default function ComparisonDosDontsBlock({
             </span>
           </div>
           <ul className="space-y-3">
-            {dos.map((item, index) => (
+            {safeDs.map((item, index) => (
               <li
                 key={index}
                 className={`text-sm ${dark ? 'text-gray-300' : 'text-gray-600'}`}
@@ -60,7 +72,7 @@ export default function ComparisonDosDontsBlock({
             </span>
           </div>
           <ul className="space-y-3">
-            {donts.map((item, index) => (
+            {safeDonts.map((item, index) => (
               <li
                 key={index}
                 className={`text-sm ${dark ? 'text-gray-300' : 'text-gray-600'}`}

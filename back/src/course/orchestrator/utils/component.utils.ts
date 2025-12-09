@@ -15,6 +15,14 @@ export interface ComponentLists {
   interactiveExerciseComponentsList: string;
 }
 
+/**
+ * Escapes curly braces for use in LangChain ChatPromptTemplate.
+ * LangChain uses {variable} syntax, so literal braces must be doubled.
+ */
+export function escapeBracesForLangChain(str: string): string {
+  return str.replace(/\{/g, '{{').replace(/\}/g, '}}');
+}
+
 function formatComponentProps(props: unknown): string {
   if (!props || typeof props !== 'object') return '';
   return `\n    Content structure: ${JSON.stringify(props)}`;

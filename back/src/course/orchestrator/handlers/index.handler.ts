@@ -104,11 +104,16 @@ export class IndexHandler extends BaseHandler {
 
           1. Course Structure Rules
           The course consists of one course, divided into modules, and each module contains units.
-          Module and unit counts must match exactly the structure provided by the user.
-          The first unit of Module 1 must always be an introductory unit that presents the course purpose, relevance, and scope.
-          Suggested titles: "Introduction to the Course", "Overview of ___", etc.
+
+          IMPORTANT: The user specifies the number of CONTENT units per module. You must generate exactly that number of content units.
+          An "Introduction" unit will be automatically added to each module by the system - DO NOT include introduction units in your output.
+
+          Example: If the user says "Module 1: 2 units", you generate exactly 2 content units for Module 1.
+          The system will automatically prepend an "Introduction" unit, resulting in 3 total units for that module.
+
           Keep module titles broad and unit titles more specific.
           Ensure progression from foundational concepts → applied skills → higher-order understanding (aligned with the learning objectives).
+          DO NOT create units with titles like "Introduction", "Course Introduction", "Module Introduction", "Overview", etc.
 
           2. Evaluation Rules
           Use the user's selected evaluation method:
@@ -117,7 +122,9 @@ export class IndexHandler extends BaseHandler {
           → Add an extra final module named e.g., "Final Assessment", containing one unit titled "Final Evaluation".
 
           B. Evaluation at the end of each module
-          → Add a final unit inside every module titled "Evaluation".
+          → Add a final unit titled "Evaluation" at the end of every module.
+          → This "Evaluation" unit is IN ADDITION to the content units requested by the user.
+          → Example: If user says "Module 1: 2 units" with module evaluation, you generate 2 content units + 1 "Evaluation" unit = 3 units total (plus the auto-added Introduction = 4 total).
 
           C. Evaluation at the end of each unit
           → Do not add evaluation units in the outline.
@@ -155,6 +162,7 @@ export class IndexHandler extends BaseHandler {
           Avoid redundancy between units.
           Maintain stylistic consistency throughout the whole course.
           Never repeat the course title inside module titles.
+          NEVER include "Introduction" units - they are added automatically by the system.
 
           Your task:
           Using the information provided by the user (topic, audience, objectives, module/unit structure, and evaluation method), create the complete course outline and the course title, following all rules above.
@@ -173,7 +181,7 @@ export class IndexHandler extends BaseHandler {
             Generated Bloom-Aligned Objectives:
             ${generatedObjectives}
 
-            Module Structure:
+            Module Structure (CONTENT units only - Introduction units are added automatically):
             ${modulesDescription}
 
             Evaluation Method: ${evaluationMethod}
@@ -187,13 +195,13 @@ export class IndexHandler extends BaseHandler {
               - Aligns with the module structure and evaluation method
 
             2) The **full course outline**, following these rules:
-              - Use the exact number of modules and units provided
+              - Generate exactly the number of CONTENT units specified for each module
+              - DO NOT include "Introduction" units - they are added automatically by the system
               - Give every module and unit a descriptive, meaningful title
               - Ensure a logical learning progression aligned with the learning objectives
-              - Unit 1 of Module 1 must always be the introduction to the course
               - Apply the evaluation rules:
                   • If the evaluation is "end of course": add a final module with one unit titled "Final Evaluation"
-                  • If the evaluation is "end of each module": add a final unit titled "Evaluation" inside every module
+                  • If the evaluation is "end of each module": add a final unit titled "Evaluation" inside every module (in addition to content units)
                   • If the evaluation is "end of each unit": do NOT add evaluation units to the outline
               - Do not add new content outside the given learning objectives
               - Do not include descriptions or explanations—only titles
@@ -240,11 +248,73 @@ export class IndexHandler extends BaseHandler {
         throw lastError || new Error('Failed to generate index');
       }
 
+      // Add Introduction unit to each module (except Final Assessment) and fix unit codes
+      const indexWithIntros = {
+        ...proposedIndex,
+        modules: proposedIndex.modules.map((module) => {
+          // Check if this is the Final Assessment module
+          const isFinalAssessment =
+            module.title.toLowerCase().includes('final assessment') ||
+            module.title.toLowerCase().includes('final evaluation');
+
+          if (isFinalAssessment) {
+            // For Final Assessment, use 'final-evaluation' code
+            return {
+              ...module,
+              units: module.units.map((unit) => ({
+                ...unit,
+                code: 'final-evaluation',
+              })),
+            };
+          }
+
+          // Process units: separate content units and evaluation units
+          const contentUnits: Array<{ code: string; title: string }> = [];
+          let hasEvaluationUnit = false;
+
+          for (const unit of module.units) {
+            if (unit.title.toLowerCase() === 'evaluation') {
+              hasEvaluationUnit = true;
+            } else {
+              contentUnits.push(unit);
+            }
+          }
+
+          // Renumber content units to start from 1 (Introduction will be 0)
+          const renumberedUnits = contentUnits.map((unit, idx) => ({
+            ...unit,
+            code: `${module.number}.${idx + 1}`,
+          }));
+
+          // Build the final units array: Introduction + content units + optional Evaluation
+          const finalUnits: Array<{ code: string; title: string }> = [
+            {
+              code: `${module.number}.0`,
+              title: 'Introduction',
+            },
+            ...renumberedUnits,
+          ];
+
+          // Add evaluation unit with correct code if it exists
+          if (hasEvaluationUnit) {
+            finalUnits.push({
+              code: `eval-m${module.number}`,
+              title: 'Evaluation',
+            });
+          }
+
+          return {
+            ...module,
+            units: finalUnits,
+          };
+        }),
+      };
+
       const currentOutput = (course.output as Record<string, unknown>) || {};
       await this.prisma.course.update({
         where: { id: courseId },
         data: {
-          output: { ...currentOutput, proposedIndex },
+          output: { ...currentOutput, proposedIndex: indexWithIntros },
         },
       });
 
@@ -252,7 +322,7 @@ export class IndexHandler extends BaseHandler {
         await this.createMessage(
           conversationId,
           'assistant',
-          JSON.stringify(proposedIndex),
+          JSON.stringify(indexWithIntros),
         );
       }
 
@@ -260,15 +330,15 @@ export class IndexHandler extends BaseHandler {
         where: { courseId, type: 'generating_index' },
         data: {
           status: 'completed',
-          payload: { proposedIndex },
+          payload: { proposedIndex: indexWithIntros },
         },
       });
 
-      this.sseService.emitIndexCompleted(courseKey, proposedIndex);
+      this.sseService.emitIndexCompleted(courseKey, indexWithIntros);
 
       this.logger.log(`Index generated successfully for course ${courseId}`);
 
-      return { success: true, proposedIndex };
+      return { success: true, proposedIndex: indexWithIntros };
     } catch (error) {
       const err = error as Error;
       this.logger.error(

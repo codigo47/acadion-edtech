@@ -19,14 +19,23 @@ export interface TabsBlockProps {
 }
 
 export default function TabsBlock({
-  items,
+  items = [],
   textStyle = {},
   textBackgroundStyle = {},
   dark = false,
 }: TabsBlockProps) {
-  const [activeTab, setActiveTab] = useState(items[0]?.id || '');
+  const [activeTab, setActiveTab] = useState(items?.[0]?.id || '');
 
-  const activeItem = items.find((item) => item.id === activeTab);
+  // Handle empty or missing items
+  if (!items || items.length === 0) {
+    return (
+      <div className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
+        <p>No tabs available</p>
+      </div>
+    );
+  }
+
+  const activeItem = items.find((item) => item.id === activeTab) || items[0];
 
   return (
     <div

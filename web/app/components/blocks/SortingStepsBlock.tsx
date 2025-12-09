@@ -15,14 +15,23 @@ export interface SortingStepsBlockProps {
   dark?: boolean;
 }
 
-export default function SortingStepsBlock({ items: initialItems, dark = false }: SortingStepsBlockProps) {
-  const [items, setItems] = useState(initialItems);
+export default function SortingStepsBlock({ items: initialItems = [], dark = false }: SortingStepsBlockProps) {
+  const [items, setItems] = useState(initialItems || []);
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
 
-  const isCorrectOrder = useCallback(() => {
+  // Handle empty or missing items
+  if (!items || items.length === 0) {
+    return (
+      <div className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
+        <p>No items to sort</p>
+      </div>
+    );
+  }
+
+  const isCorrectOrder = () => {
     return items.every((item, index) => item.correctOrder === index + 1);
-  }, [items]);
+  };
 
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
@@ -49,7 +58,7 @@ export default function SortingStepsBlock({ items: initialItems, dark = false }:
   };
 
   const reset = () => {
-    setItems(initialItems);
+    setItems(initialItems || []);
     setShowResult(false);
   };
 

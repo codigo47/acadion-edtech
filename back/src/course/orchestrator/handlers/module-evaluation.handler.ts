@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { Job } from 'bullmq';
-import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import { StructuredOutputParser } from '@langchain/core/output_parsers';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { z } from 'zod';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { CourseSSEService } from '../../course-sse.service';
 import { BaseHandler } from '../base-handler';
 import { CourseInput, GenerateModuleEvaluationJobData } from '../types';
-import { getComponentLists } from '../utils';
+import { getComponentLists, escapeBracesForLangChain } from '../utils';
+
+// Schema for unit components output
+const unitComponentsSchema = z.array(
+  z.object({
+    component: z.string().describe('The internal name of the component (e.g., ParagraphBlock, HeadingBlock)'),
+    content: z.record(z.string(), z.unknown()).describe('The content/props for the component following its schema'),
+  }),
+);
 
 @Injectable()
 export class ModuleEvaluationHandler extends BaseHandler {
@@ -64,8 +74,12 @@ export class ModuleEvaluationHandler extends BaseHandler {
     });
 
     try {
-      // TODO: Add your prompt here
-      const systemPrompt = `You are an expert instructional designer specializing in assessment design for e-learning.
+      const parser = StructuredOutputParser.fromZodSchema(unitComponentsSchema);
+
+      const prompt = ChatPromptTemplate.fromMessages([
+        [
+          'system',
+          `You are an expert instructional designer specializing in assessment design for e-learning.
 Your task is to generate a module-level evaluation unit.
 This unit appears at the end of a module and evaluates only the content covered in that specific module.
 
@@ -74,14 +88,13 @@ Do NOT invent content that belongs to other modules.
 
 AVAILABLE COMPONENTS
 Interactive Exercise Components
-${interactiveExerciseComponentsList}
+${escapeBracesForLangChain(interactiveExerciseComponentsList)}
 (Only exercise components are allowed in this unit.)
 
 Each component must follow exactly the schema provided.
 No extra fields, renaming, or unsupported structures.
 
 BRANDING
-
 Primary color: ${branding.primaryColor || '#9F80DA'}
 Secondary color: ${branding.secondaryColor || '#1a1a1a'}
 Font: ${branding.typo1 || 'Inter'}
@@ -89,10 +102,10 @@ Font: ${branding.typo1 || 'Inter'}
 Apply branding only when the component structure supports style fields.
 
 INSTRUCTIONAL DESIGN FRAMEWORK (GAGNÉ FOR ASSESSMENT)
-Structure this evaluation unit following an adapted version of Gagné’s instructional events:
+Structure this evaluation unit following an adapted version of Gagné's instructional events:
 1. Prepare the learner
 - Begin with a brief paragraph setting expectations and reminding learners what this evaluation covers.
-- Connect explicitly to the module’s Bloom objectives.
+- Connect explicitly to the module's Bloom objectives.
 2. Stimulate recall
 - Add a short text sentence prompting the learner to recall key concepts from the module (no new explanations).
 3. Assessment sequence (Gagné Event 8)
@@ -100,7 +113,7 @@ Structure this evaluation unit following an adapted version of Gagné’s instru
 - All of them must:
 . Include clear instructions (before the component)
 . Give meaningful feedback
-. Be aligned with the module’s Bloom objectives
+. Be aligned with the module's Bloom objectives
 . Assess content covered in previous units of THIS module
 -Exercises must vary in type when possible.
 4. Feedback (Event 7)
@@ -108,7 +121,7 @@ Structure this evaluation unit following an adapted version of Gagné’s instru
 . Correct answers
 . Incorrect answers
 5. Enhance retention & closure
-- End with a brief statement reinforcing the learner’s progress and encouraging application of the module concepts.
+- End with a brief statement reinforcing the learner's progress and encouraging application of the module concepts.
 
 COMPONENT RULES
 -This evaluation unit must contain 4 to 5 interactive exercise components only.
@@ -121,50 +134,86 @@ OUTPUT REQUIREMENTS
 - Output only the list of components using the structure defined in {format_instructions}.
 - No commentary or extra text outside components.
 - Reflect Bloom alignment in the design of the exercises.
-- All items must relate directly to the content developed in the module’s units.
+- All items must relate directly to the content developed in the module's units.
 
  YOUR TASK
-Generate the complete evaluation unit for this module following all rules above.`;
+Generate the complete evaluation unit for this module following all rules above.
 
-      const userPrompt = `Course Topic: ${topic}
-Target Audience: ${audience}
+{format_instructions}`,
+        ],
+        [
+          'human',
+          `Course Topic: {topic}
+Target Audience: {audience}
 
-Module ${moduleNumber}: ${moduleTitle}
+Module {moduleNumber}: {moduleTitle}
 
 Units in This Module:
-${unitsInModule}
+{unitsInModule}
 
 Bloom-Aligned Learning Objectives for This Module:
-${moduleBloomObjectives}
+{moduleBloomObjectives}
 
 Interactive Exercise Components Available:
-${interactiveExerciseComponentsList}
+{interactiveExerciseComponentsList}
 
 Branding:
-Primary Color: ${branding.primaryColor || '#9F80DA'}
-Secondary Color: ${branding.secondaryColor || '#1a1a1a'}
-Font: ${branding.typo1 || 'Inter'}
+Primary Color: {primaryColor}
+Secondary Color: {secondaryColor}
+Font: {font}
 
 Generate the complete evaluation unit for this module, following all rules of the system prompt:
 - The evaluation must assess ONLY the content developed in the units of THIS module.
 - Create 4–5 interactive exercise components.
 - Each exercise must include a prior instruction sentence.
 - All exercises must include feedback.
-- Exercises must align with the module’s Bloom objectives.
+- Exercises must align with the module's Bloom objectives.
 - Use only the allowed component schemas.
 - Do not repeat full explanations from the learning units.
-- End with a brief closing sentence reinforcing application and completion.
-
-Respond ONLY with the components in the structure defined by {format_instructions}.`;
-
-      const response = await this.llm.invoke([
-        new SystemMessage(systemPrompt),
-        new HumanMessage(userPrompt),
+- End with a brief closing sentence reinforcing application and completion.`,
+        ],
       ]);
 
-      const content = response.content;
-      const result =
-        typeof content === 'string' ? content : JSON.stringify(content);
+      const chain = prompt.pipe(this.llm).pipe(parser);
+
+      const maxRetries = 3;
+      let lastError: Error | null = null;
+      let components: z.infer<typeof unitComponentsSchema> | null = null;
+
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          components = await chain.invoke({
+            topic,
+            audience,
+            moduleNumber: String(moduleNumber),
+            moduleTitle,
+            unitsInModule,
+            moduleBloomObjectives,
+            interactiveExerciseComponentsList: escapeBracesForLangChain(interactiveExerciseComponentsList),
+            primaryColor: branding.primaryColor || '#9F80DA',
+            secondaryColor: branding.secondaryColor || '#1a1a1a',
+            font: branding.typo1 || 'Inter',
+            format_instructions: parser.getFormatInstructions(),
+          });
+          break;
+        } catch (err) {
+          lastError = err as Error;
+          this.logger.warn(
+            `Module evaluation generation attempt ${attempt}/${maxRetries} failed: ${lastError.message}`,
+          );
+          if (attempt === maxRetries) {
+            throw new Error(
+              `Failed to generate module evaluation after ${maxRetries} attempts: ${lastError.message}`,
+            );
+          }
+        }
+      }
+
+      if (!components) {
+        throw lastError || new Error('Failed to generate module evaluation');
+      }
+
+      const result = JSON.stringify(components);
 
       await this.prisma.courseStep.updateMany({
         where: {

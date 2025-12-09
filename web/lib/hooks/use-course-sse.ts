@@ -142,9 +142,23 @@ export function useCourseSSE(
               onObjectivesCompleted?.(objMsg, buildMsg);
             } else if (sseEvent.data.phase === 'GENERATING_INDEX' && sseEvent.data.status === 'completed') {
               const index = sseEvent.data.proposedIndex as ProposedIndex;
+              // Initialize all units from the index with 'pending' status
+              const initialUnits: UnitStatus[] = [];
+              if (index?.modules) {
+                index.modules.forEach((module) => {
+                  module.units.forEach((unit) => {
+                    initialUnits.push({
+                      unitCode: unit.code,
+                      unitTitle: unit.title,
+                      status: 'pending',
+                    });
+                  });
+                });
+              }
               setState((prev) => ({
                 ...prev,
                 proposedIndex: index,
+                units: initialUnits,
                 loadingText: null,
               }));
               onIndexCompleted?.(index);

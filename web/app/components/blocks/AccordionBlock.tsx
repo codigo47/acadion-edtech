@@ -25,7 +25,7 @@ export interface AccordionBlockProps {
 }
 
 export default function AccordionBlock({
-  items,
+  items = [],
   textStyle = {},
   textBackgroundStyle = {},
   blockStyle = 'A',
@@ -33,6 +33,15 @@ export default function AccordionBlock({
   dark = false,
 }: AccordionBlockProps) {
   const [openItems, setOpenItems] = useState<string[]>([]);
+
+  // Handle empty or missing items
+  if (!items || items.length === 0) {
+    return (
+      <div className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900 text-gray-400' : 'bg-gray-100 text-gray-500'}`}>
+        <p>No accordion items available</p>
+      </div>
+    );
+  }
 
   const toggleItem = (id: string) => {
     if (allowMultiple) {

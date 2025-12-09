@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { Job } from 'bullmq';
-import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import { StructuredOutputParser } from '@langchain/core/output_parsers';
+import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { z } from 'zod';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { CourseSSEService } from '../../course-sse.service';
 import { BaseHandler } from '../base-handler';
 import { CourseInput, GenerateIntroUnitJobData } from '../types';
-import { getComponentLists } from '../utils';
+import { getComponentLists, escapeBracesForLangChain } from '../utils';
+
+// Schema for unit components output
+const unitComponentsSchema = z.array(
+  z.object({
+    component: z.string().describe('The internal name of the component (e.g., ParagraphBlock, HeadingBlock)'),
+    content: z.record(z.string(), z.unknown()).describe('The content/props for the component following its schema'),
+  }),
+);
 
 @Injectable()
 export class IntroUnitHandler extends BaseHandler {
@@ -88,7 +98,12 @@ export class IntroUnitHandler extends BaseHandler {
     this.sseService.emitUnitStarted(courseKey, unitCode, unitTitle);
 
     try {
-      const systemPrompt = `You are an expert instructional designer specializing in adult learning, cognitive scaffolding, and digital course architecture.
+      const parser = StructuredOutputParser.fromZodSchema(unitComponentsSchema);
+
+      const prompt = ChatPromptTemplate.fromMessages([
+        [
+          'system',
+          `You are an expert instructional designer specializing in adult learning, cognitive scaffolding, and digital course architecture.
 Your task is to generate the introductory unit of a course.
 This unit sets the stage for learning and must not teach or evaluate specific content that will appear in later units.
 
@@ -98,13 +113,13 @@ Do NOT invent content outside the structure already defined.
 
 AVAILABLE COMPONENTS
 Static Components (information display)
-${staticComponentsList}
+${escapeBracesForLangChain(staticComponentsList)}
 
 Interactive General Components (non-exercise interactions)
-${interactiveGeneralComponentsList}
+${escapeBracesForLangChain(interactiveGeneralComponentsList)}
 
 Interactive Exercise Components (for activation only, not assessment)
-${interactiveExerciseComponentsList}
+${escapeBracesForLangChain(interactiveExerciseComponentsList)}
 
 (Exercise components may be used ONLY for activation of prior knowledge, NOT for evaluation.)
 
@@ -183,33 +198,37 @@ OUTPUT REQUIREMENTS
 - No explanatory text outside the component structure.
 
 YOUR TASK
-Generate the complete introductory unit following all rules above.`;
+Generate the complete introductory unit following all rules above.
 
-      const userPrompt = `Course Topic: ${topic}
-Target Audience: ${audience}
+{format_instructions}`,
+        ],
+        [
+          'human',
+          `Course Topic: {topic}
+Target Audience: {audience}
 
 General Bloom-Aligned Learning Objectives:
-${generalBloomObjectives}
+{generalBloomObjectives}
 
 Full Course Outline (Modules and Units):
-${courseOutline}
+{courseOutline}
 
 Evaluation Method Selected by the User:
-${evaluationMethod}
+{evaluationMethod}
 
 Static Components Available:
-${staticComponentsList}
+{staticComponentsList}
 
 Interactive General Components Available:
-${interactiveGeneralComponentsList}
+{interactiveGeneralComponentsList}
 
 Interactive Exercise Components Available:
-${interactiveExerciseComponentsList}
+{interactiveExerciseComponentsList}
 
 Branding:
-Primary Color: ${branding.primaryColor || '#9F80DA'}
-Secondary Color: ${branding.secondaryColor || '#1a1a1a'}
-Font: ${branding.typo1 || 'Inter'}
+Primary Color: {primaryColor}
+Secondary Color: {secondaryColor}
+Font: {font}
 
 Generate the complete INTRODUCTORY UNIT for the course following all rules of the system prompt:
 - Begin with a hook tied to real-world relevance for the target audience.
@@ -222,18 +241,51 @@ Generate the complete INTRODUCTORY UNIT for the course following all rules of th
 - Include instructions before interactive components.
 - If you include an activation exercise, it must give feedback and must NOT assess new content.
 - Follow component schemas exactly.
-- End with a motivating closing sentence.
-
-Respond ONLY with the components in the structure defined by {format_instructions}.`;
-
-      const response = await this.llm.invoke([
-        new SystemMessage(systemPrompt),
-        new HumanMessage(userPrompt),
+- End with a motivating closing sentence.`,
+        ],
       ]);
 
-      const content = response.content;
-      const result =
-        typeof content === 'string' ? content : JSON.stringify(content);
+      const chain = prompt.pipe(this.llm).pipe(parser);
+
+      const maxRetries = 3;
+      let lastError: Error | null = null;
+      let components: z.infer<typeof unitComponentsSchema> | null = null;
+
+      for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+          components = await chain.invoke({
+            topic,
+            audience,
+            generalBloomObjectives,
+            courseOutline,
+            evaluationMethod,
+            staticComponentsList: escapeBracesForLangChain(staticComponentsList),
+            interactiveGeneralComponentsList: escapeBracesForLangChain(interactiveGeneralComponentsList),
+            interactiveExerciseComponentsList: escapeBracesForLangChain(interactiveExerciseComponentsList),
+            primaryColor: branding.primaryColor || '#9F80DA',
+            secondaryColor: branding.secondaryColor || '#1a1a1a',
+            font: branding.typo1 || 'Inter',
+            format_instructions: parser.getFormatInstructions(),
+          });
+          break;
+        } catch (err) {
+          lastError = err as Error;
+          this.logger.warn(
+            `Intro unit generation attempt ${attempt}/${maxRetries} failed: ${lastError.message}`,
+          );
+          if (attempt === maxRetries) {
+            throw new Error(
+              `Failed to generate intro unit after ${maxRetries} attempts: ${lastError.message}`,
+            );
+          }
+        }
+      }
+
+      if (!components) {
+        throw lastError || new Error('Failed to generate intro unit');
+      }
+
+      const result = JSON.stringify(components);
 
       await this.prisma.courseStep.updateMany({
         where: {
