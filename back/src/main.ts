@@ -7,7 +7,11 @@ async function bootstrap() {
 
   // Enable CORS for frontend
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:8000',
+    origin: [
+      process.env.FRONTEND_URL || 'http://localhost:8000',
+      'https://dce562a760dc.ngrok-free.app',
+      'http://192.168.0.9:8000',
+    ],
     credentials: true,
   });
 
