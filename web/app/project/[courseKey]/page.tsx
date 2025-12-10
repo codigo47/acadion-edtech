@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useSetBuildingMethod, useSetModules, useSetUnits, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useCourseComponents } from '../../../lib/hooks/use-course';
 import { useCourseSSE, type ProposedIndex as SSEProposedIndex, type SSEEventData } from '../../../lib/hooks/use-course-sse';
 import * as Blocks from '../../components/blocks';
+import StarLoader from '../../components/loaders/StarLoader';
 
 // Exercise type from backend
 interface ExerciseType {
@@ -404,38 +405,6 @@ interface Message {
   component?: React.ReactNode;
 }
 
-// ChatGPT/Anthropic style loading indicator - now receives text from SSE
-function LoadingIndicator({ loadingText }: { loadingText: string | null }) {
-  const displayText = loadingText || 'Processing...';
-
-  return (
-    <div className="flex justify-start">
-      <div className="max-w-2xl">
-        <div className="flex items-center gap-2">
-          {/* Animated dots */}
-          <div className="flex gap-1">
-            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-            <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-          </div>
-          {/* Loading message from SSE */}
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={displayText}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="text-gray-500 text-sm"
-            >
-              {displayText}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // Completion popup
 function CompletionPopup({ onClose }: { onClose: () => void }) {
@@ -1260,7 +1229,7 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <LoadingIndicator loadingText={sseState.loadingText} />
+            <StarLoader texts={sseState.loadingText ? [sseState.loadingText] : undefined} />
           </motion.div>
         );
 
@@ -1401,7 +1370,7 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <LoadingIndicator loadingText={sseState.loadingText} />
+            <StarLoader texts={sseState.loadingText ? [sseState.loadingText] : undefined} />
           </motion.div>
         );
 
@@ -1793,7 +1762,7 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="max-w-2xl space-y-4"
           >
-            <LoadingIndicator loadingText={sseState.loadingText} />
+            <StarLoader texts={sseState.loadingText ? [sseState.loadingText] : undefined} />
             {sseState.progress && (
               <div className="bg-white border border-gray-200 rounded-xl p-4">
                 <div className="flex items-center justify-between mb-2">
