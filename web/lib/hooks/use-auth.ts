@@ -90,5 +90,5 @@ export function useUser() {
 }
 
 export function getGoogleLoginUrl(): string {
-  return `${API_URL}/auth/google`;
+  return `${API_URL}/v1/auth/google`;
 }

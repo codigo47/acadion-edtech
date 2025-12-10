@@ -54,7 +54,7 @@ export async function register(
 }
 
 export function getGoogleLoginUrl(): string {
-  return `${API_URL}/auth/google`;
+  return `${API_URL}/v1/auth/google`;
 }
 
 export async function getProfile(token: string): Promise<User> {
