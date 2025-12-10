@@ -2120,10 +2120,8 @@ export default function ProjectPage() {
                 {courseComponentsData?.components && proposedIndex ? (
                   <div className="max-w-4xl mx-auto py-8 px-4">
                     {/* Course title */}
-                    {courseData?.title && (
-                      <div className="mb-12 text-center">
-                        <h1 className="text-4xl font-bold text-[#1a1a1a]">{courseData.title}</h1>
-                      </div>
+                    {proposedIndex.title && (
+                      <Blocks.HeadingBlock heading={proposedIndex.title} level={1} />
                     )}
 
                     {proposedIndex.modules.map((module) => {
