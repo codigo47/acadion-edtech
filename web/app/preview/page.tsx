@@ -3,6 +3,11 @@
 import React, { useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
 
+// Loading Components
+import ChatLoadingIndicator from '../components/loaders/ChatLoadingIndicator';
+import DotMatrixLoader from '../components/loaders/DotMatrixLoader';
+import StarLoader from '../components/loaders/StarLoader';
+
 // Paragraph Components
 import ParagraphBlock from '../components/blocks/ParagraphBlock';
 import ParagraphWithHeadingBlock from '../components/blocks/ParagraphWithHeadingBlock';
@@ -161,6 +166,105 @@ export default function PreviewPage() {
         <ParagraphBlock content="A comprehensive showcase of all available block components" contentStyle={{ textAlign: 'center', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
 
         <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={1} dark={dark} />
+
+        {/* ============================================ */}
+        {/* LOADING INDICATORS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="Loading Indicators" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="ChatLoadingIndicator (Chat style with bouncing dots):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <div className={`p-6 rounded-xl ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <ChatLoadingIndicator loadingText={null} />
+        </div>
+        <div className={`p-6 rounded-xl mt-4 ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <ChatLoadingIndicator loadingText="Generating course content..." />
+        </div>
+        <div className={`p-6 rounded-xl mt-4 ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <ChatLoadingIndicator loadingText="Analyzing your request..." />
+        </div>
+
+        <div className="mt-6">
+          <ParagraphBlock content="DotMatrixLoader (3x3 grid animation with rotating text):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        </div>
+        <div className={`p-8 rounded-xl ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <DotMatrixLoader dark={dark} />
+        </div>
+        <div className={`p-8 rounded-xl mt-4 ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <DotMatrixLoader
+            dark={dark}
+            texts={['Generating course content...', 'Analyzing structure...', 'Creating modules...', 'Almost ready...']}
+            rotationInterval={1500}
+          />
+        </div>
+        <div className={`p-8 rounded-xl mt-4 ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <DotMatrixLoader
+            dark={dark}
+            texts={['Saving changes...']}
+          />
+        </div>
+
+        <div className="mt-6">
+          <ParagraphBlock content="StarLoader (4-pointed star animation):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        </div>
+        <div className={`p-8 rounded-xl ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <StarLoader dark={dark} />
+        </div>
+        <div className={`p-8 rounded-xl mt-4 ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <StarLoader
+            dark={dark}
+            texts={['Generating content...', 'Almost ready...', 'Finishing up...']}
+            rotationInterval={1500}
+          />
+        </div>
+        <div className={`p-8 rounded-xl mt-4 ${dark ? 'bg-gray-800' : 'bg-white border border-gray-200'}`}>
+          <StarLoader
+            dark={dark}
+            size={1.5}
+            texts={['Loading your course...']}
+          />
+        </div>
+
+        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={2} dark={dark} />
+
+        {/* ============================================ */}
+        {/* SEPARATOR BLOCK VARIANTS */}
+        {/* ============================================ */}
+        <HeadingBlock heading="SeparatorBlock Variants" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
+
+        <ParagraphBlock content="Line only (showLine=true, showNumber=false):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        <SeparatorBlock height={40} color="gray" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} color="red" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} color="green" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} color="blue" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} color="yellow" showLine={true} showNumber={false} dark={dark} />
+
+        <div className="mt-6">
+          <ParagraphBlock content="Number only (showLine=false, showNumber=true):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        </div>
+        <SeparatorBlock height={60} color="gray" showLine={false} showNumber={true} number={1} dark={dark} />
+        <SeparatorBlock height={60} color="red" showLine={false} showNumber={true} number={2} dark={dark} />
+        <SeparatorBlock height={60} color="green" showLine={false} showNumber={true} number={3} dark={dark} />
+        <SeparatorBlock height={60} color="blue" showLine={false} showNumber={true} number={4} dark={dark} />
+        <SeparatorBlock height={60} color="yellow" showLine={false} showNumber={true} number={5} dark={dark} />
+
+        <div className="mt-6">
+          <ParagraphBlock content="Line with number (showLine=true, showNumber=true):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        </div>
+        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={1} dark={dark} />
+        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={2} dark={dark} />
+        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={3} dark={dark} />
+        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={4} dark={dark} />
+        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={5} dark={dark} />
+
+        <div className="mt-6">
+          <ParagraphBlock content="Spacer only (showLine=false, showNumber=false):" contentStyle={{ fontWeight: '600' }} dark={dark} />
+        </div>
+        <div className={`border-2 border-dashed ${dark ? 'border-gray-600' : 'border-gray-300'} rounded`}>
+          <SeparatorBlock height={60} showLine={false} showNumber={false} dark={dark} />
+        </div>
+        <ParagraphBlock content="(The dashed border shows the separator area)" contentStyle={{ fontSize: '12px', color: dark ? '#9ca3af' : '#6B7280', fontStyle: 'italic' }} dark={dark} />
+
+        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={3} dark={dark} />
 
         {/* ============================================ */}
         {/* HEADING COMPONENTS */}
