@@ -72,8 +72,14 @@ export interface CourseSSEState {
   lastEvent: SSEEvent | null;
 }
 
+interface InitialUnitData {
+  units: UnitStatus[];
+  progress: SSEEventData['progress'] | null;
+}
+
 interface UseCourseSSEOptions {
   enabled?: boolean;
+  initialData?: InitialUnitData;
   onObjectivesCompleted?: (objectivesMessage: string, buildMethodMessage: string) => void;
   onIndexCompleted?: (proposedIndex: ProposedIndex) => void;
   onUnitCompleted?: (unitCode: string, unitTitle: string, progress: SSEEventData['progress']) => void;
@@ -87,6 +93,7 @@ export function useCourseSSE(
 ): CourseSSEState {
   const {
     enabled = true,
+    initialData,
     onObjectivesCompleted,
     onIndexCompleted,
     onUnitCompleted,
@@ -95,13 +102,14 @@ export function useCourseSSE(
   } = options;
 
   const eventSourceRef = useRef<EventSource | null>(null);
+  const initialDataAppliedRef = useRef(false);
 
   const [state, setState] = useState<CourseSSEState>({
     isConnected: false,
     loadingText: null,
     phase: null,
-    progress: null,
-    units: [],
+    progress: initialData?.progress || null,
+    units: initialData?.units || [],
     objectivesMessage: null,
     buildMethodMessage: null,
     proposedIndex: null,
@@ -109,6 +117,41 @@ export function useCourseSSE(
     error: null,
     lastEvent: null,
   });
+
+  // Apply initial data when it becomes available (for page refresh scenarios)
+  useEffect(() => {
+    if (initialData && !initialDataAppliedRef.current && initialData.units.length > 0) {
+      initialDataAppliedRef.current = true;
+      setState((prev) => {
+        // Only apply if we don't have units yet, or merge with existing
+        if (prev.units.length === 0) {
+          return {
+            ...prev,
+            units: initialData.units,
+            progress: initialData.progress,
+          };
+        }
+        // Merge: update status of existing units, add new ones
+        const mergedUnits = [...prev.units];
+        for (const initUnit of initialData.units) {
+          const existingIdx = mergedUnits.findIndex(u => u.unitCode === initUnit.unitCode);
+          if (existingIdx >= 0) {
+            // Update status if initial data has more recent info (not pending)
+            if (initUnit.status !== 'pending') {
+              mergedUnits[existingIdx] = { ...mergedUnits[existingIdx], status: initUnit.status };
+            }
+          } else {
+            mergedUnits.push(initUnit);
+          }
+        }
+        return {
+          ...prev,
+          units: mergedUnits,
+          progress: initialData.progress,
+        };
+      });
+    }
+  }, [initialData]);
 
   const handleEvent = useCallback(
     (event: MessageEvent) => {
@@ -142,25 +185,28 @@ export function useCourseSSE(
               onObjectivesCompleted?.(objMsg, buildMsg);
             } else if (sseEvent.data.phase === 'GENERATING_INDEX' && sseEvent.data.status === 'completed') {
               const index = sseEvent.data.proposedIndex as ProposedIndex;
-              // Initialize all units from the index with 'pending' status
-              const initialUnits: UnitStatus[] = [];
-              if (index?.modules) {
-                index.modules.forEach((module) => {
-                  module.units.forEach((unit) => {
-                    initialUnits.push({
-                      unitCode: unit.code,
-                      unitTitle: unit.title,
-                      status: 'pending',
+              setState((prev) => {
+                // Build units from index, preserving existing status if available
+                const newUnits: UnitStatus[] = [];
+                if (index?.modules) {
+                  index.modules.forEach((module) => {
+                    module.units.forEach((unit) => {
+                      const existingUnit = prev.units.find(u => u.unitCode === unit.code);
+                      newUnits.push({
+                        unitCode: unit.code,
+                        unitTitle: unit.title,
+                        status: existingUnit?.status || 'pending',
+                      });
                     });
                   });
-                });
-              }
-              setState((prev) => ({
-                ...prev,
-                proposedIndex: index,
-                units: initialUnits,
-                loadingText: null,
-              }));
+                }
+                return {
+                  ...prev,
+                  proposedIndex: index,
+                  units: newUnits,
+                  loadingText: null,
+                };
+              });
               onIndexCompleted?.(index);
             }
             break;
@@ -327,12 +373,13 @@ export function useCourseSSE(
 
   // Reset state when courseKey changes
   useEffect(() => {
+    initialDataAppliedRef.current = false;
     setState({
       isConnected: false,
       loadingText: null,
       phase: null,
-      progress: null,
-      units: [],
+      progress: initialData?.progress || null,
+      units: initialData?.units || [],
       objectivesMessage: null,
       buildMethodMessage: null,
       proposedIndex: null,
@@ -340,7 +387,7 @@ export function useCourseSSE(
       error: null,
       lastEvent: null,
     });
-  }, [courseKey]);
+  }, [courseKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return state;
 }

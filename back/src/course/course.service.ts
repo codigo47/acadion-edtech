@@ -754,6 +754,23 @@ export class CourseService {
     };
   }
 
+  async findAllByUserId(userId: string) {
+    const courses = await this.prisma.course.findMany({
+      where: { userId },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        key: true,
+        title: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+
+    return courses;
+  }
+
   async getCourseComponents(courseKey: string) {
     const course = await this.prisma.course.findFirst({
       where: { key: courseKey },

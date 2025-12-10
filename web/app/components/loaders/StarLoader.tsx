@@ -8,6 +8,7 @@ export interface StarLoaderProps {
   texts?: string[];
   rotationInterval?: number;
   size?: number;
+  textPosition?: 'right' | 'bottom';
 }
 
 const defaultTexts = [
@@ -24,6 +25,7 @@ export default function StarLoader({
   texts = defaultTexts,
   rotationInterval = 2000,
   size = 1,
+  textPosition = 'right',
 }: StarLoaderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -42,8 +44,10 @@ export default function StarLoader({
   const mediumSize = 15 * size;
   const largeSize = 18 * size;
 
+  const isBottom = textPosition === 'bottom';
+
   return (
-    <div className="flex items-center justify-start gap-4">
+    <div className={`flex ${isBottom ? 'flex-col items-center' : 'items-center justify-start'} gap-1`}>
       <div
         className="star-container"
         style={{
@@ -85,7 +89,7 @@ export default function StarLoader({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3 }}
-          className={`text-sm font-medium ${dark ? 'text-gray-300' : 'text-gray-600'}`}
+          className={`text-sm font-medium ${isBottom ? 'text-center' : ''} ${dark ? 'text-gray-300' : 'text-gray-600'}`}
         >
           {texts[currentIndex]}
         </motion.span>

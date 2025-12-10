@@ -1,37 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useCourses } from '../../lib/hooks/use-course';
+import StarLoader from '../components/loaders/StarLoader';
 
 export default function Dashboard() {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState('Plan');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const addiePhases = [
-    { name: 'Analysis', icon: '🔍' },
-    { name: 'Design', icon: '✏️' },
-    { name: 'Development', icon: '⚙️' },
-    { name: 'Implementation', icon: '🚀' },
-    { name: 'Evaluation', icon: '📊' }
-  ];
+  const { data: courses, isLoading, error } = useCourses();
 
-  const projects = [
-    { name: 'Scrum 101', type: 'course' },
-    { name: 'Project Management Fundamentals', type: 'course' },
-    { name: 'Leadership Development Program', type: 'course' },
-    { name: 'Data Analytics Bootcamp', type: 'course' },
-    { name: 'Digital Marketing Strategy', type: 'course' },
-    { name: 'Python for Beginners', type: 'course' },
-    { name: 'Customer Service Excellence', type: 'course' }
-  ];
+  const filteredCourses = useMemo(() => {
+    if (!courses) return [];
+    if (!searchQuery.trim()) return courses;
 
-  const courses = [
-    { id: 1, title: 'Scrum 101', image: '/sample.jpeg' },
-    { id: 2, title: 'Project Management Fundamentals', image: '/sample.jpeg' },
-    { id: 3, title: 'Leadership Development Program', image: '/sample.jpeg' }
-  ];
+    const query = searchQuery.toLowerCase();
+    return courses.filter(course =>
+      course.title?.toLowerCase().includes(query)
+    );
+  }, [courses, searchQuery]);
 
   const milestones = [
     {
@@ -82,7 +73,9 @@ export default function Dashboard() {
             </svg>
             <input
               type="text"
-              placeholder="Search..."
+              placeholder="Search courses..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent outline-none text-sm w-64 text-gray-600"
             />
           </div>
@@ -118,30 +111,16 @@ export default function Dashboard() {
                 </button>
               </nav>
 
-              <div className="border-t border-gray-200 pt-4 mb-6">
-                <h3 className="text-xs font-semibold text-gray-500 mb-3 px-3 uppercase tracking-wide">ADDIE Model</h3>
-                <div className="space-y-1">
-                  {addiePhases.map((phase, idx) => (
-                    <button
-                      key={idx}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-left text-sm hover:bg-gray-200 rounded transition-colors"
-                    >
-                      <span>{phase.icon}</span>
-                      <span>{phase.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               <div className="border-t border-gray-200 pt-4">
                 <h3 className="text-xs font-semibold text-gray-500 mb-3 px-3 uppercase tracking-wide">Projects</h3>
                 <div className="space-y-1">
-                  {projects.map((project, idx) => (
+                  {courses?.map((course) => (
                     <button
-                      key={idx}
-                      className="w-full px-3 py-2 text-left text-sm hover:bg-gray-200 rounded transition-colors"
+                      key={course.id}
+                      onClick={() => router.push(`/project/${course.key}`)}
+                      className="w-full px-3 py-2 text-left text-sm hover:bg-gray-200 rounded transition-colors truncate"
                     >
-                      {project.name}
+                      {course.title || 'Untitled Course'}
                     </button>
                   ))}
                 </div>
@@ -158,25 +137,66 @@ export default function Dashboard() {
               <div className="max-w-4xl mx-auto">
                 <h1 className="text-2xl font-bold mb-6 text-[#1a1a1a]">My Courses</h1>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {courses.map((course) => (
-                    <div
-                      key={course.id}
-                      className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
-                    >
-                      <div className="aspect-video w-full overflow-hidden">
-                        <img
-                          src={course.image}
-                          alt={course.title}
-                          className="w-full h-full object-cover"
-                        />
+                {isLoading ? (
+                  <div className="flex justify-center items-center py-20">
+                    <StarLoader
+                      texts={['Loading your courses...']}
+                      textPosition="bottom"
+                      size={1.5}
+                    />
+                  </div>
+                ) : error ? (
+                  <div className="text-center py-20">
+                    <p className="text-red-500">Failed to load courses. Please try again.</p>
+                  </div>
+                ) : filteredCourses.length === 0 ? (
+                  <div className="text-center py-20">
+                    {searchQuery ? (
+                      <p className="text-gray-500">No courses found matching "{searchQuery}"</p>
+                    ) : (
+                      <div>
+                        <p className="text-gray-500 mb-4">You don't have any courses yet.</p>
+                        <button
+                          onClick={() => router.push('/project')}
+                          className="px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white rounded-lg hover:from-[#8A6BC5] hover:to-[#7B5BB5] transition-all"
+                        >
+                          Create your first course
+                        </button>
                       </div>
-                      <div className="p-4">
-                        <h3 className="text-lg font-semibold text-[#1a1a1a]">{course.title}</h3>
+                    )}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredCourses.map((course) => (
+                      <div
+                        key={course.id}
+                        onClick={() => router.push(`/project/${course.key}`)}
+                        className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden"
+                      >
+                        <div className="aspect-video w-full overflow-hidden bg-gradient-to-br from-[#9F80DA]/20 to-[#8A6BC5]/20 flex items-center justify-center">
+                          <svg className="w-16 h-16 text-[#9F80DA]/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                          </svg>
+                        </div>
+                        <div className="p-4">
+                          <h3 className="text-lg font-semibold text-[#1a1a1a] truncate">
+                            {course.title || 'Untitled Course'}
+                          </h3>
+                          <div className="flex items-center gap-2 mt-2">
+                            <span className={`text-xs px-2 py-1 rounded-full ${
+                              course.status === 'completed' ? 'bg-green-100 text-green-700' :
+                              course.status === 'generating' ? 'bg-yellow-100 text-yellow-700' :
+                              course.status === 'failed' ? 'bg-red-100 text-red-700' :
+                              'bg-gray-100 text-gray-600'
+                            }`}>
+                              {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 

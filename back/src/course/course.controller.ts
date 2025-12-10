@@ -7,10 +7,25 @@ import {
   Logger,
   Sse,
   MessageEvent,
+  UseGuards,
+  Request,
 } from '@nestjs/common';
+import type { Request as ExpressRequest } from 'express';
 import { Observable, map } from 'rxjs';
 import { CourseService } from './course.service';
 import { CourseSSEService, SSEEvent } from './course-sse.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+
+interface AuthenticatedUser {
+  id: string;
+  email: string;
+  name?: string;
+}
+
+interface RequestWithUser extends ExpressRequest {
+  user: AuthenticatedUser;
+}
+
 import {
   CreateCourseDto,
   GenerateTitleDto,
@@ -135,6 +150,12 @@ export class CourseController {
         throw new Error(`Unknown task: ${unknownTask}`);
       }
     }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async findAll(@Request() req: RequestWithUser) {
+    return this.courseService.findAllByUserId(req.user.id);
   }
 
   @Get(':key')

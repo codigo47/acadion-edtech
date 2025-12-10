@@ -273,8 +273,19 @@ export class IndexHandler extends BaseHandler {
           let hasEvaluationUnit = false;
 
           for (const unit of module.units) {
-            if (unit.title.toLowerCase() === 'evaluation') {
-              hasEvaluationUnit = true;
+            const titleLower = unit.title.toLowerCase();
+            // Check for evaluation units (module evaluation or final evaluation)
+            if (
+              titleLower === 'evaluation' ||
+              titleLower === 'final evaluation' ||
+              titleLower.includes('evaluación final') ||
+              titleLower.includes('evaluacion final')
+            ) {
+              // Only mark as module evaluation if it's just "evaluation", not "final evaluation"
+              if (titleLower === 'evaluation') {
+                hasEvaluationUnit = true;
+              }
+              // Skip final evaluation units - they're handled separately by course evaluation step
             } else {
               contentUnits.push(unit);
             }
@@ -314,6 +325,7 @@ export class IndexHandler extends BaseHandler {
       await this.prisma.course.update({
         where: { id: courseId },
         data: {
+          title: indexWithIntros.title,
           output: { ...currentOutput, proposedIndex: indexWithIntros },
         },
       });

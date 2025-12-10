@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback, ComponentType } from 'react';
+import { useState, useEffect, useRef, useCallback, ComponentType, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useSetBuildingMethod, useSetModules, useSetUnits, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useCourseComponents } from '../../../lib/hooks/use-course';
-import { useCourseSSE, type ProposedIndex as SSEProposedIndex, type SSEEventData } from '../../../lib/hooks/use-course-sse';
+import { useCourseSSE, type ProposedIndex as SSEProposedIndex, type SSEEventData, type UnitStatus } from '../../../lib/hooks/use-course-sse';
 import * as Blocks from '../../components/blocks';
 import StarLoader from '../../components/loaders/StarLoader';
 
@@ -524,17 +524,7 @@ export default function ProjectPage() {
     console.error('SSE Error:', error);
   }, []);
 
-  // SSE Hook
-  const sseState = useCourseSSE(courseKey, {
-    enabled: isSSEEnabled,
-    onObjectivesCompleted: handleObjectivesCompleted,
-    onIndexCompleted: handleIndexCompleted,
-    onUnitCompleted: handleUnitCompleted,
-    onGenerationComplete: handleGenerationComplete,
-    onError: handleSSEError,
-  });
-
-  // React Query hooks
+  // React Query hooks - must be before useCourseSSE to provide initial data
   const generateTitleMutation = useGenerateTitle();
   const setAudienceMutation = useSetAudience();
   const setObjectiveMutation = useSetObjective();
@@ -548,6 +538,86 @@ export default function ProjectPage() {
   const generateCourseMutation = useGenerateCourse();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
   const { data: courseComponentsData } = useCourseComponents(courseKey);
+
+  // Build initial data for SSE hook from course steps (for page refresh during generation)
+  const sseInitialData = useMemo(() => {
+    if (!courseData || courseData.status !== 'generating') {
+      return undefined;
+    }
+
+    const steps = courseData.steps || [];
+    const unitSteps = steps.filter(
+      (s) =>
+        s.type === 'generating_intro_unit' ||
+        s.type === 'generating_content_unit' ||
+        s.type === 'generating_module_evaluation' ||
+        s.type === 'generating_course_evaluation'
+    );
+
+    const unitsMap = new Map<string, UnitStatus>();
+
+    for (const step of unitSteps) {
+      const payload = step.payload as { unitCode?: string; unitTitle?: string; moduleNumber?: number; moduleTitle?: string } | null;
+      let unitCode = payload?.unitCode || '';
+      let unitTitle = payload?.unitTitle || '';
+
+      // Handle module evaluation steps
+      if (step.type === 'generating_module_evaluation') {
+        const moduleNum = payload?.moduleNumber;
+        if (moduleNum) {
+          unitCode = `eval-m${moduleNum}`;
+          unitTitle = payload?.moduleTitle ? `${payload.moduleTitle} - Evaluation` : `Module ${moduleNum} Evaluation`;
+        }
+      }
+
+      // Handle course evaluation step
+      if (step.type === 'generating_course_evaluation') {
+        unitCode = 'final-evaluation';
+        unitTitle = 'Final Evaluation';
+      }
+
+      // Skip if no valid unitCode
+      if (!unitCode) continue;
+
+      // Use Map to deduplicate by unitCode, keeping the most recent status
+      const existing = unitsMap.get(unitCode);
+      if (!existing || step.status !== 'pending') {
+        unitsMap.set(unitCode, {
+          unitCode,
+          unitTitle,
+          status: step.status as 'pending' | 'running' | 'completed' | 'failed',
+        });
+      }
+    }
+
+    const units = Array.from(unitsMap.values());
+    const completedUnits = units.filter((u) => u.status === 'completed').length;
+    const failedUnits = units.filter((u) => u.status === 'failed').length;
+    const runningUnits = units.filter((u) => u.status === 'running').length;
+    const pendingUnits = units.filter((u) => u.status === 'pending').length;
+
+    return {
+      units,
+      progress: {
+        totalUnits: units.length,
+        completedUnits,
+        failedUnits,
+        runningUnits,
+        pendingUnits,
+      },
+    };
+  }, [courseData]);
+
+  // SSE Hook
+  const sseState = useCourseSSE(courseKey, {
+    enabled: isSSEEnabled,
+    initialData: sseInitialData,
+    onObjectivesCompleted: handleObjectivesCompleted,
+    onIndexCompleted: handleIndexCompleted,
+    onUnitCompleted: handleUnitCompleted,
+    onGenerationComplete: handleGenerationComplete,
+    onError: handleSSEError,
+  });
 
   // Get conversationKey from courseData
   const resolvedConversationKey = courseData?.conversations?.[0]?.id || null;
@@ -1762,16 +1832,16 @@ export default function ProjectPage() {
             transition={{ duration: 0.3 }}
             className="max-w-2xl space-y-4"
           >
-            <StarLoader texts={sseState.loadingText ? [sseState.loadingText] : undefined} />
+            <StarLoader texts={['Thinking...']} />
             {sseState.progress && (
-              <div className="bg-white border border-gray-200 rounded-xl p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-gray-700">Generating units</span>
+              <div className="bg-white border-2 border-gray-200 rounded-xl p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-lg font-semibold text-[#1a1a1a]">Generating units</span>
                   <span className="text-sm text-gray-500">
                     {sseState.progress.completedUnits} / {sseState.progress.totalUnits}
                   </span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
                   <div
                     className="bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] h-2 rounded-full transition-all duration-300"
                     style={{
@@ -1780,33 +1850,49 @@ export default function ProjectPage() {
                   />
                 </div>
                 {sseState.units.length > 0 && (
-                  <div className="mt-3 space-y-1">
+                  <div className="space-y-1">
                     {[...sseState.units]
+                      // Filter out duplicate "Final Evaluation" units - keep only the one with code "final-evaluation"
+                      .filter((unit, index, arr) => {
+                        const titleLower = unit.unitTitle.toLowerCase();
+                        if (titleLower === 'final evaluation' || titleLower === 'evaluación final') {
+                          // Only keep if it's the canonical final-evaluation code
+                          return unit.unitCode === 'final-evaluation';
+                        }
+                        return true;
+                      })
                       .sort((a, b) => {
+                        // Sort final-evaluation at the end
+                        if (a.unitCode === 'final-evaluation') return 1;
+                        if (b.unitCode === 'final-evaluation') return -1;
+                        // Sort eval-m* after regular units
+                        if (a.unitCode.startsWith('eval-m') && !b.unitCode.startsWith('eval-m')) return 1;
+                        if (b.unitCode.startsWith('eval-m') && !a.unitCode.startsWith('eval-m')) return -1;
                         const [aModule, aUnit] = a.unitCode.split('.').map(Number);
                         const [bModule, bUnit] = b.unitCode.split('.').map(Number);
                         return aModule - bModule || aUnit - bUnit;
                       })
                       .map((unit) => (
-                      <div key={unit.unitCode} className="flex items-center gap-2 text-xs">
+                      <div key={unit.unitCode} className="flex items-center gap-2 text-sm text-gray-600 py-1 px-3 bg-gray-50 rounded-lg">
                         {unit.status === 'completed' && (
-                          <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                           </svg>
                         )}
                         {unit.status === 'running' && (
-                          <div className="w-4 h-4 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin" />
+                          <div className="w-4 h-4 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin flex-shrink-0" />
                         )}
                         {unit.status === 'pending' && (
-                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full" />
+                          <div className="w-4 h-4 border-2 border-gray-300 rounded-full flex-shrink-0" />
                         )}
                         {unit.status === 'failed' && (
-                          <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                           </svg>
                         )}
-                        <span className={unit.status === 'completed' ? 'text-gray-500' : 'text-gray-700'}>
-                          Unit {unit.unitCode}: {unit.unitTitle}
+                        <span className="text-[#9F80DA] font-medium">{unit.unitCode}</span>
+                        <span className={unit.status === 'completed' ? 'text-gray-500' : 'text-gray-600'}>
+                          {unit.unitTitle}
                         </span>
                       </div>
                     ))}

@@ -318,6 +318,22 @@ export function useSetEvaluationDetails() {
   });
 }
 
+interface CourseListItem {
+  id: number;
+  key: string;
+  title: string | null;
+  status: 'draft' | 'generating' | 'completed' | 'failed';
+  createdAt: string;
+  updatedAt: string;
+}
+
+export function useCourses() {
+  return useQuery({
+    queryKey: ['courses'],
+    queryFn: () => api.get<CourseListItem[]>('/v1/course'),
+  });
+}
+
 export function useCourse(key: string | null) {
   return useQuery({
     queryKey: ['course', key],
