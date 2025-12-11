@@ -1,15 +1,30 @@
 'use client';
 
 import Link from 'next/link';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock, ArrowRight } from 'lucide-react';
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  ArrowRight,
+  Briefcase,
+  Cpu,
+  Accessibility,
+  Layout,
+  Brain,
+  ClipboardList,
+  Target,
+  Folder,
+  TrendingUp,
+} from 'lucide-react';
 
 export interface BlogPost {
   slug: string;
-  title: string;
-  excerpt: string;
+  title: { en: string; es: string };
+  excerpt: { en: string; es: string };
   date: string;
-  readTime: string;
+  readTime: { en: string; es: string };
   category: string;
   author: string;
 }
@@ -17,201 +32,597 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: 'freelance-vs-corporate-instructional-design',
-    title: 'Freelance vs Corporate: Which Path is Right for Your Instructional Design Career?',
-    excerpt: 'Explore the pros and cons of working as a freelance instructional designer versus joining a corporate L&D team. Learn about income potential, work-life balance, creative freedom, and career growth opportunities in both paths.',
+    title: {
+      en: 'Freelance vs. Corporate Instructional Design Careers: Which Path Is Best for You in 2025?',
+      es: 'Diseño Instruccional: Cómo Elegir entre Freelance y Corporativo',
+    },
+    excerpt: {
+      en: 'Explore the pros and cons of freelance vs. corporate instructional design, the income and lifestyle differences, and how AI tools like Acadion are reshaping opportunities in both paths.',
+      es: 'Analiza las ventajas y desventajas del diseño instruccional freelance vs. corporativo, las diferencias en ingresos, estilo de vida y cómo herramientas de IA como Acadion están transformando ambas trayectorias.',
+    },
     date: 'February 3, 2024',
-    readTime: '8 min read',
+    readTime: { en: '8 min read', es: '8 min de lectura' },
     category: 'Career',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'learning-management-systems-guide',
-    title: 'The Complete Guide to Learning Management Systems (LMS) and Related Technologies',
-    excerpt: 'Navigate the complex landscape of learning technologies. From traditional LMS platforms to LXP, authoring tools, and content libraries—understand which systems you need to master as an instructional designer.',
+    title: {
+      en: 'A Practical Guide to LMS, LXP, Authoring Tools, and Learning Technologies for Instructional Designers',
+      es: 'Guía práctica sobre LMS, LXP, herramientas de autor y tecnologías educativas para diseñadores instruccionales',
+    },
+    excerpt: {
+      en: 'The learning technology landscape is expanding rapidly, making it essential for instructional designers to understand how LMS platforms, LXP systems, authoring tools, and assessment technologies work together.',
+      es: 'El ecosistema de tecnologías para el aprendizaje crece rápidamente, por lo que es esencial que los diseñadores instruccionales comprendan cómo funcionan los LMS, los LXP, las herramientas de autor y las plataformas de evaluación.',
+    },
     date: 'February 17, 2024',
-    readTime: '12 min read',
+    readTime: { en: '12 min read', es: '12 min de lectura' },
     category: 'Technology',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'ai-powered-elearning-comparison',
-    title: 'Traditional vs AI-Powered eLearning: A Comprehensive Comparison',
-    excerpt: 'How does AI change the game for eLearning development? Compare traditional authoring approaches with modern AI-powered platforms, exploring efficiency gains, personalization capabilities, and content quality.',
+    title: {
+      en: 'Traditional vs. AI-Powered eLearning: Key Differences, Benefits, and Future Trends',
+      es: 'eLearning Tradicional vs. eLearning con IA: Diferencias, beneficios y tendencias clave',
+    },
+    excerpt: {
+      en: 'AI is reshaping instructional design, accelerating workflows, enabling personalization, and redefining content quality expectations. Understand the differences between traditional and AI-powered eLearning.',
+      es: 'La inteligencia artificial está redefiniendo los tiempos de producción, la personalización y la calidad del contenido en el diseño instruccional.',
+    },
     date: 'March 2, 2024',
-    readTime: '10 min read',
-    category: 'AI & Technology',
-    author: 'Vanessa Jiordan'
+    readTime: { en: '10 min read', es: '10 min de lectura' },
+    category: 'AI',
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'teacher-to-instructional-designer',
-    title: 'From Classroom to Courseware: Reinventing Yourself as an Instructional Designer',
-    excerpt: 'A practical roadmap for educators transitioning into instructional design. Learn how to leverage your teaching experience, what new skills to develop, and how to build a portfolio that stands out.',
+    title: {
+      en: 'From Teacher to Instructional Designer: Skills, Portfolio Tips, and Career Strategies',
+      es: 'De Docente a Diseñador Instruccional: Habilidades, portafolio y estrategias clave',
+    },
+    excerpt: {
+      en: 'Instructional design is one of the most common career shifts for teachers. Your teaching background is a major advantage, especially when paired with modern tools such as Acadion.',
+      es: 'El diseño instruccional se ha convertido en una de las transiciones profesionales más comunes para docentes. La experiencia pedagógica es una ventaja decisiva.',
+    },
     date: 'March 16, 2024',
-    readTime: '9 min read',
+    readTime: { en: '9 min read', es: '9 min de lectura' },
     category: 'Career',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'accessibility-compliance-wcag',
-    title: 'Accessibility in eLearning: Meeting WCAG Standards Without Compromising Design',
-    excerpt: 'Create beautiful, engaging courses that everyone can access. This guide covers WCAG 2.1 compliance, accessible design patterns, testing tools, and common pitfalls to avoid.',
+    title: {
+      en: 'Accessibility in eLearning: Meeting WCAG Standards Without Compromising Design',
+      es: 'Accesibilidad en eLearning: Cómo cumplir con los estándares WCAG sin sacrificar el diseño',
+    },
+    excerpt: {
+      en: "Designing accessible eLearning is more than a compliance task—it's a commitment to ensuring everyone can learn, regardless of their abilities, environment, or device.",
+      es: 'La accesibilidad es esencial en el eLearning moderno. No solo responde a leyes como ADA, Section 508 o la Ley Europea de Accesibilidad, sino que también mejora la experiencia de todos los usuarios.',
+    },
     date: 'March 30, 2024',
-    readTime: '11 min read',
+    readTime: { en: '11 min read', es: '11 min de lectura' },
     category: 'Accessibility',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'instructional-design-models-comparison',
-    title: 'ADDIE vs SAM vs Design Thinking: Choosing the Right Instructional Design Model',
-    excerpt: 'Not all projects fit the same methodology. Compare popular instructional design frameworks and learn when to use each approach for maximum effectiveness and client satisfaction.',
+    title: {
+      en: 'ADDIE vs SAM vs Design Thinking: How to Choose the Right Instructional Design Model',
+      es: 'ADDIE vs SAM vs Design Thinking: Cómo elegir el modelo de diseño instruccional adecuado',
+    },
+    excerpt: {
+      en: 'Not every learning project fits the same instructional design framework. ADDIE, SAM, Design Thinking, Agile, and Action Mapping each offer different strengths.',
+      es: 'No todos los proyectos de aprendizaje necesitan el mismo enfoque. Modelos como ADDIE, SAM, Design Thinking, Agile y Action Mapping ofrecen estructuras distintas.',
+    },
     date: 'April 13, 2024',
-    readTime: '10 min read',
+    readTime: { en: '10 min read', es: '10 min de lectura' },
     category: 'Methodology',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'microlearning-strategies',
-    title: 'Microlearning That Actually Works: Design Strategies for Modern Learners',
-    excerpt: 'Short doesn\'t mean shallow. Discover how to design impactful microlearning experiences that fit busy schedules while still achieving meaningful learning outcomes.',
+    title: {
+      en: 'Microlearning That Actually Works: Design Strategies for Busy Modern Learners',
+      es: 'Microlearning que realmente funciona: Estrategias de diseño para los aprendices modernos',
+    },
+    excerpt: {
+      en: 'Microlearning is now a core strategy in modern learning and development. When designed well, it supports performance, boosts retention, and fits seamlessly into the flow of work.',
+      es: 'El microlearning se consolidó como una estrategia clave en el aprendizaje corporativo. Bien diseñado, mejora el desempeño, refuerza conocimientos y se integra en el flujo de trabajo.',
+    },
     date: 'April 27, 2024',
-    readTime: '7 min read',
+    readTime: { en: '7 min read', es: '7 min de lectura' },
     category: 'Design Strategy',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'assessment-design-best-practices',
-    title: 'Beyond Multiple Choice: Innovative Assessment Strategies for eLearning',
-    excerpt: 'Move past traditional quizzes to create assessments that truly measure learning. Explore scenario-based questions, simulations, performance tasks, and formative assessment techniques.',
+    title: {
+      en: 'Beyond Multiple Choice: Innovative Assessment Strategies for eLearning',
+      es: 'Más allá del multiple choice: estrategias innovadoras de evaluación en eLearning',
+    },
+    excerpt: {
+      en: 'In eLearning, assessment is where your design either proves its value—or quietly falls apart. Moving beyond traditional multiple-choice quizzes opens up powerful possibilities.',
+      es: 'En eLearning, la evaluación es el lugar donde se valida el aprendizaje… o donde se revela que el diseño no fue suficiente.',
+    },
     date: 'May 11, 2024',
-    readTime: '9 min read',
+    readTime: { en: '9 min read', es: '9 min de lectura' },
     category: 'Assessment',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'building-instructional-design-portfolio',
-    title: 'Building an Instructional Design Portfolio That Gets You Hired',
-    excerpt: 'Your portfolio is your most powerful job search tool. Learn what to include, how to present your work under NDA, creating case studies, and showcasing your design process.',
+    title: {
+      en: 'Building an Instructional Design Portfolio That Gets You Hired',
+      es: 'Cómo construir un portafolio de diseño instruccional que realmente te consiga trabajo',
+    },
+    excerpt: {
+      en: 'Your portfolio is often the deciding factor in landing instructional design positions. A strong portfolio demonstrates your skills, process, and thinking in ways no resume can match.',
+      es: 'En diseño instruccional y eLearning, el portafolio suele pesar más que el currículum. Los reclutadores quieren ver cómo pensás, qué creás y cómo resolvés problemas reales.',
+    },
     date: 'November 8, 2025',
-    readTime: '8 min read',
+    readTime: { en: '8 min read', es: '8 min de lectura' },
     category: 'Career',
-    author: 'Vanessa Jiordan'
+    author: 'Vanessa Jiordan',
   },
   {
     slug: 'future-of-instructional-design',
-    title: 'The Future of Instructional Design: Trends Shaping Our Field in 2025 and Beyond',
-    excerpt: 'Stay ahead of the curve with insights into emerging trends: AI assistants, immersive learning, adaptive technologies, skills-based learning, and the evolving role of instructional designers.',
+    title: {
+      en: 'The Future of Instructional Design: Trends Shaping Our Field in 2026 and Beyond',
+      es: 'El Futuro del Diseño Instruccional: Tendencias que Transformarán Nuestro Campo en 2026 y Más Allá',
+    },
+    excerpt: {
+      en: 'Instructional design is changing faster than at any other point in its history. New technologies, new expectations, and new ways of working are reshaping what it means to design learning.',
+      es: 'El diseño instruccional está cambiando más rápido que en cualquier otro momento de su historia. Nuevas tecnologías, nuevas expectativas y nuevas formas de trabajar.',
+    },
     date: 'November 22, 2025',
-    readTime: '12 min read',
+    readTime: { en: '12 min read', es: '12 min de lectura' },
     category: 'Industry Trends',
-    author: 'Vanessa Jiordan'
-  }
+    author: 'Vanessa Jiordan',
+  },
 ];
 
+const categories = [
+  { id: 'Career', icon: Briefcase, label: { en: 'Career', es: 'Carrera' } },
+  {
+    id: 'Technology',
+    icon: Cpu,
+    label: { en: 'Technology', es: 'Tecnología' },
+  },
+  { id: 'AI', icon: Brain, label: { en: 'AI', es: 'IA' } },
+  {
+    id: 'Accessibility',
+    icon: Accessibility,
+    label: { en: 'Accessibility', es: 'Accesibilidad' },
+  },
+  {
+    id: 'Methodology',
+    icon: Layout,
+    label: { en: 'Methodology', es: 'Metodología' },
+  },
+  {
+    id: 'Design Strategy',
+    icon: Target,
+    label: { en: 'Design Strategy', es: 'Estrategia de Diseño' },
+  },
+  {
+    id: 'Assessment',
+    icon: ClipboardList,
+    label: { en: 'Assessment', es: 'Evaluación' },
+  },
+  {
+    id: 'Industry Trends',
+    icon: TrendingUp,
+    label: { en: 'Industry Trends', es: 'Tendencias' },
+  },
+];
+
+// Helper function to get category icon
+const getCategoryIcon = (categoryId: string) => {
+  const category = categories.find((c) => c.id === categoryId);
+  return category ? category.icon : Folder;
+};
+
 export default function BlogPage() {
+  const [language, setLanguage] = useState<'en' | 'es'>('en');
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  const handleCategoryToggle = (categoryId: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((c) => c !== categoryId)
+        : [...prev, categoryId]
+    );
+  };
+
+  const filteredPosts =
+    selectedCategories.length === 0
+      ? blogPosts
+      : blogPosts.filter((post) => selectedCategories.includes(post.category));
+
+  // Get the 3 most recent posts for "What's new" section
+  const latestPosts = [...blogPosts]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
+
+  // Get remaining posts for the grid (excluding featured if no filter, or all filtered)
+  const remainingPosts =
+    selectedCategories.length === 0
+      ? filteredPosts.filter((post) => !latestPosts.includes(post))
+      : filteredPosts;
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <Link href="/">
-              <img
-                src="/landing/acadion.png"
-                alt="Acadion Logo"
-                className="h-8 object-contain cursor-pointer"
-              />
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link href="/">
+                <img
+                  src="/landing/acadion2.png"
+                  alt="Acadion Logo"
+                  className="h-8 object-contain cursor-pointer"
+                />
+              </Link>
+              <span className="text-gray-300 text-2xl font-light">|</span>
+              <span className="text-xl font-bold text-[#9F80DA] mt-[5px]">
+                Blog
+              </span>
+            </div>
             <Link
               href="/"
               className="flex items-center gap-2 text-gray-600 hover:text-[#9F80DA] transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Home
+              {language === 'en' ? 'Back to acadion.ai' : 'Volver a acadion.ai'}
             </Link>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
-          >
-            Acadion.ai <span className="text-[#9F80DA]">Blog</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-gray-600 leading-relaxed"
-          >
-            Insights, strategies, and inspiration for instructional designers
-          </motion.p>
+      {/* Hero Section with Background */}
+      <section className="relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#9F80DA]/5 via-white to-[#9F80DA]/10" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#9F80DA]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#9F80DA]/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
+
+        <div className="relative py-16 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Language Switcher */}
+            <div className="flex justify-end mb-6 gap-2">
+              <button
+                onClick={() => setLanguage('en')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${
+                  language === 'en'
+                    ? 'bg-[#9F80DA] text-white shadow-md'
+                    : 'bg-white/80 text-gray-600 hover:bg-white border border-gray-200'
+                }`}
+                title="English"
+              >
+                <span className="text-lg">🇺🇸</span>
+                <span className="text-sm font-medium">EN</span>
+              </button>
+              <button
+                onClick={() => setLanguage('es')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${
+                  language === 'es'
+                    ? 'bg-[#9F80DA] text-white shadow-md'
+                    : 'bg-white/80 text-gray-600 hover:bg-white border border-gray-200'
+                }`}
+                title="Español"
+              >
+                <span className="text-lg">🇪🇸</span>
+                <span className="text-sm font-medium">ES</span>
+              </button>
+            </div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm font-semibold text-[#9F80DA] tracking-wider mb-3"
+            >
+              {language === 'en'
+                ? 'acadion.ai Presents:'
+                : 'acadion.ai Presenta:'}
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05 }}
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-4"
+            >
+              {language === 'en'
+                ? 'The Instructional Design Hub'
+                : 'El Centro de Diseño Instruccional'}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-xl text-gray-600 leading-relaxed mb-4"
+            >
+              {language === 'en'
+                ? 'Insights, strategies, and expert perspectives from experienced L&D professionals.'
+                : 'Perspectivas, estrategias y conocimientos expertos de profesionales experimentados en L&D.'}
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15 }}
+              className="text-base text-gray-500 leading-relaxed max-w-2xl mx-auto"
+            >
+              {language === 'en'
+                ? 'Our content is 100% sourced from real-world instructional design experience. Practical guides, industry trends, and actionable advice to help you grow your skills and advance your career.'
+                : 'Nuestro contenido proviene 100% de experiencia real en diseño instruccional. Guías prácticas, tendencias de la industria y consejos accionables para desarrollar tus habilidades y avanzar en tu carrera.'}
+            </motion.p>
+          </div>
+
+          {/* Category Filters */}
+          <div className="max-w-7xl mx-auto mt-10">
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+              {categories.map((category) => {
+                const Icon = category.icon;
+                const isSelected = selectedCategories.includes(category.id);
+                return (
+                  <button
+                    key={category.id}
+                    onClick={() => handleCategoryToggle(category.id)}
+                    className={`px-3 sm:px-4 py-2 sm:py-2.5 rounded-full font-medium transition-all text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 ${
+                      isSelected
+                        ? 'bg-[#9F80DA] text-white shadow-md'
+                        : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 shadow-sm'
+                    }`}
+                  >
+                    <div
+                      className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 ${
+                        isSelected
+                          ? 'bg-white border-white'
+                          : 'bg-white border-gray-300'
+                      }`}
+                    >
+                      {isSelected && (
+                        <svg
+                          className="w-2.5 h-2.5 text-[#9F80DA]"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={3}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      )}
+                    </div>
+                    <Icon className="w-4 h-4" />
+                    {category.label[language]}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
+
+      {/* What's New Section - Only show when no filters are applied */}
+      {selectedCategories.length === 0 && (
+        <section className="py-8 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-8 flex items-center gap-4"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                {language === 'en' ? "What's New" : 'Novedades'}
+              </h2>
+              <div className="flex-grow h-1 bg-gradient-to-r from-[#9F80DA] to-transparent rounded-full" />
+            </motion.div>
+
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* Featured Post (Latest) - Left Column */}
+              {latestPosts[0] &&
+                (() => {
+                  const CategoryIcon = getCategoryIcon(latestPosts[0].category);
+                  return (
+                    <motion.article
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="lg:w-1/2"
+                    >
+                      <Link
+                        href={`/blog/${latestPosts[0].slug}?lang=${language}`}
+                      >
+                        <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col overflow-hidden group cursor-pointer">
+                          <div className="p-8 flex-grow flex flex-col">
+                            <span className="inline-flex items-center gap-2 bg-[#9F80DA]/10 text-[#9F80DA] px-4 py-2 rounded-full text-sm font-medium mb-4 self-start">
+                              <CategoryIcon className="w-4 h-4" />
+                              {latestPosts[0].category}
+                            </span>
+                            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 group-hover:text-[#9F80DA] transition-colors">
+                              {latestPosts[0].title[language]}
+                            </h2>
+                            <p className="text-gray-600 mb-6 flex-grow text-lg leading-relaxed">
+                              {latestPosts[0].excerpt[language]}
+                            </p>
+                            <div className="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-100">
+                              <div className="flex items-center gap-4">
+                                <span className="flex items-center gap-1">
+                                  <Calendar className="w-4 h-4" />
+                                  {latestPosts[0].date}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <Clock className="w-4 h-4" />
+                                  {latestPosts[0].readTime[language]}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="mt-3 text-sm text-gray-600">
+                              {language === 'en' ? 'By' : 'Por'}{' '}
+                              {latestPosts[0].author}
+                            </div>
+                            <div className="mt-4 flex items-center gap-2 text-[#9F80DA] font-medium group-hover:gap-3 transition-all">
+                              {language === 'en' ? 'Read More' : 'Leer Más'}
+                              <ArrowRight className="w-4 h-4" />
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.article>
+                  );
+                })()}
+
+              {/* Right Column - 2 Posts Stacked */}
+              <div className="lg:w-1/2 flex flex-col gap-6">
+                {latestPosts.slice(1, 3).map((post, index) => {
+                  const CategoryIcon = getCategoryIcon(post.category);
+                  return (
+                    <motion.article
+                      key={post.slug}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 + index * 0.1 }}
+                      className="flex-1 min-h-0"
+                    >
+                      <Link
+                        href={`/blog/${post.slug}?lang=${language}`}
+                        className="block h-full"
+                      >
+                        <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer h-full flex flex-col">
+                          <div className="p-6 flex-grow flex flex-col justify-between">
+                            <div>
+                              <span className="inline-flex items-center gap-2 bg-[#9F80DA]/10 text-[#9F80DA] px-3 py-1 rounded-full text-sm font-medium mb-3">
+                                <CategoryIcon className="w-3.5 h-3.5" />
+                                {post.category}
+                              </span>
+                              <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#9F80DA] transition-colors line-clamp-2">
+                                {post.title[language]}
+                              </h2>
+                              <p className="text-gray-600 mb-4 line-clamp-2">
+                                {post.excerpt[language]}
+                              </p>
+                            </div>
+                            <div>
+                              <div className="flex items-center text-sm text-gray-500">
+                                <div className="flex items-center gap-4">
+                                  <span className="flex items-center gap-1">
+                                    <Calendar className="w-4 h-4" />
+                                    {post.date}
+                                  </span>
+                                  <span className="flex items-center gap-1">
+                                    <Clock className="w-4 h-4" />
+                                    {post.readTime[language]}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="mt-4 flex items-center gap-2 text-[#9F80DA] font-medium group-hover:gap-3 transition-all">
+                                {language === 'en' ? 'Read More' : 'Leer Más'}
+                                <ArrowRight className="w-4 h-4" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.article>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Blog Posts Grid */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post, index) => (
-              <motion.article
-                key={post.slug}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index }}
-              >
-                <Link href={`/blog/${post.slug}`}>
-                  <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col overflow-hidden group cursor-pointer">
-                    {/* Category Badge */}
-                    <div className="p-6 pb-4">
-                      <span className="inline-block bg-[#9F80DA]/10 text-[#9F80DA] px-3 py-1 rounded-full text-sm font-medium">
-                        {post.category}
-                      </span>
-                    </div>
+          {selectedCategories.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-8 flex items-center gap-4"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                {language === 'en' ? 'All Articles' : 'Todos los Artículos'}
+              </h2>
+              <div className="flex-grow h-1 bg-gradient-to-r from-[#9F80DA] to-transparent rounded-full" />
+            </motion.div>
+          )}
 
-                    {/* Content */}
-                    <div className="px-6 pb-6 flex-grow flex flex-col">
-                      <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#9F80DA] transition-colors line-clamp-2">
-                        {post.title}
-                      </h2>
-                      <p className="text-gray-600 mb-4 flex-grow line-clamp-3">
-                        {post.excerpt}
-                      </p>
-
-                      {/* Meta Info */}
-                      <div className="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-100">
-                        <div className="flex items-center gap-4">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {post.date}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {post.readTime}
+          {remainingPosts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">
+                {language === 'en'
+                  ? 'No articles found for the selected categories.'
+                  : 'No se encontraron artículos para las categorías seleccionadas.'}
+              </p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {remainingPosts.map((post, index) => {
+                const CategoryIcon = getCategoryIcon(post.category);
+                return (
+                  <motion.article
+                    key={post.slug}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                  >
+                    <Link href={`/blog/${post.slug}?lang=${language}`}>
+                      <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col overflow-hidden group cursor-pointer">
+                        {/* Category Badge */}
+                        <div className="p-6 pb-4">
+                          <span className="inline-flex items-center gap-2 bg-[#9F80DA]/10 text-[#9F80DA] px-3 py-1 rounded-full text-sm font-medium">
+                            <CategoryIcon className="w-3.5 h-3.5" />
+                            {post.category}
                           </span>
                         </div>
-                      </div>
 
-                      {/* Author */}
-                      <div className="mt-3 text-sm text-gray-600">
-                        By {post.author}
-                      </div>
+                        {/* Content */}
+                        <div className="px-6 pb-6 flex-grow flex flex-col">
+                          <h2 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-[#9F80DA] transition-colors line-clamp-2">
+                            {post.title[language]}
+                          </h2>
+                          <p className="text-gray-600 mb-4 flex-grow line-clamp-3">
+                            {post.excerpt[language]}
+                          </p>
 
-                      {/* Read More */}
-                      <div className="mt-4 flex items-center gap-2 text-[#9F80DA] font-medium group-hover:gap-3 transition-all">
-                        Read More
-                        <ArrowRight className="w-4 h-4" />
+                          {/* Meta Info */}
+                          <div className="flex items-center justify-between text-sm text-gray-500 pt-4 border-t border-gray-100">
+                            <div className="flex items-center gap-4">
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-4 h-4" />
+                                {post.date}
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Clock className="w-4 h-4" />
+                                {post.readTime[language]}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Author */}
+                          <div className="mt-3 text-sm text-gray-600">
+                            {language === 'en' ? 'By' : 'Por'} {post.author}
+                          </div>
+
+                          {/* Read More */}
+                          <div className="mt-4 flex items-center gap-2 text-[#9F80DA] font-medium group-hover:gap-3 transition-all">
+                            {language === 'en' ? 'Read More' : 'Leer Más'}
+                            <ArrowRight className="w-4 h-4" />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.article>
-            ))}
-          </div>
+                    </Link>
+                  </motion.article>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
