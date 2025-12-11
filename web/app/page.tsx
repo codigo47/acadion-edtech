@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { posthog } from '@/lib/posthog-client';
@@ -1560,8 +1560,8 @@ export default function Home() {
               {/* Desktop: Single row with lines */}
               <div className="hidden md:flex items-start mb-6">
                 {steps.map((step, index) => (
-                  <>
-                    <div key={`step-${index}`} className="flex flex-col items-center min-w-fit">
+                  <React.Fragment key={`desktop-step-${index}`}>
+                    <div className="flex flex-col items-center min-w-fit">
                       <button
                         type="button"
                         onClick={() => handleStepChange(index)}
@@ -1588,11 +1588,11 @@ export default function Home() {
                       </span>
                     </div>
                     {index < steps.length - 1 && (
-                      <div key={`line-${index}`} className={`h-1 flex-1 mx-2 rounded transition-all mt-5 ${
+                      <div className={`h-1 flex-1 mx-2 rounded transition-all mt-5 ${
                         index < currentStep ? 'bg-[#86C5A8]' : 'bg-gray-200'
                       }`} />
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
             </div>
