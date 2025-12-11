@@ -4,8 +4,24 @@ import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Clock } from 'lucide-react';
-import { blogPosts } from '../page';
+import { ArrowLeft, Calendar, Clock, Briefcase, Cpu, Accessibility, Layout, Brain, ClipboardList, Target, Folder, TrendingUp } from 'lucide-react';
+import { blogPosts } from '../data';
+
+const categories = [
+  { id: 'Career', icon: Briefcase },
+  { id: 'Technology', icon: Cpu },
+  { id: 'AI', icon: Brain },
+  { id: 'Accessibility', icon: Accessibility },
+  { id: 'Methodology', icon: Layout },
+  { id: 'Design Strategy', icon: Target },
+  { id: 'Assessment', icon: ClipboardList },
+  { id: 'Industry Trends', icon: TrendingUp },
+];
+
+const getCategoryIcon = (categoryId: string) => {
+  const category = categories.find((c) => c.id === categoryId);
+  return category ? category.icon : Folder;
+};
 
 interface BlogPostContent {
   [key: string]: {
@@ -1125,25 +1141,23 @@ export default function BlogPostPage() {
               <div className="flex gap-1">
                 <button
                   onClick={() => setLanguage('en')}
-                  className={`flex items-center gap-1 px-2 py-1 rounded transition-all text-sm ${
+                  className={`px-2.5 py-1 rounded transition-all text-sm font-medium ${
                     language === 'en'
                       ? 'bg-[#9F80DA] text-white'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
-                  title="English"
                 >
-                  <span>🇺🇸</span>
+                  English
                 </button>
                 <button
                   onClick={() => setLanguage('es')}
-                  className={`flex items-center gap-1 px-2 py-1 rounded transition-all text-sm ${
+                  className={`px-2.5 py-1 rounded transition-all text-sm font-medium ${
                     language === 'es'
                       ? 'bg-[#9F80DA] text-white'
                       : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                   }`}
-                  title="Español"
                 >
-                  <span>🇪🇸</span>
+                  Español
                 </button>
               </div>
               <Link
@@ -1167,9 +1181,15 @@ export default function BlogPostPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <span className="inline-block bg-[#9F80DA]/10 text-[#9F80DA] px-4 py-2 rounded-full text-sm font-medium mb-6">
-              {post.category}
-            </span>
+            {(() => {
+              const CategoryIcon = getCategoryIcon(post.category);
+              return (
+                <span className="inline-flex items-center gap-2 bg-[#9F80DA]/10 text-[#9F80DA] px-4 py-2 rounded-full text-sm font-medium mb-6">
+                  <CategoryIcon className="w-4 h-4" />
+                  {post.category}
+                </span>
+              );
+            })()}
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               {post.title[language]}
             </h1>
@@ -1217,19 +1237,23 @@ export default function BlogPostPage() {
               {blogPosts
                 .filter((p) => p.slug !== slug)
                 .slice(0, 2)
-                .map((relatedPost) => (
-                  <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}?lang=${language}`}>
-                    <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer">
-                      <span className="inline-block bg-[#9F80DA]/10 text-[#9F80DA] px-3 py-1 rounded-full text-sm font-medium mb-3">
-                        {relatedPost.category}
-                      </span>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-[#9F80DA] transition-colors">
-                        {relatedPost.title[language]}
-                      </h3>
-                      <p className="text-gray-600 text-sm line-clamp-2">{relatedPost.excerpt[language]}</p>
-                    </div>
-                  </Link>
-                ))}
+                .map((relatedPost) => {
+                  const RelatedCategoryIcon = getCategoryIcon(relatedPost.category);
+                  return (
+                    <Link key={relatedPost.slug} href={`/blog/${relatedPost.slug}?lang=${language}`}>
+                      <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow p-6 cursor-pointer">
+                        <span className="inline-flex items-center gap-2 bg-[#9F80DA]/10 text-[#9F80DA] px-3 py-1 rounded-full text-sm font-medium mb-3">
+                          <RelatedCategoryIcon className="w-3.5 h-3.5" />
+                          {relatedPost.category}
+                        </span>
+                        <h3 className="text-xl font-bold text-gray-900 mb-2 hover:text-[#9F80DA] transition-colors">
+                          {relatedPost.title[language]}
+                        </h3>
+                        <p className="text-gray-600 text-sm line-clamp-2">{relatedPost.excerpt[language]}</p>
+                      </div>
+                    </Link>
+                  );
+                })}
             </div>
           </motion.div>
         </div>
