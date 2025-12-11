@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, Briefcase, Cpu, Accessibility, Layout, Brain, ClipboardList, Target, Folder, TrendingUp } from 'lucide-react';
 import { blogPosts } from '../data';
@@ -1040,7 +1040,7 @@ const blogPostContent: BlogPostContent = {
   }
 };
 
-export default function BlogPostPage() {
+function BlogPostContent() {
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params.slug as string;
@@ -1268,5 +1268,22 @@ export default function BlogPostPage() {
         </div>
       </footer>
     </motion.div>
+  );
+}
+
+export default function BlogPostPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-8 h-8 border-4 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-gray-600">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <BlogPostContent />
+    </Suspense>
   );
 }
