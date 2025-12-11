@@ -29,9 +29,9 @@ export default function Dashboard() {
       title: 'Create Scrum 101 Course',
       checked: false,
       tasks: [
-        { title: 'Analysis - Define learning objectives', assigned: 'Acadion.ai Agent', checked: true },
-        { title: 'Design - Create course structure', assigned: 'Acadion.ai Agent', checked: true },
-        { title: 'Development - Generate content', assigned: 'Acadion.ai Agent', checked: true },
+        { title: 'Analysis - Define learning objectives', assigned: 'acadion.ai Agent', checked: true },
+        { title: 'Design - Create course structure', assigned: 'acadion.ai Agent', checked: true },
+        { title: 'Development - Generate content', assigned: 'acadion.ai Agent', checked: true },
         { title: 'Content QA', assigned: 'John Doe', checked: false },
         { title: 'Branding QA', assigned: 'John Doe', checked: false },
         { title: 'SME', assigned: 'writer', checked: false }

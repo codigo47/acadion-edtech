@@ -52,7 +52,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white">Acadion.ai</h1>
+          <h1 className="text-3xl font-bold text-white">acadion.ai</h1>
           <p className="text-gray-400 mt-2">
             {isLogin ? 'Welcome back' : 'Create your account'}
           </p>

@@ -31,9 +31,9 @@ export default function MockDashboard() {
       title: 'Create Scrum 101 Course',
       checked: false,
       tasks: [
-        { title: 'Analysis - Define learning objectives', assigned: 'Acadion.ai Agent', checked: true },
-        { title: 'Design - Create course structure', assigned: 'Acadion.ai Agent', checked: true },
-        { title: 'Development - Generate content', assigned: 'Acadion.ai Agent', checked: true },
+        { title: 'Analysis - Define learning objectives', assigned: 'acadion.ai Agent', checked: true },
+        { title: 'Design - Create course structure', assigned: 'acadion.ai Agent', checked: true },
+        { title: 'Development - Generate content', assigned: 'acadion.ai Agent', checked: true },
         { title: 'Content QA', assigned: 'John Doe', checked: false },
         { title: 'Branding QA', assigned: 'John Doe', checked: false },
         { title: 'SME', assigned: 'writer', checked: false }
@@ -57,8 +57,8 @@ export default function MockDashboard() {
 
           <div className="flex items-center gap-2">
             <img
-              src="/landing/acadion.png"
-              alt="Acadion Logo"
+              src="/landing/acadion2.png"
+              alt="acadion Logo"
               className="h-8 object-contain"
               style={{ width: 'auto' }}
             />

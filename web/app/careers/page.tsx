@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, MapPin, Clock, Briefcase, ArrowRight } from 'lucide-react';
+import Footer from '../components/Footer';
 
 interface JobPosting {
   id: string;
@@ -47,7 +48,7 @@ const jobPostings: JobPosting[] = [
     type: 'Full-time',
     description: 'Join our growing team to create engaging learning experiences. Perfect for someone with 2-3 years of experience looking to grow their career in a fast-paced, innovative environment.',
     responsibilities: [
-      'Develop interactive eLearning courses using Acadion.ai platform',
+      'Develop interactive eLearning courses using acadion.ai platform',
       'Work with senior designers to implement instructional strategies',
       'Create assessments and interactive activities aligned with learning objectives',
       'Conduct quality assurance testing on course materials',
@@ -68,7 +69,7 @@ const jobPostings: JobPosting[] = [
     department: 'Sales',
     location: 'Remote (US)',
     type: 'Full-time',
-    description: 'Drive growth by introducing Acadion.ai to learning and development teams at forward-thinking organizations. Ideal for someone passionate about EdTech and consultative selling.',
+    description: 'Drive growth by introducing acadion.ai to learning and development teams at forward-thinking organizations. Ideal for someone passionate about EdTech and consultative selling.',
     responsibilities: [
       'Generate and qualify new sales leads through various channels',
       'Conduct product demonstrations and presentations to potential clients',
@@ -154,8 +155,8 @@ export default function CareersPage() {
           <div className="flex items-center justify-between">
             <Link href="/">
               <img
-                src="/landing/acadion.png"
-                alt="Acadion Logo"
+                src="/landing/acadion2.png"
+                alt="acadion Logo"
                 className="h-8 object-contain cursor-pointer"
               />
             </Link>
@@ -178,7 +179,7 @@ export default function CareersPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-5xl md:text-6xl font-bold text-gray-900 mb-6"
           >
-            Join the <span className="text-[#9F80DA]">Acadion.ai</span> Team
+            Join the <span className="text-[#9F80DA]">acadion.ai</span> Team
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -208,7 +209,7 @@ export default function CareersPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Working at Acadion.ai</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Working at acadion.ai</h2>
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               <div className="text-center">
                 <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -242,7 +243,7 @@ export default function CareersPage() {
             <div className="bg-gradient-to-r from-[#9F80DA] to-[#7B61C0] rounded-2xl p-8 md:p-12 text-white">
               <h3 className="text-2xl font-bold mb-4">Our Culture</h3>
               <p className="text-lg mb-4 opacity-90">
-                At Acadion.ai, we're more than a team—we're a community of passionate educators, designers, and technologists
+                At acadion.ai, we're more than a team—we're a community of passionate educators, designers, and technologists
                 united by a common mission: to make learning design more accessible, efficient, and impactful.
               </p>
               <p className="text-lg mb-4 opacity-90">
@@ -281,13 +282,7 @@ export default function CareersPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8 mt-20">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} Acadion.ai LLC. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

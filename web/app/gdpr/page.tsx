@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Shield, Lock, Eye, FileText, UserCheck, Globe } from 'lucide-react';
+import Footer from '../components/Footer';
 
 export default function GDPRPage() {
   return (
@@ -13,8 +14,8 @@ export default function GDPRPage() {
           <div className="flex items-center justify-between">
             <Link href="/">
               <img
-                src="/landing/acadion.png"
-                alt="Acadion Logo"
+                src="/landing/acadion2.png"
+                alt="acadion Logo"
                 className="h-8 object-contain cursor-pointer"
               />
             </Link>
@@ -444,13 +445,7 @@ export default function GDPRPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8 mt-20">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} Acadion.ai LLC. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

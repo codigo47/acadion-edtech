@@ -19,6 +19,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import { blogPosts } from './data';
+import Footer from '../components/Footer';
 
 const categories = [
   { id: 'Career', icon: Briefcase, label: { en: 'Career', es: 'Carrera' } },
@@ -461,13 +462,7 @@ export default function BlogPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8 mt-20">
-        <div className="max-w-7xl mx-auto text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} Acadion.ai LLC. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
