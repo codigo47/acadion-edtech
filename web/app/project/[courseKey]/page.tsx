@@ -26,6 +26,7 @@ import { ExerciseTypesView } from './_components/ExerciseTypesView';
 import { BrandingView } from './_components/BrandingView';
 import { CourseComponent } from './_components/CourseComponent';
 import { CompletionPopup } from './_components/CompletionPopup';
+import { CustomScrollbar } from '../../components/CustomScrollbar';
 
 export default function ProjectPage() {
   const params = useParams();
@@ -1508,7 +1509,7 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-[#1a1a1a] font-[var(--font-onest)]">
+    <div className="h-screen w-screen overflow-hidden bg-white text-[#1a1a1a] font-[var(--font-onest)]">
       {/* Completion Popup */}
       <AnimatePresence>
         {showCompletionPopup && <CompletionPopup onClose={handlePopupClose} />}
@@ -1599,42 +1600,44 @@ export default function ProjectPage() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -300, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="w-64 bg-gray-50 border-r border-gray-200 overflow-y-auto flex-shrink-0"
+              className="w-[341px] h-full bg-gray-50 border-r border-gray-200 flex-shrink-0 relative"
             >
-              <div className="p-4">
-                {showEditorLayout && proposedIndex ? (
-                  <>
-                    <h3 className="text-sm font-semibold text-gray-500 mb-3 px-1 uppercase tracking-wide">
-                      Course Structure
-                    </h3>
-                    <div className="space-y-3">
-                      {proposedIndex.modules.map((module) => (
-                        <div key={module.number} className="space-y-1">
-                          <div className="flex items-center gap-2 font-medium text-[#9F80DA]">
-                            <span className="text-xs">{module.number}.</span>
-                            <span className="text-sm">{module.title}</span>
+              <CustomScrollbar>
+                <div className="p-4">
+                  {showEditorLayout && proposedIndex ? (
+                    <>
+                      <h3 className="text-[14px] font-semibold text-gray-500 mb-3 px-1 uppercase tracking-wide">
+                        Course Structure
+                      </h3>
+                      <div className="space-y-3">
+                        {proposedIndex.modules.map((module) => (
+                          <div key={module.number} className="space-y-1">
+                            <div className="flex items-center gap-2 font-medium text-[#9F80DA]">
+                              <span className="text-[14px]">{module.number}.</span>
+                              <span className="text-[14px]">{module.title}</span>
+                            </div>
+                            <div className="ml-4 space-y-0.5">
+                              {module.units.map((unit) => (
+                                <div
+                                  key={unit.code}
+                                  onClick={() => setSelectedUnitCode(unit.code)}
+                                  className={`text-[14px] py-1 px-2 rounded cursor-pointer transition-colors ${
+                                    selectedUnitCode === unit.code
+                                      ? 'bg-[#9F80DA] text-white'
+                                      : 'text-gray-600 hover:bg-gray-100 hover:text-[#9F80DA]'
+                                  }`}
+                                >
+                                  {unit.code} {unit.title}
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                          <div className="ml-4 space-y-0.5">
-                            {module.units.map((unit) => (
-                              <div
-                                key={unit.code}
-                                onClick={() => setSelectedUnitCode(unit.code)}
-                                className={`text-xs py-1 px-2 rounded cursor-pointer transition-colors ${
-                                  selectedUnitCode === unit.code
-                                    ? 'bg-[#9F80DA] text-white'
-                                    : 'text-gray-600 hover:bg-gray-100 hover:text-[#9F80DA]'
-                                }`}
-                              >
-                                {unit.code} {unit.title}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </>
-                ) : null}
-              </div>
+                        ))}
+                      </div>
+                    </>
+                  ) : null}
+                </div>
+              </CustomScrollbar>
             </motion.aside>
           )}
         </AnimatePresence>
@@ -1698,10 +1701,11 @@ export default function ProjectPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="flex-1 overflow-y-auto bg-gray-50"
+                className="flex-1 bg-gray-50 relative"
               >
-                {courseComponentsData?.components && proposedIndex ? (
-                  <div className="max-w-4xl mx-auto py-8 px-4">
+                <CustomScrollbar>
+                  {courseComponentsData?.components && proposedIndex ? (
+                    <div className="max-w-4xl mx-auto py-8 px-4">
                     {/* Course title */}
                     {proposedIndex.title && (
                       <HeadingBlock heading={proposedIndex.title} level={1} />
@@ -1799,15 +1803,16 @@ export default function ProjectPage() {
                         </div>
                       );
                     })}
-                  </div>
-                ) : (
-                  <div className="flex-1 flex items-center justify-center h-full">
-                    <div className="text-center text-gray-400">
-                      <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                      <p className="text-lg">Loading course content...</p>
                     </div>
-                  </div>
-                )}
+                  ) : (
+                    <div className="flex-1 flex items-center justify-center h-full">
+                      <div className="text-center text-gray-400">
+                        <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                        <p className="text-lg">Loading course content...</p>
+                      </div>
+                    </div>
+                  )}
+                </CustomScrollbar>
               </motion.div>
             ) : (
               /* Chat interface */
@@ -1910,40 +1915,42 @@ export default function ProjectPage() {
               className="w-[640px] bg-gray-50 border-l border-gray-200 flex flex-col flex-shrink-0"
             >
               {/* Chat content area - scrolleable */}
-              <div className="flex-1 overflow-y-auto p-6 min-h-0">
-                <div className="space-y-4">
-                  {/* All conversation messages */}
-                  {messages.map((message, index) => (
-                    <div
-                      key={index}
-                      className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-                    >
-                      {message.type === 'user' ? (
-                        <div className="space-y-3">
-                          <div className="bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl rounded-br-md max-w-md shadow-sm">
-                            <p>{message.content}</p>
+              <div className="flex-1 min-h-0 relative">
+                <CustomScrollbar>
+                  <div className="p-6 space-y-4">
+                    {/* All conversation messages */}
+                    {messages.map((message, index) => (
+                      <div
+                        key={index}
+                        className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        {message.type === 'user' ? (
+                          <div className="space-y-3">
+                            <div className="bg-[#1a1a1a] text-white px-5 py-3 rounded-2xl rounded-br-md max-w-md shadow-sm">
+                              <p>{message.content}</p>
+                            </div>
+                            {message.component && message.component}
                           </div>
-                          {message.component && message.component}
-                        </div>
-                      ) : (
-                        <div className="max-w-xl space-y-4">
-                          <p className="text-gray-700 whitespace-pre-line">{message.content}</p>
-                          {message.component && message.component}
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                        ) : (
+                          <div className="max-w-xl space-y-4">
+                            <p className="text-gray-700 whitespace-pre-line">{message.content}</p>
+                            {message.component && message.component}
+                          </div>
+                        )}
+                      </div>
+                    ))}
 
-                  {/* Completion message */}
-                  <div className="flex justify-start">
-                    <div className="max-w-xl">
-                      <p className="text-gray-700">
-                        Course structure has been created and is now available in the sidebar. You
-                        can start editing your course content or continue chatting for refinements.
-                      </p>
+                    {/* Completion message */}
+                    <div className="flex justify-start">
+                      <div className="max-w-xl">
+                        <p className="text-gray-700">
+                          Course structure has been created and is now available in the sidebar. You
+                          can start editing your course content or continue chatting for refinements.
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </CustomScrollbar>
               </div>
 
               {/* Bottom chat input - always visible */}
