@@ -377,6 +377,7 @@ interface CourseComponentData {
   componentName: string;
   componentType: 'static' | 'interactive' | 'evaluation';
   data: Record<string, unknown>;
+  name?: string;
 }
 
 interface CourseComponentsResponse {

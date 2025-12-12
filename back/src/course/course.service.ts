@@ -804,6 +804,7 @@ export class CourseService {
         componentName: c.component.internalName,
         componentType: c.component.type,
         data: c.data,
+        name: c.component.name,
       })),
     };
   }
