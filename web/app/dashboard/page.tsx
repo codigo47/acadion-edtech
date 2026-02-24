@@ -182,7 +182,7 @@ export default function Dashboard() {
                           <h3 className="text-lg font-semibold text-[#1a1a1a] truncate">
                             {course.title || 'Untitled Course'}
                           </h3>
-                          <div className="flex items-center gap-2 mt-2">
+                          <div className="flex items-center justify-between mt-2">
                             <span className={`text-xs px-2 py-1 rounded-full ${
                               course.status === 'completed' ? 'bg-green-100 text-green-700' :
                               course.status === 'generating' ? 'bg-yellow-100 text-yellow-700' :
@@ -190,6 +190,9 @@ export default function Dashboard() {
                               'bg-gray-100 text-gray-600'
                             }`}>
                               {course.status.charAt(0).toUpperCase() + course.status.slice(1)}
+                            </span>
+                            <span className="text-xs text-gray-500">
+                              {new Date(course.createdAt).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                             </span>
                           </div>
                         </div>

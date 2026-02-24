@@ -28,20 +28,20 @@ export function CustomScrollbar({ children, className = '', style }: CustomScrol
       }}
       wrapperProps={{
         renderer: (props) => {
-          const { elementRef, ...restProps } = props;
-          return <div {...restProps} ref={elementRef} style={{ ...restProps.style, position: 'absolute', inset: 0 }} />;
+          const { elementRef, key, ...restProps } = props;
+          return <div key={key} {...restProps} ref={elementRef} style={{ ...restProps.style, position: 'absolute', inset: 0 }} />;
         },
       }}
       scrollerProps={{
         renderer: (props) => {
-          const { elementRef, ...restProps } = props;
-          return <div {...restProps} ref={elementRef} />;
+          const { elementRef, key, ...restProps } = props;
+          return <div key={key} {...restProps} ref={elementRef} />;
         },
       }}
       contentProps={{
         renderer: (props) => {
-          const { elementRef, ...restProps } = props;
-          return <div {...restProps} ref={elementRef} />;
+          const { elementRef, key, ...restProps } = props;
+          return <div key={key} {...restProps} ref={elementRef} />;
         },
       }}
       trackYProps={{

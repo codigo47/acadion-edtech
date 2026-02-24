@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { api } from '../api-client';
+import { getToken } from '../auth';
 import { TaskName } from '../enums/task-name.enum';
 
 export { TaskName };
@@ -331,6 +332,7 @@ export function useCourses() {
   return useQuery({
     queryKey: ['courses'],
     queryFn: () => api.get<CourseListItem[]>('/v1/course'),
+    enabled: !!getToken(),
   });
 }
 
