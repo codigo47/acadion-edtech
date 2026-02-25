@@ -34,7 +34,7 @@ export default function ComparisonDosDontsBlock({
       <h3 className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}>
         Do&apos;s and Don&apos;ts
       </h3>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Do's Column */}
         <div className={`p-4 rounded-lg border-2 ${dark ? 'bg-gray-800 border-green-600' : 'bg-white border-green-500'}`}>
           <div className="flex items-center gap-2 mb-3">

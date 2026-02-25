@@ -22,7 +22,7 @@ export default function ComparisonCauseEffectBlock({
       <h3 className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}>
         Cause and Effect
       </h3>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
         {/* Cause */}
         <div className={`flex-1 p-4 rounded-lg ${dark ? 'bg-gray-800' : 'bg-gray-100'}`}>
           <p
@@ -37,9 +37,9 @@ export default function ComparisonCauseEffectBlock({
         </div>
 
         {/* Arrow */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 self-center">
           <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center">
-            <ArrowRight className="w-5 h-5 text-white" />
+            <ArrowRight className="w-5 h-5 text-white rotate-90 sm:rotate-0" />
           </div>
         </div>
 

@@ -19,9 +19,9 @@ export default function ColumnsBlock({
 }: ColumnsBlockProps) {
   const columnClass = {
     1: 'columns-1',
-    2: 'columns-2',
-    3: 'columns-3',
-    4: 'columns-4',
+    2: 'columns-1 sm:columns-2',
+    3: 'columns-1 sm:columns-2 lg:columns-3',
+    4: 'columns-1 sm:columns-2 lg:columns-4',
   }[columns];
 
   return (

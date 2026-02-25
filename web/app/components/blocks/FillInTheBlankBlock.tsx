@@ -70,13 +70,13 @@ export default function FillInTheBlankBlock({
               {part}
             </span>
             {index < parts.length - 1 && (
-              <div className="inline-flex items-center gap-2">
+              <div className="inline-flex flex-wrap items-center gap-2">
                 <input
                   type="text"
                   value={answers[item.id] || ''}
                   onChange={(e) => handleInputChange(item.id, e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && checkAnswer(item.id)}
-                  className={`w-32 px-3 py-1 border-2 rounded-lg outline-none transition-colors ${
+                  className={`w-24 sm:w-32 px-2 sm:px-3 py-1 border-2 rounded-lg outline-none transition-colors text-sm sm:text-base ${
                     showResult
                       ? correct
                         ? 'border-green-500 bg-green-50'

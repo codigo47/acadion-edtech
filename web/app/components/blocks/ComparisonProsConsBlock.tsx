@@ -22,7 +22,7 @@ export default function ComparisonProsConsBlock({
       <h3 className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}>
         Pros and Cons
       </h3>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Pros Column */}
         <div className={`p-4 rounded-lg ${dark ? 'bg-green-900/30' : 'bg-green-50'}`}>
           <div className="flex items-center gap-2 mb-3">

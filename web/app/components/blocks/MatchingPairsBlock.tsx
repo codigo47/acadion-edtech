@@ -234,7 +234,7 @@ export default function MatchingPairsBlock({
         }
       `}</style>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
         {/* Column A */}
         <div className="space-y-3">
           <h4 className={`font-semibold mb-2 ${dark ? 'text-gray-300' : 'text-gray-700'}`}>Column A</h4>
@@ -326,7 +326,7 @@ export default function MatchingPairsBlock({
         </div>
       </div>
 
-      <div className="flex items-center gap-4 mt-6">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-6">
         <button
           onClick={reset}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${dark ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}

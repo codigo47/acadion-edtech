@@ -149,11 +149,11 @@ export default function AccordionBlock({
     const isReversed = imagePosition === 'right' || imagePosition === 'bottom';
 
     const containerClass = isHorizontal
-      ? `flex ${isReversed ? 'flex-row' : 'flex-row-reverse'} gap-4`
+      ? `flex flex-col gap-4 ${isReversed ? 'sm:flex-row' : 'sm:flex-row-reverse'}`
       : `flex ${isReversed ? 'flex-col-reverse' : 'flex-col'} gap-4`;
 
     const imageContainerClass = isHorizontal
-      ? 'relative w-1/3 h-32 flex-shrink-0'
+      ? 'relative w-full sm:w-1/3 h-32 flex-shrink-0'
       : 'relative w-full h-40';
 
     return (

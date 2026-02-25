@@ -142,13 +142,9 @@ export default function SortingBlock({
       </div>
 
       {/* Source Deck - Card Stack */}
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-center mb-6 sm:mb-8">
         <div
-          className="relative"
-          style={{
-            width: '160px',
-            height: '224px', // 5:7 ratio
-          }}
+          className="relative w-[120px] h-[168px] sm:w-[160px] sm:h-[224px]"
         >
           {deckCards.length > 0 ? (
             <>
@@ -238,7 +234,7 @@ export default function SortingBlock({
       </div>
 
       {/* Category Decks */}
-      <div className={`grid gap-6 ${categories.length === 2 ? 'grid-cols-2' : categories.length === 3 ? 'grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
+      <div className={`grid gap-3 sm:gap-6 ${categories.length === 2 ? 'grid-cols-2' : categories.length === 3 ? 'grid-cols-2 sm:grid-cols-3' : 'grid-cols-2 md:grid-cols-4'}`}>
         {categories.map((category) => {
           const cardsInCategory = categoryCards[category.id] || [];
           const isHovered = hoveredCategory === category.id;
@@ -266,11 +262,7 @@ export default function SortingBlock({
                 onDragOver={(e) => handleDragOver(e, category.id)}
                 onDragLeave={handleDragLeave}
                 onDrop={(e) => handleDrop(e, category.id)}
-                className="relative"
-                style={{
-                  width: '120px',
-                  height: '168px', // 5:7 ratio
-                }}
+                className="relative w-[90px] h-[126px] sm:w-[120px] sm:h-[168px]"
               >
                 {/* Base/Empty state */}
                 <div

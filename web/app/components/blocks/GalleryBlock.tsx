@@ -25,7 +25,7 @@ export default function GalleryBlock({ images, dark = false }: GalleryBlockProps
         {images.map((image, index) => (
           <div
             key={index}
-            className="flex-shrink-0 relative h-48 min-w-[200px] flex-1"
+            className="flex-shrink-0 relative h-36 sm:h-48 min-w-[140px] sm:min-w-[200px] flex-1"
           >
             <Image
               src={image.src}

@@ -55,17 +55,17 @@ export default function ScenarioBlock({
 
   return (
     <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
-      <div className="relative w-full min-h-[500px] rounded-lg overflow-hidden">
+      <div className="relative w-full min-h-[350px] sm:min-h-[500px] rounded-lg overflow-hidden">
         <Image src={image} alt="Scenario" fill className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
         {/* Content overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-6">
+        <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-6">
           {/* Speech bubble */}
-          <div className="mb-4">
-            <div className="bg-white rounded-lg p-4 shadow-lg relative inline-block max-w-lg">
+          <div className="mb-3 sm:mb-4">
+            <div className="bg-white rounded-lg p-3 sm:p-4 shadow-lg relative inline-block max-w-lg">
               <div className="absolute -top-2 left-8 w-4 h-4 bg-white transform rotate-45" />
-              <p className="text-lg font-medium text-gray-900 relative z-10">
+              <p className="text-sm sm:text-lg font-medium text-gray-900 relative z-10">
                 {question}
               </p>
             </div>

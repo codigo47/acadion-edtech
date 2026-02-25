@@ -23,12 +23,12 @@ export default function ImageWithTextLeftBlock({
   dark = false,
 }: ImageWithTextLeftBlockProps) {
   return (
-    <div className={`w-full p-4 flex flex-row-reverse gap-4 ${dark ? 'bg-gray-900' : ''}`}>
-      <div className="relative w-1/2 h-64">
+    <div className={`w-full p-4 flex flex-col md:flex-row-reverse gap-4 ${dark ? 'bg-gray-900' : ''}`}>
+      <div className="relative w-full md:w-1/2 h-48 md:h-64">
         <Image src={image} alt={alt} />
       </div>
       <div
-        className={`w-1/2 flex items-center p-4 rounded-lg ${dark ? 'bg-gray-800' : ''}`}
+        className={`w-full md:w-1/2 flex items-center p-4 rounded-lg ${dark ? 'bg-gray-800' : ''}`}
         style={{
           backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#1f2937' : undefined),
           padding: textBackgroundStyle.padding,

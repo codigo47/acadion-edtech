@@ -31,6 +31,7 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
   const { user } = useUser();
   const logout = useLogout();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   const showSidebar = sidebarPages.includes(pathname);
@@ -52,21 +53,33 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen bg-[#f9f9f9] text-[#1a1a1a] font-[var(--font-onest)]">
       {/* Top Navigation Bar */}
-      <nav className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between shadow-sm">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/lms')}>
-          <img
-            src="/landing/acadion2.png"
-            alt="Acadion Logo"
-            className="h-8 object-contain"
-            style={{ width: 'auto' }}
-          />
-          <span className="text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full font-medium">Student</span>
+      <nav className="bg-white border-b border-gray-200 px-3 md:px-4 py-3 flex items-center justify-between shadow-sm">
+        <div className="flex items-center gap-2">
+          {/* Hamburger - mobile only */}
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden p-2 hover:bg-gray-100 rounded transition-colors text-gray-600"
+            aria-label="Open navigation"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/lms')}>
+            <img
+              src="/landing/acadion2.png"
+              alt="Acadion Logo"
+              className="h-8 object-contain"
+              style={{ width: 'auto' }}
+            />
+            <span className="hidden sm:inline text-xs px-2 py-1 bg-purple-100 text-purple-700 rounded-full font-medium">Student</span>
+          </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <button
             onClick={() => router.push('/dashboard')}
-            className="text-xs text-gray-500 hover:text-[#9F80DA] transition-colors"
+            className="hidden sm:inline text-xs text-gray-500 hover:text-[#9F80DA] transition-colors"
           >
             Creator Dashboard →
           </button>
@@ -121,8 +134,8 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
       </nav>
 
       <div className="flex h-[calc(100vh-57px)]">
-        {/* Left Sidebar */}
-        <aside className="w-56 bg-white border-r border-gray-200 overflow-y-auto flex-shrink-0">
+        {/* Left Sidebar - desktop */}
+        <aside className="hidden lg:block w-56 bg-white border-r border-gray-200 overflow-y-auto flex-shrink-0">
           <div className="p-4">
             <nav className="space-y-1">
               {sidebarLinks.map((link) => {
@@ -147,6 +160,57 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
             </nav>
           </div>
         </aside>
+
+        {/* Left Sidebar - mobile slide-over */}
+        {sidebarOpen && (
+          <div className="fixed inset-0 z-40 lg:hidden">
+            <div className="absolute inset-0 bg-black/40" onClick={() => setSidebarOpen(false)} />
+            <aside className="absolute inset-y-0 left-0 w-56 max-w-[80vw] bg-white shadow-xl overflow-y-auto animate-slide-in-left">
+              <div className="flex items-center justify-between p-4 border-b border-gray-200">
+                <span className="text-sm font-semibold text-[#1a1a1a]">Menu</span>
+                <button onClick={() => setSidebarOpen(false)} className="p-1.5 hover:bg-gray-200 rounded transition-colors">
+                  <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              <div className="p-4">
+                <nav className="space-y-1">
+                  {sidebarLinks.map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <button
+                        key={link.href}
+                        onClick={() => {
+                          router.push(link.href);
+                          setSidebarOpen(false);
+                        }}
+                        className={`w-full px-3 py-2.5 text-left text-sm rounded-lg transition-colors flex items-center gap-2.5 ${
+                          isActive
+                            ? 'bg-[#9F80DA]/10 text-[#9F80DA] font-medium'
+                            : 'text-gray-700 hover:bg-gray-100'
+                        }`}
+                      >
+                        <svg className={`w-4 h-4 flex-shrink-0 ${isActive ? 'text-[#9F80DA]' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={link.icon} />
+                        </svg>
+                        {link.label}
+                      </button>
+                    );
+                  })}
+                </nav>
+                <div className="mt-4 pt-4 border-t border-gray-200 sm:hidden">
+                  <button
+                    onClick={() => { setSidebarOpen(false); router.push('/dashboard'); }}
+                    className="w-full px-3 py-2.5 text-left text-sm text-gray-500 hover:text-[#9F80DA] transition-colors"
+                  >
+                    Creator Dashboard →
+                  </button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        )}
 
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto">

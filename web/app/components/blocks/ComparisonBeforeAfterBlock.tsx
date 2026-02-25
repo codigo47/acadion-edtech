@@ -21,7 +21,7 @@ export default function ComparisonBeforeAfterBlock({
       <h3 className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}>
         Before and After
       </h3>
-      <div className="grid grid-cols-2 gap-4 rounded-lg overflow-hidden">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-lg overflow-hidden">
         {/* Before Column */}
         <div className="overflow-hidden rounded-lg">
           <div className="bg-orange-500 text-white text-center py-2 font-semibold">

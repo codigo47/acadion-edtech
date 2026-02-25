@@ -135,7 +135,7 @@ export default function LearnPage() {
   const completed = data?.enrolledCourses.filter((c) => c.state === 'completed') ?? [];
 
   return (
-    <div className="p-6">
+    <div className="p-4 sm:p-6">
       <div className="max-w-5xl mx-auto">
         {/* Welcome */}
         <div className="mb-8">

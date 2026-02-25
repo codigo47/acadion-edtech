@@ -146,7 +146,7 @@ export default function MultipleResponseBlock({
         })}
       </div>
 
-      <div className="flex items-start gap-4 mt-4">
+      <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 mt-4">
         {!showResult ? (
           <button
             onClick={checkAnswers}

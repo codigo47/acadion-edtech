@@ -21,7 +21,7 @@ export default function ComparisonMythFactBlock({
       <h3 className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}>
         Myth vs. Fact
       </h3>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Myth */}
         <div>
           <div className="bg-gray-900 text-white text-center py-2 px-4 rounded-lg font-semibold mb-3">

@@ -124,7 +124,7 @@ export default function MultipleChoiceBlock({
       </div>
 
       {showResult && (
-        <div className="mt-4 flex items-start gap-4">
+        <div className="mt-4 flex flex-col sm:flex-row items-start gap-3 sm:gap-4">
           <button
             onClick={reset}
             className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"

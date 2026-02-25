@@ -104,7 +104,7 @@ export default function SortingStepsBlock({ items: initialItems = [], dark = fal
         ))}
       </div>
 
-      <div className="flex items-center gap-4 mt-6">
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 sm:mt-6">
         <button
           onClick={checkOrder}
           className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
