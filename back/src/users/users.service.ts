@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
 
@@ -19,12 +19,26 @@ export class UsersService {
     });
   }
 
+  async findByUsername(username: string) {
+    return this.prisma.user.findUnique({
+      where: { username },
+    });
+  }
+
   async create(data: {
     email: string;
     name?: string;
     password?: string;
     image?: string;
+    username?: string;
   }) {
+    if (data.username) {
+      const existingUsername = await this.findByUsername(data.username);
+      if (existingUsername) {
+        throw new ConflictException('Username already taken');
+      }
+    }
+
     const hashedPassword = data.password
       ? await bcrypt.hash(data.password, 10)
       : null;
@@ -35,6 +49,7 @@ export class UsersService {
         name: data.name,
         password: hashedPassword,
         image: data.image,
+        username: data.username,
       },
     });
   }
@@ -49,11 +64,9 @@ export class UsersService {
     refreshToken?: string;
     expiresAt?: number;
   }) {
-    // Check if user already exists
     const existingUser = await this.findByEmail(data.email);
 
     if (existingUser) {
-      // Check if this OAuth account is already linked
       const existingAccount = existingUser.accounts.find(
         (acc) =>
           acc.provider === data.provider &&
@@ -61,7 +74,6 @@ export class UsersService {
       );
 
       if (!existingAccount) {
-        // Link the OAuth account to existing user
         await this.prisma.account.create({
           data: {
             userId: existingUser.id,
@@ -74,7 +86,6 @@ export class UsersService {
           },
         });
       } else {
-        // Update tokens
         await this.prisma.account.update({
           where: { id: existingAccount.id },
           data: {
@@ -88,7 +99,6 @@ export class UsersService {
       return existingUser;
     }
 
-    // Create new user with OAuth account
     return this.prisma.user.create({
       data: {
         email: data.email,
@@ -105,6 +115,27 @@ export class UsersService {
             expires_at: data.expiresAt,
           },
         },
+      },
+    });
+  }
+
+  async updateProfile(
+    userId: string,
+    data: { name?: string; image?: string; username?: string },
+  ) {
+    if (data.username) {
+      const existing = await this.findByUsername(data.username);
+      if (existing && existing.id !== userId) {
+        throw new ConflictException('Username already taken');
+      }
+    }
+
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.image !== undefined && { image: data.image }),
+        ...(data.username !== undefined && { username: data.username }),
       },
     });
   }

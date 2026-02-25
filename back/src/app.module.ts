@@ -10,6 +10,14 @@ import { UsersModule } from './users/users.module';
 import { QueueModule } from './queue/queue.module';
 import { CourseModule } from './course/course.module';
 import { ConversationModule } from './conversation/conversation.module';
+import { PortfolioModule } from './portfolio/portfolio.module';
+import { NotificationModule } from './notification/notification.module';
+import { OrganizationModule } from './organization/organization.module';
+import { LmsModule } from './lms/lms.module';
+import { BadgeModule } from './badge/badge.module';
+import { LearningPlanModule } from './learning-plan/learning-plan.module';
+import { GroupModule } from './group/group.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
@@ -31,6 +39,14 @@ import { ConversationModule } from './conversation/conversation.module';
     QueueModule,
     CourseModule,
     ConversationModule,
+    PortfolioModule,
+    NotificationModule,
+    OrganizationModule,
+    LmsModule,
+    BadgeModule,
+    LearningPlanModule,
+    GroupModule,
+    AnalyticsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

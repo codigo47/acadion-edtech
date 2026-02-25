@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Mail, Lock, User, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Mail, Lock, User, Eye, EyeOff, Loader2, AtSign } from 'lucide-react';
 import { useLogin, useRegister, getGoogleLoginUrl } from '../../lib/hooks/use-auth';
 
 export default function LoginPage() {
@@ -12,6 +12,7 @@ export default function LoginPage() {
     email: '',
     password: '',
     name: '',
+    username: '',
   });
 
   const loginMutation = useLogin();
@@ -39,6 +40,7 @@ export default function LoginPage() {
         email: formData.email,
         password: formData.password,
         name: formData.name || undefined,
+        username: formData.username || undefined,
       });
     }
   };
@@ -96,17 +98,37 @@ export default function LoginPage() {
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {!isLogin && (
-              <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Full name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  className="w-full bg-white/10 border border-white/20 rounded-lg py-3 pl-11 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-                />
-              </div>
+              <>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Full name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full bg-white/10 border border-white/20 rounded-lg py-3 pl-11 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+                <div className="relative">
+                  <AtSign className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Username (e.g. john_doe)"
+                    value={formData.username}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        username: e.target.value.toLowerCase(),
+                      })
+                    }
+                    pattern="[a-z0-9_-]{3,30}"
+                    title="3-30 chars, lowercase letters, numbers, hyphens and underscores"
+                    className="w-full bg-white/10 border border-white/20 rounded-lg py-3 pl-11 pr-4 text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                  />
+                </div>
+              </>
             )}
 
             <div className="relative">

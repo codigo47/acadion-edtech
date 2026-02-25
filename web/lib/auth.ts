@@ -1,10 +1,11 @@
-const API_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api'}/v1`;
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api/v1'}`;
 
 export interface User {
   id: string;
   email: string;
   name: string | null;
   image: string | null;
+  username: string | null;
 }
 
 export interface AuthResponse {
@@ -54,7 +55,7 @@ export async function register(
 }
 
 export function getGoogleLoginUrl(): string {
-  return `${API_URL}/v1/auth/google`;
+  return `${API_URL}/auth/google`;
 }
 
 export async function getProfile(token: string): Promise<User> {

@@ -12,6 +12,7 @@ interface AuthUser {
   email: string;
   name?: string | null;
   image?: string | null;
+  username?: string | null;
 }
 
 interface GoogleUser {
@@ -42,6 +43,7 @@ export class AuthService {
         email: user.email,
         name: user.name,
         image: user.image,
+        username: user.username,
       },
       accessToken: this.jwtService.sign(payload),
     };
@@ -58,6 +60,7 @@ export class AuthService {
       email: registerDto.email,
       password: registerDto.password,
       name: registerDto.name,
+      username: registerDto.username,
     });
 
     return this.login(user);
@@ -91,6 +94,7 @@ export class AuthService {
       email: user.email,
       name: user.name,
       image: user.image,
+      username: user.username,
     };
   }
 }

@@ -199,7 +199,7 @@ export function useCreateCourse() {
 
   return useMutation({
     mutationFn: (params: CreateCourseParams) =>
-      api.post<CreateCourseResponse>('/v1/course/tasks', {
+      api.post<CreateCourseResponse>('/course/tasks', {
         taskName: TaskName.CREATE_COURSE,
         userId: params.userId,
       }),
@@ -212,7 +212,7 @@ export function useCreateCourse() {
 export function useGenerateTitle() {
   return useMutation({
     mutationFn: (params: GenerateTitleParams) =>
-      api.post<GenerateTitleResponse>('/v1/course/tasks', {
+      api.post<GenerateTitleResponse>('/course/tasks', {
         taskName: TaskName.GENERATE_TITLE,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -224,7 +224,7 @@ export function useGenerateTitle() {
 export function useSetAudience() {
   return useMutation({
     mutationFn: (params: SetAudienceParams) =>
-      api.post<SetAudienceResponse>('/v1/course/tasks', {
+      api.post<SetAudienceResponse>('/course/tasks', {
         taskName: TaskName.SET_AUDIENCE,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -236,7 +236,7 @@ export function useSetAudience() {
 export function useSetObjective() {
   return useMutation({
     mutationFn: (params: SetObjectiveParams) =>
-      api.post<SetObjectiveResponse>('/v1/course/tasks', {
+      api.post<SetObjectiveResponse>('/course/tasks', {
         taskName: TaskName.SET_OBJECTIVE,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -248,7 +248,7 @@ export function useSetObjective() {
 export function useSetBuildingMethod() {
   return useMutation({
     mutationFn: (params: SetBuildingMethodParams) =>
-      api.post<SetBuildingMethodResponse>('/v1/course/tasks', {
+      api.post<SetBuildingMethodResponse>('/course/tasks', {
         taskName: TaskName.SET_BUILDING_METHOD,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -260,7 +260,7 @@ export function useSetBuildingMethod() {
 export function useSetModules() {
   return useMutation({
     mutationFn: (params: SetModulesParams) =>
-      api.post<SetModulesResponse>('/v1/course/tasks', {
+      api.post<SetModulesResponse>('/course/tasks', {
         taskName: TaskName.SET_MODULES,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -272,7 +272,7 @@ export function useSetModules() {
 export function useSetUnits() {
   return useMutation({
     mutationFn: (params: SetUnitsParams) =>
-      api.post<SetUnitsResponse>('/v1/course/tasks', {
+      api.post<SetUnitsResponse>('/course/tasks', {
         taskName: TaskName.SET_UNITS,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -284,7 +284,7 @@ export function useSetUnits() {
 export function useGetExerciseTypes() {
   return useMutation({
     mutationFn: (params: GetExerciseTypesParams) =>
-      api.post<GetExerciseTypesResponse>('/v1/course/tasks', {
+      api.post<GetExerciseTypesResponse>('/course/tasks', {
         taskName: TaskName.GET_EXERCISE_TYPES,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -295,7 +295,7 @@ export function useGetExerciseTypes() {
 export function useSetEvaluation() {
   return useMutation({
     mutationFn: (params: SetEvaluationParams) =>
-      api.post<SetEvaluationResponse>('/v1/course/tasks', {
+      api.post<SetEvaluationResponse>('/course/tasks', {
         taskName: TaskName.SET_EVALUATION,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -307,7 +307,7 @@ export function useSetEvaluation() {
 export function useSetEvaluationDetails() {
   return useMutation({
     mutationFn: (params: SetEvaluationDetailsParams) =>
-      api.post<SetEvaluationDetailsResponse>('/v1/course/tasks', {
+      api.post<SetEvaluationDetailsResponse>('/course/tasks', {
         taskName: TaskName.SET_EVALUATION_DETAILS,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -331,7 +331,7 @@ interface CourseListItem {
 export function useCourses() {
   return useQuery({
     queryKey: ['courses'],
-    queryFn: () => api.get<CourseListItem[]>('/v1/course'),
+    queryFn: () => api.get<CourseListItem[]>('/course'),
     enabled: !!getToken(),
   });
 }
@@ -339,7 +339,7 @@ export function useCourses() {
 export function useCourse(key: string | null) {
   return useQuery({
     queryKey: ['course', key],
-    queryFn: () => api.get<Course>(`/v1/course/${key}`),
+    queryFn: () => api.get<Course>(`/course/${key}`),
     enabled: !!key,
   });
 }
@@ -347,7 +347,7 @@ export function useCourse(key: string | null) {
 export function useSetBranding() {
   return useMutation({
     mutationFn: (params: SetBrandingParams) =>
-      api.post<SetBrandingResponse>('/v1/course/tasks', {
+      api.post<SetBrandingResponse>('/course/tasks', {
         taskName: TaskName.SET_BRANDING,
         courseKey: params.courseKey,
         conversationKey: params.conversationKey,
@@ -364,7 +364,7 @@ export function useSetBranding() {
 export function useGenerateCourse() {
   return useMutation({
     mutationFn: (courseKey: string) =>
-      api.post<GenerateCourseResponse>('/v1/course/tasks', {
+      api.post<GenerateCourseResponse>('/course/tasks', {
         taskName: TaskName.GENERATE_COURSE,
         courseKey,
       }),
@@ -390,7 +390,7 @@ interface CourseComponentsResponse {
 export function useCourseComponents(courseKey: string | null, enabled: boolean = true) {
   return useQuery({
     queryKey: ['course-components', courseKey],
-    queryFn: () => api.get<CourseComponentsResponse>(`/v1/course/${courseKey}/components`),
+    queryFn: () => api.get<CourseComponentsResponse>(`/course/${courseKey}/components`),
     enabled: !!courseKey && enabled,
   });
 }

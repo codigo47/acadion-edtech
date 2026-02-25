@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { api, API_URL } from '../api-client';
@@ -21,6 +22,7 @@ interface RegisterCredentials {
   email: string;
   password: string;
   name?: string;
+  username?: string;
 }
 
 export function useLogin() {
@@ -48,7 +50,7 @@ export function useRegister() {
     onSuccess: (data) => {
       saveAuth(data);
       queryClient.setQueryData(['user'], data.user);
-      router.push('/dashboard');
+      router.push('/onboarding');
     },
   });
 }
@@ -71,7 +73,13 @@ export function useLogout() {
 export function useProfile() {
   return useQuery({
     queryKey: ['user'],
-    queryFn: () => api.get<User>('/auth/profile'),
+    queryFn: async () => {
+      const user = await api.get<User>('/auth/profile');
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+      return user;
+    },
     enabled: !!getToken(),
     initialData: getUser,
     staleTime: 5 * 60 * 1000, // 5 minutes
@@ -79,8 +87,16 @@ export function useProfile() {
 }
 
 export function useUser() {
-  const { data: user, isLoading } = useProfile();
+  const { data: user, isLoading, isError } = useProfile();
   const token = getToken();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && (!token || isError)) {
+      clearAuth();
+      router.push('/login');
+    }
+  }, [isLoading, token, isError, router]);
 
   return {
     user,
@@ -89,6 +105,23 @@ export function useUser() {
   };
 }
 
+export function useUpdateProfile() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: { name?: string; image?: string; username?: string }) =>
+      api.patch('/users/me/profile', data),
+    onSuccess: (updatedUser: any) => {
+      const merged = { ...getUser(), ...updatedUser };
+      queryClient.setQueryData(['user'], merged);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(merged));
+      }
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+    },
+  });
+}
+
 export function getGoogleLoginUrl(): string {
-  return `${API_URL}/v1/auth/google`;
+  return `${API_URL}/auth/google`;
 }
