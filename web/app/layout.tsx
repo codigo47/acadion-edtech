@@ -25,6 +25,26 @@ export default function RootLayout({
       <body
         className={`${onest.variable} antialiased`}
       >
+        <div
+          id="auth-guard"
+          style={{ display: 'none', position: 'fixed', inset: 0, zIndex: 9999, background: '#fff', justifyContent: 'center', alignItems: 'center' }}
+        >
+          <p style={{ color: '#555', fontSize: '18px', fontWeight: 500 }}>Authenticating...</p>
+        </div>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var p = window.location.pathname;
+                var isProtected = p.startsWith('/dashboard') || p.startsWith('/lms') || p.startsWith('/project');
+                if (isProtected && !localStorage.getItem('token')) {
+                  document.getElementById('auth-guard').style.display = 'flex';
+                  window.location.replace('/login');
+                }
+              })();
+            `,
+          }}
+        />
         <QueryProvider>
           <PostHogProvider>
             {children}

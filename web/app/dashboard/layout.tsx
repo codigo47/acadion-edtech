@@ -38,9 +38,19 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [authReady, setAuthReady] = useState(false);
   const { data: courses } = useCourses();
   const { user } = useUser();
   const logout = useLogout();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/login');
+    } else {
+      setAuthReady(true);
+    }
+  }, [router]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -51,6 +61,14 @@ export default function DashboardLayout({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  if (!authReady) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white text-[#1a1a1a] font-[var(--font-onest)]">

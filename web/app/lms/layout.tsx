@@ -28,6 +28,7 @@ const sidebarLinks = [
 export default function LearnLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
+  const [authReady, setAuthReady] = useState(false);
   const { user } = useUser();
   const logout = useLogout();
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -35,6 +36,15 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
   const menuRef = useRef<HTMLDivElement>(null);
 
   const showSidebar = sidebarPages.includes(pathname);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      router.replace('/login');
+    } else {
+      setAuthReady(true);
+    }
+  }, [router]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -45,6 +55,14 @@ export default function LearnLayout({ children }: { children: React.ReactNode })
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  if (!authReady) {
+    return (
+      <div className="min-h-screen bg-[#f9f9f9] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!showSidebar) {
     return <>{children}</>;
