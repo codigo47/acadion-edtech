@@ -15,6 +15,7 @@ export interface LearningPlan {
   isCorrelative: boolean;
   isOptional: boolean;
   parentId: number | null;
+  org?: { name: string; key: string };
   _count: {
     courses: number;
     enrollments: number;
@@ -60,6 +61,7 @@ export interface LearningPlanDetail {
   isCorrelative: boolean;
   isOptional: boolean;
   parentId: number | null;
+  org?: { name: string; key: string };
   courses: PlanCourse[];
   children: LearningPlan[];
   enrollments: PlanEnrollment[];
@@ -101,6 +103,13 @@ export interface StudentPlanDetail {
   courses: StudentPlanCourse[];
 }
 
+export function useMyLearningPlans() {
+  return useQuery({
+    queryKey: ['learning-plans', 'my'],
+    queryFn: () => api.get<LearningPlan[]>('/learning-plans/my'),
+  });
+}
+
 export function useOrgLearningPlans(orgKey: string) {
   return useQuery({
     queryKey: ['learning-plans', orgKey],
@@ -133,7 +142,7 @@ export function useCreateLearningPlan(orgKey: string) {
       parentId?: number;
     }) => api.post<LearningPlan>(`/learning-plans/org/${orgKey}`, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['learning-plans', orgKey] });
+      queryClient.invalidateQueries({ queryKey: ['learning-plans'] });
     },
   });
 }
@@ -162,13 +171,13 @@ export function useUpdateLearningPlan() {
   });
 }
 
-export function useDeleteLearningPlan(orgKey: string) {
+export function useDeleteLearningPlan(orgKey?: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (planId: number) =>
       api.delete(`/learning-plans/${planId}`),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['learning-plans', orgKey] });
+      queryClient.invalidateQueries({ queryKey: ['learning-plans'] });
     },
   });
 }

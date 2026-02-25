@@ -18,6 +18,28 @@ export class LearningPlanService {
     private notificationService: NotificationService,
   ) {}
 
+  async getMyPlans(userId: string) {
+    const userOrgs = await this.prisma.userOrganization.findMany({
+      where: { userId },
+      select: { orgId: true },
+    });
+    const orgIds = userOrgs.map((uo) => uo.orgId);
+
+    return this.prisma.learningPlan.findMany({
+      where: { orgId: { in: orgIds } },
+      include: {
+        org: { select: { name: true, key: true } },
+        _count: {
+          select: {
+            courses: true,
+            enrollments: true,
+          },
+        },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
   async getOrgPlans(orgKey: string) {
     const org = await this.prisma.organization.findFirst({
       where: { key: orgKey },
@@ -42,6 +64,7 @@ export class LearningPlanService {
     const plan = await this.prisma.learningPlan.findUnique({
       where: { id: planId },
       include: {
+        org: { select: { name: true, key: true } },
         courses: {
           include: {
             course: {

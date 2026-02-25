@@ -33,6 +33,11 @@ export class LearningPlanController {
     private readonly learningPlanService: LearningPlanService,
   ) {}
 
+  @Get('my')
+  getMyPlans(@Request() req: RequestWithUser) {
+    return this.learningPlanService.getMyPlans(req.user.id);
+  }
+
   @Get('org/:orgKey')
   getOrgPlans(@Param('orgKey') orgKey: string) {
     return this.learningPlanService.getOrgPlans(orgKey);
