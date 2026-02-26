@@ -3,13 +3,34 @@
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCourses } from '../../lib/hooks/use-course';
+import { useMyBadges, useAllBadges } from '../../lib/hooks/use-badges';
+import type { Badge } from '../../lib/hooks/use-badges';
 import StarLoader from '../components/loaders/StarLoader';
+
+const conditionHints: Record<string, string> = {
+  course_completed: 'Complete the required course to unlock',
+  score_above: 'Score above the required threshold to unlock',
+  plan_completed: 'Complete the learning plan to unlock',
+  completed_in_time: 'Complete within the time limit to unlock',
+  first_in_org: 'Be the first to complete in your org to unlock',
+  manual: 'Awarded by an administrator',
+};
+
+function getConditionHint(badge: Badge): string {
+  if (badge.conditionType === 'score_above' && badge.conditionValue?.score) {
+    return `Score above ${badge.conditionValue.score}% to unlock`;
+  }
+  return conditionHints[badge.conditionType] || 'Complete the requirements to unlock';
+}
 
 export default function Dashboard() {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
+  const [hoveredBadgeId, setHoveredBadgeId] = useState<number | null>(null);
 
   const { data: courses, isLoading, error } = useCourses();
+  const { data: myBadges } = useMyBadges();
+  const { data: allBadges } = useAllBadges();
 
   const filteredCourses = useMemo(() => {
     if (!courses) return [];
@@ -21,11 +42,24 @@ export default function Dashboard() {
     );
   }, [courses, searchQuery]);
 
+  const earnedBadgeIds = useMemo(
+    () => new Set(myBadges?.map((ub) => ub.badgeId) ?? []),
+    [myBadges],
+  );
+
+  const lockedBadges = useMemo(
+    () => allBadges?.filter((b) => !earnedBadgeIds.has(b.id)) ?? [],
+    [allBadges, earnedBadgeIds],
+  );
+
   return (
-    <div className="flex-1 p-6 bg-white">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-[#1a1a1a]">My Courses</h1>
+    <div className="p-6">
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]">My Courses</h1>
+            <p className="text-gray-500 text-sm mt-1">View and manage your course projects.</p>
+          </div>
           <div className="flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2 border border-gray-200">
             <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -101,6 +135,112 @@ export default function Dashboard() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Achievements */}
+        {(myBadges || allBadges) && (
+          <div className="mt-16">
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-[#1a1a1a]">Achievements</h2>
+              <p className="text-gray-500 text-sm mt-1">Badges you&apos;ve earned and goals to unlock.</p>
+            </div>
+
+            {(!myBadges || myBadges.length === 0) && lockedBadges.length === 0 ? (
+              <div className="text-center py-16">
+                <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                  </svg>
+                </div>
+                <p className="text-gray-500">No badges available yet.</p>
+              </div>
+            ) : (
+              <>
+                {/* Earned badges */}
+                {myBadges && myBadges.length > 0 && (
+                  <div className="mb-10">
+                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                      Earned ({myBadges.length})
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                      {myBadges.map((ub) => (
+                        <div
+                          key={ub.id}
+                          className="bg-white rounded-xl border border-gray-200 p-4 text-center hover:shadow-md transition-shadow"
+                        >
+                          {ub.badge.image ? (
+                            <img
+                              src={ub.badge.image}
+                              alt={ub.badge.name}
+                              className="w-14 h-14 rounded-xl object-cover mx-auto mb-3"
+                            />
+                          ) : (
+                            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center mx-auto mb-3">
+                              <svg className="w-7 h-7 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                              </svg>
+                            </div>
+                          )}
+                          <p className="text-sm font-medium text-[#1a1a1a] truncate">{ub.badge.name}</p>
+                          <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full capitalize mt-1 inline-block">
+                            {ub.badge.type}
+                          </span>
+                          <p className="text-xs text-gray-400 mt-2">
+                            Earned on {new Date(ub.earnedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Locked badges */}
+                {lockedBadges.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
+                      Locked ({lockedBadges.length})
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                      {lockedBadges.map((badge) => (
+                        <div
+                          key={badge.id}
+                          className="relative bg-white rounded-xl border border-gray-200 p-4 text-center opacity-40 grayscale hover:opacity-70 hover:grayscale-0 transition-all cursor-default"
+                          onMouseEnter={() => setHoveredBadgeId(badge.id)}
+                          onMouseLeave={() => setHoveredBadgeId(null)}
+                        >
+                          {badge.image ? (
+                            <img
+                              src={badge.image}
+                              alt={badge.name}
+                              className="w-14 h-14 rounded-xl object-cover mx-auto mb-3"
+                            />
+                          ) : (
+                            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-3">
+                              <svg className="w-7 h-7 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            </div>
+                          )}
+                          <p className="text-sm font-medium text-[#1a1a1a] truncate">{badge.name}</p>
+                          <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full capitalize mt-1 inline-block">
+                            {badge.type}
+                          </span>
+
+                          {/* Tooltip */}
+                          {hoveredBadgeId === badge.id && (
+                            <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-[#1a1a1a] text-white text-xs rounded-lg px-3 py-2 whitespace-nowrap z-10 shadow-lg">
+                              {getConditionHint(badge)}
+                              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1a1a1a]" />
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         )}
       </div>

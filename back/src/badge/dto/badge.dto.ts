@@ -4,6 +4,7 @@ import {
   IsEnum,
   IsInt,
   IsObject,
+  IsBoolean,
 } from 'class-validator';
 
 export enum BadgeTypeEnum {
@@ -39,8 +40,13 @@ export class CreateBadgeDto {
   @IsInt()
   targetId?: number;
 
+  @IsOptional()
+  @IsBoolean()
+  isPublic?: boolean;
+
+  @IsOptional()
   @IsInt()
-  orgId: number;
+  orgId?: number;
 }
 
 export class UpdateBadgeDto {
@@ -71,4 +77,17 @@ export class UpdateBadgeDto {
   @IsOptional()
   @IsInt()
   targetId?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isPublic?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+}
+
+export class AwardBadgeDto {
+  @IsString()
+  userId: string;
 }

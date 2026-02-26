@@ -150,3 +150,8 @@ Frontend requires: `NEXT_PUBLIC_API_URL`
 - Global validation pipe enabled - all DTOs validated automatically
 - Password hashing uses bcryptjs with salt rounds
 - SSE used for real-time updates (not WebSockets)
+
+## Testing with Playwright
+1. Login with this credentials:
+   email: claude@gmail.com
+   password: password123

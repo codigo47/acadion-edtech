@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useSetBuildingMethod, useSetModules, useSetUnits, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useCourseComponents } from '../../../lib/hooks/use-course';
+import { useUser } from '../../../lib/hooks/use-auth';
 import { useCourseSSE, type ProposedIndex as SSEProposedIndex, type SSEEventData, type UnitStatus } from '../../../lib/hooks/use-course-sse';
 import StarLoader from '../../components/loaders/StarLoader';
 import { HeadingBlock } from '../../components/blocks';
@@ -32,6 +33,7 @@ export default function ProjectPage() {
   const params = useParams();
   const router = useRouter();
   const courseKey = params.courseKey as string;
+  const { user } = useUser();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [prompt, setPrompt] = useState('');
@@ -1566,11 +1568,17 @@ export default function ProjectPage() {
 
           {/* User Avatar */}
           <div className="flex items-center gap-2 ml-2">
-            <img
-              src="/landing/avatars/1.jpg"
-              alt="User Avatar"
-              className="w-9 h-9 rounded-full object-cover"
-            />
+            {user?.image ? (
+              <img
+                src={user.image}
+                alt={user.name || 'Avatar'}
+                className="w-9 h-9 rounded-full object-cover"
+              />
+            ) : (
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] flex items-center justify-center text-white text-sm font-bold">
+                {(user?.name || user?.email || 'U').charAt(0).toUpperCase()}
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -1685,7 +1693,7 @@ export default function ProjectPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.4 }}
-                className="flex-1 bg-gray-50 relative"
+                className="flex-1 bg-gray-50 relative min-h-0 overflow-hidden"
               >
                 <CustomScrollbar>
                   {courseComponentsData?.components && proposedIndex ? (

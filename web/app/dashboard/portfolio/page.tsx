@@ -179,10 +179,13 @@ export default function PortfolioSettingsPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold">Portfolio Settings</h1>
+          <div>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]">Portfolio Settings</h1>
+            <p className="text-gray-500 text-sm mt-1">Customize your public portfolio and profile.</p>
+          </div>
           <div className="flex items-center gap-3">
             {portfolioUrl && (
               <a

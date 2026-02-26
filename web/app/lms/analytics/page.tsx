@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useStudentAnalytics } from '../../../lib/hooks/use-analytics';
 
 function formatTime(seconds: number): string {
@@ -21,27 +20,17 @@ function formatDate(dateStr: string) {
 }
 
 export default function StudentAnalyticsPage() {
-  const router = useRouter();
   const { data: analytics, isLoading } = useStudentAnalytics();
 
   return (
     <div className="p-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Header */}
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-1">
-            <button
-              onClick={() => router.push('/lms')}
-              className="p-1 hover:bg-gray-100 rounded transition-colors"
-              aria-label="Back"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <h1 className="text-2xl font-bold text-[#1a1a1a]">My Analytics</h1>
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]">Analytics</h1>
+            <p className="text-gray-500 text-sm mt-1">Track your learning progress and performance.</p>
           </div>
-          <p className="text-gray-500 text-sm mt-1 ml-9">Track your learning progress and performance.</p>
         </div>
 
         {isLoading ? (

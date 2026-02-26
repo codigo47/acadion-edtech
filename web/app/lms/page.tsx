@@ -135,14 +135,16 @@ export default function LearnPage() {
   const completed = data?.enrolledCourses.filter((c) => c.state === 'completed') ?? [];
 
   return (
-    <div className="p-4 sm:p-6">
-      <div className="max-w-5xl mx-auto">
-        {/* Welcome */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-[#1a1a1a]">
-            Welcome back{user?.name ? `, ${user.name.split(' ')[0]}` : ''}
-          </h1>
-          <p className="text-gray-500 text-sm mt-1">Continue your learning journey.</p>
+    <div className="p-6">
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]">
+              Welcome back{user?.name ? `, ${user.name.split(' ')[0]}` : ''}
+            </h1>
+            <p className="text-gray-500 text-sm mt-1">Continue your learning journey.</p>
+          </div>
         </div>
 
         {isLoading ? (

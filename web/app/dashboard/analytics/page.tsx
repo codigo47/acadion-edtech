@@ -22,11 +22,13 @@ export default function AnalyticsDashboardPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-[#1a1a1a]">Analytics</h1>
-          <p className="text-gray-500 text-sm mt-1">View organization and course performance metrics.</p>
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]">Analytics</h1>
+            <p className="text-gray-500 text-sm mt-1">View organization and course performance metrics.</p>
+          </div>
         </div>
 
         {/* Org Selector */}

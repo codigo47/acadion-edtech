@@ -14,7 +14,7 @@ import {
 import type { Request as ExpressRequest } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BadgeService } from './badge.service';
-import { CreateBadgeDto, UpdateBadgeDto } from './dto/badge.dto';
+import { CreateBadgeDto, UpdateBadgeDto, AwardBadgeDto } from './dto/badge.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
 interface RequestWithUser extends ExpressRequest {
@@ -34,9 +34,19 @@ export class BadgeController {
     return this.badgeService.getMyBadges(req.user.id);
   }
 
+  @Get('my')
+  getAllBadges(@Request() req: RequestWithUser) {
+    return this.badgeService.getAllBadges(req.user.id);
+  }
+
   @Get('org/:orgKey')
   getOrgBadges(@Param('orgKey') orgKey: string) {
     return this.badgeService.getOrgBadges(orgKey);
+  }
+
+  @Get(':id')
+  getBadgeDetail(@Param('id', ParseIntPipe) id: number) {
+    return this.badgeService.getBadgeDetail(id);
   }
 
   @Post('org/:orgKey')
@@ -63,5 +73,18 @@ export class BadgeController {
   @Delete(':id')
   deleteBadge(@Param('id', ParseIntPipe) id: number) {
     return this.badgeService.deleteBadge(id);
+  }
+
+  @Post(':id/duplicate')
+  duplicateBadge(@Param('id', ParseIntPipe) id: number) {
+    return this.badgeService.duplicateBadge(id);
+  }
+
+  @Post(':id/award')
+  awardBadge(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: AwardBadgeDto,
+  ) {
+    return this.badgeService.awardBadge(id, dto.userId);
   }
 }

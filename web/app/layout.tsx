@@ -36,7 +36,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 var p = window.location.pathname;
-                var isProtected = p.startsWith('/dashboard') || p.startsWith('/lms') || p.startsWith('/project');
+                var isProtected = p.startsWith('/lms') || p.startsWith('/project');
                 if (isProtected && !localStorage.getItem('token')) {
                   document.getElementById('auth-guard').style.display = 'flex';
                   window.location.replace('/login');

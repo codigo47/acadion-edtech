@@ -21,15 +21,15 @@ export default function ChatLoadingIndicator({
           {/* Animated dots */}
           <div className="flex gap-1">
             <span
-              className={`w-2 h-2 rounded-full animate-bounce ${dark ? 'bg-gray-500' : 'bg-gray-400'}`}
+              className={`w-2 h-2 rounded-full animate-bounce ${dark ? 'bg-gray-500' : 'bg-[#9F80DA]'}`}
               style={{ animationDelay: '0ms' }}
             />
             <span
-              className={`w-2 h-2 rounded-full animate-bounce ${dark ? 'bg-gray-500' : 'bg-gray-400'}`}
+              className={`w-2 h-2 rounded-full animate-bounce ${dark ? 'bg-gray-500' : 'bg-[#9F80DA]'}`}
               style={{ animationDelay: '150ms' }}
             />
             <span
-              className={`w-2 h-2 rounded-full animate-bounce ${dark ? 'bg-gray-500' : 'bg-gray-400'}`}
+              className={`w-2 h-2 rounded-full animate-bounce ${dark ? 'bg-gray-500' : 'bg-[#9F80DA]'}`}
               style={{ animationDelay: '300ms' }}
             />
           </div>

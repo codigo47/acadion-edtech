@@ -356,6 +356,8 @@ model Badge {
   conditionType  String        @map("condition_type")
   conditionValue Json?         @map("condition_value")
   targetId       Int?          @map("target_id")
+  isPublic       Boolean       @default(false) @map("is_public")
+  isActive       Boolean       @default(true) @map("is_active")
   createdAt      DateTime      @default(now()) @map("created_at")
   org            Organization? @relation(fields: [orgId], references: [id])
   userBadges     UserBadge[]

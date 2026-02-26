@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotificationService } from '../notification/notification.service';
 import { NotificationType } from '@prisma/client';
@@ -25,6 +25,43 @@ export class BadgeService {
       include: { badge: true },
       orderBy: { earnedAt: 'desc' },
     });
+  }
+
+  async getAllBadges(userId: string) {
+    const userOrgs = await this.prisma.userOrganization.findMany({
+      where: { userId },
+      select: { orgId: true },
+    });
+    const orgIds = userOrgs.map((uo) => uo.orgId);
+
+    return this.prisma.badge.findMany({
+      where: { orgId: { in: orgIds } },
+      include: {
+        org: { select: { name: true, key: true } },
+        _count: { select: { userBadges: true } },
+      },
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
+  async getBadgeDetail(id: number) {
+    const badge = await this.prisma.badge.findUnique({
+      where: { id },
+      include: {
+        org: { select: { name: true, key: true } },
+        _count: { select: { userBadges: true } },
+        userBadges: {
+          include: {
+            user: {
+              select: { id: true, name: true, email: true, image: true },
+            },
+          },
+          orderBy: { earnedAt: 'desc' },
+        },
+      },
+    });
+    if (!badge) throw new NotFoundException('Badge not found');
+    return badge;
   }
 
   async getOrgBadges(orgKey: string) {
@@ -55,12 +92,16 @@ export class BadgeService {
         conditionType: dto.conditionType,
         conditionValue: dto.conditionValue ?? undefined,
         targetId: dto.targetId,
+        isPublic: dto.isPublic ?? false,
         orgId: dto.orgId,
       },
     });
   }
 
   async updateBadge(id: number, dto: UpdateBadgeDto) {
+    const badge = await this.prisma.badge.findUnique({ where: { id } });
+    if (!badge) throw new NotFoundException('Badge not found');
+
     return this.prisma.badge.update({
       where: { id },
       data: {
@@ -71,7 +112,50 @@ export class BadgeService {
   }
 
   async deleteBadge(id: number) {
+    const badge = await this.prisma.badge.findUnique({ where: { id } });
+    if (!badge) throw new NotFoundException('Badge not found');
     return this.prisma.badge.delete({ where: { id } });
+  }
+
+  async duplicateBadge(id: number) {
+    const badge = await this.prisma.badge.findUnique({ where: { id } });
+    if (!badge) throw new NotFoundException('Badge not found');
+
+    return this.prisma.badge.create({
+      data: {
+        name: `${badge.name} (copy)`,
+        description: badge.description,
+        image: badge.image,
+        type: badge.type,
+        conditionType: badge.conditionType,
+        conditionValue: badge.conditionValue ?? undefined,
+        targetId: badge.targetId,
+        isPublic: badge.isPublic,
+        orgId: badge.orgId,
+      },
+    });
+  }
+
+  async awardBadge(badgeId: number, userId: string) {
+    const badge = await this.prisma.badge.findUnique({ where: { id: badgeId } });
+    if (!badge) throw new NotFoundException('Badge not found');
+
+    const existing = await this.prisma.userBadge.findUnique({
+      where: { userId_badgeId: { userId, badgeId } },
+    });
+    if (existing) throw new ConflictException('User already has this badge');
+
+    const userBadge = await this.prisma.userBadge.create({
+      data: { userId, badgeId },
+    });
+
+    await this.notificationService.create(
+      userId,
+      NotificationType.badge_earned,
+      { badgeName: badge.name, badgeImage: badge.image },
+    );
+
+    return userBadge;
   }
 
   async evaluateAndGrantBadges(userId: string, event: BadgeEvent) {
@@ -86,7 +170,7 @@ export class BadgeService {
     const conditionType = conditionTypeMap[event.type];
     if (!conditionType) return;
 
-    const whereClause: any = { conditionType };
+    const whereClause: any = { conditionType, isActive: true };
     if (event.orgId) {
       whereClause.orgId = event.orgId;
     }

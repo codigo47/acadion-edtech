@@ -31,9 +31,12 @@ export default function AccountPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl font-bold">Account Settings</h1>
+          <div>
+            <h1 className="text-2xl font-bold text-[#1a1a1a]">Account Settings</h1>
+            <p className="text-gray-500 text-sm mt-1">Manage your profile and preferences.</p>
+          </div>
           <button
             onClick={handleSave}
             disabled={isSaving}

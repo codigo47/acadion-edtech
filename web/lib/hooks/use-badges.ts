@@ -14,8 +14,25 @@ export interface Badge {
   conditionValue: Record<string, any> | null;
   targetId: number | null;
   orgId: number | null;
+  isPublic: boolean;
+  isActive: boolean;
   createdAt: string;
+  org?: { name: string; key: string };
   _count?: { userBadges: number };
+}
+
+export interface BadgeDetail extends Badge {
+  userBadges: {
+    id: number;
+    userId: string;
+    earnedAt: string;
+    user: {
+      id: string;
+      name: string | null;
+      email: string;
+      image: string | null;
+    };
+  }[];
 }
 
 export interface UserBadge {
@@ -30,6 +47,21 @@ export function useMyBadges() {
   return useQuery({
     queryKey: ['badges', 'me'],
     queryFn: () => api.get<UserBadge[]>('/badges/me'),
+  });
+}
+
+export function useAllBadges() {
+  return useQuery({
+    queryKey: ['badges', 'my'],
+    queryFn: () => api.get<Badge[]>('/badges/my'),
+  });
+}
+
+export function useBadgeDetail(id: number | null) {
+  return useQuery({
+    queryKey: ['badges', 'detail', id],
+    queryFn: () => api.get<BadgeDetail>(`/badges/${id}`),
+    enabled: !!id,
   });
 }
 
@@ -52,9 +84,10 @@ export function useCreateBadge(orgKey: string) {
       conditionType: string;
       conditionValue?: Record<string, any>;
       targetId?: number;
+      isPublic?: boolean;
     }) => api.post<Badge>(`/badges/org/${orgKey}`, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['badges', 'org', orgKey] });
+      queryClient.invalidateQueries({ queryKey: ['badges'] });
     },
   });
 }
@@ -62,7 +95,7 @@ export function useCreateBadge(orgKey: string) {
 export function useUpdateBadge() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, ...data }: { id: number } & Partial<Omit<Badge, 'id' | 'key' | 'createdAt' | '_count'>>) =>
+    mutationFn: ({ id, ...data }: { id: number } & Partial<Omit<Badge, 'id' | 'key' | 'createdAt' | '_count' | 'org'>>) =>
       api.patch<Badge>(`/badges/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['badges'] });
@@ -74,6 +107,27 @@ export function useDeleteBadge() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: number) => api.delete(`/badges/${id}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['badges'] });
+    },
+  });
+}
+
+export function useDuplicateBadge() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: number) => api.post<Badge>(`/badges/${id}/duplicate`, {}),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['badges'] });
+    },
+  });
+}
+
+export function useAwardBadge() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ badgeId, userId }: { badgeId: number; userId: string }) =>
+      api.post(`/badges/${badgeId}/award`, { userId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['badges'] });
     },

@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useCourses } from '../../lib/hooks/use-course';
 import { useUser, useLogout } from '../../lib/hooks/use-auth';
 import NotificationBell from '../components/NotificationBell';
+import ChatLoadingIndicator from '../components/loaders/ChatLoadingIndicator';
 
 const sidebarLinks = [
   {
@@ -16,6 +17,11 @@ const sidebarLinks = [
     label: 'Learning Plans',
     href: '/dashboard/learning-plans',
     icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01',
+  },
+  {
+    label: 'Badges',
+    href: '/dashboard/badges',
+    icon: 'M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
   },
   {
     label: 'Analytics',
@@ -40,22 +46,36 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
-  const [showUserMenu, setShowUserMenu] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
   const [authReady, setAuthReady] = useState(false);
-  const { data: courses } = useCourses();
-  const { user } = useUser();
-  const logout = useLogout();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      router.replace('/login');
+      setTimeout(() => router.replace('/login'), 1500);
     } else {
       setAuthReady(true);
     }
   }, [router]);
+
+  if (!authReady) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <ChatLoadingIndicator loadingText="Authenticating..." />
+      </div>
+    );
+  }
+
+  return <DashboardContent>{children}</DashboardContent>;
+}
+
+function DashboardContent({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const { data: courses } = useCourses();
+  const { user } = useUser();
+  const logout = useLogout();
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -66,14 +86,6 @@ export default function DashboardLayout({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  if (!authReady) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-white text-[#1a1a1a] font-[var(--font-onest)]">
