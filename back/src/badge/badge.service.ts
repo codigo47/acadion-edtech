@@ -3,6 +3,7 @@ import { PrismaService } from '../prisma/prisma.service';
 import { NotificationService } from '../notification/notification.service';
 import { NotificationType } from '@prisma/client';
 import { CreateBadgeDto, UpdateBadgeDto } from './dto/badge.dto';
+import { PaginationDto, PaginatedResponse } from '../common/dto/pagination.dto';
 
 interface BadgeEvent {
   type: string;
@@ -27,21 +28,32 @@ export class BadgeService {
     });
   }
 
-  async getAllBadges(userId: string) {
+  async getAllBadges(userId: string, pagination: PaginationDto): Promise<PaginatedResponse<any>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
     const userOrgs = await this.prisma.userOrganization.findMany({
       where: { userId },
       select: { orgId: true },
     });
     const orgIds = userOrgs.map((uo) => uo.orgId);
+    const where = { orgId: { in: orgIds } };
 
-    return this.prisma.badge.findMany({
-      where: { orgId: { in: orgIds } },
-      include: {
-        org: { select: { name: true, key: true } },
-        _count: { select: { userBadges: true } },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+    const [data, total] = await Promise.all([
+      this.prisma.badge.findMany({
+        where,
+        include: {
+          org: { select: { name: true, key: true } },
+          _count: { select: { userBadges: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      this.prisma.badge.count({ where }),
+    ]);
+
+    return { data, total, page, limit };
   }
 
   async getBadgeDetail(id: number) {

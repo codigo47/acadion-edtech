@@ -6,17 +6,20 @@ import {
   Delete,
   Body,
   Param,
+  Query,
   UseGuards,
   Request,
 } from '@nestjs/common';
 import type { Request as ExpressRequest } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { OrganizationService } from './organization.service';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import {
   CreateOrganizationDto,
   InviteMemberDto,
   UpdateMemberRoleDto,
   AcceptInvitationDto,
+  BulkInviteMembersDto,
 } from './dto/organization.dto';
 
 interface RequestWithUser extends ExpressRequest {
@@ -52,6 +55,25 @@ export class OrganizationController {
   @Get(':key')
   getOrganization(@Param('key') key: string) {
     return this.organizationService.getOrganization(key);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':key/members')
+  getMembers(
+    @Param('key') key: string,
+    @Query() pagination: PaginationDto,
+  ) {
+    return this.organizationService.getMembers(key, pagination);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':key/members/bulk')
+  bulkInviteMembers(
+    @Param('key') key: string,
+    @Body() dto: BulkInviteMembersDto,
+    @Request() req: RequestWithUser,
+  ) {
+    return this.organizationService.bulkInviteMembers(key, dto.members, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)

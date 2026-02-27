@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '../api-client';
+import { api, type PaginatedResponse } from '../api-client';
 
 export interface Notification {
   id: number;
@@ -15,10 +15,14 @@ export interface UnreadCount {
   count: number;
 }
 
-export function useNotifications() {
+export function useNotifications(page?: number, limit?: number) {
+  const isPaginated = page != null && limit != null;
   return useQuery({
-    queryKey: ['notifications'],
-    queryFn: () => api.get<Notification[]>('/notifications'),
+    queryKey: isPaginated ? ['notifications', page, limit] : ['notifications'],
+    queryFn: () =>
+      isPaginated
+        ? api.get<PaginatedResponse<Notification>>(`/notifications?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<Notification>>('/notifications'),
   });
 }
 

@@ -15,6 +15,7 @@ import {
 } from './dto/create-course.dto';
 import { COURSE_ORCHESTRATION_QUEUE } from './constants';
 import { CourseSSEService } from './course-sse.service';
+import { PaginationDto, PaginatedResponse } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class CourseService {
@@ -754,21 +755,29 @@ export class CourseService {
     };
   }
 
-  async findAllByUserId(userId: string) {
-    const courses = await this.prisma.course.findMany({
-      where: { userId },
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        key: true,
-        title: true,
-        status: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+  async findAllByUserId(userId: string, pagination: PaginationDto): Promise<PaginatedResponse<any>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
 
-    return courses;
+    const [courses, total] = await Promise.all([
+      this.prisma.course.findMany({
+        where: { userId },
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+        select: {
+          id: true,
+          key: true,
+          title: true,
+          status: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      }),
+      this.prisma.course.count({ where: { userId } }),
+    ]);
+
+    return { data: courses, total, page, limit };
   }
 
   async getCourseComponents(courseKey: string) {

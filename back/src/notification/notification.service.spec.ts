@@ -29,8 +29,9 @@ describe('NotificationService', () => {
     it('returns list of notifications ordered by createdAt desc', async () => {
       const notifs = [{ id: 2 }, { id: 1 }];
       mockPrisma.notification.findMany.mockResolvedValue(notifs);
-      const result = await service.getUserNotifications('uid');
-      expect(result).toHaveLength(2);
+      mockPrisma.notification.count.mockResolvedValue(2);
+      const result = await service.getUserNotifications('uid', { page: 1, limit: 20 });
+      expect(result.data).toHaveLength(2);
       expect(mockPrisma.notification.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
           where: { userId: 'uid' },

@@ -12,6 +12,7 @@ const mockPrisma = {
     findFirst: jest.fn(),
     update: jest.fn(),
     findMany: jest.fn(),
+    count: jest.fn(),
   },
   conversation: { create: jest.fn() },
   message: { findFirst: jest.fn(), create: jest.fn() },
@@ -362,9 +363,10 @@ describe('CourseService', () => {
       mockPrisma.course.findMany.mockResolvedValue([
         { id: 1, key: 'k1', title: 'C1', status: 'completed' },
       ]);
-      const result = await service.findAllByUserId('u1');
-      expect(result).toHaveLength(1);
-      expect(result[0].key).toBe('k1');
+      mockPrisma.course.count.mockResolvedValue(1);
+      const result = await service.findAllByUserId('u1', { page: 1, limit: 20 });
+      expect(result.data).toHaveLength(1);
+      expect(result.data[0].key).toBe('k1');
     });
   });
 

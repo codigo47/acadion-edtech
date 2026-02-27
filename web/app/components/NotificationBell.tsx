@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   useNotifications,
   useUnreadCount,
@@ -8,6 +9,25 @@ import {
   useMarkAllAsRead,
   Notification,
 } from '../../lib/hooks/use-notifications';
+
+function getNotificationUrl(notification: Notification): string | null {
+  const data = notification.data;
+  if (!data) return null;
+  switch (notification.type) {
+    case 'enrolled':
+    case 'course_completed':
+    case 'course_failed':
+      return data.courseKey ? `/lms/${data.courseKey}` : null;
+    case 'badge_earned':
+      return '/lms/achievements';
+    case 'learning_plan_assigned':
+      return data.planId ? `/lms/plans/${data.planId}` : null;
+    case 'invitation':
+      return '/dashboard/organizations';
+    default:
+      return null;
+  }
+}
 
 const TYPE_COLORS: Record<string, string> = {
   enrolled: 'bg-blue-100 text-blue-700',
@@ -39,8 +59,10 @@ function timeAgo(dateStr: string): string {
 export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
-  const { data: notifications } = useNotifications();
+  const { data: notificationsResponse } = useNotifications();
+  const notifications = notificationsResponse?.data;
   const { data: unreadData } = useUnreadCount();
   const markAsRead = useMarkAsRead();
   const markAllAsRead = useMarkAllAsRead();
@@ -64,6 +86,11 @@ export default function NotificationBell() {
   const handleNotificationClick = (notification: Notification) => {
     if (!notification.readAt) {
       markAsRead.mutate(notification.id);
+    }
+    setOpen(false);
+    const url = getNotificationUrl(notification);
+    if (url) {
+      router.push(url);
     }
   };
 
@@ -120,11 +147,12 @@ export default function NotificationBell() {
             ) : (
               notifications.map((notification) => {
                 const colorClass = TYPE_COLORS[notification.type] || 'bg-gray-100 text-gray-700';
+                const hasUrl = !!getNotificationUrl(notification);
                 return (
                   <button
                     key={notification.id}
                     onClick={() => handleNotificationClick(notification)}
-                    className={`w-full text-left px-5 py-3.5 border-b border-gray-50 hover:bg-gray-50 transition-colors ${
+                    className={`w-full text-left px-5 py-3.5 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition-colors ${
                       !notification.readAt ? 'bg-[#9F80DA]/[0.03]' : ''
                     }`}
                   >
@@ -145,6 +173,11 @@ export default function NotificationBell() {
                           {notification.data?.message || 'New notification'}
                         </p>
                       </div>
+                      {hasUrl && (
+                        <svg className="w-4 h-4 text-gray-300 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      )}
                     </div>
                   </button>
                 );

@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotificationService } from '../notification/notification.service';
+import { PaginationDto, PaginatedResponse } from '../common/dto/pagination.dto';
 import {
   CreateLearningPlanDto,
   UpdateLearningPlanDto,
@@ -8,6 +9,7 @@ import {
   ReorderPlanCoursesDto,
   AssignPlanDto,
   AssignPlanToGroupDto,
+  BulkAssignPlanDto,
 } from './dto/learning-plan.dto';
 import { NotificationType } from '@prisma/client';
 
@@ -18,26 +20,37 @@ export class LearningPlanService {
     private notificationService: NotificationService,
   ) {}
 
-  async getMyPlans(userId: string) {
+  async getMyPlans(userId: string, pagination: PaginationDto): Promise<PaginatedResponse<any>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
     const userOrgs = await this.prisma.userOrganization.findMany({
       where: { userId },
       select: { orgId: true },
     });
     const orgIds = userOrgs.map((uo) => uo.orgId);
+    const where = { orgId: { in: orgIds } };
 
-    return this.prisma.learningPlan.findMany({
-      where: { orgId: { in: orgIds } },
-      include: {
-        org: { select: { name: true, key: true } },
-        _count: {
-          select: {
-            courses: true,
-            enrollments: true,
+    const [data, total] = await Promise.all([
+      this.prisma.learningPlan.findMany({
+        where,
+        include: {
+          org: { select: { name: true, key: true } },
+          _count: {
+            select: {
+              courses: true,
+              enrollments: true,
+            },
           },
         },
-      },
-      orderBy: { createdAt: 'desc' },
-    });
+        orderBy: { createdAt: 'desc' },
+        skip,
+        take: limit,
+      }),
+      this.prisma.learningPlan.count({ where }),
+    ]);
+
+    return { data, total, page, limit };
   }
 
   async getOrgPlans(orgKey: string) {
@@ -349,5 +362,44 @@ export class LearningPlanService {
         : null,
       courses: coursesWithProgress,
     };
+  }
+
+  async bulkAssignPlan(
+    planId: number,
+    users: Array<{ email: string }>,
+    deadline: string | undefined,
+    assignerId: string,
+  ) {
+    const plan = await this.prisma.learningPlan.findUnique({
+      where: { id: planId },
+    });
+    if (!plan) throw new NotFoundException('Learning plan not found');
+
+    const results: Array<{ email: string; status: string }> = [];
+
+    for (const { email } of users) {
+      try {
+        const user = await this.prisma.user.findUnique({
+          where: { email },
+        });
+
+        if (!user) {
+          results.push({ email, status: 'error: User not found' });
+          continue;
+        }
+
+        await this.assignToUser(planId, {
+          userId: user.id,
+          deadline,
+        } as AssignPlanDto);
+
+        results.push({ email, status: 'assigned' });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        results.push({ email, status: `error: ${message}` });
+      }
+    }
+
+    return results;
   }
 }

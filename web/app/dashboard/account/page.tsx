@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser, useUpdateProfile } from '../../../lib/hooks/use-auth';
+import StickyFooter from '../../components/StickyFooter';
+import { useToast } from '../../components/ToastProvider';
 
 export default function AccountPage() {
   const router = useRouter();
@@ -10,7 +12,7 @@ export default function AccountPage() {
   const updateProfile = useUpdateProfile();
 
   const [name, setName] = useState('');
-  const [saveSuccess, setSaveSuccess] = useState(false);
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (user) {
@@ -19,15 +21,17 @@ export default function AccountPage() {
   }, [user]);
 
   const handleSave = async () => {
-    await updateProfile.mutateAsync({
-      name: name || undefined,
-    });
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3000);
+    try {
+      await updateProfile.mutateAsync({
+        name: name || undefined,
+      });
+      showToast('Account updated successfully', 'success');
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Failed to update account', 'error');
+    }
   };
 
   const isSaving = updateProfile.isPending;
-  const saveError = updateProfile.error;
 
   return (
     <div className="p-6">
@@ -37,26 +41,16 @@ export default function AccountPage() {
             <h1 className="text-2xl font-bold text-[#1a1a1a]">Account Settings</h1>
             <p className="text-gray-500 text-sm mt-1">Manage your profile and preferences.</p>
           </div>
-          <button
-            onClick={handleSave}
-            disabled={isSaving}
-            className="px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white rounded-lg text-sm font-medium hover:from-[#8A6BC5] hover:to-[#7B5BB5] transition-all disabled:opacity-50"
-          >
-            {isSaving ? 'Saving...' : 'Save changes'}
-          </button>
+          <StickyFooter>
+            <button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white rounded-lg text-sm font-medium hover:from-[#8A6BC5] hover:to-[#7B5BB5] transition-all disabled:opacity-50"
+            >
+              {isSaving ? 'Saving...' : 'Save changes'}
+            </button>
+          </StickyFooter>
         </div>
-
-        {saveSuccess && (
-          <div className="mb-6 p-3 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm">
-            Account updated successfully!
-          </div>
-        )}
-
-        {saveError && (
-          <div className="mb-6 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
-            {saveError.message}
-          </div>
-        )}
 
         <div className="space-y-6">
           {/* Avatar */}

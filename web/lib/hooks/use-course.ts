@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '../api-client';
+import { api, type PaginatedResponse } from '../api-client';
 import { getToken } from '../auth';
 import { TaskName } from '../enums/task-name.enum';
 
@@ -328,10 +328,14 @@ interface CourseListItem {
   updatedAt: string;
 }
 
-export function useCourses() {
+export function useCourses(page?: number, limit?: number) {
+  const isPaginated = page != null && limit != null;
   return useQuery({
-    queryKey: ['courses'],
-    queryFn: () => api.get<CourseListItem[]>('/course'),
+    queryKey: isPaginated ? ['courses', page, limit] : ['courses'],
+    queryFn: () =>
+      isPaginated
+        ? api.get<PaginatedResponse<CourseListItem>>(`/course?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<CourseListItem>>('/course'),
     enabled: !!getToken(),
   });
 }

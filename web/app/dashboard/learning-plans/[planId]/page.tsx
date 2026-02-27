@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import IconButton from '@/app/components/IconButton';
+import { Pencil, Trash2 } from 'lucide-react';
 import {
   useLearningPlanDetail,
   useUpdateLearningPlan,
@@ -10,6 +12,7 @@ import {
   useReorderPlanCourses,
   useAssignPlan,
   useAssignPlanToGroup,
+  useBulkAssignPlan,
   useDeleteLearningPlan,
   type PlanCourse,
 } from '../../../../lib/hooks/use-learning-plans';
@@ -20,6 +23,10 @@ import {
   useOrganization,
 } from '../../../../lib/hooks/use-organizations';
 import { useCourses } from '../../../../lib/hooks/use-course';
+import { useToast } from '../../../components/ToastProvider';
+import CustomDropdown from '../../../components/CustomDropdown';
+import CourseSelectorModal from '../../../components/CourseSelectorModal';
+import UserSelectorModal from '../../../components/UserSelectorModal';
 
 function CourseItem({
   pc,
@@ -37,6 +44,7 @@ function CourseItem({
   onMoveDown: () => void;
 }) {
   const removeCourse = useRemovePlanCourse(planId);
+  const [confirmRemove, setConfirmRemove] = useState(false);
 
   return (
     <div className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg">
@@ -72,13 +80,25 @@ function CourseItem({
           )}
         </div>
       </div>
-      <button
-        onClick={() => removeCourse.mutate(pc.courseId)}
-        disabled={removeCourse.isPending}
-        className="text-xs text-red-400 hover:text-red-600 hover:bg-red-50 px-2 py-1 rounded transition-colors disabled:opacity-50"
-      >
-        Remove
-      </button>
+      {confirmRemove ? (
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => removeCourse.mutate(pc.courseId)}
+            disabled={removeCourse.isPending}
+            className="text-xs px-2.5 py-1.5 bg-red-500 text-white hover:bg-red-600 rounded-lg transition-all disabled:opacity-50"
+          >
+            Confirm
+          </button>
+          <button
+            onClick={() => setConfirmRemove(false)}
+            className="text-xs text-gray-400 hover:text-gray-600"
+          >
+            Cancel
+          </button>
+        </div>
+      ) : (
+        <IconButton icon={<Trash2 size={16} />} tooltip="Remove" variant="danger" onClick={() => setConfirmRemove(true)} />
+      )}
     </div>
   );
 }
@@ -92,12 +112,14 @@ export default function LearningPlanDetailPage() {
   const orgKey = plan?.org?.key || '';
   const { data: org } = useOrganization(orgKey);
   const { data: groups } = useOrgGroups(orgKey);
-  const { data: courses } = useCourses();
+  const { data: coursesResponse } = useCourses();
+  const courses = coursesResponse?.data;
   const updatePlan = useUpdateLearningPlan();
   const addCourse = useAddPlanCourse(planId);
   const reorderCourses = useReorderPlanCourses(planId);
   const assignPlan = useAssignPlan(planId);
   const assignToGroup = useAssignPlanToGroup(planId);
+  const bulkAssign = useBulkAssignPlan(planId);
   const deletePlan = useDeleteLearningPlan();
 
   const [editMode, setEditMode] = useState(false);
@@ -106,14 +128,19 @@ export default function LearningPlanDetailPage() {
   const [editDays, setEditDays] = useState('');
   const [editCorrelative, setEditCorrelative] = useState(false);
 
-  const [addCourseId, setAddCourseId] = useState('');
-  const [assignUserId, setAssignUserId] = useState('');
-  const [assignDeadline, setAssignDeadline] = useState('');
   const [assignGroupId, setAssignGroupId] = useState('');
   const [groupDeadline, setGroupDeadline] = useState('');
-  const [assignError, setAssignError] = useState('');
-  const [assignSuccess, setAssignSuccess] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showCourseModal, setShowCourseModal] = useState(false);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [enrollUserIds, setEnrollUserIds] = useState<string[]>([]);
+  const [enrollDeadline, setEnrollDeadline] = useState('');
+  const { showToast } = useToast();
+
+  // Bulk enroll state
+  const bulkFileRef = useRef<HTMLInputElement>(null);
+  const [bulkCsvFile, setBulkCsvFile] = useState<File | null>(null);
+  const [bulkDeadline, setBulkDeadline] = useState('');
 
   const existingCourseIds = new Set(plan?.courses.map((c) => c.courseId) ?? []);
   const availableCourses = courses?.filter((c) => !existingCourseIds.has(c.id)) ?? [];
@@ -138,13 +165,15 @@ export default function LearningPlanDetailPage() {
     setEditMode(false);
   };
 
-  const handleAddCourse = async () => {
-    if (!addCourseId) return;
-    await addCourse.mutateAsync({
-      courseId: parseInt(addCourseId),
-      order: (plan?.courses.length ?? 0),
-    });
-    setAddCourseId('');
+  const handleAddCourses = async (courseIds: string[]) => {
+    const startOrder = plan?.courses.length ?? 0;
+    for (let i = 0; i < courseIds.length; i++) {
+      await addCourse.mutateAsync({
+        courseId: parseInt(courseIds[i]),
+        order: startOrder + i,
+      });
+    }
+    setShowCourseModal(false);
   };
 
   const handleReorder = async (planCourses: PlanCourse[], fromIndex: number, toIndex: number) => {
@@ -158,40 +187,96 @@ export default function LearningPlanDetailPage() {
     await reorderCourses.mutateAsync(items);
   };
 
-  const handleAssignUser = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!assignUserId.trim()) return;
-    setAssignError('');
-    setAssignSuccess('');
+  const handleSelectUsers = (userIds: string[]) => {
+    setEnrollUserIds(userIds);
+    setShowUserModal(false);
+  };
+
+  const handleEnroll = async () => {
+    if (enrollUserIds.length === 0) return;
     try {
-      await assignPlan.mutateAsync({
-        userId: assignUserId.trim(),
-        deadline: assignDeadline || undefined,
-      });
-      setAssignSuccess('User assigned successfully.');
-      setAssignUserId('');
-      setAssignDeadline('');
+      let successCount = 0;
+      let failCount = 0;
+      for (const userId of enrollUserIds) {
+        try {
+          await assignPlan.mutateAsync({
+            userId,
+            deadline: enrollDeadline || undefined,
+          });
+          successCount++;
+        } catch {
+          failCount++;
+        }
+      }
+      if (failCount > 0) {
+        showToast(`${successCount} enrolled, ${failCount} failed`, 'success');
+      } else {
+        showToast(`${successCount} user${successCount !== 1 ? 's' : ''} enrolled successfully`, 'success');
+      }
+      setEnrollUserIds([]);
+      setEnrollDeadline('');
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Failed to assign.';
-      setAssignError(message);
+      showToast(err instanceof Error ? err.message : 'Enrollment failed', 'error');
     }
   };
 
   const handleAssignGroup = async () => {
     if (!assignGroupId) return;
-    setAssignError('');
-    setAssignSuccess('');
     try {
       const result = await assignToGroup.mutateAsync({
         groupId: parseInt(assignGroupId),
         deadline: groupDeadline || undefined,
       }) as { assigned: number; total: number };
-      setAssignSuccess(`Assigned to ${result.assigned} members.`);
+      showToast(`Assigned to ${result.assigned} members`, 'success');
       setAssignGroupId('');
       setGroupDeadline('');
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to assign group.';
-      setAssignError(message);
+      showToast(message, 'error');
+    }
+  };
+
+  const handleBulkEnroll = async () => {
+    if (!bulkCsvFile) return;
+    const text = await bulkCsvFile.text();
+    const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
+    const users: { email: string }[] = [];
+    for (const line of lines) {
+      const email = line.split(',')[0].trim();
+      if (!email || email.toLowerCase() === 'email') continue;
+      users.push({ email });
+    }
+    if (users.length === 0) {
+      showToast('No valid emails found in CSV', 'error');
+      return;
+    }
+    try {
+      const results = await bulkAssign.mutateAsync({
+        users,
+        deadline: bulkDeadline || undefined,
+      });
+      const assigned = results.filter((r) => r.status === 'assigned').length;
+      const failed = results.filter((r) => r.status === 'failed').length;
+      showToast(`${assigned} assigned, ${failed} failed`, 'success');
+
+      // Generate and download result CSV
+      const csvLines = ['email,status,message'];
+      results.forEach((r) => {
+        csvLines.push(`${r.email},${r.status},${r.message || ''}`);
+      });
+      const blob = new Blob([csvLines.join('\n')], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `bulk-enroll-results-${Date.now()}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+
+      setBulkCsvFile(null);
+      setBulkDeadline('');
+      if (bulkFileRef.current) bulkFileRef.current.value = '';
+    } catch (err: unknown) {
+      showToast(err instanceof Error ? err.message : 'Bulk enrollment failed', 'error');
     }
   };
 
@@ -208,7 +293,7 @@ export default function LearningPlanDetailPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Back link */}
         <button
           onClick={() => router.push('/dashboard/learning-plans')}
@@ -311,31 +396,23 @@ export default function LearningPlanDetailPage() {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={startEdit}
-                      className="text-sm text-[#9F80DA] hover:text-[#8A6BC5] font-medium"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={handleDelete}
-                      disabled={deletePlan.isPending}
-                      className={`text-sm px-3 py-1 rounded-lg transition-all ${
-                        confirmDelete
-                          ? 'bg-red-500 text-white hover:bg-red-600'
-                          : 'text-red-400 hover:text-red-600'
-                      } disabled:opacity-50`}
-                    >
-                      {confirmDelete ? 'Confirm Delete' : 'Delete'}
-                    </button>
-                    {confirmDelete && (
-                      <button
-                        onClick={() => setConfirmDelete(false)}
-                        className="text-sm text-gray-400 hover:text-gray-600"
-                      >
-                        Cancel
-                      </button>
+                  <div className="flex items-center gap-1">
+                    <IconButton icon={<Pencil size={16} />} tooltip="Edit" variant="primary" onClick={() => startEdit()} />
+                    {confirmDelete ? (
+                      <>
+                        <button
+                          onClick={() => handleDelete()}
+                          disabled={deletePlan.isPending}
+                          className="text-xs px-2.5 py-1.5 bg-red-500 text-white hover:bg-red-600 rounded-lg transition-all disabled:opacity-50"
+                        >
+                          Confirm
+                        </button>
+                        <button onClick={() => setConfirmDelete(false)} className="text-xs text-gray-400 hover:text-gray-600">
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <IconButton icon={<Trash2 size={16} />} tooltip="Delete" variant="danger" onClick={() => handleDelete()} />
                     )}
                   </div>
                 </div>
@@ -363,64 +440,99 @@ export default function LearningPlanDetailPage() {
                 )}
               </div>
               {/* Add course */}
-              <div className="flex gap-2 items-center">
-                <select
-                  value={addCourseId}
-                  onChange={(e) => setAddCourseId(e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                >
-                  <option value="">Select a course to add...</option>
-                  {availableCourses.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.title || 'Untitled'} ({c.status})
-                    </option>
-                  ))}
-                </select>
-                <button
-                  onClick={handleAddCourse}
-                  disabled={addCourse.isPending || !addCourseId}
-                  className="px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white text-sm font-medium rounded-lg hover:from-[#8A6BC5] hover:to-[#7B5BB5] disabled:opacity-50 transition-all"
-                >
-                  {addCourse.isPending ? 'Adding...' : 'Add'}
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => setShowCourseModal(true)}
+                disabled={addCourse.isPending}
+                className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors disabled:opacity-50"
+              >
+                {addCourse.isPending ? 'Adding...' : '+ Add Courses'}
+              </button>
+              <CourseSelectorModal
+                isOpen={showCourseModal}
+                onClose={() => setShowCourseModal(false)}
+                onSelect={handleAddCourses}
+                courses={availableCourses.map((c) => ({ id: String(c.id), name: c.title || 'Untitled', description: c.status }))}
+              />
             </section>
 
-            {/* Assign to User */}
+            {/* Enroll */}
             <section className="mb-10">
-              <h2 className="text-base font-semibold text-[#1a1a1a] mb-4">Assign to User</h2>
-              <form onSubmit={handleAssignUser} className="p-5 border border-gray-200 rounded-xl bg-gray-50 space-y-3">
-                <div className="flex gap-3">
-                  <select
-                    value={assignUserId}
-                    onChange={(e) => setAssignUserId(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
+              <h2 className="text-base font-semibold text-[#1a1a1a] mb-4">Enroll</h2>
+              <div className="p-5 border border-gray-200 rounded-xl bg-gray-50 space-y-4">
+                {/* Select users */}
+                <div className="flex gap-3 items-center">
+                  <button
+                    type="button"
+                    onClick={() => setShowUserModal(true)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-white transition-colors"
                   >
-                    <option value="">Select a member...</option>
-                    {orgMembers.map((m) => (
-                      <option key={m.userId} value={m.userId}>
-                        {m.user.name || m.user.email} ({m.user.email})
-                      </option>
-                    ))}
-                  </select>
+                    {enrollUserIds.length > 0
+                      ? `${enrollUserIds.length} user${enrollUserIds.length !== 1 ? 's' : ''} selected`
+                      : '+ Select Users'}
+                  </button>
                   <input
                     type="date"
-                    value={assignDeadline}
-                    onChange={(e) => setAssignDeadline(e.target.value)}
+                    value={enrollDeadline}
+                    onChange={(e) => setEnrollDeadline(e.target.value)}
                     className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white"
                     placeholder="Deadline (optional)"
                   />
                   <button
-                    type="submit"
-                    disabled={assignPlan.isPending || !assignUserId}
+                    onClick={handleEnroll}
+                    disabled={assignPlan.isPending || enrollUserIds.length === 0}
                     className="px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white text-sm font-medium rounded-lg hover:from-[#8A6BC5] hover:to-[#7B5BB5] disabled:opacity-50 transition-all"
                   >
-                    {assignPlan.isPending ? 'Assigning...' : 'Assign'}
+                    {assignPlan.isPending ? 'Enrolling...' : 'Enroll'}
                   </button>
                 </div>
-                {assignError && <p className="text-red-500 text-xs">{assignError}</p>}
-                {assignSuccess && <p className="text-green-600 text-xs">{assignSuccess}</p>}
-              </form>
+
+                {/* Divider */}
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 border-t border-gray-200" />
+                  <span className="text-xs text-gray-400">or bulk enroll via CSV</span>
+                  <div className="flex-1 border-t border-gray-200" />
+                </div>
+
+                {/* Bulk CSV */}
+                <p className="text-xs text-gray-500">
+                  CSV format: email (one email per row)
+                </p>
+                <div className="flex gap-3 items-center">
+                  <input
+                    ref={bulkFileRef}
+                    type="file"
+                    accept=".csv"
+                    onChange={(e) => setBulkCsvFile(e.target.files?.[0] || null)}
+                    className="text-sm text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-[#9F80DA]/10 file:text-[#9F80DA] hover:file:bg-[#9F80DA]/20 file:cursor-pointer"
+                  />
+                  <input
+                    type="date"
+                    value={bulkDeadline}
+                    onChange={(e) => setBulkDeadline(e.target.value)}
+                    className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white"
+                    placeholder="Deadline (optional)"
+                  />
+                  <button
+                    onClick={handleBulkEnroll}
+                    disabled={!bulkCsvFile || bulkAssign.isPending}
+                    className="px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white text-sm font-medium rounded-lg hover:from-[#8A6BC5] hover:to-[#7B5BB5] disabled:opacity-50 transition-all"
+                  >
+                    {bulkAssign.isPending ? 'Uploading...' : 'Upload'}
+                  </button>
+                </div>
+              </div>
+              <UserSelectorModal
+                isOpen={showUserModal}
+                onClose={() => setShowUserModal(false)}
+                onSelect={handleSelectUsers}
+                users={orgMembers.map((m) => ({
+                  id: String(m.userId),
+                  name: m.user.name || '',
+                  email: m.user.email,
+                  image: m.user.image,
+                }))}
+              />
             </section>
 
             {/* Assign to Group */}
@@ -429,18 +541,14 @@ export default function LearningPlanDetailPage() {
                 <h2 className="text-base font-semibold text-[#1a1a1a] mb-4">Assign to Group</h2>
                 <div className="p-5 border border-gray-200 rounded-xl bg-gray-50">
                   <div className="flex gap-3">
-                    <select
-                      value={assignGroupId}
-                      onChange={(e) => setAssignGroupId(e.target.value)}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                    >
-                      <option value="">Select a group...</option>
-                      {groups.map((g) => (
-                        <option key={g.id} value={g.id}>
-                          {g.name} ({g._count.members} members)
-                        </option>
-                      ))}
-                    </select>
+                    <div className="flex-1">
+                      <CustomDropdown
+                        value={assignGroupId}
+                        onChange={setAssignGroupId}
+                        options={groups.map((g) => ({ value: String(g.id), label: `${g.name} (${g._count.members} members)` }))}
+                        placeholder="Select a group..."
+                      />
+                    </div>
                     <input
                       type="date"
                       value={groupDeadline}

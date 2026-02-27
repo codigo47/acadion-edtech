@@ -1,7 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import IconButton from '@/app/components/IconButton';
+import { Trash2 } from 'lucide-react';
+import CustomDropdown from '@/app/components/CustomDropdown';
+import Pagination from '@/app/components/Pagination';
 import {
   useMyLearningPlans,
   useCreateLearningPlan,
@@ -32,7 +36,10 @@ function PlanRow({
   };
 
   return (
-    <tr className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+    <tr
+      className="border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
+      onClick={() => onView(plan.id)}
+    >
       <td className="py-3 px-4">
         <div className="flex items-center gap-3">
           {plan.image ? (
@@ -92,31 +99,25 @@ function PlanRow({
         </div>
       </td>
       <td className="py-3 px-4 text-right">
-        <div className="flex items-center justify-end gap-2">
-          <button
-            onClick={() => onView(plan.id)}
-            className="text-xs px-3 py-1.5 text-[#9F80DA] hover:bg-[#9F80DA]/10 rounded-lg transition-colors"
-          >
-            View
-          </button>
-          <button
-            onClick={handleDelete}
-            disabled={isDeleting}
-            className={`text-xs px-3 py-1.5 rounded-lg transition-all ${
-              confirmDelete
-                ? 'bg-red-500 text-white hover:bg-red-600'
-                : 'text-red-400 hover:bg-red-50 hover:text-red-600'
-            } disabled:opacity-50`}
-          >
-            {confirmDelete ? 'Confirm' : 'Delete'}
-          </button>
-          {confirmDelete && (
-            <button
-              onClick={() => setConfirmDelete(false)}
-              className="text-xs text-gray-400 hover:text-gray-600"
-            >
-              Cancel
-            </button>
+        <div className="flex items-center justify-end gap-1">
+          {confirmDelete ? (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); onDelete(plan.id); }}
+                disabled={isDeleting}
+                className="text-xs px-2.5 py-1.5 bg-red-500 text-white hover:bg-red-600 rounded-lg transition-all disabled:opacity-50"
+              >
+                Confirm
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }}
+                className="text-xs text-gray-400 hover:text-gray-600"
+              >
+                Cancel
+              </button>
+            </>
+          ) : (
+            <IconButton icon={<Trash2 size={16} />} tooltip="Delete" variant="danger" onClick={(e) => setConfirmDelete(true)} />
           )}
         </div>
       </td>
@@ -126,11 +127,21 @@ function PlanRow({
 
 export default function LearningPlansPage() {
   const router = useRouter();
-  const { data: plans, isLoading } = useMyLearningPlans();
+  const [page, setPage] = useState(1);
+  const planLimit = 10;
+  const { data: plansResponse, isLoading } = useMyLearningPlans(page, planLimit);
+  const plans = plansResponse?.data;
   const { data: orgs } = useOrganizations();
 
   const [showCreate, setShowCreate] = useState(false);
   const [selectedOrgKey, setSelectedOrgKey] = useState('');
+
+  useEffect(() => {
+    if (orgs?.length === 1 && !selectedOrgKey) {
+      setSelectedOrgKey(orgs[0].key);
+    }
+  }, [orgs]);
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [estimatedDays, setEstimatedDays] = useState('');
@@ -201,19 +212,12 @@ export default function LearningPlansPage() {
               Create Learning Plan
             </h2>
             <form onSubmit={handleCreate} className="space-y-3">
-              <select
+              <CustomDropdown
                 value={selectedOrgKey}
-                onChange={(e) => setSelectedOrgKey(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                required
-              >
-                <option value="">Select organization...</option>
-                {orgs?.map((org) => (
-                  <option key={org.key} value={org.key}>
-                    {org.name}
-                  </option>
-                ))}
-              </select>
+                onChange={setSelectedOrgKey}
+                options={orgs?.map((org) => ({ value: org.key, label: org.name })) ?? []}
+                placeholder="Select organization..."
+              />
               <input
                 type="text"
                 value={name}
@@ -297,43 +301,53 @@ export default function LearningPlansPage() {
             </p>
           </div>
         ) : (
-          <div className="border border-gray-200 rounded-xl overflow-hidden">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                    Plan
-                  </th>
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                    Organization
-                  </th>
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                    Courses
-                  </th>
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                    Enrolled
-                  </th>
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                    Tags
-                  </th>
-                  <th className="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {plans.map((plan) => (
-                  <PlanRow
-                    key={plan.id}
-                    plan={plan}
-                    onView={handleView}
-                    onDelete={handleDelete}
-                    isDeleting={deletePlan.isPending}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <>
+            <div className="border border-gray-200 rounded-xl overflow-hidden">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Plan
+                    </th>
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Organization
+                    </th>
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Courses
+                    </th>
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Enrolled
+                    </th>
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Tags
+                    </th>
+                    <th className="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {plans.map((plan) => (
+                    <PlanRow
+                      key={plan.id}
+                      plan={plan}
+                      onView={handleView}
+                      onDelete={handleDelete}
+                      isDeleting={deletePlan.isPending}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {plansResponse && (
+              <Pagination
+                page={plansResponse.page}
+                limit={plansResponse.limit}
+                total={plansResponse.total}
+                onPageChange={setPage}
+              />
+            )}
+          </>
         )}
       </div>
     </div>

@@ -3,6 +3,7 @@ import {
   Get,
   Patch,
   Param,
+  Query,
   UseGuards,
   Request,
   ParseIntPipe,
@@ -10,6 +11,7 @@ import {
 import type { Request as ExpressRequest } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { NotificationService } from './notification.service';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 interface RequestWithUser extends ExpressRequest {
   user: { id: string };
@@ -21,8 +23,11 @@ export class NotificationController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  getAll(@Request() req: RequestWithUser) {
-    return this.notificationService.getUserNotifications(req.user.id);
+  getAll(
+    @Request() req: RequestWithUser,
+    @Query() pagination: PaginationDto,
+  ) {
+    return this.notificationService.getUserNotifications(req.user.id, pagination);
   }
 
   @UseGuards(JwtAuthGuard)

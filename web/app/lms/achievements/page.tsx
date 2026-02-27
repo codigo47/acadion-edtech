@@ -151,8 +151,10 @@ function LockedBadgeCard({ badge }: { badge: Badge }) {
 }
 
 export default function AchievementsPage() {
-  const { data: myBadges, isLoading: loadingMine } = useMyBadges();
-  const { data: allBadges, isLoading: loadingAll } = useAllBadges();
+  const { data: myBadgesResponse, isLoading: loadingMine } = useMyBadges();
+  const myBadges = myBadgesResponse?.data;
+  const { data: allBadgesResponse, isLoading: loadingAll } = useAllBadges();
+  const allBadges = allBadgesResponse?.data;
 
   const earnedIds = useMemo(
     () => new Set(myBadges?.map((ub) => ub.badgeId) ?? []),

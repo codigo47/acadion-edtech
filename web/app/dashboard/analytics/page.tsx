@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import CustomDropdown from '@/app/components/CustomDropdown';
 import { useOrganizations } from '../../../lib/hooks/use-organizations';
 import { useOrgAnalytics } from '../../../lib/hooks/use-analytics';
 
@@ -17,6 +18,12 @@ export default function AnalyticsDashboardPage() {
   const router = useRouter();
   const { data: orgs, isLoading: orgsLoading } = useOrganizations();
   const [selectedOrgKey, setSelectedOrgKey] = useState('');
+
+  useEffect(() => {
+    if (orgs?.length === 1 && !selectedOrgKey) {
+      setSelectedOrgKey(orgs[0].key);
+    }
+  }, [orgs]);
 
   const { data: analytics, isLoading: analyticsLoading } = useOrgAnalytics(selectedOrgKey);
 
@@ -37,18 +44,14 @@ export default function AnalyticsDashboardPage() {
           {orgsLoading ? (
             <div className="w-64 h-10 bg-gray-100 rounded-lg animate-pulse" />
           ) : (
-            <select
-              value={selectedOrgKey}
-              onChange={(e) => setSelectedOrgKey(e.target.value)}
-              className="w-64 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA]"
-            >
-              <option value="">Select an organization</option>
-              {orgs?.map((org) => (
-                <option key={org.key} value={org.key}>
-                  {org.name}
-                </option>
-              ))}
-            </select>
+            <div className="w-64">
+              <CustomDropdown
+                value={selectedOrgKey}
+                onChange={setSelectedOrgKey}
+                options={orgs?.map((org) => ({ value: org.key, label: org.name })) ?? []}
+                placeholder="Select an organization"
+              />
+            </div>
           )}
         </div>
 
@@ -123,7 +126,11 @@ export default function AnalyticsDashboardPage() {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {analytics.recentCompletions.map((completion, i) => (
-                        <tr key={i} className="hover:bg-gray-50 transition-colors">
+                        <tr
+                          key={i}
+                          className="hover:bg-gray-50 transition-colors cursor-pointer"
+                          onClick={() => completion.courseKey && router.push(`/dashboard/analytics/${completion.courseKey}`)}
+                        >
                           <td className="px-4 py-3">
                             <p className="font-medium">{completion.user.name || completion.user.email}</p>
                             {completion.user.name && (

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useSetBuildingMethod, useSetModules, useSetUnits, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useCourseComponents } from '../../../lib/hooks/use-course';
 import { useUser } from '../../../lib/hooks/use-auth';
@@ -32,7 +32,9 @@ import { CustomScrollbar } from '../../components/CustomScrollbar';
 export default function ProjectPage() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const courseKey = params.courseKey as string;
+  const fromDashboard = searchParams.get('from') === 'dashboard';
   const { user } = useUser();
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -415,6 +417,21 @@ export default function ProjectPage() {
           setCurrentStep('paraphrasing');
           setIsSSEEnabled(true);
         }
+      } else if (courseData.status === 'completed') {
+        // Course completed with no chat messages (one-shot generation)
+        const indexFromOutput = courseData.output?.proposedIndex as ProposedIndex | undefined;
+        if (indexFromOutput) {
+          setProposedIndex(indexFromOutput);
+          // Auto-select first unit if available
+          if (indexFromOutput.modules.length > 0 && indexFromOutput.modules[0].units.length > 0) {
+            setSelectedUnitCode(indexFromOutput.modules[0].units[0].code);
+          }
+        }
+        setHasSubmitted(true);
+        setShowEditorLayout(true);
+        setCurrentStep('complete');
+        setIsLoadingCourse(false);
+        return;
       }
 
       setIsLoadingCourse(false);
@@ -1524,16 +1541,22 @@ export default function ProjectPage() {
             onClick={() => router.push('/dashboard')}
             className="flex items-center gap-2 text-sm text-gray-600 hover:text-[#9F80DA] transition-colors"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-            <span className="leading-none">Dashboard</span>
+            {fromDashboard ? (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            ) : (
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            )}
+            <span className="leading-none">{fromDashboard ? 'Back to Dashboard' : 'Dashboard'}</span>
           </button>
         </div>
 
         <div className="flex items-center gap-3">
           {/* Preview Button */}
-          <button onClick={() => router.push(`/preview/${courseKey}`)} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+          <button onClick={() => router.push(`/preview/${courseKey}${fromDashboard ? '?from=dashboard' : ''}`)} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />

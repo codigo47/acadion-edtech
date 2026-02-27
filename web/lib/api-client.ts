@@ -72,4 +72,11 @@ export const api = {
     request<T>(endpoint, { ...options, method: 'DELETE' }),
 };
 
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+}
+
 export { API_URL };

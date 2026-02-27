@@ -2,13 +2,18 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useCourses } from '../../lib/hooks/use-course';
 import { useUser, useLogout } from '../../lib/hooks/use-auth';
 import { useOrganizations } from '../../lib/hooks/use-organizations';
 import NotificationBell from '../components/NotificationBell';
 import ChatLoadingIndicator from '../components/loaders/ChatLoadingIndicator';
 
 const sidebarLinks = [
+  {
+    label: 'Courses',
+    href: '/dashboard',
+    exact: true,
+    icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z',
+  },
   {
     label: 'Organizations',
     href: '/dashboard/organizations',
@@ -95,7 +100,6 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [showUserMenu, setShowUserMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { data: courses } = useCourses();
   const { user } = useUser();
   const logout = useLogout();
 
@@ -192,26 +196,12 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
               </button>
             </nav>
 
-            <div className="border-t border-gray-200 pt-4 mb-4">
-              <h3 className="text-xs font-semibold text-gray-500 mb-3 px-3 uppercase tracking-wide">Projects</h3>
-              <div className="space-y-1">
-                {courses?.map((course) => (
-                  <button
-                    key={course.id}
-                    onClick={() => router.push(`/project/${course.key}`)}
-                    className="w-full px-3 py-2 text-left text-sm hover:bg-gray-200 rounded transition-colors truncate"
-                  >
-                    {course.title || 'Untitled Course'}
-                  </button>
-                ))}
-              </div>
-            </div>
-
             <div className="border-t border-gray-200 pt-4">
-              <h3 className="text-xs font-semibold text-gray-500 mb-3 px-3 uppercase tracking-wide">Settings</h3>
               <div className="space-y-1">
                 {sidebarLinks.map((link) => {
-                  const isActive = pathname.startsWith(link.href);
+                  const isActive = link.exact
+                    ? pathname === link.href
+                    : pathname.startsWith(link.href);
                   return (
                     <button
                       key={link.href}

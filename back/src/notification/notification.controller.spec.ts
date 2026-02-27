@@ -23,10 +23,10 @@ describe('NotificationController', () => {
 
   describe('getAll', () => {
     it('returns notifications for user', async () => {
-      mockNotificationService.getUserNotifications.mockResolvedValue([{ id: 1 }]);
+      mockNotificationService.getUserNotifications.mockResolvedValue({ data: [{ id: 1 }], total: 1, page: 1, limit: 20 });
       const req = { user: { id: 'uid' } } as any;
-      const result = await controller.getAll(req);
-      expect(result).toHaveLength(1);
+      const result = await controller.getAll(req, { page: 1, limit: 20 });
+      expect(result.data).toHaveLength(1);
     });
   });
 

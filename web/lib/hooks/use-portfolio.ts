@@ -53,7 +53,7 @@ export interface PublicPortfolioData {
   portfolio: PortfolioBase;
 }
 
-export interface MyPortfolioData extends PortfolioBase {
+export interface MyPortfolioData extends Omit<PortfolioBase, 'courses'> {
   id: number | null;
   isPublic: boolean;
   courses: Array<{

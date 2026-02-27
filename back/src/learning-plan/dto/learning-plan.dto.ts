@@ -5,6 +5,7 @@ import {
   IsBoolean,
   IsArray,
   IsInt,
+  IsEmail,
   Min,
   ValidateNested,
   IsDateString,
@@ -131,5 +132,21 @@ export class AssignPlanToGroupDto {
 
   @IsDateString()
   @IsOptional()
+  deadline?: string;
+}
+
+class BulkAssignUserDto {
+  @IsEmail()
+  email: string;
+}
+
+export class BulkAssignPlanDto {
+  @ValidateNested({ each: true })
+  @Type(() => BulkAssignUserDto)
+  @IsArray()
+  users: BulkAssignUserDto[];
+
+  @IsOptional()
+  @IsDateString()
   deadline?: string;
 }

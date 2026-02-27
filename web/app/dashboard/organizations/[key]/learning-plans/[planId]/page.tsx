@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import CustomDropdown from '@/app/components/CustomDropdown';
 import {
   useLearningPlanDetail,
   useUpdateLearningPlan,
@@ -192,7 +193,7 @@ export default function LearningPlanDetailPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {isLoading ? (
           <div className="flex justify-center py-20">
             <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin" />
@@ -311,20 +312,12 @@ export default function LearningPlanDetailPage() {
               </div>
               {/* Add course */}
               <div className="flex gap-2 items-center">
-                <select
-                  value={addCourseId}
-                  onChange={(e) => setAddCourseId(e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                >
-                  <option value="">Select a course to add...</option>
-                  {/* We show org courses from members' courses if available; otherwise user types ID */}
-                </select>
                 <input
                   type="number"
                   value={addCourseId}
                   onChange={(e) => setAddCourseId(e.target.value)}
                   placeholder="Course ID"
-                  className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white"
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white"
                 />
                 <button
                   onClick={handleAddCourse}
@@ -341,18 +334,14 @@ export default function LearningPlanDetailPage() {
               <h2 className="text-base font-semibold text-[#1a1a1a] mb-4">Assign to User</h2>
               <form onSubmit={handleAssignUser} className="p-5 border border-gray-200 rounded-xl bg-gray-50 space-y-3">
                 <div className="flex gap-3">
-                  <select
-                    value={assignUserId}
-                    onChange={(e) => setAssignUserId(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                  >
-                    <option value="">Select a member...</option>
-                    {orgMembers.map((m) => (
-                      <option key={m.userId} value={m.userId}>
-                        {m.user.name || m.user.email} ({m.user.email})
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex-1">
+                    <CustomDropdown
+                      value={assignUserId}
+                      onChange={setAssignUserId}
+                      options={orgMembers.map((m) => ({ value: String(m.userId), label: `${m.user.name || m.user.email} (${m.user.email})` }))}
+                      placeholder="Select a member..."
+                    />
+                  </div>
                   <input
                     type="date"
                     value={assignDeadline}
@@ -378,18 +367,14 @@ export default function LearningPlanDetailPage() {
               <h2 className="text-base font-semibold text-[#1a1a1a] mb-4">Assign to Group</h2>
               <div className="p-5 border border-gray-200 rounded-xl bg-gray-50">
                 <div className="flex gap-3">
-                  <select
-                    value={assignGroupId}
-                    onChange={(e) => setAssignGroupId(e.target.value)}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                  >
-                    <option value="">Select a group...</option>
-                    {groups?.map((g) => (
-                      <option key={g.id} value={g.id}>
-                        {g.name} ({g._count.members} members)
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex-1">
+                    <CustomDropdown
+                      value={assignGroupId}
+                      onChange={setAssignGroupId}
+                      options={groups?.map((g) => ({ value: String(g.id), label: `${g.name} (${g._count.members} members)` })) ?? []}
+                      placeholder="Select a group..."
+                    />
+                  </div>
                   <input
                     type="date"
                     value={groupDeadline}

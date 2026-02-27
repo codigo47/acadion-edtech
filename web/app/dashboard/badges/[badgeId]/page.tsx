@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import IconButton from '@/app/components/IconButton';
+import { Pencil, Power, Trash2 } from 'lucide-react';
+import { useToast } from '@/app/components/ToastProvider';
+import CustomDropdown from '@/app/components/CustomDropdown';
 import {
   useBadgeDetail,
   useUpdateBadge,
@@ -47,8 +51,7 @@ export default function BadgeDetailPage() {
 
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [awardUserId, setAwardUserId] = useState('');
-  const [awardError, setAwardError] = useState('');
-  const [awardSuccess, setAwardSuccess] = useState('');
+  const { showToast } = useToast();
 
   const orgMembers = org?.members ?? [];
 
@@ -86,14 +89,12 @@ export default function BadgeDetailPage() {
   const handleAward = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!awardUserId) return;
-    setAwardError('');
-    setAwardSuccess('');
     try {
       await awardBadge.mutateAsync({ badgeId, userId: awardUserId });
-      setAwardSuccess('Badge awarded successfully.');
+      showToast('Badge awarded successfully', 'success');
       setAwardUserId('');
     } catch (err: unknown) {
-      setAwardError(err instanceof Error ? err.message : 'Failed to award badge.');
+      showToast(err instanceof Error ? err.message : 'Failed to award badge', 'error');
     }
   };
 
@@ -127,7 +128,7 @@ export default function BadgeDetailPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {/* Back link */}
         <button
           onClick={() => router.push('/dashboard/badges')}
@@ -172,15 +173,12 @@ export default function BadgeDetailPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white"
                   />
                   <div className="flex gap-4 items-center">
-                    <select
+                    <CustomDropdown
                       value={editType}
-                      onChange={(e) => setEditType(e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                    >
-                      {BADGE_TYPES.map((bt) => (
-                        <option key={bt.value} value={bt.value}>{bt.label}</option>
-                      ))}
-                    </select>
+                      onChange={setEditType}
+                      options={BADGE_TYPES}
+                      placeholder="Select type..."
+                    />
                     <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
                       <input
                         type="checkbox"
@@ -236,30 +234,24 @@ export default function BadgeDetailPage() {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 flex-shrink-0">
-                    <button onClick={startEdit} className="text-sm text-[#9F80DA] hover:text-[#8A6BC5] font-medium">
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => updateBadge.mutate({ id: badgeId, isActive: !badge.isActive })}
-                      disabled={updateBadge.isPending}
-                      className="text-sm text-gray-500 hover:text-gray-700 disabled:opacity-50"
-                    >
-                      {badge.isActive ? 'Deactivate' : 'Activate'}
-                    </button>
-                    <button
-                      onClick={handleDelete}
-                      disabled={deleteBadge.isPending}
-                      className={`text-sm px-3 py-1 rounded-lg transition-all ${
-                        confirmDelete ? 'bg-red-500 text-white hover:bg-red-600' : 'text-red-400 hover:text-red-600'
-                      } disabled:opacity-50`}
-                    >
-                      {confirmDelete ? 'Confirm Delete' : 'Delete'}
-                    </button>
-                    {confirmDelete && (
-                      <button onClick={() => setConfirmDelete(false)} className="text-sm text-gray-400 hover:text-gray-600">
-                        Cancel
-                      </button>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    <IconButton icon={<Pencil size={16} />} tooltip="Edit" variant="primary" onClick={(e) => startEdit()} />
+                    <IconButton icon={<Power size={16} />} tooltip={badge.isActive ? 'Deactivate' : 'Activate'} variant="danger" onClick={(e) => updateBadge.mutate({ id: badgeId, isActive: !badge.isActive })} />
+                    {confirmDelete ? (
+                      <>
+                        <button
+                          onClick={() => handleDelete()}
+                          disabled={deleteBadge.isPending}
+                          className="text-xs px-2.5 py-1.5 bg-red-500 text-white hover:bg-red-600 rounded-lg transition-all disabled:opacity-50"
+                        >
+                          Confirm
+                        </button>
+                        <button onClick={() => setConfirmDelete(false)} className="text-xs text-gray-400 hover:text-gray-600">
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <IconButton icon={<Trash2 size={16} />} tooltip="Delete" variant="danger" onClick={(e) => handleDelete()} />
                     )}
                   </div>
                 </div>
@@ -285,18 +277,14 @@ export default function BadgeDetailPage() {
                 <h2 className="text-base font-semibold text-[#1a1a1a] mb-3">Award Manually</h2>
                 <form onSubmit={handleAward} className="p-5 border border-gray-200 rounded-xl bg-gray-50">
                   <div className="flex gap-3">
-                    <select
-                      value={awardUserId}
-                      onChange={(e) => setAwardUserId(e.target.value)}
-                      className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                    >
-                      <option value="">Select a member...</option>
-                      {orgMembers.map((m) => (
-                        <option key={m.userId} value={m.userId}>
-                          {m.user.name || m.user.email} ({m.user.email})
-                        </option>
-                      ))}
-                    </select>
+                    <div className="flex-1">
+                      <CustomDropdown
+                        value={awardUserId}
+                        onChange={setAwardUserId}
+                        options={orgMembers.map((m) => ({ value: m.userId, label: `${m.user.name || m.user.email} (${m.user.email})` }))}
+                        placeholder="Select a member..."
+                      />
+                    </div>
                     <button
                       type="submit"
                       disabled={awardBadge.isPending || !awardUserId}
@@ -305,8 +293,6 @@ export default function BadgeDetailPage() {
                       {awardBadge.isPending ? 'Awarding...' : 'Award'}
                     </button>
                   </div>
-                  {awardError && <p className="text-red-500 text-xs mt-2">{awardError}</p>}
-                  {awardSuccess && <p className="text-green-600 text-xs mt-2">{awardSuccess}</p>}
                 </form>
               </section>
             )}

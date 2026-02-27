@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import CustomDropdown from '@/app/components/CustomDropdown';
 import {
   useOrgBadges,
   useCreateBadge,
@@ -201,7 +202,7 @@ export default function OrgBadgesPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {isLoading ? (
           <div className="flex justify-center py-20">
             <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin" />
@@ -275,27 +276,21 @@ export default function OrgBadgesPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-medium text-gray-600 mb-1">Type</label>
-                      <select
+                      <CustomDropdown
                         value={formType}
-                        onChange={(e) => setFormType(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                      >
-                        {BADGE_TYPES.map((t) => (
-                          <option key={t.value} value={t.value}>{t.label}</option>
-                        ))}
-                      </select>
+                        onChange={setFormType}
+                        options={BADGE_TYPES}
+                        placeholder="Select type..."
+                      />
                     </div>
                     <div>
                       <label className="block text-xs font-medium text-gray-600 mb-1">Condition Type</label>
-                      <select
+                      <CustomDropdown
                         value={formConditionType}
-                        onChange={(e) => setFormConditionType(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                      >
-                        {CONDITION_TYPES.map((c) => (
-                          <option key={c.value} value={c.value}>{c.label}</option>
-                        ))}
-                      </select>
+                        onChange={setFormConditionType}
+                        options={CONDITION_TYPES}
+                        placeholder="Select condition..."
+                      />
                     </div>
                   </div>
 

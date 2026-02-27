@@ -99,3 +99,21 @@ export function useRemoveMember(key: string) {
     },
   });
 }
+
+export interface BulkMemberResult {
+  email: string;
+  status: 'created' | 'updated' | 'failed';
+  message?: string;
+}
+
+export function useBulkInviteMembers(key: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { members: { email: string; name?: string; role: string }[] }) =>
+      api.post<BulkMemberResult[]>(`/organizations/${key}/members/bulk`, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['organizations', key] });
+      queryClient.invalidateQueries({ queryKey: ['organizations'] });
+    },
+  });
+}

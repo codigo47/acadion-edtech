@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  Query,
   ParseIntPipe,
   UseGuards,
   Request,
@@ -13,6 +14,7 @@ import {
 import type { Request as ExpressRequest } from 'express';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { LearningPlanService } from './learning-plan.service';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import {
   CreateLearningPlanDto,
   UpdateLearningPlanDto,
@@ -20,6 +22,7 @@ import {
   ReorderPlanCoursesDto,
   AssignPlanDto,
   AssignPlanToGroupDto,
+  BulkAssignPlanDto,
 } from './dto/learning-plan.dto';
 
 interface RequestWithUser extends ExpressRequest {
@@ -34,8 +37,11 @@ export class LearningPlanController {
   ) {}
 
   @Get('my')
-  getMyPlans(@Request() req: RequestWithUser) {
-    return this.learningPlanService.getMyPlans(req.user.id);
+  getMyPlans(
+    @Request() req: RequestWithUser,
+    @Query() pagination: PaginationDto,
+  ) {
+    return this.learningPlanService.getMyPlans(req.user.id, pagination);
   }
 
   @Get('org/:orgKey')
@@ -107,6 +113,15 @@ export class LearningPlanController {
     @Body() dto: AssignPlanToGroupDto,
   ) {
     return this.learningPlanService.assignToGroup(id, dto);
+  }
+
+  @Post(':id/assign-bulk')
+  bulkAssignPlan(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: BulkAssignPlanDto,
+    @Request() req: RequestWithUser,
+  ) {
+    return this.learningPlanService.bulkAssignPlan(id, dto.users, dto.deadline, req.user.id);
   }
 
   @Get(':id/student')

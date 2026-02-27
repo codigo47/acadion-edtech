@@ -1,7 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import IconButton from '@/app/components/IconButton';
+import { Copy, Power, Trash2 } from 'lucide-react';
+import { useToast } from '@/app/components/ToastProvider';
+import CustomDropdown from '@/app/components/CustomDropdown';
+import CourseSelectorModal from '@/app/components/CourseSelectorModal';
+import Pagination from '@/app/components/Pagination';
 import {
   useAllBadges,
   useCreateBadge,
@@ -78,7 +84,10 @@ function BadgeRow({
   const [confirmDelete, setConfirmDelete] = useState(false);
 
   return (
-    <tr className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+    <tr
+      className="border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
+      onClick={() => onView(badge.id)}
+    >
       <td className="py-3 px-4">
         <div className="flex items-center gap-3">
           {badge.image ? (
@@ -118,42 +127,23 @@ function BadgeRow({
       </td>
       <td className="py-3 px-4 text-right">
         <div className="flex items-center justify-end gap-1">
-          <button
-            onClick={() => onView(badge.id)}
-            className="text-xs px-2.5 py-1.5 text-[#9F80DA] hover:bg-[#9F80DA]/10 rounded-lg transition-colors"
-          >
-            View
-          </button>
-          <button
-            onClick={() => duplicateBadge.mutate(badge.id)}
-            disabled={duplicateBadge.isPending}
-            className="text-xs px-2.5 py-1.5 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
-          >
-            Duplicate
-          </button>
-          <button
-            onClick={() => updateBadge.mutate({ id: badge.id, isActive: !badge.isActive })}
-            disabled={updateBadge.isPending}
-            className="text-xs px-2.5 py-1.5 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors disabled:opacity-50"
-          >
-            {badge.isActive ? 'Deactivate' : 'Activate'}
-          </button>
-          <button
-            onClick={() => {
-              if (!confirmDelete) { setConfirmDelete(true); return; }
-              deleteBadge.mutate(badge.id);
-            }}
-            disabled={deleteBadge.isPending}
-            className={`text-xs px-2.5 py-1.5 rounded-lg transition-all ${
-              confirmDelete ? 'bg-red-500 text-white hover:bg-red-600' : 'text-red-400 hover:bg-red-50 hover:text-red-600'
-            } disabled:opacity-50`}
-          >
-            {confirmDelete ? 'Confirm' : 'Delete'}
-          </button>
-          {confirmDelete && (
-            <button onClick={() => setConfirmDelete(false)} className="text-xs text-gray-400 hover:text-gray-600">
-              Cancel
-            </button>
+          <IconButton icon={<Copy size={16} />} tooltip="Duplicate" onClick={(e) => duplicateBadge.mutate(badge.id)} />
+          <IconButton icon={<Power size={16} />} tooltip={badge.isActive ? 'Deactivate' : 'Activate'} variant="danger" onClick={(e) => updateBadge.mutate({ id: badge.id, isActive: !badge.isActive })} />
+          {confirmDelete ? (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); deleteBadge.mutate(badge.id); }}
+                disabled={deleteBadge.isPending}
+                className="text-xs px-2.5 py-1.5 bg-red-500 text-white hover:bg-red-600 rounded-lg transition-all disabled:opacity-50"
+              >
+                Confirm
+              </button>
+              <button onClick={(e) => { e.stopPropagation(); setConfirmDelete(false); }} className="text-xs text-gray-400 hover:text-gray-600">
+                Cancel
+              </button>
+            </>
+          ) : (
+            <IconButton icon={<Trash2 size={16} />} tooltip="Delete" variant="danger" onClick={(e) => setConfirmDelete(true)} />
           )}
         </div>
       </td>
@@ -163,10 +153,15 @@ function BadgeRow({
 
 export default function BadgesPage() {
   const router = useRouter();
-  const { data: badges, isLoading } = useAllBadges();
+  const [page, setPage] = useState(1);
+  const badgeLimit = 10;
+  const { data: badgesResponse, isLoading } = useAllBadges(page, badgeLimit);
+  const badges = badgesResponse?.data;
   const { data: orgs } = useOrganizations();
-  const { data: courses } = useCourses();
-  const { data: plans } = useMyLearningPlans();
+  const { data: coursesResponse } = useCourses();
+  const courses = coursesResponse?.data;
+  const { data: plansResponse } = useMyLearningPlans();
+  const plans = plansResponse?.data;
 
   // Wizard state
   const [showWizard, setShowWizard] = useState(false);
@@ -174,6 +169,12 @@ export default function BadgesPage() {
 
   // Step 1 - Basic info
   const [selectedOrgKey, setSelectedOrgKey] = useState('');
+
+  useEffect(() => {
+    if (orgs?.length === 1 && !selectedOrgKey) {
+      setSelectedOrgKey(orgs[0].key);
+    }
+  }, [orgs]);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');
@@ -189,6 +190,7 @@ export default function BadgesPage() {
   const [scoreThreshold, setScoreThreshold] = useState('80');
 
   const [error, setError] = useState('');
+  const [showCourseModal, setShowCourseModal] = useState(false);
 
   const createBadge = useCreateBadge(selectedOrgKey);
 
@@ -291,9 +293,9 @@ export default function BadgesPage() {
 
         {/* Wizard */}
         {showWizard && (
-          <div className="mb-8 border border-gray-200 rounded-xl bg-gray-50 overflow-hidden">
+          <div className="mb-8 border border-gray-200 rounded-xl bg-gray-50">
             {/* Steps indicator */}
-            <div className="flex border-b border-gray-200 bg-white">
+            <div className="flex border-b border-gray-200 bg-white rounded-t-xl overflow-hidden">
               {['Basic Info', 'Condition', 'Preview'].map((label, i) => {
                 const stepNum = i + 1;
                 const isActive = step === stepNum;
@@ -325,17 +327,12 @@ export default function BadgesPage() {
               {/* Step 1 */}
               {step === 1 && (
                 <div className="space-y-3">
-                  <select
+                  <CustomDropdown
                     value={selectedOrgKey}
-                    onChange={(e) => setSelectedOrgKey(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                    required
-                  >
-                    <option value="">Select organization...</option>
-                    {orgs?.map((org) => (
-                      <option key={org.key} value={org.key}>{org.name}</option>
-                    ))}
-                  </select>
+                    onChange={setSelectedOrgKey}
+                    options={orgs?.map((org) => ({ value: org.key, label: org.name })) ?? []}
+                    placeholder="Select organization..."
+                  />
                   <input
                     type="text"
                     value={name}
@@ -359,15 +356,12 @@ export default function BadgesPage() {
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white"
                   />
                   <div className="flex gap-4 items-center">
-                    <select
+                    <CustomDropdown
                       value={badgeType}
-                      onChange={(e) => setBadgeType(e.target.value)}
-                      className="px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                    >
-                      {BADGE_TYPES.map((bt) => (
-                        <option key={bt.value} value={bt.value}>{bt.label}</option>
-                      ))}
-                    </select>
+                      onChange={setBadgeType}
+                      options={BADGE_TYPES}
+                      placeholder="Select type..."
+                    />
                     <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
                       <input
                         type="checkbox"
@@ -398,30 +392,29 @@ export default function BadgesPage() {
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Award when:</label>
-                    <select
+                    <CustomDropdown
                       value={conditionType}
-                      onChange={(e) => { setConditionType(e.target.value); setTargetId(''); setMinScore(''); setMinAvgScore(''); }}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                    >
-                      {CONDITION_TYPES.map((ct) => (
-                        <option key={ct.value} value={ct.value}>{ct.label}</option>
-                      ))}
-                    </select>
+                      onChange={(val) => { setConditionType(val); setTargetId(''); setMinScore(''); setMinAvgScore(''); }}
+                      options={CONDITION_TYPES}
+                      placeholder="Select condition..."
+                    />
                   </div>
 
                   {/* Course selector */}
                   {(conditionType === 'course_completed' || conditionType === 'score_above') && (
                     <div className="space-y-3">
-                      <select
-                        value={targetId}
-                        onChange={(e) => setTargetId(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                      >
-                        <option value="">Select course...</option>
-                        {courses?.map((c) => (
-                          <option key={c.id} value={c.id}>{c.title || 'Untitled'} ({c.status})</option>
-                        ))}
-                      </select>
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setShowCourseModal(true)}
+                          className="px-4 py-2 border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors"
+                        >
+                          {targetId ? (courses?.find((c) => c.id === parseInt(targetId))?.title || 'Selected') : 'Select Course'}
+                        </button>
+                        {targetId && (
+                          <span className="text-sm text-gray-500">{courses?.find((c) => c.id === parseInt(targetId))?.title || 'Untitled'}</span>
+                        )}
+                      </div>
                       {conditionType === 'course_completed' && (
                         <div className="flex gap-4 items-center">
                           <div className="flex items-center gap-2">
@@ -467,16 +460,12 @@ export default function BadgesPage() {
                   {/* Plan selector */}
                   {(conditionType === 'plan_completed') && (
                     <div className="space-y-3">
-                      <select
+                      <CustomDropdown
                         value={targetId}
-                        onChange={(e) => setTargetId(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-                      >
-                        <option value="">Select learning plan...</option>
-                        {plans?.map((p) => (
-                          <option key={p.id} value={p.id}>{p.name}</option>
-                        ))}
-                      </select>
+                        onChange={setTargetId}
+                        options={plans?.map((p) => ({ value: String(p.id), label: p.name })) ?? []}
+                        placeholder="Select learning plan..."
+                      />
                       <div className="flex items-center gap-2">
                         <input
                           type="number"
@@ -592,25 +581,42 @@ export default function BadgesPage() {
             <p className="text-gray-400 text-sm">Create your first badge to recognize student achievements.</p>
           </div>
         ) : (
-          <div className="border border-gray-200 rounded-xl overflow-hidden">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Badge</th>
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Organization</th>
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Awarded</th>
-                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Tags</th>
-                  <th className="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {badges.map((badge) => (
-                  <BadgeRow key={badge.id} badge={badge} onView={(id) => router.push(`/dashboard/badges/${id}`)} />
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <>
+            <div className="border border-gray-200 rounded-xl overflow-hidden">
+              <table className="w-full">
+                <thead>
+                  <tr className="bg-gray-50 border-b border-gray-200">
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Badge</th>
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Organization</th>
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Awarded</th>
+                    <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">Tags</th>
+                    <th className="py-2.5 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {badges.map((badge) => (
+                    <BadgeRow key={badge.id} badge={badge} onView={(id) => router.push(`/dashboard/badges/${id}`)} />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {badgesResponse && (
+              <Pagination
+                page={badgesResponse.page}
+                limit={badgesResponse.limit}
+                total={badgesResponse.total}
+                onPageChange={setPage}
+              />
+            )}
+          </>
         )}
+
+        <CourseSelectorModal
+          isOpen={showCourseModal}
+          onClose={() => setShowCourseModal(false)}
+          onSelect={(ids) => { setTargetId(ids[0]); setShowCourseModal(false); }}
+          courses={courses?.map((c) => ({ id: String(c.id), name: c.title || 'Untitled', description: c.status })) ?? []}
+        />
       </div>
     </div>
   );

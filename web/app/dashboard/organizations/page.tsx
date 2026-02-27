@@ -115,37 +115,50 @@ export default function OrganizationsPage() {
             <p className="text-gray-400 text-sm">Create one to start collaborating.</p>
           </div>
         ) : (
-          <div className="space-y-3">
-            {orgs.map((org) => (
-              <div
-                key={org.key}
-                className="flex items-center justify-between p-5 border border-gray-200 rounded-xl hover:border-[#9F80DA]/40 hover:shadow-sm transition-all"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#9F80DA] to-[#8A6BC5] flex items-center justify-center text-white font-bold text-sm">
-                    {(org.name || 'O').charAt(0).toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="font-semibold text-[#1a1a1a]">{org.name}</p>
-                    <p className="text-xs text-gray-500">{org.memberCount} member{org.memberCount !== 1 ? 's' : ''}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${roleColors[org.myRole]}`}>
-                    {roleLabels[org.myRole]}
-                  </span>
-                  <button
+          <div className="border border-gray-200 rounded-xl overflow-hidden">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                    Organization
+                  </th>
+                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                    Members
+                  </th>
+                  <th className="py-2.5 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                    Role
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {orgs.map((org) => (
+                  <tr
+                    key={org.key}
                     onClick={() => router.push(`/dashboard/organizations/${org.key}`)}
-                    className="flex items-center gap-1 text-sm text-[#9F80DA] hover:text-[#8A6BC5] font-medium transition-colors"
+                    className="border-b border-gray-100 hover:bg-gray-50 transition-colors cursor-pointer"
                   >
-                    Manage
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            ))}
+                    <td className="py-3 px-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#9F80DA]/20 to-[#8A6BC5]/20 flex items-center justify-center">
+                          <span className="text-sm font-bold text-[#9F80DA]">
+                            {(org.name || 'O').charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <p className="text-sm font-medium text-[#1a1a1a]">{org.name}</p>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4 text-sm text-gray-600">
+                      {org.memberCount}
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${roleColors[org.myRole]}`}>
+                        {roleLabels[org.myRole]}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
       </div>

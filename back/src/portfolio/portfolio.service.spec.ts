@@ -46,7 +46,7 @@ describe('PortfolioService', () => {
       );
     });
 
-    it('returns empty portfolio when portfolio is private', async () => {
+    it('returns null portfolio when portfolio is private', async () => {
       mockPrisma.user.findUnique.mockResolvedValue({
         id: 'uid',
         name: 'Test',
@@ -56,13 +56,10 @@ describe('PortfolioService', () => {
       });
       const result = await service.getByUsername('test');
       expect(result.user.username).toBe('test');
-      expect(result.portfolio.title).toBeNull();
-      expect(result.portfolio.courses).toEqual([]);
-      expect(result.portfolio.images).toEqual([]);
-      expect(result.portfolio.videos).toEqual([]);
+      expect(result.portfolio).toBeNull();
     });
 
-    it('returns empty portfolio when user has no portfolio', async () => {
+    it('returns null portfolio when user has no portfolio', async () => {
       mockPrisma.user.findUnique.mockResolvedValue({
         id: 'uid',
         name: 'Test',
@@ -72,8 +69,7 @@ describe('PortfolioService', () => {
       });
       const result = await service.getByUsername('test');
       expect(result.user.username).toBe('test');
-      expect(result.portfolio.title).toBeNull();
-      expect(result.portfolio.courses).toEqual([]);
+      expect(result.portfolio).toBeNull();
     });
 
     it('returns public portfolio data', async () => {

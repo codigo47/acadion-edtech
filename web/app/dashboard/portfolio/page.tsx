@@ -10,6 +10,8 @@ import {
 } from '../../../lib/hooks/use-portfolio';
 import { useUser, useUpdateProfile } from '../../../lib/hooks/use-auth';
 import { PORTFOLIO_THEMES } from '../../../lib/portfolio-themes';
+import StickyFooter from '../../components/StickyFooter';
+import { useToast } from '../../components/ToastProvider';
 
 interface MediaItem {
   url: string;
@@ -23,7 +25,8 @@ interface CustomLink {
 
 export default function PortfolioSettingsPage() {
   const { user } = useUser();
-  const { data: courses } = useCourses();
+  const { data: coursesResponse } = useCourses();
+  const courses = coursesResponse?.data;
   const { data: portfolio, isLoading } = useMyPortfolio();
   const updatePortfolio = useUpdatePortfolio();
   const updateCourses = useUpdatePortfolioCourses();
@@ -49,8 +52,8 @@ export default function PortfolioSettingsPage() {
   const [selectedCourseIds, setSelectedCourseIds] = useState<number[]>([]);
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState('');
-  const [saveSuccess, setSaveSuccess] = useState(false);
   const updateProfile = useUpdateProfile();
+  const { showToast } = useToast();
 
   const [skillInput, setSkillInput] = useState('');
   const [langInput, setLangInput] = useState('');
@@ -131,8 +134,7 @@ export default function PortfolioSettingsPage() {
       isPublic,
     });
     await updateCourses.mutateAsync(selectedCourseIds);
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3000);
+    showToast('Portfolio saved successfully', 'success');
   };
 
   const toggleCourse = (courseId: number) => {
@@ -186,13 +188,13 @@ export default function PortfolioSettingsPage() {
             <h1 className="text-2xl font-bold text-[#1a1a1a]">Portfolio Settings</h1>
             <p className="text-gray-500 text-sm mt-1">Customize your public portfolio and profile.</p>
           </div>
-          <div className="flex items-center gap-3">
+          <StickyFooter>
             {portfolioUrl && (
               <a
                 href={portfolioUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-[#9F80DA] hover:underline"
+                className="px-4 py-2 border border-[#9F80DA] text-[#9F80DA] rounded-lg text-sm font-medium hover:bg-[#9F80DA]/5 transition-all"
               >
                 View Portfolio
               </a>
@@ -202,16 +204,10 @@ export default function PortfolioSettingsPage() {
               disabled={isSaving}
               className="px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white rounded-lg text-sm font-medium hover:from-[#8A6BC5] hover:to-[#7B5BB5] transition-all disabled:opacity-50"
             >
-              {isSaving ? 'Saving...' : 'Save changes'}
+              {isSaving ? 'Publishing...' : 'Publish'}
             </button>
-          </div>
+          </StickyFooter>
         </div>
-
-        {saveSuccess && (
-          <div className="mb-6 p-3 bg-green-50 border border-green-200 text-green-700 rounded-lg text-sm">
-            Portfolio saved successfully!
-          </div>
-        )}
 
         {portfolioUrl && (
           <div className="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-lg text-sm flex items-center gap-2">

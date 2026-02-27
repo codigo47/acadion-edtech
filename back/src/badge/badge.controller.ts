@@ -5,6 +5,7 @@ import {
   Patch,
   Delete,
   Param,
+  Query,
   Body,
   UseGuards,
   Request,
@@ -16,6 +17,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { BadgeService } from './badge.service';
 import { CreateBadgeDto, UpdateBadgeDto, AwardBadgeDto } from './dto/badge.dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 interface RequestWithUser extends ExpressRequest {
   user: { id: string };
@@ -35,8 +37,11 @@ export class BadgeController {
   }
 
   @Get('my')
-  getAllBadges(@Request() req: RequestWithUser) {
-    return this.badgeService.getAllBadges(req.user.id);
+  getAllBadges(
+    @Request() req: RequestWithUser,
+    @Query() pagination: PaginationDto,
+  ) {
+    return this.badgeService.getAllBadges(req.user.id, pagination);
   }
 
   @Get('org/:orgKey')

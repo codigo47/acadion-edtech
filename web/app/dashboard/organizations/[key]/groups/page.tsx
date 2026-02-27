@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import CustomDropdown from '@/app/components/CustomDropdown';
 import {
   useOrgGroups,
   useGroupDetail,
@@ -222,18 +223,14 @@ function GroupDetail({
 
         {/* Add member */}
         <div className="flex gap-2 items-center">
-          <select
-            value={addUserId}
-            onChange={(e) => setAddUserId(e.target.value)}
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm outline-none focus:ring-2 focus:ring-[#9F80DA]/40 focus:border-[#9F80DA] bg-white cursor-pointer"
-          >
-            <option value="">Select a member to add...</option>
-            {availableMembers.map((m) => (
-              <option key={m.userId} value={m.userId}>
-                {m.user.name || m.user.email} ({m.user.email})
-              </option>
-            ))}
-          </select>
+          <div className="flex-1">
+            <CustomDropdown
+              value={addUserId}
+              onChange={setAddUserId}
+              options={availableMembers.map((m) => ({ value: String(m.userId), label: `${m.user.name || m.user.email} (${m.user.email})` }))}
+              placeholder="Select a member to add..."
+            />
+          </div>
           <button
             onClick={handleAddMember}
             disabled={addMember.isPending || !addUserId}
@@ -294,7 +291,7 @@ export default function GroupsPage() {
 
   return (
     <div className="p-6">
-      <div className="max-w-4xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-6 py-10">
         {selectedGroupId ? (
           <GroupDetail
             groupId={selectedGroupId}

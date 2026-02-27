@@ -20,6 +20,32 @@ interface MediaItem {
   order: number;
 }
 
+interface Portfolio {
+  title: string | null;
+  tagline: string | null;
+  bio: string | null;
+  portraitImage: string | null;
+  coverImage: string | null;
+  email: string | null;
+  phone: string | null;
+  theme: string;
+  skills: string[];
+  languages: string[];
+  socialLinkedin: string | null;
+  socialTwitter: string | null;
+  socialInstagram: string | null;
+  socialCustom: SocialCustomLink[];
+  courses: Array<{
+    id: number;
+    key: string;
+    title: string | null;
+    status: string;
+    order: number;
+  }>;
+  images: MediaItem[];
+  videos: MediaItem[];
+}
+
 interface PortfolioData {
   user: {
     id: string;
@@ -27,31 +53,7 @@ interface PortfolioData {
     image: string | null;
     username: string | null;
   };
-  portfolio: {
-    title: string | null;
-    tagline: string | null;
-    bio: string | null;
-    portraitImage: string | null;
-    coverImage: string | null;
-    email: string | null;
-    phone: string | null;
-    theme: string;
-    skills: string[];
-    languages: string[];
-    socialLinkedin: string | null;
-    socialTwitter: string | null;
-    socialInstagram: string | null;
-    socialCustom: SocialCustomLink[];
-    courses: Array<{
-      id: number;
-      key: string;
-      title: string | null;
-      status: string;
-      order: number;
-    }>;
-    images: MediaItem[];
-    videos: MediaItem[];
-  };
+  portfolio: Portfolio | null;
 }
 
 async function getPortfolioData(username: string): Promise<PortfolioData | null> {
@@ -59,7 +61,7 @@ async function getPortfolioData(username: string): Promise<PortfolioData | null>
     process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api/v1';
   try {
     const res = await fetch(`${apiUrl}/portfolio/${username}`, {
-      next: { revalidate: 60 },
+      cache: 'no-store',
     });
     if (!res.ok) return null;
     return res.json();
@@ -122,6 +124,23 @@ export default async function PortfolioPage({ params }: PageProps) {
   }
 
   const { user, portfolio } = data;
+
+  if (!portfolio) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center max-w-md px-6">
+          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h1 className="text-xl font-semibold text-gray-800 mb-2">Portfolio not published</h1>
+          <p className="text-gray-500 text-sm">This portfolio has not been published yet.</p>
+        </div>
+      </div>
+    );
+  }
+
   const skills = portfolio.skills || [];
   const languages = portfolio.languages || [];
   const socialCustom = portfolio.socialCustom || [];
@@ -595,7 +614,7 @@ export async function generateMetadata({ params }: PageProps) {
   const { username } = await params;
   const data = await getPortfolioData(username);
 
-  if (!data) {
+  if (!data || !data.portfolio) {
     return { title: 'Portfolio not found' };
   }
 

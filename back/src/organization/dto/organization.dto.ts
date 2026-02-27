@@ -1,4 +1,5 @@
-import { IsString, IsOptional, IsEmail, IsEnum, IsUUID } from 'class-validator';
+import { IsString, IsOptional, IsEmail, IsEnum, IsUUID, IsArray, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class CreateOrganizationDto {
   @IsString()
@@ -25,4 +26,22 @@ export class UpdateMemberRoleDto {
 export class AcceptInvitationDto {
   @IsUUID()
   token: string;
+}
+
+class BulkMemberItemDto {
+  @IsEmail()
+  email: string;
+
+  @IsString()
+  name: string;
+
+  @IsEnum(['super_admin', 'org_admin', 'editor', 'viewer', 'commenter', 'student'])
+  role: string;
+}
+
+export class BulkInviteMembersDto {
+  @ValidateNested({ each: true })
+  @Type(() => BulkMemberItemDto)
+  @IsArray()
+  members: BulkMemberItemDto[];
 }

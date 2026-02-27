@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '../api-client';
+import { api, type PaginatedResponse } from '../api-client';
 
 export interface LearningPlan {
   id: number;
@@ -103,10 +103,14 @@ export interface StudentPlanDetail {
   courses: StudentPlanCourse[];
 }
 
-export function useMyLearningPlans() {
+export function useMyLearningPlans(page?: number, limit?: number) {
+  const isPaginated = page != null && limit != null;
   return useQuery({
-    queryKey: ['learning-plans', 'my'],
-    queryFn: () => api.get<LearningPlan[]>('/learning-plans/my'),
+    queryKey: isPaginated ? ['learning-plans', 'my', page, limit] : ['learning-plans', 'my'],
+    queryFn: () =>
+      isPaginated
+        ? api.get<PaginatedResponse<LearningPlan>>(`/learning-plans/my?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<LearningPlan>>('/learning-plans/my'),
   });
 }
 
@@ -253,5 +257,24 @@ export function useStudentPlanDetail(planId: number | null) {
     queryFn: () =>
       api.get<StudentPlanDetail>(`/learning-plans/${planId}/student`),
     enabled: !!planId,
+  });
+}
+
+export interface BulkAssignResult {
+  email: string;
+  status: 'assigned' | 'failed';
+  message?: string;
+}
+
+export function useBulkAssignPlan(planId: number) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: { users: { email: string }[]; deadline?: string }) =>
+      api.post<BulkAssignResult[]>(`/learning-plans/${planId}/assign-bulk`, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['learning-plans', 'detail', planId],
+      });
+    },
   });
 }

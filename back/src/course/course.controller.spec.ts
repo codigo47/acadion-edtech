@@ -126,7 +126,7 @@ describe('CourseController', () => {
     it('returns courses for authenticated user', async () => {
       mockCourseService.findAllByUserId.mockResolvedValue([{ key: 'k1' }]);
       const req = { user: { id: 'u1' } } as any;
-      const result = await controller.findAll(req);
+      const result = await controller.findAll(req, { page: 1, limit: 20 });
       expect(result).toHaveLength(1);
     });
   });

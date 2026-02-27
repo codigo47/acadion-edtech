@@ -13,6 +13,7 @@ import {
   UpdateMemberRoleDto,
 } from './dto/organization.dto';
 import { OrgRole, NotificationType } from '@prisma/client';
+import { PaginationDto, PaginatedResponse } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class OrganizationService {
@@ -108,6 +109,47 @@ export class OrganizationService {
         user: u.user,
       })),
     };
+  }
+
+  async getMembers(orgKey: string, pagination: PaginationDto): Promise<PaginatedResponse<any>> {
+    const { page, limit } = pagination;
+    const skip = (page - 1) * limit;
+
+    const org = await this.prisma.organization.findFirst({
+      where: { key: orgKey },
+    });
+    if (!org) throw new NotFoundException('Organization not found');
+
+    const where = { orgId: org.id };
+
+    const [members, total] = await Promise.all([
+      this.prisma.userOrganization.findMany({
+        where,
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              image: true,
+              username: true,
+            },
+          },
+        },
+        skip,
+        take: limit,
+      }),
+      this.prisma.userOrganization.count({ where }),
+    ]);
+
+    const data = members.map((u) => ({
+      id: u.orgId + '-' + u.userId,
+      userId: u.userId,
+      role: u.role,
+      user: u.user,
+    }));
+
+    return { data, total, page, limit };
   }
 
   async inviteMember(orgKey: string, dto: InviteMemberDto) {
@@ -275,6 +317,29 @@ export class OrganizationService {
     }
 
     return pendingInvitations.length;
+  }
+
+  async bulkInviteMembers(
+    orgKey: string,
+    members: Array<{ email: string; name: string; role: string }>,
+    inviterId: string,
+  ) {
+    const results: Array<{ email: string; name: string; role: string; status: string }> = [];
+
+    for (const member of members) {
+      try {
+        await this.inviteMember(orgKey, {
+          email: member.email,
+          role: member.role,
+        } as InviteMemberDto);
+        results.push({ ...member, status: 'invited' });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Unknown error';
+        results.push({ ...member, status: `error: ${message}` });
+      }
+    }
+
+    return results;
   }
 
   async removeMember(orgKey: string, userId: string) {

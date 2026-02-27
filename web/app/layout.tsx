@@ -3,6 +3,8 @@ import { Onest } from "next/font/google";
 import "./globals.css";
 import { PostHogProvider } from "./components/providers/posthog-provider";
 import { QueryProvider } from "./components/providers/query-provider";
+import { ToastProvider } from "./components/ToastProvider";
+import Toast from "./components/Toast";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -46,9 +48,12 @@ export default function RootLayout({
           }}
         />
         <QueryProvider>
-          <PostHogProvider>
-            {children}
-          </PostHogProvider>
+          <ToastProvider>
+            <PostHogProvider>
+              <Toast />
+              {children}
+            </PostHogProvider>
+          </ToastProvider>
         </QueryProvider>
       </body>
     </html>

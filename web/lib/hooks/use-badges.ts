@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { api } from '../api-client';
+import { api, type PaginatedResponse } from '../api-client';
 
 export interface Badge {
   id: number;
@@ -43,17 +43,25 @@ export interface UserBadge {
   badge: Badge;
 }
 
-export function useMyBadges() {
+export function useMyBadges(page?: number, limit?: number) {
+  const isPaginated = page != null && limit != null;
   return useQuery({
-    queryKey: ['badges', 'me'],
-    queryFn: () => api.get<UserBadge[]>('/badges/me'),
+    queryKey: isPaginated ? ['badges', 'me', page, limit] : ['badges', 'me'],
+    queryFn: () =>
+      isPaginated
+        ? api.get<PaginatedResponse<UserBadge>>(`/badges/me?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<UserBadge>>('/badges/me'),
   });
 }
 
-export function useAllBadges() {
+export function useAllBadges(page?: number, limit?: number) {
+  const isPaginated = page != null && limit != null;
   return useQuery({
-    queryKey: ['badges', 'my'],
-    queryFn: () => api.get<Badge[]>('/badges/my'),
+    queryKey: isPaginated ? ['badges', 'my', page, limit] : ['badges', 'my'],
+    queryFn: () =>
+      isPaginated
+        ? api.get<PaginatedResponse<Badge>>(`/badges/my?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<Badge>>('/badges/my'),
   });
 }
 

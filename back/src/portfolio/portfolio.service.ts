@@ -49,25 +49,7 @@ export class PortfolioService {
     if (!user.portfolio || !user.portfolio.isPublic) {
       return {
         user: userInfo,
-        portfolio: {
-          title: null,
-          tagline: null,
-          bio: null,
-          portraitImage: null,
-          coverImage: null,
-          email: null,
-          phone: null,
-          theme: 'corporate_professional',
-          skills: [],
-          languages: [],
-          socialLinkedin: null,
-          socialTwitter: null,
-          socialInstagram: null,
-          socialCustom: [],
-          courses: [],
-          images: [],
-          videos: [],
-        },
+        portfolio: null,
       };
     }
 

@@ -4,12 +4,14 @@ import {
   Get,
   Body,
   Param,
+  Query,
   Logger,
   Sse,
   MessageEvent,
   UseGuards,
   Request,
 } from '@nestjs/common';
+import { PaginationDto } from '../common/dto/pagination.dto';
 import type { Request as ExpressRequest } from 'express';
 import { Observable, map } from 'rxjs';
 import { CourseService } from './course.service';
@@ -154,8 +156,11 @@ export class CourseController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(@Request() req: RequestWithUser) {
-    return this.courseService.findAllByUserId(req.user.id);
+  async findAll(
+    @Request() req: RequestWithUser,
+    @Query() pagination: PaginationDto,
+  ) {
+    return this.courseService.findAllByUserId(req.user.id, pagination);
   }
 
   @Get(':key')
