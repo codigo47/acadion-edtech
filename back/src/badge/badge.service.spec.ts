@@ -6,7 +6,7 @@ import { NotificationService } from '../notification/notification.service';
 
 const mockPrisma = {
   userBadge: { findMany: jest.fn(), findUnique: jest.fn(), create: jest.fn(), count: jest.fn() },
-  badge: { findMany: jest.fn(), create: jest.fn(), update: jest.fn(), delete: jest.fn() },
+  badge: { findMany: jest.fn(), findUnique: jest.fn(), create: jest.fn(), update: jest.fn(), delete: jest.fn() },
   organization: { findFirst: jest.fn(), findUnique: jest.fn() },
   userLearningPlan: { findFirst: jest.fn() },
 };
@@ -74,6 +74,7 @@ describe('BadgeService', () => {
 
   describe('updateBadge', () => {
     it('updates a badge', async () => {
+      mockPrisma.badge.findUnique.mockResolvedValue({ id: 1, name: 'Old' });
       mockPrisma.badge.update.mockResolvedValue({ id: 1, name: 'Updated' });
       const result = await service.updateBadge(1, { name: 'Updated' });
       expect(result.name).toBe('Updated');
@@ -82,6 +83,7 @@ describe('BadgeService', () => {
 
   describe('deleteBadge', () => {
     it('deletes a badge', async () => {
+      mockPrisma.badge.findUnique.mockResolvedValue({ id: 1 });
       mockPrisma.badge.delete.mockResolvedValue({ id: 1 });
       const result = await service.deleteBadge(1);
       expect(result.id).toBe(1);

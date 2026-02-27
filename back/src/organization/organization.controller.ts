@@ -16,6 +16,7 @@ import {
   CreateOrganizationDto,
   InviteMemberDto,
   UpdateMemberRoleDto,
+  AcceptInvitationDto,
 } from './dto/organization.dto';
 
 interface RequestWithUser extends ExpressRequest {
@@ -36,6 +37,15 @@ export class OrganizationController {
   @Get()
   getMyOrganizations(@Request() req: RequestWithUser) {
     return this.organizationService.getUserOrganizations(req.user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('invitations/accept')
+  acceptInvitation(
+    @Request() req: RequestWithUser,
+    @Body() dto: AcceptInvitationDto,
+  ) {
+    return this.organizationService.acceptInvitation(dto.token, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)

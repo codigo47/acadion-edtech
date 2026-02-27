@@ -18,6 +18,7 @@ import { BadgeModule } from './badge/badge.module';
 import { LearningPlanModule } from './learning-plan/learning-plan.module';
 import { GroupModule } from './group/group.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     LearningPlanModule,
     GroupModule,
     AnalyticsModule,
+    EmailModule,
   ],
   controllers: [AppController],
   providers: [AppService],

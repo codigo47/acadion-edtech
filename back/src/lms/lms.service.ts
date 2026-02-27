@@ -368,6 +368,24 @@ export class LmsService {
       orgId: course.orgId ?? undefined,
     });
 
+    if (dto.score != null) {
+      await this.badgeService.evaluateAndGrantBadges(userId, {
+        type: 'score_above',
+        score: dto.score,
+        orgId: course.orgId ?? undefined,
+      });
+    }
+
+    if (course.orgId) {
+      await this.badgeService.evaluateAndGrantBadges(userId, {
+        type: 'first_in_org',
+        orgId: course.orgId,
+      });
+    }
+
+    // Check if completing this course completes any learning plan
+    await this.checkLearningPlanCompletion(userId, course.id);
+
     return updated;
   }
 
@@ -531,6 +549,57 @@ export class LmsService {
     }
 
     return locked;
+  }
+
+  private async checkLearningPlanCompletion(
+    userId: string,
+    courseId: number,
+  ) {
+    // Find learning plans that include this course and the user is enrolled in (not yet completed)
+    const userPlans = await this.prisma.userLearningPlan.findMany({
+      where: { userId, completedAt: null },
+      include: {
+        learningPlan: {
+          include: { courses: true },
+        },
+      },
+    });
+
+    for (const userPlan of userPlans) {
+      const planCourseIds = userPlan.learningPlan.courses
+        .filter((c) => c.required)
+        .map((c) => c.courseId);
+
+      // Skip plans that don't include this course
+      if (!planCourseIds.includes(courseId)) continue;
+
+      // Check if all required courses are completed
+      const completedEnrollments = await this.prisma.enrollment.count({
+        where: {
+          userId,
+          courseId: { in: planCourseIds },
+          completedAt: { not: null },
+        },
+      });
+
+      if (completedEnrollments >= planCourseIds.length) {
+        // Mark plan as completed
+        await this.prisma.userLearningPlan.update({
+          where: { id: userPlan.id },
+          data: { completedAt: new Date() },
+        });
+
+        await this.badgeService.evaluateAndGrantBadges(userId, {
+          type: 'plan_completed',
+          learningPlanId: userPlan.learningPlanId,
+        });
+
+        await this.badgeService.evaluateAndGrantBadges(userId, {
+          type: 'completed_in_time',
+          learningPlanId: userPlan.learningPlanId,
+        });
+      }
+    }
   }
 
   private confidenceToMode(score: number): string {

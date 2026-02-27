@@ -38,10 +38,10 @@ describe('AuthController', () => {
   });
 
   describe('login', () => {
-    it('delegates to authService.login', () => {
-      mockAuthService.login.mockReturnValue({ accessToken: 'token' });
+    it('delegates to authService.login', async () => {
+      mockAuthService.login.mockResolvedValue({ accessToken: 'token' });
       const req = { user: { id: 'uid', email: 'a@b.com' } };
-      const result = controller.login(req as any);
+      const result = await controller.login(req as any);
       expect(result.accessToken).toBe('token');
     });
   });

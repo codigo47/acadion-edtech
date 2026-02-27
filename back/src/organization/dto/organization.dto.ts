@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsEmail, IsEnum } from 'class-validator';
+import { IsString, IsOptional, IsEmail, IsEnum, IsUUID } from 'class-validator';
 
 export class CreateOrganizationDto {
   @IsString()
@@ -20,4 +20,9 @@ export class InviteMemberDto {
 export class UpdateMemberRoleDto {
   @IsEnum(['super_admin', 'org_admin', 'editor', 'viewer', 'commenter', 'student'])
   role: string;
+}
+
+export class AcceptInvitationDto {
+  @IsUUID()
+  token: string;
 }

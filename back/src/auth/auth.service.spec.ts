@@ -3,6 +3,7 @@ import { ConflictException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
+import { OrganizationService } from '../organization/organization.service';
 
 const mockUsersService = {
   findByEmail: jest.fn(),
@@ -16,6 +17,10 @@ const mockJwtService = {
   sign: jest.fn().mockReturnValue('jwt-token'),
 };
 
+const mockOrganizationService = {
+  acceptPendingInvitations: jest.fn().mockResolvedValue(0),
+};
+
 describe('AuthService', () => {
   let service: AuthService;
 
@@ -25,6 +30,7 @@ describe('AuthService', () => {
         AuthService,
         { provide: UsersService, useValue: mockUsersService },
         { provide: JwtService, useValue: mockJwtService },
+        { provide: OrganizationService, useValue: mockOrganizationService },
       ],
     }).compile();
     service = module.get<AuthService>(AuthService);
@@ -42,9 +48,10 @@ describe('AuthService', () => {
   });
 
   describe('login', () => {
-    it('returns user data and access token', () => {
+    it('returns user data and access token', async () => {
+      mockOrganizationService.acceptPendingInvitations.mockResolvedValue(0);
       const user = { id: 'uid', email: 'a@b.com', name: 'Test', image: null, username: 'test' };
-      const result = service.login(user);
+      const result = await service.login(user);
       expect(result.accessToken).toBe('jwt-token');
       expect(result.user.id).toBe('uid');
       expect(result.user.email).toBe('a@b.com');

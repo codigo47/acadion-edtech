@@ -9,11 +9,11 @@ const mockPrisma = {
   course: { findMany: jest.fn(), findFirst: jest.fn() },
   enrollment: {
     findMany: jest.fn(), findUnique: jest.fn(), create: jest.fn(),
-    createMany: jest.fn(), update: jest.fn(),
+    createMany: jest.fn(), update: jest.fn(), count: jest.fn(),
   },
   courseUnitProgress: { findMany: jest.fn(), create: jest.fn(), update: jest.fn() },
   courseComponent: { findMany: jest.fn() },
-  userLearningPlan: { findMany: jest.fn() },
+  userLearningPlan: { findMany: jest.fn(), update: jest.fn() },
   adaptiveAssessment: { findMany: jest.fn(), deleteMany: jest.fn() },
   knowledgeCheckAttempt: { count: jest.fn(), create: jest.fn() },
 };
@@ -191,6 +191,7 @@ describe('LmsService', () => {
       mockPrisma.course.findFirst.mockResolvedValue({ id: 1, orgId: 2 });
       mockPrisma.enrollment.findUnique.mockResolvedValue({ id: 1, attempts: 0 });
       mockPrisma.enrollment.update.mockResolvedValue({ id: 1, completedAt: new Date() });
+      mockPrisma.userLearningPlan.findMany.mockResolvedValue([]);
 
       await service.completeCourse('c1', 'uid', { passed: true, score: 85 });
 
@@ -206,6 +207,117 @@ describe('LmsService', () => {
     it('throws NotFoundException when course not found', async () => {
       mockPrisma.course.findFirst.mockResolvedValue(null);
       await expect(service.completeCourse('invalid', 'uid', { passed: true, score: 90 })).rejects.toThrow(NotFoundException);
+    });
+
+    it('fires first_in_org event when course has orgId', async () => {
+      mockPrisma.course.findFirst.mockResolvedValue({ id: 1, orgId: 5 });
+      mockPrisma.enrollment.findUnique.mockResolvedValue({ id: 1, attempts: 0 });
+      mockPrisma.enrollment.update.mockResolvedValue({ id: 1, completedAt: new Date() });
+      mockPrisma.userLearningPlan.findMany.mockResolvedValue([]);
+
+      await service.completeCourse('c1', 'uid', { passed: true, score: 90 });
+
+      expect(mockBadgeService.evaluateAndGrantBadges).toHaveBeenCalledWith('uid', {
+        type: 'first_in_org',
+        orgId: 5,
+      });
+    });
+
+    it('does not fire first_in_org when course has no orgId', async () => {
+      mockPrisma.course.findFirst.mockResolvedValue({ id: 1, orgId: null });
+      mockPrisma.enrollment.findUnique.mockResolvedValue({ id: 1, attempts: 0 });
+      mockPrisma.enrollment.update.mockResolvedValue({ id: 1, completedAt: new Date() });
+      mockPrisma.userLearningPlan.findMany.mockResolvedValue([]);
+
+      await service.completeCourse('c1', 'uid', { passed: true, score: 90 });
+
+      const calls = mockBadgeService.evaluateAndGrantBadges.mock.calls;
+      const firstInOrgCalls = calls.filter((c: any) => c[1].type === 'first_in_org');
+      expect(firstInOrgCalls).toHaveLength(0);
+    });
+
+    it('fires plan_completed and completed_in_time when completing last course in plan', async () => {
+      mockPrisma.course.findFirst.mockResolvedValue({ id: 10, orgId: null });
+      mockPrisma.enrollment.findUnique.mockResolvedValue({ id: 1, attempts: 0 });
+      mockPrisma.enrollment.update.mockResolvedValue({ id: 1, completedAt: new Date() });
+      mockPrisma.userLearningPlan.findMany.mockResolvedValue([
+        {
+          id: 1,
+          userId: 'uid',
+          learningPlanId: 20,
+          completedAt: null,
+          learningPlan: {
+            id: 20,
+            courses: [
+              { learningPlanId: 20, courseId: 10, required: true },
+              { learningPlanId: 20, courseId: 11, required: true },
+            ],
+          },
+        },
+      ]);
+      // All required courses are completed
+      mockPrisma.enrollment.count.mockResolvedValue(2);
+      mockPrisma.userLearningPlan.update.mockResolvedValue({});
+
+      await service.completeCourse('c1', 'uid', { passed: true, score: 80 });
+
+      expect(mockPrisma.userLearningPlan.update).toHaveBeenCalledWith({
+        where: { id: 1 },
+        data: { completedAt: expect.any(Date) },
+      });
+      expect(mockBadgeService.evaluateAndGrantBadges).toHaveBeenCalledWith('uid', {
+        type: 'plan_completed',
+        learningPlanId: 20,
+      });
+      expect(mockBadgeService.evaluateAndGrantBadges).toHaveBeenCalledWith('uid', {
+        type: 'completed_in_time',
+        learningPlanId: 20,
+      });
+    });
+
+    it('does not fire plan_completed when not all courses are done', async () => {
+      mockPrisma.course.findFirst.mockResolvedValue({ id: 10, orgId: null });
+      mockPrisma.enrollment.findUnique.mockResolvedValue({ id: 1, attempts: 0 });
+      mockPrisma.enrollment.update.mockResolvedValue({ id: 1, completedAt: new Date() });
+      mockPrisma.userLearningPlan.findMany.mockResolvedValue([
+        {
+          id: 1,
+          userId: 'uid',
+          learningPlanId: 20,
+          completedAt: null,
+          learningPlan: {
+            id: 20,
+            courses: [
+              { learningPlanId: 20, courseId: 10, required: true },
+              { learningPlanId: 20, courseId: 11, required: true },
+            ],
+          },
+        },
+      ]);
+      // Only 1 of 2 required courses completed
+      mockPrisma.enrollment.count.mockResolvedValue(1);
+
+      await service.completeCourse('c1', 'uid', { passed: true, score: 80 });
+
+      expect(mockPrisma.userLearningPlan.update).not.toHaveBeenCalled();
+      const calls = mockBadgeService.evaluateAndGrantBadges.mock.calls;
+      const planCalls = calls.filter((c: any) => c[1].type === 'plan_completed');
+      expect(planCalls).toHaveLength(0);
+    });
+
+    it('fires score_above event when score is provided', async () => {
+      mockPrisma.course.findFirst.mockResolvedValue({ id: 1, orgId: 3 });
+      mockPrisma.enrollment.findUnique.mockResolvedValue({ id: 1, attempts: 0 });
+      mockPrisma.enrollment.update.mockResolvedValue({ id: 1, completedAt: new Date() });
+      mockPrisma.userLearningPlan.findMany.mockResolvedValue([]);
+
+      await service.completeCourse('c1', 'uid', { passed: true, score: 95 });
+
+      expect(mockBadgeService.evaluateAndGrantBadges).toHaveBeenCalledWith('uid', {
+        type: 'score_above',
+        score: 95,
+        orgId: 3,
+      });
     });
   });
 

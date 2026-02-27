@@ -2,9 +2,11 @@ import {
   Injectable,
   ConflictException,
   UnauthorizedException,
+  Logger,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
+import { OrganizationService } from '../organization/organization.service';
 import { RegisterDto } from './dto/register.dto';
 
 interface AuthUser {
@@ -26,17 +28,28 @@ interface GoogleUser {
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
+    private organizationService: OrganizationService,
   ) {}
 
   async validateUser(email: string, password: string) {
     return this.usersService.validatePassword(email, password);
   }
 
-  login(user: AuthUser) {
+  async login(user: AuthUser) {
     const payload = { email: user.email, sub: user.id };
+
+    // Auto-accept pending invitations for this user
+    try {
+      await this.organizationService.acceptPendingInvitations(user.id, user.email);
+    } catch (error) {
+      this.logger.warn(`Failed to auto-accept invitations for ${user.email}`, error);
+    }
+
     return {
       user: {
         id: user.id,

@@ -1,20 +1,35 @@
 # acadion.ai -- Feature Overview
 
-> Comprehensive feature documentation for the acadion.ai platform.
+> Last updated: 2026-02-26
 
 ---
 
-## Platform Summary
+## Implementation Status Summary
 
-**acadion.ai** is a full-stack AI-powered educational content creation and learning management platform. It enables instructional designers and educators to create structured, pedagogically sound courses using AI, and delivers those courses to students through an integrated LMS with adaptive learning, gamification, and analytics.
+| Feature | Backend | Frontend | Status |
+|---|:---:|:---:|---|
+| AI Course Generation | Done | Done | **Complete** |
+| LMS (Course Player) | Done | Done | **Complete** |
+| Adaptive Learning | Done | Done | **Complete** |
+| Organizations | Done | Done | **Complete** |
+| Learning Plans | Done | Done | **Complete** |
+| Badges & Gamification | Done | Done | **Complete** |
+| Analytics | Done | Done | **Complete** |
+| Portfolio | Done | Done | **Complete** |
+| Notifications | Done | Done | **Complete** |
+| Authentication | Done | Done | **Complete** |
+| Blog | -- | Done | **Frontend only** (static data) |
+| Onboarding | -- | Partial | **Pending** (page exists, no backend flow) |
+| Email invitations | -- | -- | **Not implemented** (invites stored, no email sent) |
+| Role-based access control | -- | -- | **Not implemented** (roles stored, not enforced) |
 
 ---
 
 ## Core Features
 
-### 1. AI-Powered Course Generation
+### 1. AI-Powered Course Generation -- Complete
 
-The flagship feature: create complete courses through a conversational AI interface.
+Create complete courses through a conversational AI interface.
 
 - **Conversational flow** -- Creators define course parameters step-by-step via chat (topic, audience, objectives, modules, units, evaluation, branding)
 - **6-handler AI pipeline** -- LangChain + OpenAI generates course content through sequential handlers:
@@ -29,7 +44,7 @@ The flagship feature: create complete courses through a conversational AI interf
 - **Configurable branding** -- Colors, fonts, and visual styling per course
 - **Task-based API** -- Single endpoint (`POST /course/tasks`) dispatches 12 task types
 
-### 2. Learning Management System (LMS)
+### 2. Learning Management System (LMS) -- Complete
 
 A full student-facing LMS, separate from the course creator.
 
@@ -40,7 +55,7 @@ A full student-facing LMS, separate from the course creator.
 - **Knowledge checks** -- In-course assessments with attempt tracking
 - **Course completion** -- Score calculation, pass/fail determination
 
-### 3. Adaptive Learning
+### 3. Adaptive Learning -- Complete
 
 Personalized learning paths based on student self-assessment.
 
@@ -52,19 +67,23 @@ Personalized learning paths based on student self-assessment.
   - Score 2: Content + extended exercises
   - Score 1: Reinforced content + extra exercises + extended knowledge check
 - **Post-assessment** (`/lms/:courseKey/post-assessment`) -- Same questions repeated for pre/post comparison
-- **Per-unit logic** -- Each unit adapts independently
+- **Per-unit logic** -- Each unit adapts independently via `AdaptiveService.computeAdaptivePath()`
 
-### 4. Organizations
+### 4. Organizations -- Complete
 
 Multi-tenant organization structure for institutions and companies.
 
 - **Organization management** -- Create, configure, and manage organizations
 - **Member management** -- Invite by email, assign roles, remove members
-- **6 role levels** (cumulative permissions): `super_admin`, `org_admin`, `editor`, `commenter`, `viewer`, `student`
+- **6 role levels**: `super_admin`, `org_admin`, `editor`, `commenter`, `viewer`, `student`
 - **Student groups** -- Organize students into groups within an organization
 - **Org-scoped features** -- Badges, learning plans, and courses scoped to organizations
 
-### 5. Learning Plans
+**Not implemented:**
+- Role-based permission enforcement (roles are stored but all authenticated users have the same access)
+- Email delivery for invitations (invite records are created but no email is sent)
+
+### 5. Learning Plans -- Complete
 
 Structured learning paths that organize courses into sequences.
 
@@ -75,29 +94,31 @@ Structured learning paths that organize courses into sequences.
 - **User assignment** -- Assign plans to individual students or groups with optional deadlines
 - **Student view** (`/lms/plans/:planId`) -- Visual progress through plan courses
 
-### 6. Badges and Gamification
+### 6. Badges and Gamification -- Complete
 
 Achievement system to motivate and recognize student progress.
 
 - **4 badge types**: `progress`, `level`, `excellence`, `role`
-- **Configurable conditions** -- Badge awarding based on type, condition, and target
-- **Automatic awarding** -- Triggered on course completion or condition fulfillment
-- **Manual awarding** -- Admins can award badges directly to students
-- **Student achievements** (`/lms/achievements`) -- View earned badges and locked badges with hints
-- **3-step creation wizard** -- Basic info, conditions, preview
+- **6 condition types**: `course_completed`, `score_above`, `plan_completed`, `completed_in_time`, `first_in_org`, `manual`
+- **Automatic awarding** -- `evaluateAndGrantBadges()` runs on course completion, evaluates all matching conditions
+- **Manual awarding** -- Admins can award badges directly to students via `POST /badges/:id/award`
+- **Student achievements** (`/lms/achievements`) -- View earned badges and locked badges with unlock hints
+- **Creator management** (`/dashboard/badges`) -- 3-step creation wizard, detail page with edit/award/activate
+- **Dashboard preview** (`/dashboard`) -- Achievements section shows earned and locked badges
 - **Notifications** -- Automatic `badge_earned` notification on award
 
-### 7. Analytics and Metrics
+### 7. Analytics and Metrics -- Complete
 
 Comprehensive analytics at organization, course, and student levels.
 
 - **Organization analytics** -- Total courses, enrolled students, average completion
 - **Course analytics** (`/dashboard/analytics/:courseKey`) -- Enrollment counts, completion rates, pass rates, average scores, unit-level breakdown
 - **Student analytics** (`/lms/analytics`) -- Personal learning stats: enrolled, completed, average score, total time, per-course breakdown, recent activity
+- **Portfolio analytics** -- Visit count, countries, course opens
 - **Time tracking** -- Active time per unit with focus-loss detection
 - **Knowledge check results** -- Per-attempt tracking with correct/incorrect answers
 
-### 8. Portfolio
+### 8. Portfolio -- Complete
 
 Public-facing portfolio for creators to showcase their courses.
 
@@ -111,16 +132,17 @@ Public-facing portfolio for creators to showcase their courses.
 - **Contact form** -- Public contact message submission
 - **Privacy toggle** -- Public/private visibility control (returns 404 when private)
 
-### 9. Notifications
+### 9. Notifications -- Complete
 
 In-app notification system for important events.
 
 - **6 notification types**: `enrolled`, `learning_plan_assigned`, `course_completed`, `course_failed`, `badge_earned`, `invitation`
-- **Notification bell** -- Icon with unread count in the dashboard navbar
+- **Notification bell** -- Icon with unread count in both dashboard and LMS navbars
 - **Mark as read** -- Individual and bulk read marking
 - **Color-coded** -- Different visual styles per notification type
+- **Triggered by**: course completion, badge award, learning plan assignment, enrollment
 
-### 10. Authentication
+### 10. Authentication -- Complete
 
 Flexible authentication supporting email and social login.
 
@@ -129,7 +151,36 @@ Flexible authentication supporting email and social login.
 - **JWT tokens** -- Stateless authentication with tokens stored in localStorage
 - **Global JWT guard** -- Protected routes enforced via `JwtAuthGuard`
 - **Username** -- Unique username per user (used for portfolio URL)
-- **First-time onboarding** -- New users create their first organization on `/onboarding`
+
+### 11. Blog -- Frontend Only
+
+Static blog pages with hardcoded content.
+
+- **Blog listing** (`/blog`) -- Grid of blog posts
+- **Blog detail** (`/blog/:slug`) -- Individual post with SEO metadata
+- **Data source**: Static `data.ts` file, no backend CMS
+
+### 12. Public Pages -- Complete
+
+Marketing and legal pages.
+
+- **Landing page** (`/`) -- Feature showcase, hero section
+- **About** (`/about`), **Careers** (`/careers`), **Compare Plans** (`/compare-plans`)
+- **Legal**: Terms, Privacy, Cookies, GDPR
+
+---
+
+## Known Gaps and TODOs
+
+| Area | Gap | Impact |
+|---|---|---|
+| RBAC | Roles are stored per org member but not enforced on API endpoints | Any authenticated user can access any endpoint |
+| Email | No email service configured (invitations, password reset, notifications) | Invitations are stored as records but users aren't notified |
+| Onboarding | `/onboarding` page exists but flow is incomplete | New users don't go through guided org creation |
+| Blog CMS | Blog content is hardcoded in `web/app/blog/data.ts` | No dynamic content management |
+| Payment/Plans | `/compare-plans` page exists but no payment integration | Pricing is display-only |
+| Course editing | No post-generation content editing (UI buttons exist but are non-functional, no backend endpoints) | Generated content is read-only; the editor toolbar (edit, delete, duplicate, add, AI) has no onClick handlers and no backend support |
+| Learning plan badge trigger | `plan_completed` event is defined but not triggered when a plan is completed | Badges with `plan_completed` condition won't auto-award |
 
 ---
 
@@ -179,7 +230,7 @@ Flexible authentication supporting email and social login.
 | Creator Dashboard | `/dashboard/*` | Course list, organizations, plans, badges, analytics, portfolio, account |
 | Course Editor | `/project/[courseKey]` | AI chat interface for course creation |
 | Course Preview | `/preview/[courseKey]` | Student-view preview |
-| Student LMS | `/lms/*` | Course player, assessments, achievements, analytics |
+| Student LMS | `/lms/*` | Course player, assessments, achievements, analytics, plans |
 | Public Portfolio | `/p/[username]` | Public portfolio with SSR |
 
 ---

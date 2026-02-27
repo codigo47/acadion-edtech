@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useCourses } from '../../lib/hooks/use-course';
 import { useUser, useLogout } from '../../lib/hooks/use-auth';
+import { useOrganizations } from '../../lib/hooks/use-organizations';
 import NotificationBell from '../components/NotificationBell';
 import ChatLoadingIndicator from '../components/loaders/ChatLoadingIndicator';
 
@@ -61,6 +62,27 @@ export default function DashboardLayout({
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <ChatLoadingIndicator loadingText="Authenticating..." />
+      </div>
+    );
+  }
+
+  return <OnboardingGate>{children}</OnboardingGate>;
+}
+
+function OnboardingGate({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const { data: orgs, isLoading } = useOrganizations();
+
+  useEffect(() => {
+    if (!isLoading && orgs && orgs.length === 0) {
+      router.replace('/onboarding');
+    }
+  }, [isLoading, orgs, router]);
+
+  if (isLoading || (orgs && orgs.length === 0)) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <ChatLoadingIndicator loadingText="Loading..." />
       </div>
     );
   }
