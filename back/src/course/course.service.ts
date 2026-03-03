@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { Prisma } from '@prisma/client';
@@ -794,9 +798,11 @@ export class CourseService {
       include: {
         component: {
           select: {
+            id: true,
             internalName: true,
             name: true,
             type: true,
+            groupKey: true,
           },
         },
       },
@@ -810,11 +816,184 @@ export class CourseService {
         module: c.module,
         unit: c.unit,
         sequence: c.sequence,
+        componentId: c.component.id,
         componentName: c.component.internalName,
         componentType: c.component.type,
+        groupKey: c.component.groupKey,
         data: c.data,
         name: c.component.name,
       })),
     };
+  }
+
+  async updateComponentData(id: number, data: Record<string, unknown>) {
+    const component = await this.prisma.courseComponent.findUnique({
+      where: { id },
+    });
+
+    if (!component) {
+      throw new NotFoundException(`CourseComponent with id ${id} not found`);
+    }
+
+    return this.prisma.courseComponent.update({
+      where: { id },
+      data: { data: data as Prisma.InputJsonValue },
+    });
+  }
+
+  async deleteComponent(id: number) {
+    const component = await this.prisma.courseComponent.findUnique({
+      where: { id },
+    });
+
+    if (!component) {
+      throw new NotFoundException(`CourseComponent with id ${id} not found`);
+    }
+
+    const { courseId, module: mod, unit } = component;
+
+    // Delete the component
+    await this.prisma.courseComponent.delete({ where: { id } });
+
+    // Get remaining siblings and resequence them
+    const siblings = await this.prisma.courseComponent.findMany({
+      where: { courseId, module: mod, unit },
+      orderBy: { sequence: 'asc' },
+    });
+
+    if (siblings.length > 0) {
+      await this.prisma.$transaction(
+        siblings.map((sibling, index) =>
+          this.prisma.courseComponent.update({
+            where: { id: sibling.id },
+            data: { sequence: index + 1 },
+          }),
+        ),
+      );
+    }
+
+    return { success: true };
+  }
+
+  async duplicateComponent(id: number) {
+    const component = await this.prisma.courseComponent.findUnique({
+      where: { id },
+    });
+
+    if (!component) {
+      throw new NotFoundException(`CourseComponent with id ${id} not found`);
+    }
+
+    const { courseId, module: mod, unit, sequence, componentId, data, userId } =
+      component;
+
+    // Shift sequences of subsequent siblings (those after the original)
+    const subsequentSiblings = await this.prisma.courseComponent.findMany({
+      where: {
+        courseId,
+        module: mod,
+        unit,
+        sequence: { gt: sequence },
+      },
+      orderBy: { sequence: 'asc' },
+    });
+
+    if (subsequentSiblings.length > 0) {
+      // Shift in reverse order to avoid unique constraint conflicts
+      await this.prisma.$transaction(
+        subsequentSiblings
+          .slice()
+          .reverse()
+          .map((sibling) =>
+            this.prisma.courseComponent.update({
+              where: { id: sibling.id },
+              data: { sequence: sibling.sequence + 1 },
+            }),
+          ),
+      );
+    }
+
+    // Create the duplicate with sequence + 1
+    const duplicate = await this.prisma.courseComponent.create({
+      data: {
+        courseId,
+        module: mod,
+        unit,
+        sequence: sequence + 1,
+        componentId,
+        data: data ?? undefined,
+        userId,
+      },
+    });
+
+    return duplicate;
+  }
+
+  async reorderComponents(
+    courseKey: string,
+    items: Array<{ id: number; sequence: number }>,
+  ) {
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    await this.prisma.$transaction(
+      items.map((item) =>
+        this.prisma.courseComponent.update({
+          where: { id: item.id },
+          data: { sequence: item.sequence },
+        }),
+      ),
+    );
+
+    return { success: true };
+  }
+
+  async switchComponentStyle(id: number, newComponentId: number) {
+    const courseComponent = await this.prisma.courseComponent.findUnique({
+      where: { id },
+      include: {
+        component: {
+          select: { id: true, groupKey: true },
+        },
+      },
+    });
+
+    if (!courseComponent) {
+      throw new NotFoundException(`CourseComponent with id ${id} not found`);
+    }
+
+    const newComponent = await this.prisma.component.findUnique({
+      where: { id: newComponentId },
+      select: { id: true, groupKey: true },
+    });
+
+    if (!newComponent) {
+      throw new NotFoundException(
+        `Component with id ${newComponentId} not found`,
+      );
+    }
+
+    // Validate both components belong to the same group
+    if (courseComponent.component.groupKey !== newComponent.groupKey) {
+      throw new BadRequestException(
+        `Cannot switch style: components belong to different groups (current: "${courseComponent.component.groupKey}", target: "${newComponent.groupKey}")`,
+      );
+    }
+
+    if (!courseComponent.component.groupKey) {
+      throw new BadRequestException(
+        'Cannot switch style: current component does not belong to any style group',
+      );
+    }
+
+    return this.prisma.courseComponent.update({
+      where: { id },
+      data: { componentId: newComponentId },
+    });
   }
 }

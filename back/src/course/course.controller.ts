@@ -2,6 +2,8 @@ import {
   Controller,
   Post,
   Get,
+  Patch,
+  Delete,
   Body,
   Param,
   Query,
@@ -40,6 +42,11 @@ import {
   SetBrandingDto,
 } from './dto/create-course.dto';
 import { TaskDto } from './dto/task.dto';
+import {
+  UpdateComponentDataDto,
+  ReorderComponentsDto,
+  SwitchStyleDto,
+} from './dto/course-component.dto';
 import { TaskName } from './enums/task-name.enum';
 
 // DTOs are used via TaskDto casting in executeTask
@@ -171,6 +178,45 @@ export class CourseController {
   @Get(':key/components')
   async getCourseComponents(@Param('key') key: string) {
     return this.courseService.getCourseComponents(key);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('components/:id/data')
+  async updateComponentData(
+    @Param('id') id: string,
+    @Body() dto: UpdateComponentDataDto,
+  ) {
+    return this.courseService.updateComponentData(+id, dto.data);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('components/:id')
+  async deleteComponent(@Param('id') id: string) {
+    return this.courseService.deleteComponent(+id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('components/:id/duplicate')
+  async duplicateComponent(@Param('id') id: string) {
+    return this.courseService.duplicateComponent(+id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':key/components/reorder')
+  async reorderComponents(
+    @Param('key') key: string,
+    @Body() dto: ReorderComponentsDto,
+  ) {
+    return this.courseService.reorderComponents(key, dto.components);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('components/:id/switch-style')
+  async switchComponentStyle(
+    @Param('id') id: string,
+    @Body() dto: SwitchStyleDto,
+  ) {
+    return this.courseService.switchComponentStyle(+id, dto.newComponentId);
   }
 
   @Sse(':key/events')

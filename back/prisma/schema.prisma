@@ -18,6 +18,7 @@ model Component {
   internalName     String
   type             ComponentType     @default(static)
   subtype          ComponentSubtype  @default(content)
+  groupKey         String?           @map("group_key")
   courseComponents CourseComponent[]
 
   @@map("components")

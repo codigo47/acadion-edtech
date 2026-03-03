@@ -103,12 +103,16 @@ export default function StoryTellingBlock({
         {/* Avatar */}
         <div className="flex-shrink-0">
           <div className="relative w-24 h-32 md:w-32 md:h-40">
-            <NextImage
-              src={avatarImage}
-              alt={avatarName || 'Avatar'}
-              fill
-              className="object-contain object-top"
-            />
+            {avatarImage ? (
+              <NextImage
+                src={avatarImage}
+                alt={avatarName || 'Avatar'}
+                fill
+                className="object-contain object-top"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-400 text-xs">Avatar</div>
+            )}
           </div>
           {avatarName && (
             <p

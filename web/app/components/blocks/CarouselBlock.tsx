@@ -32,12 +32,16 @@ export default function CarouselBlock({ images, dark = false }: CarouselBlockPro
     <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="relative">
         <div className="relative h-80 w-full overflow-hidden rounded-lg">
-          <Image
-            src={currentImage.src}
-            alt={currentImage.alt || `Slide ${currentIndex + 1}`}
-            fill
-            className="object-cover transition-opacity duration-300"
-          />
+          {currentImage.src ? (
+            <Image
+              src={currentImage.src}
+              alt={currentImage.alt || `Slide ${currentIndex + 1}`}
+              fill
+              className="object-cover transition-opacity duration-300"
+            />
+          ) : (
+            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No image</div>
+          )}
           {currentImage.caption && (
             <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-4">
               <p className="text-center">{currentImage.caption}</p>

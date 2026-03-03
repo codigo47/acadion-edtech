@@ -27,12 +27,16 @@ export default function GalleryBlock({ images, dark = false }: GalleryBlockProps
             key={index}
             className="flex-shrink-0 relative h-36 sm:h-48 min-w-[140px] sm:min-w-[200px] flex-1"
           >
-            <Image
-              src={image.src}
-              alt={image.alt || `Gallery image ${index + 1}`}
-              fill
-              className="object-cover rounded-lg"
-            />
+            {image.src ? (
+              <Image
+                src={image.src}
+                alt={image.alt || `Gallery image ${index + 1}`}
+                fill
+                className="object-cover rounded-lg"
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 rounded-lg text-sm">No image</div>
+            )}
           </div>
         ))}
       </div>

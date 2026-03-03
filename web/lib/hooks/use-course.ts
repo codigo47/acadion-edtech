@@ -380,8 +380,10 @@ interface CourseComponentData {
   module: number;
   unit: number;
   sequence: number;
+  componentId?: number;
   componentName: string;
   componentType: 'static' | 'interactive' | 'evaluation';
+  groupKey?: string | null;
   data: Record<string, unknown>;
   name?: string;
 }

@@ -15,8 +15,22 @@ export interface SortingStepsBlockProps {
   dark?: boolean;
 }
 
+function shuffleItems(arr: SortingItem[]): SortingItem[] {
+  if (!arr || arr.length <= 1) return arr || [];
+  const shuffled = [...arr];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  // Ensure shuffled order differs from correct order
+  if (shuffled.every((item, idx) => item.correctOrder === idx + 1)) {
+    [shuffled[0], shuffled[1]] = [shuffled[1], shuffled[0]];
+  }
+  return shuffled;
+}
+
 export default function SortingStepsBlock({ items: initialItems = [], dark = false }: SortingStepsBlockProps) {
-  const [items, setItems] = useState(initialItems || []);
+  const [items, setItems] = useState(() => shuffleItems(initialItems || []));
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
 

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useSetBuildingMethod, useSetModules, useSetUnits, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useCourseComponents } from '../../../lib/hooks/use-course';
+import { Loader2, Check, AlertCircle, MessageSquare, PanelRightClose, PanelRightOpen } from 'lucide-react';
 import { useUser } from '../../../lib/hooks/use-auth';
 import { useCourseSSE, type ProposedIndex as SSEProposedIndex, type SSEEventData, type UnitStatus } from '../../../lib/hooks/use-course-sse';
 import StarLoader from '../../components/loaders/StarLoader';
@@ -27,6 +28,7 @@ import { ExerciseTypesView } from './_components/ExerciseTypesView';
 import { BrandingView } from './_components/BrandingView';
 import { CourseComponent } from './_components/CourseComponent';
 import { CompletionPopup } from './_components/CompletionPopup';
+import { EditorContent, type SaveStatus } from './_components/EditorContent';
 import { CustomScrollbar } from '../../components/CustomScrollbar';
 
 export default function ProjectPage() {
@@ -59,10 +61,14 @@ export default function ProjectPage() {
   // Editor layout state
   const [showEditorLayout, setShowEditorLayout] = useState(false);
   const [selectedUnitCode, setSelectedUnitCode] = useState<string | null>(null);
+  const [isChatOpen, setIsChatOpen] = useState(true);
 
   // Loading state
   const [isGenerating, setIsGenerating] = useState(false);
   const [showCompletionPopup, setShowCompletionPopup] = useState(false);
+
+  // Auto-save status
+  const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
 
   // SSE event handlers
   const handleObjectivesCompleted = useCallback((objectivesMessage: string, buildMethodMessage: string) => {
@@ -1555,6 +1561,30 @@ export default function ProjectPage() {
         </div>
 
         <div className="flex items-center gap-3">
+          {/* Auto-save status indicator */}
+          {showEditorLayout && saveStatus !== 'idle' && (
+            <div className="flex items-center gap-1.5 text-sm">
+              {saveStatus === 'saving' && (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 text-gray-400 animate-spin" />
+                  <span className="text-gray-400">Saving...</span>
+                </>
+              )}
+              {saveStatus === 'saved' && (
+                <>
+                  <Check className="w-3.5 h-3.5 text-green-500" />
+                  <span className="text-green-500">Changes saved</span>
+                </>
+              )}
+              {saveStatus === 'error' && (
+                <>
+                  <AlertCircle className="w-3.5 h-3.5 text-red-500" />
+                  <span className="text-red-500">Save failed</span>
+                </>
+              )}
+            </div>
+          )}
+
           {/* Preview Button */}
           <button onClick={() => router.push(`/preview/${courseKey}${fromDashboard ? '?from=dashboard' : ''}`)} className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1588,6 +1618,26 @@ export default function ProjectPage() {
             </svg>
             Self QA
           </button>
+
+          {/* Toggle Chat Panel - only in editor layout */}
+          {showEditorLayout && (
+            <button
+              onClick={() => setIsChatOpen(!isChatOpen)}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                isChatOpen
+                  ? 'text-[#9F80DA] bg-[#9F80DA]/10 hover:bg-[#9F80DA]/20'
+                  : 'text-gray-700 bg-gray-100 hover:bg-gray-200'
+              }`}
+              title={isChatOpen ? 'Hide chat' : 'Show chat'}
+            >
+              {isChatOpen ? (
+                <PanelRightClose className="w-4 h-4" />
+              ) : (
+                <PanelRightOpen className="w-4 h-4" />
+              )}
+              Chat
+            </button>
+          )}
 
           {/* User Avatar */}
           <div className="flex items-center gap-2 ml-2">
@@ -1718,200 +1768,12 @@ export default function ProjectPage() {
                 transition={{ duration: 0.4 }}
                 className="flex-1 bg-gray-50 relative min-h-0 overflow-hidden"
               >
-                <CustomScrollbar>
-                  {courseComponentsData?.components && proposedIndex ? (
-                    <div className="max-w-4xl mx-auto py-8 px-4">
-                    {/* Course title */}
-                    {proposedIndex.title && (
-                      <HeadingBlock heading={proposedIndex.title} level={1} />
-                    )}
-
-                    {proposedIndex.modules.map((module) => {
-                      // Build complete unit list: Introduction (0) + index units + evaluation
-                      // Get all unique unit numbers from components for this module
-                      const moduleComponents = courseComponentsData.components.filter(
-                        (c) => c.module === module.number
-                      );
-                      const unitNumbers = [...new Set(moduleComponents.map((c) => c.unit))].sort((a, b) => a - b);
-
-                      // Build unit info with titles
-                      const allUnits = unitNumbers.map((unitNum) => {
-                        if (unitNum === 0) {
-                          return { code: `${module.number}.0`, title: 'Introduction', unitNum };
-                        }
-                        if (unitNum === 99) {
-                          return { code: `eval-m${module.number}`, title: 'Evaluation', unitNum };
-                        }
-                        // Find title from proposedIndex
-                        const indexUnit = module.units.find((u) => u.code === `${module.number}.${unitNum}`);
-                        return {
-                          code: `${module.number}.${unitNum}`,
-                          title: indexUnit?.title || `Unit ${unitNum}`,
-                          unitNum,
-                        };
-                      });
-
-                      return (
-                        <div key={module.number} className="mb-12">
-                          {/* Module header */}
-                          <div className="mb-6">
-                            <h2 className="text-2xl font-bold text-[#1a1a1a]">
-                              Module {module.number}: {module.title}
-                            </h2>
-                          </div>
-
-                          {/* Units in this module */}
-                          {allUnits.map((unit) => {
-                            const unitComponents = moduleComponents.filter((c) => c.unit === unit.unitNum);
-
-                            if (unitComponents.length === 0) return null;
-
-                            return (
-                              <div
-                                key={unit.code}
-                                id={`unit-${unit.code}`}
-                                className="mb-10"
-                              >
-                                {/* Unit header */}
-                                <div className="mb-6 flex items-center gap-3">
-                                  <span className="px-3 py-1 bg-[#9F80DA] text-white text-sm font-medium rounded-full">
-                                    {unit.code}
-                                  </span>
-                                  <h3 className="text-xl font-semibold text-[#1a1a1a]">{unit.title}</h3>
-                                </div>
-
-                                {/* Unit components */}
-                                <div className="space-y-2">
-                                  {unitComponents
-                                    .sort((a, b) => a.sequence - b.sequence)
-                                    .map((comp, idx) => {
-                                      const component: UnitComponent = {
-                                        componentName: comp.componentName,
-                                        order: comp.sequence,
-                                        content: (comp.data as Record<string, unknown>) || {},
-                                        styles: undefined,
-                                      };
-
-                                      return (
-                                        <div key={idx}>
-                                          {/* Add button above first component */}
-                                          {idx === 0 && (
-                                            <div className="flex justify-center py-2">
-                                              <div className="relative group/tooltip">
-                                                <button className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] hover:bg-[#333333] text-white transition-all shadow-sm">
-                                                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                                                  </svg>
-                                                </button>
-                                                <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                                  Add
-                                                </span>
-                                              </div>
-                                            </div>
-                                          )}
-
-                                          {/* Component container */}
-                                          <div className="relative bg-white rounded-xl border-2 border-gray-200 hover:border-[#9F80DA] transition-colors">
-                                              {/* Top bar with actions and component name */}
-                                              <div className="flex items-center justify-center px-2 py-2 border-b border-gray-100 relative">
-                                                {/* Block action toolbar */}
-                                                <div className="flex items-center gap-1">
-                                                  <div className="relative group/tooltip">
-                                                    <button className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] hover:bg-[#333333] text-white transition-all shadow-sm">
-                                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                      </svg>
-                                                    </button>
-                                                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                                      Edit
-                                                    </span>
-                                                  </div>
-                                                  <div className="relative group/tooltip">
-                                                    <button className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] hover:bg-[#333333] text-white transition-all shadow-sm">
-                                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                                      </svg>
-                                                    </button>
-                                                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                                      AI
-                                                    </span>
-                                                  </div>
-                                                  <div className="relative group/tooltip">
-                                                    <button className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] hover:bg-[#333333] text-white transition-all shadow-sm">
-                                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                      </svg>
-                                                    </button>
-                                                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                                      Preview
-                                                    </span>
-                                                  </div>
-                                                  <div className="relative group/tooltip">
-                                                    <button className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] hover:bg-[#333333] text-white transition-all shadow-sm">
-                                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                                      </svg>
-                                                    </button>
-                                                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                                      Duplicate
-                                                    </span>
-                                                  </div>
-                                                  <div className="relative group/tooltip">
-                                                    <button className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] hover:bg-red-500 text-white transition-all shadow-sm">
-                                                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                      </svg>
-                                                    </button>
-                                                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                                      Delete
-                                                    </span>
-                                                  </div>
-                                                </div>
-                                                {/* Component name label */}
-                                                <span className="absolute right-2 px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-md">
-                                                  {comp.name}
-                                                </span>
-                                              </div>
-                                              {/* Component content */}
-                                              <div>
-                                                <CourseComponent component={component} />
-                                              </div>
-                                          </div>
-
-                                          {/* Add button below component */}
-                                          <div className="flex justify-center py-2">
-                                            <div className="relative group/tooltip">
-                                              <button className="w-8 h-8 flex items-center justify-center rounded-md bg-[#1a1a1a] hover:bg-[#333333] text-white transition-all shadow-sm">
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                                                </svg>
-                                              </button>
-                                              <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50">
-                                                Add
-                                              </span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      );
-                                    })}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      );
-                    })}
-                    </div>
-                  ) : (
-                    <div className="flex-1 flex items-center justify-center h-full">
-                      <div className="text-center text-gray-400">
-                        <div className="w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                        <p className="text-lg">Loading course content...</p>
-                      </div>
-                    </div>
-                  )}
-                </CustomScrollbar>
+                <EditorContent
+                  courseKey={courseKey}
+                  proposedIndex={proposedIndex!}
+                  components={courseComponentsData?.components || []}
+                  onSaveStatusChange={setSaveStatus}
+                />
               </motion.div>
             ) : (
               /* Chat interface */
@@ -2005,7 +1867,7 @@ export default function ProjectPage() {
 
         {/* Right Panel - Chat history in editor layout */}
         <AnimatePresence>
-          {showEditorLayout && (
+          {showEditorLayout && isChatOpen && (
             <motion.aside
               initial={{ x: 640, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}

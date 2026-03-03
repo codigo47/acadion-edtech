@@ -26,12 +26,16 @@ export default function QuoteImageBlock({
   return (
     <div className="w-full relative overflow-hidden rounded-lg min-h-[300px] flex items-center justify-center">
       <div className="absolute inset-0">
-        <Image
-          src={backgroundImage}
-          alt="Background"
-          fill
-          className="object-cover"
-        />
+        {backgroundImage ? (
+          <Image
+            src={backgroundImage}
+            alt="Background"
+            fill
+            className="object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-gray-800" />
+        )}
         <div
           className="absolute inset-0"
           style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
