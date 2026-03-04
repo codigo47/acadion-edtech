@@ -146,7 +146,7 @@ export default function GraphBlock({
           style={{
             fontSize: textStyle.fontSize,
             fontWeight: textStyle.fontWeight,
-            color: textStyle.color || (dark ? '#ffffff' : undefined),
+            color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
             fontStyle: textStyle.fontStyle,
             textAlign: textStyle.textAlign,
             lineHeight: textStyle.lineHeight,

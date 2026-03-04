@@ -20,6 +20,7 @@
     "posthog-js": "^1.297.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-easy-crop": "^5.5.6",
     "react-particles": "^2.12.2",
     "react-scrollbars-custom": "^4.1.1",
     "recharts": "^3.5.1",

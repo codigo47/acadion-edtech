@@ -5,12 +5,15 @@ import {
   GripVertical,
   Sparkles,
   Eye,
-  Palette,
   Copy,
   Trash2,
+  ChevronDown,
+  Settings,
 } from 'lucide-react';
 import { getBlockMeta } from './block-metadata';
 import { EditableCourseComponent } from './EditableCourseComponent';
+import { BlockFooter, blockStylesToCss, type BlockStyles } from './BlockFooter';
+import { PropertiesPopup } from './PropertiesPopup';
 import type { UnitComponent } from './types';
 
 interface EditorBlockProps {
@@ -52,7 +55,9 @@ export function EditorBlock({
 }: EditorBlockProps) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showStyleDropdown, setShowStyleDropdown] = useState(false);
+  const [showProperties, setShowProperties] = useState(false);
   const styleDropdownRef = useRef<HTMLDivElement>(null);
+  const propertiesRef = useRef<HTMLDivElement>(null);
   const blockRef = useRef<HTMLDivElement>(null);
 
   const meta = getBlockMeta(component.componentName);
@@ -83,25 +88,55 @@ export function EditorBlock({
     >
       {/* Top bar — absolute center for toolbar */}
       <div className="relative flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200 rounded-t-xl">
-        {/* Left: Drag handle */}
-        <div
-          draggable
-          onDragStart={(e) => {
-            if (blockRef.current) {
-              const rect = blockRef.current.getBoundingClientRect();
-              e.dataTransfer.setDragImage(
-                blockRef.current,
-                e.clientX - rect.left,
-                e.clientY - rect.top,
-              );
-            }
-            onDragStart(componentId);
-          }}
-          onDragEnd={onDragEnd}
-          className="relative z-10 cursor-grab active:cursor-grabbing p-1 rounded hover:bg-gray-200 transition-colors text-gray-400 hover:text-gray-600 select-none"
-        >
-          <GripVertical className="w-4 h-4" />
-        </div>
+        {/* Left: Component type tag (dropdown when hasVariants) */}
+        {hasVariants ? (
+          <div className="relative z-10" ref={styleDropdownRef}>
+            <button
+              onClick={() => setShowStyleDropdown(!showStyleDropdown)}
+              className={`flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${meta.color} hover:opacity-80`}
+            >
+              <Icon className={`w-3.5 h-3.5 ${meta.textColor}`} />
+              <span className={`text-xs font-medium ${meta.textColor}`}>{meta.label}</span>
+              <ChevronDown className={`w-3 h-3 ${meta.textColor} transition-transform ${showStyleDropdown ? 'rotate-180' : ''}`} />
+            </button>
+            {showStyleDropdown && (
+              <div className="absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50 w-max">
+                {availableVariants!.map((variant) => {
+                  const variantMeta = getBlockMeta(variant.componentName);
+                  const VIcon = variantMeta.icon;
+                  const isActive = variant.componentId === componentDbId;
+                  return (
+                    <button
+                      key={variant.componentId}
+                      onClick={() => {
+                        if (!isActive) {
+                          onSwitchStyle(componentId, variant.componentId);
+                        }
+                        setShowStyleDropdown(false);
+                      }}
+                      className={`w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors whitespace-nowrap ${
+                        isActive
+                          ? 'bg-[#9F80DA]/10 text-[#9F80DA] font-medium'
+                          : 'text-gray-700 hover:bg-gray-50'
+                      }`}
+                    >
+                      <VIcon className="w-4 h-4" />
+                      <span>{variant.name}</span>
+                      {isActive && (
+                        <span className="ml-auto text-xs text-[#9F80DA]">Current</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className={`relative z-10 flex items-center gap-1.5 px-2 py-1 rounded-md ${meta.color}`}>
+            <Icon className={`w-3.5 h-3.5 ${meta.textColor}`} />
+            <span className={`text-xs font-medium ${meta.textColor}`}>{meta.label}</span>
+          </div>
+        )}
 
         {/* Center: Action toolbar — absolutely centered across full width */}
         <div className="absolute inset-x-0 flex items-center justify-center gap-1 pointer-events-none">
@@ -111,52 +146,27 @@ export function EditorBlock({
             tooltip="AI"
             onClick={onAIPrompt}
           />
+          <div className="relative" ref={propertiesRef}>
+            <ToolbarButton
+              icon={<Settings className="w-3.5 h-3.5" />}
+              tooltip="Properties"
+              onClick={() => setShowProperties(!showProperties)}
+              active={showProperties}
+            />
+            {showProperties && (
+              <PropertiesPopup
+                componentName={component.componentName}
+                content={component.content as Record<string, unknown>}
+                onDataChange={onDataChange}
+                onClose={() => setShowProperties(false)}
+              />
+            )}
+          </div>
           <ToolbarButton
             icon={<Eye className="w-3.5 h-3.5" />}
             tooltip="Preview"
             onClick={onPreview}
           />
-          {hasVariants && (
-            <div className="relative" ref={styleDropdownRef}>
-              <ToolbarButton
-                icon={<Palette className="w-3.5 h-3.5" />}
-                tooltip="Style"
-                onClick={() => setShowStyleDropdown(!showStyleDropdown)}
-                active={showStyleDropdown}
-              />
-              {showStyleDropdown && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50 w-max">
-                  {availableVariants!.map((variant) => {
-                    const variantMeta = getBlockMeta(variant.componentName);
-                    const VIcon = variantMeta.icon;
-                    const isActive = variant.componentId === componentDbId;
-                    return (
-                      <button
-                        key={variant.componentId}
-                        onClick={() => {
-                          if (!isActive) {
-                            onSwitchStyle(componentId, variant.componentId);
-                          }
-                          setShowStyleDropdown(false);
-                        }}
-                        className={`w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors whitespace-nowrap ${
-                          isActive
-                            ? 'bg-[#9F80DA]/10 text-[#9F80DA] font-medium'
-                            : 'text-gray-700 hover:bg-gray-50'
-                        }`}
-                      >
-                        <VIcon className="w-4 h-4" />
-                        <span>{variant.name}</span>
-                        {isActive && (
-                          <span className="ml-auto text-xs text-[#9F80DA]">Current</span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          )}
           <ToolbarButton
             icon={<Copy className="w-3.5 h-3.5" />}
             tooltip="Duplicate"
@@ -192,17 +202,47 @@ export function EditorBlock({
           </div>
         </div>
 
-        {/* Right: Component tag */}
-        <div className={`relative z-10 flex items-center gap-1.5 px-2 py-1 rounded-md ${meta.color}`}>
-          <Icon className={`w-3.5 h-3.5 ${meta.textColor}`} />
-          <span className={`text-xs font-medium ${meta.textColor}`}>{meta.label}</span>
+        {/* Right: Drag handle */}
+        <div
+          draggable
+          onDragStart={(e) => {
+            if (blockRef.current) {
+              const rect = blockRef.current.getBoundingClientRect();
+              e.dataTransfer.setDragImage(
+                blockRef.current,
+                e.clientX - rect.left,
+                e.clientY - rect.top,
+              );
+            }
+            onDragStart(componentId);
+          }}
+          onDragEnd={onDragEnd}
+          className="relative z-10 cursor-grab active:cursor-grabbing p-1 rounded hover:bg-gray-200 transition-colors text-gray-400 hover:text-gray-600 select-none"
+        >
+          <GripVertical className="w-4 h-4" />
         </div>
       </div>
 
       {/* Component content */}
-      <div>
+      <div
+        style={blockStylesToCss(((component.content as Record<string, unknown>)?.blockStyles as BlockStyles) || undefined)}
+        className="rounded-lg"
+      >
         <EditableCourseComponent component={component} onDataChange={onDataChange} />
       </div>
+
+      {/* Block footer with styling controls */}
+      <BlockFooter
+        blockStyles={((component.content as Record<string, unknown>)?.blockStyles as Record<string, string>) || {}}
+        onStyleChange={(styles) => {
+          onDataChange({ ...(component.content as Record<string, unknown>), blockStyles: styles });
+        }}
+        componentName={component.componentName}
+        imageSize={(component.content as Record<string, unknown>)?.imageSize as number | undefined}
+        onImageSizeChange={(size) => {
+          onDataChange({ ...(component.content as Record<string, unknown>), imageSize: size });
+        }}
+      />
     </div>
   );
 }

@@ -68,7 +68,7 @@ export default function ListBlock({
                 style={{
                   fontSize: textStyle.fontSize,
                   fontWeight: textStyle.fontWeight,
-                  color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                  color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                   lineHeight: textStyle.lineHeight,
                 }}
               >
@@ -102,7 +102,7 @@ export default function ListBlock({
                   style={{
                     fontSize: textStyle.fontSize,
                     fontWeight: textStyle.fontWeight,
-                    color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                    color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                     lineHeight: textStyle.lineHeight,
                   }}
                 >
@@ -141,7 +141,7 @@ export default function ListBlock({
                   style={{
                     fontSize: textStyle.fontSize,
                     fontWeight: textStyle.fontWeight,
-                    color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                    color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                     lineHeight: textStyle.lineHeight || '1.5',
                   }}
                 >
@@ -172,7 +172,7 @@ export default function ListBlock({
                 style={{
                   fontSize: textStyle.fontSize,
                   fontWeight: textStyle.fontWeight,
-                  color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                  color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                   lineHeight: textStyle.lineHeight,
                 }}
               >
@@ -196,7 +196,7 @@ export default function ListBlock({
         style={{
           fontSize: textStyle.fontSize,
           fontWeight: textStyle.fontWeight,
-          color: textStyle.color || (dark ? '#d1d5db' : undefined),
+          color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
           fontStyle: textStyle.fontStyle,
           textAlign: textStyle.textAlign,
           lineHeight: textStyle.lineHeight,

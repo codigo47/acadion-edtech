@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { X, Link, Image as ImageIcon } from 'lucide-react';
+import { useState, useEffect, useCallback } from 'react';
+import { X, Link, Image as ImageIcon, Crop } from 'lucide-react';
+import { ImageCropModal } from './ImageCropModal';
+import type { Area } from 'react-easy-crop';
 
 const PLACEHOLDER_IMAGES = [
   'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop',
@@ -16,20 +18,70 @@ const PLACEHOLDER_IMAGES = [
 
 interface ImagePickerModalProps {
   currentUrl?: string;
-  onSelect: (url: string) => void;
+  onSelect: (url: string, crop?: { x: number; y: number; width: number; height: number }) => void;
   onClose: () => void;
 }
 
 export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerModalProps) {
   const [urlInput, setUrlInput] = useState(currentUrl || '');
+  const [cropImage, setCropImage] = useState<string | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        if (cropImage) {
+          setCropImage(null);
+        } else {
+          onClose();
+        }
+      }
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [onClose, cropImage]);
+
+  const handleImageSelected = useCallback((url: string) => {
+    setCropImage(url);
+  }, []);
+
+  const handleCropComplete = useCallback((croppedArea: Area) => {
+    if (cropImage) {
+      onSelect(cropImage, {
+        x: croppedArea.x,
+        y: croppedArea.y,
+        width: croppedArea.width,
+        height: croppedArea.height,
+      });
+      onClose();
+    }
+  }, [cropImage, onSelect, onClose]);
+
+  const handleSkipCrop = useCallback(() => {
+    if (cropImage) {
+      onSelect(cropImage);
+      onClose();
+    }
+  }, [cropImage, onSelect, onClose]);
+
+  // Show crop modal when an image is selected
+  if (cropImage) {
+    return (
+      <div className="fixed inset-0 z-50">
+        <ImageCropModal
+          imageUrl={cropImage}
+          onCropComplete={handleCropComplete}
+          onClose={() => setCropImage(null)}
+        />
+        {/* "Use as is" button overlaid at top-right of crop modal */}
+        <button
+          onClick={handleSkipCrop}
+          className="fixed top-3 right-14 z-[70] flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 hover:text-white rounded-lg transition-colors border border-white/10"
+        >
+          Use as is
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -67,13 +119,13 @@ export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerM
             <button
               onClick={() => {
                 if (urlInput.trim()) {
-                  onSelect(urlInput.trim());
-                  onClose();
+                  handleImageSelected(urlInput.trim());
                 }
               }}
               disabled={!urlInput.trim()}
-              className="px-4 py-2 text-sm font-medium text-white bg-[#9F80DA] hover:bg-[#8A6BC5] rounded-lg transition-colors disabled:opacity-50"
+              className="px-4 py-2 text-sm font-medium text-white bg-[#9F80DA] hover:bg-[#8A6BC5] rounded-lg transition-colors disabled:opacity-50 flex items-center gap-1.5"
             >
+              <Crop className="w-3.5 h-3.5" />
               Use URL
             </button>
           </div>
@@ -86,10 +138,7 @@ export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerM
             {PLACEHOLDER_IMAGES.map((url, idx) => (
               <button
                 key={idx}
-                onClick={() => {
-                  onSelect(url);
-                  onClose();
-                }}
+                onClick={() => handleImageSelected(url)}
                 className={`relative aspect-[4/3] rounded-lg overflow-hidden border-2 transition-all hover:shadow-md ${
                   currentUrl === url
                     ? 'border-[#9F80DA] ring-2 ring-[#9F80DA]/20'

@@ -76,7 +76,7 @@ export default function TestimonialBlock({
                 style={{
                   fontSize: textStyle.fontSize,
                   fontWeight: textStyle.fontWeight || '600',
-                  color: textStyle.color || (dark ? '#ffffff' : undefined),
+                  color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                   fontStyle: textStyle.fontStyle,
                 }}
               >
@@ -88,7 +88,7 @@ export default function TestimonialBlock({
               className={dark ? 'text-gray-300 mb-4' : 'text-gray-600 mb-4'}
               style={{
                 fontSize: textStyle.fontSize || '14px',
-                color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
+                color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, #4B5563)'),
                 lineHeight: textStyle.lineHeight || '1.5',
               }}
             >

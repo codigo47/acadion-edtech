@@ -14,6 +14,8 @@ export interface ScenarioBlockProps {
   image: string;
   question: string;
   answers: ScenarioAnswer[];
+  avatar?: string;
+  blur?: number;
   dark?: boolean;
 }
 
@@ -21,6 +23,8 @@ export default function ScenarioBlock({
   image,
   question,
   answers,
+  avatar,
+  blur = 0,
   dark = false,
 }: ScenarioBlockProps) {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -56,15 +60,23 @@ export default function ScenarioBlock({
   return (
     <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="relative w-full min-h-[350px] sm:min-h-[500px] rounded-lg overflow-hidden">
-        <Image src={image} alt="Scenario" fill className="object-cover" />
+        <Image src={image} alt="Scenario" fill className="object-cover" style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
+        {/* Avatar character */}
+        {avatar && (
+          <div className="absolute bottom-0 left-3 sm:left-6 z-10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={avatar} alt="Character" className="h-48 sm:h-64 w-auto object-contain drop-shadow-lg" />
+          </div>
+        )}
+
         {/* Content overlay */}
-        <div className="absolute inset-0 flex flex-col justify-end p-3 sm:p-6">
+        <div className={`absolute inset-0 flex flex-col justify-end p-3 sm:p-6 ${avatar ? 'pl-28 sm:pl-40' : ''}`}>
           {/* Speech bubble */}
           <div className="mb-3 sm:mb-4">
             <div className="bg-white rounded-lg p-3 sm:p-4 shadow-lg relative inline-block max-w-lg">
-              <div className="absolute -top-2 left-8 w-4 h-4 bg-white transform rotate-45" />
+              <div className="absolute -bottom-2 left-8 w-4 h-4 bg-white transform rotate-45" />
               <p className="text-sm sm:text-lg font-medium text-gray-900 relative z-10">
                 {question}
               </p>

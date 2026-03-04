@@ -106,7 +106,7 @@ export default function FlashCardBlock({
                   className={`text-xl font-medium ${dark ? 'text-white' : 'text-gray-800'}`}
                   style={{
                     fontSize: textStyle.fontSize || '20px',
-                    color: textStyle.color || (dark ? '#ffffff' : undefined),
+                    color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                     lineHeight: textStyle.lineHeight || '1.5',
                   }}
                 >

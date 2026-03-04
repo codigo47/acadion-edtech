@@ -21,6 +21,7 @@ export interface AccordionBlockProps {
   textBackgroundStyle?: BackgroundStyle;
   blockStyle?: BlockStyle;
   allowMultiple?: boolean;
+  openFirst?: boolean;
   dark?: boolean;
 }
 
@@ -30,9 +31,10 @@ export default function AccordionBlock({
   textBackgroundStyle = {},
   blockStyle = 'A',
   allowMultiple = false,
+  openFirst = true,
   dark = false,
 }: AccordionBlockProps) {
-  const [openItems, setOpenItems] = useState<string[]>([]);
+  const [openItems, setOpenItems] = useState<string[]>(() => openFirst && items.length > 0 ? [items[0].id] : []);
 
   // Handle empty or missing items
   if (!items || items.length === 0) {
@@ -110,7 +112,7 @@ export default function AccordionBlock({
         <p
           style={{
             fontSize: textStyle.fontSize,
-            color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
+            color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, #4B5563)'),
             lineHeight: textStyle.lineHeight || '1.5',
           }}
         >
@@ -162,7 +164,7 @@ export default function AccordionBlock({
           <p
             style={{
               fontSize: textStyle.fontSize,
-              color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
+              color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, #4B5563)'),
               lineHeight: textStyle.lineHeight || '1.5',
             }}
           >
@@ -205,7 +207,7 @@ export default function AccordionBlock({
                 style={{
                   fontSize: textStyle.fontSize,
                   fontWeight: textStyle.fontWeight || '500',
-                  color: textStyle.color || (dark ? '#ffffff' : undefined),
+                  color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                   fontStyle: textStyle.fontStyle,
                 }}
               >

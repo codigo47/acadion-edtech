@@ -36,6 +36,7 @@ import {
   HelpCircle,
   MessagesSquare,
   PenTool,
+  Flag,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -130,6 +131,9 @@ export const blockMetadata: Record<string, BlockMeta> = {
   LabeledImageBlock: { icon: Tag, color: 'bg-orange-100', textColor: 'text-orange-700', group: null, label: 'Labeled Image' },
   ScenarioBlock: { icon: PenTool, color: 'bg-orange-100', textColor: 'text-orange-700', group: null, label: 'Scenario' },
   FlashCardBlock: { icon: Layers, color: 'bg-orange-100', textColor: 'text-orange-700', group: null, label: 'Flash Card' },
+
+  // Banner block (violet)
+  BannerBlock: { icon: Flag, color: 'bg-violet-100', textColor: 'text-violet-700', group: null, label: 'Banner' },
 
   // Evaluation blocks (red)
   MultipleChoiceBlock: { icon: CircleDot, color: 'bg-red-100', textColor: 'text-red-700', group: null, label: 'Multiple Choice' },

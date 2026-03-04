@@ -161,7 +161,7 @@ export default function AttachmentBlock({
                   className={`font-medium truncate ${dark ? 'text-white' : 'text-gray-900'}`}
                   style={{
                     fontSize: textStyle.fontSize,
-                    color: textStyle.color || (dark ? '#ffffff' : undefined),
+                    color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                   }}
                 >
                   {attachment.name}

@@ -26,7 +26,7 @@ export default function ParagraphWithSubheadingBlock({
         style={{
           fontSize: subheadingStyle.fontSize || '1.125rem',
           fontWeight: subheadingStyle.fontWeight || '600',
-          color: subheadingStyle.color || (dark ? '#d1d5db' : '#374151'),
+          color: subheadingStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, #374151)'),
           fontStyle: subheadingStyle.fontStyle,
           textAlign: subheadingStyle.textAlign,
           lineHeight: subheadingStyle.lineHeight,

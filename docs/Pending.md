@@ -1,4 +1,78 @@
 
+
+Te voy a pasar una lista de cambios, si tenes preguntas hacelas o si queres que se amplie algo preguntalo.
+Usa team agents para trabajar en diferentes partes al mismo tiempo.
+1. Editor de imagen en bloques con imagen: reemplazar imagen, crop, mover/reencuadrar para elegir qué parte se ve
+2. Ajuste de proporción/tamaño de imagen vs texto (presets tipo 25, 50, 75, 100)
+3. Opción “zoomable” para el usuario final, toggle en el editor, al click abre en primer plano con zoom (útil para gráficos)
+4. Ventana pop up de configuraciones o propiedades por componente (incluye, por ejemplo, habilitar zoom), agrega un nuevo boton de accion en el header de los componentes del editor, el icono que represente "propiedades"
+5. Formato de texto (opciones de styling del texto), en el footer de cada contenedor de los componentes de edicion agrega opciones de estilo, tipografia, color letra, color fondo y otras opciones segun el componente. Como haces en el componente Separator
+7. Acordeón: permitir agregar imágenes dentro del contenido, modifica los componentes edicion y lectura de este componente Accordion para que permita agregar imagenes en el contenido de cada item, en los hechos puede tener un componente parrafo, imagen (en todas sus variantes, texto a la izq a la derecha, etc)
+8. Tabs: mismas opciones, permitir convertir un bloque en el otro (tabs ↔ acordeón) -> Lo mismo que con Accordion pera para Tabs
+10. Fix en preview del componente Tabs: está mostrando íconos de borrar
+11. Carrusel: al hover de la imagen tiene que aparecer el botón para cambiar imagen
+12. Carrusel: texto opcional, si no hay texto, sacar el sombreado/background asociado al texto
+13. Reviews/Testimonial: permitir cargar imagen de avatar (click en imagen para cargar)
+14. Avatares: edición de imagen del avatar en los componentes que piden una imagen como avatar, como chat, etc (crop + mover/reencuadrar)
+15. Label image / Hotspots: al agregar pin, falta texto de descripción asociado al pin
+16. Label image / Hotspots: en el editor, la “ventanita” del pin queda abajo, subir z-index para que quede arriba
+17. Label image / Hotspots: opción para elegir estilo de marcadores (números vs iconitos) y color del marcador
+18. Comparison: en modo edición, las columnas tienen que estar alineadas en columnas (hoy se ve como filas), no copiar el layout de “before and after”
+19. Comparison: opción de meter imágenes dentro del texto
+20. Before and after / Mid and facts / Do and don’t / Cost and effect: títulos editables, no fijos
+21. Chat: el editor se repite para distintos tipos pero la preview de cada tipo es distinta, corregir para que cada preview sea la correcta
+22. Chat: permitir editar la imagen/avatar de cada participante (sender y receiver)
+23. Botón: además de URL externa, permitir navegar a una parte específica del curso (unidad 1, unidad 2, etc), deep link interno
+24. Quiz/Multiple choice y similares: opción para editar el feedback (por correcto/incorrecto y/o por respuesta)
+25. Flashcard: permitir agregar imagen en ambos lados (frente y dorso)
+26. Escenario: selector de personaje (avatares predeterminados)
+27. Escenario: selector de expresión/pose por pregunta y por respuesta (cambia “la cara” según respuesta)
+28. Escenario: permitir bloques de texto intermedios (intro, transiciones, cierre) además de Q/A
+29. Escenario: configuración de fondo (default blanco, color, o imagen subida)
+30. Escenario: blur del fondo (efecto para usar imagen como fondo sin distraer)
+31. Separador/línea: unificar variantes en un solo bloque configurable (línea arriba/abajo, centrado, wide, etc)
+32. Imagen: unificar variantes de layout en un solo bloque configurable (posición: arriba, costado, etc, en vez de un bloque por variante)
+34. Reordenar UI del header del bloque: invertir orden entre handle de mover (6 puntitos) y tag de tipo, tag de tipo como dropdown para elegir el tipo de bloque, mover estilos al footer del editor y sacar botón “style” de la barra
+35. Estilos por bloque: control de espaciado/márgenes arriba y abajo (valores preset)
+36. Estilos por bloque: color de fondo seleccionable (incluyendo alto contraste tipo gris, blanco, negro, y colores custom)
+37. Colores custom: paleta, favoritos, y que los colores iniciales definidos al crear/configurar el curso aparezcan en los footers de todos los componentes. Guardar los colores favoritos por curso
+38. Tabs/Acordeón: permitir editar título con formato (ej, itálicas), no solo texto plano
+39. Nuevo bloque o sección global: banner general al inicio del curso (imagen corporativa), con logo y título. Todos los cursos tiene un banner/imagen inicial, el titulo del curso puede estar abajo, adentro de la imagen centrado
+40. Preview: agregar modo celular (simular tamaño de pantalla móvil) para ver cómo se vería el curso en responsive
+
+Preguntas de clarificación:
+
+  1. Items 1, 14 (Crop/reencuadrar imagen y avatar): Para el crop, ¿querés una librería
+  externa tipo react-cropper o react-easy-crop, o preferís algo custom liviano (drag + zoom
+   manual sobre la imagen)? Una librería da mejor UX (área de crop con handles) pero agrega
+   dependencia. Respuesta: usa la libreria
+  2. Items 26-27 (Escenario: avatares predeterminados y expresiones/poses): ¿De dónde salen
+   estos avatares y sus expresiones? ¿Tenés un set de imágenes/SVGs predefinidos, o hay que
+   generar algo? ¿O usamos un servicio tipo DiceBear/Multiavatar para generar avatares y
+  las "expresiones" serían íconos/emojis superpuestos? Respuesta: si, estan en la carpeta story-telling-block
+  3. Items 31-32 (Unificar variantes de Separador e Imagen): Hoy cada variante es un
+  componentName distinto en la DB (ej: ImageBlock, ImageWithTextBlock,
+  ImageWithTextLeftBlock, etc.). Unificarlos en uno solo configurable implica:
+    - ¿Migrar los datos existentes de todos los cursos para que usen un solo componentName
+  con un campo layout?
+    - ¿O mantener los componentName distintos en DB pero renderizar todo con el mismo
+  editor/preview component que lea un campo layout?
+  Respuesta: Unificar en 1 componente, no modifiques cursos viejos, yo despues los borro
+  4. Item 34 (Tag de tipo como dropdown para elegir tipo de bloque): ¿Esto reemplaza al
+  botón "Style" actual y además permite cambiar de tipo completamente (ej: de Paragraph a
+  Image)? ¿O solo cambiar entre variantes del mismo grupo (como hace hoy el botón Style)?
+    Respuesta: Si reemplaza el style, solo cambia entre componentes del mismo grupo
+  5. Item 37 (Colores del curso en footers): ¿Los colores iniciales del curso se definen en
+   el paso de branding/visual identity que ya existe? ¿O hay que agregar una sección de
+  "paleta de colores" nueva? Respuesta: se definen en ese paso de branding, luego cuando el usuario pueda cmabiar los colores en 1 componente y elije un color custom de una paleta estandar para elegir colores quiero que ese color se guarde como favorito y se muestra en el resto de los estilos de los otros componentes para que pueda ser re usado con facilidad
+  6. Item 39 (Banner global): ¿Es un componente nuevo que se agrega automáticamente al
+  inicio de cada curso, o el usuario lo agrega manualmente como cualquier otro bloque? Es un bloque nuevo, que se agrega automaticamente en todos los cursos.
+  7. Item 23 (Deep link interno en botón): ¿El selector de destino mostraría la estructura
+  del curso (módulos/unidades) para elegir a dónde navegar? Respuesta: Si.
+  8. Agregado nuevo: en la lista de Course Structure tambien mostra todos los componentes que hay en el curso, bajo su correspondiendo modulo y unidad, asi el usuario puede navegar facilmente haciendo click en esos modulos, unidades o componentes. Ademas que se pueda hacer drag a drop de componentes en esa lista, agrega icono correspondiendo, los modulos y unidades no se puede mover.
+
+------------------------------
+
 vamos a trabajar en este curso:
 1- creo que hay mas separadores, agregalos todos al curso
 2- Los highlights, agregaste todos, bien, pero fijate que cada highlight necesita su propio componente editor porque ahora mismo todos lucen iguales, seguro usas el mismo componente editor y se ve igual, deberian verse con el estilo correspondiente (si para este esmejor unificar todos los componentes editor en 1 solo con diferentes estilos bievenido)

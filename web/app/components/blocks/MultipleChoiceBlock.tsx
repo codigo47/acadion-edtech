@@ -83,7 +83,7 @@ export default function MultipleChoiceBlock({
           style={{
             fontSize: textStyle.fontSize,
             fontWeight: textStyle.fontWeight || '600',
-            color: textStyle.color || (dark ? '#ffffff' : undefined),
+            color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
           }}
         >
           {question}
@@ -103,7 +103,7 @@ export default function MultipleChoiceBlock({
             <span
               style={{
                 fontSize: textStyle.fontSize,
-                color: showResult ? undefined : (textStyle.color || (dark ? '#d1d5db' : undefined)),
+                color: showResult ? undefined : (textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)')),
                 lineHeight: textStyle.lineHeight,
               }}
             >

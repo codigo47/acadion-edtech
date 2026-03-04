@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import ZoomableImage from './ZoomableImage';
 
 export interface CarouselImage {
   src: string;
@@ -12,11 +13,23 @@ export interface CarouselImage {
 
 export interface CarouselBlockProps {
   images: CarouselImage[];
+  zoomable?: boolean;
+  autoPlay?: boolean;
+  autoPlayInterval?: number;
   dark?: boolean;
 }
 
-export default function CarouselBlock({ images, dark = false }: CarouselBlockProps) {
+export default function CarouselBlock({ images, zoomable = false, autoPlay = false, autoPlayInterval = 5, dark = false }: CarouselBlockProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-play
+  React.useEffect(() => {
+    if (!autoPlay || images.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+    }, autoPlayInterval * 1000);
+    return () => clearInterval(timer);
+  }, [autoPlay, autoPlayInterval, images.length]);
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -33,12 +46,21 @@ export default function CarouselBlock({ images, dark = false }: CarouselBlockPro
       <div className="relative">
         <div className="relative h-80 w-full overflow-hidden rounded-lg">
           {currentImage.src ? (
-            <Image
-              src={currentImage.src}
-              alt={currentImage.alt || `Slide ${currentIndex + 1}`}
-              fill
-              className="object-cover transition-opacity duration-300"
-            />
+            zoomable ? (
+              <ZoomableImage
+                src={currentImage.src}
+                alt={currentImage.alt || `Slide ${currentIndex + 1}`}
+                fill
+                className="object-cover transition-opacity duration-300"
+              />
+            ) : (
+              <Image
+                src={currentImage.src}
+                alt={currentImage.alt || `Slide ${currentIndex + 1}`}
+                fill
+                className="object-cover transition-opacity duration-300"
+              />
+            )
           ) : (
             <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No image</div>
           )}

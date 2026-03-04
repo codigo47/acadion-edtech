@@ -1,6 +1,7 @@
 import { ComponentType } from 'react';
 import * as Blocks from '../../../components/blocks';
 import { UnitComponent } from './types';
+import { blockStylesToCss, type BlockStyles } from './BlockFooter';
 
 // Map of component names to their React components
 export const BlockComponents: Record<string, ComponentType<any>> = {
@@ -76,6 +77,7 @@ export const BlockComponents: Record<string, ComponentType<any>> = {
   MatchingPairsBlock: Blocks.MatchingPairsBlock,
   ButtonBlock: Blocks.ButtonBlock,
   ButtonStackBlock: Blocks.ButtonStackBlock,
+  BannerBlock: Blocks.BannerBlock,
 };
 
 export function CourseComponent({ component }: { component: UnitComponent }) {
@@ -85,8 +87,17 @@ export function CourseComponent({ component }: { component: UnitComponent }) {
   const BlockComponent = BlockComponents[componentName];
 
   if (BlockComponent) {
+    const contentRecord = content as Record<string, unknown>;
+    const styles = blockStylesToCss(contentRecord.blockStyles as BlockStyles | undefined);
+    const hasStyles = Object.keys(styles).length > 0;
     // Pass the content directly as props to the block component
-    return <BlockComponent {...content} />;
+    return hasStyles ? (
+      <div style={styles}>
+        <BlockComponent {...contentRecord} />
+      </div>
+    ) : (
+      <BlockComponent {...contentRecord} />
+    );
   }
 
   // Fallback for unknown components

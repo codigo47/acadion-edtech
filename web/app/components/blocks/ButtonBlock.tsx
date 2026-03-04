@@ -98,7 +98,7 @@ export default function ButtonBlock({
                 className={dark ? 'text-gray-400' : 'text-gray-600'}
                 style={{
                   fontSize: textStyle.fontSize,
-                  color: textStyle.color || (dark ? '#9ca3af' : undefined),
+                  color: textStyle.color || (dark ? '#9ca3af' : 'var(--block-text-color, inherit)'),
                 }}
               >
                 {item.label}

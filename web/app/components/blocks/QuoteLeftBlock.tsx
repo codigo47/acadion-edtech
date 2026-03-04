@@ -59,7 +59,7 @@ export default function QuoteLeftBlock({
           <span
             className={`text-sm font-medium ${dark ? 'text-gray-400' : 'text-gray-600'}`}
             style={{
-              color: textStyle.color || (dark ? '#9ca3af' : '#6B7280'),
+              color: textStyle.color || (dark ? '#9ca3af' : 'var(--block-text-color, #6B7280)'),
             }}
           >
             — {author}

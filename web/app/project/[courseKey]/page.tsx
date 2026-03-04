@@ -29,6 +29,7 @@ import { BrandingView } from './_components/BrandingView';
 import { CourseComponent } from './_components/CourseComponent';
 import { CompletionPopup } from './_components/CompletionPopup';
 import { EditorContent, type SaveStatus } from './_components/EditorContent';
+import { getBlockMeta } from './_components/block-metadata';
 import { CustomScrollbar } from '../../components/CustomScrollbar';
 
 export default function ProjectPage() {
@@ -1675,29 +1676,63 @@ export default function ProjectPage() {
                         Course Structure
                       </h3>
                       <div className="space-y-3">
-                        {proposedIndex.modules.map((module) => (
+                        {proposedIndex.modules.map((module) => {
+                          const moduleComps = (courseComponentsData?.components || []).filter(
+                            (c: { module: number }) => c.module === module.number
+                          );
+                          return (
                           <div key={module.number} className="space-y-1">
                             <div className="flex items-center gap-2 font-medium text-[#9F80DA]">
                               <span className="text-[14px]">{module.number}.</span>
                               <span className="text-[14px]">{module.title}</span>
                             </div>
                             <div className="ml-4 space-y-0.5">
-                              {module.units.map((unit) => (
-                                <div
-                                  key={unit.code}
-                                  onClick={() => setSelectedUnitCode(unit.code)}
-                                  className={`text-[14px] py-1 px-2 rounded cursor-pointer transition-colors ${
-                                    selectedUnitCode === unit.code
-                                      ? 'bg-[#9F80DA] text-white'
-                                      : 'text-gray-600 hover:bg-gray-100 hover:text-[#9F80DA]'
-                                  }`}
-                                >
-                                  {unit.code} {unit.title}
+                              {module.units.map((unit) => {
+                                const unitNum = parseInt(unit.code.split('.')[1] || '0');
+                                const unitComps = moduleComps
+                                  .filter((c: { unit: number }) => c.unit === unitNum)
+                                  .sort((a: { sequence: number }, b: { sequence: number }) => a.sequence - b.sequence);
+                                return (
+                                <div key={unit.code}>
+                                  <div
+                                    onClick={() => setSelectedUnitCode(unit.code)}
+                                    className={`text-[14px] py-1 px-2 rounded cursor-pointer transition-colors ${
+                                      selectedUnitCode === unit.code
+                                        ? 'bg-[#9F80DA] text-white'
+                                        : 'text-gray-600 hover:bg-gray-100 hover:text-[#9F80DA]'
+                                    }`}
+                                  >
+                                    {unit.code} {unit.title}
+                                  </div>
+                                  {/* Components under this unit */}
+                                  {unitComps.length > 0 && (
+                                    <div className="ml-3 mt-0.5 mb-1 space-y-px">
+                                      {unitComps.map((comp: { id: number; componentName: string; name?: string }) => {
+                                        const meta = getBlockMeta(comp.componentName);
+                                        const CompIcon = meta.icon;
+                                        return (
+                                          <button
+                                            key={comp.id}
+                                            onClick={() => {
+                                              const el = document.getElementById(`component-${comp.id}`);
+                                              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                            }}
+                                            className="w-full flex items-center gap-1.5 px-2 py-0.5 text-[12px] text-gray-400 hover:text-[#9F80DA] hover:bg-gray-100 rounded transition-colors truncate"
+                                          >
+                                            <CompIcon className="w-3 h-3 flex-shrink-0" />
+                                            <span className="truncate">{comp.name || meta.label}</span>
+                                          </button>
+                                        );
+                                      })}
+                                    </div>
+                                  )}
                                 </div>
-                              ))}
+                                );
+                              })}
                             </div>
                           </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </>
                   ) : null}

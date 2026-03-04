@@ -63,7 +63,6 @@ export function EditorContent({
   // Modal state
   const [previewComponent, setPreviewComponent] = useState<UnitComponent | null>(null);
   const [aiPromptComponent, setAiPromptComponent] = useState<{ id: number; name: string } | null>(null);
-
   // Save status
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const saveTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -389,7 +388,7 @@ export function EditorContent({
                               : undefined;
 
                             return (
-                              <div key={comp.id}>
+                              <div key={comp.id} id={`component-${comp.id}`}>
                                 <EditorBlock
                                   component={unitComponent}
                                   componentId={comp.id}

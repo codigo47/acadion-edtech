@@ -26,7 +26,7 @@ export default function ParagraphWithHeadingBlock({
         style={{
           fontSize: headingStyle.fontSize || '1.5rem',
           fontWeight: headingStyle.fontWeight || '700',
-          color: headingStyle.color || (dark ? '#ffffff' : undefined),
+          color: headingStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
           fontStyle: headingStyle.fontStyle,
           textAlign: headingStyle.textAlign,
           lineHeight: headingStyle.lineHeight,

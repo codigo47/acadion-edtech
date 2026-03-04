@@ -8,6 +8,7 @@ import {
   type ProposedModule,
 } from '../../lib/hooks/use-lms';
 import { BlockComponents } from '../project/[courseKey]/_components/CourseComponent';
+import { blockStylesToCss, type BlockStyles } from '../project/[courseKey]/_components/BlockFooter';
 
 // ---- Time tracking ----
 function useActiveTimer(onTick: (seconds: number) => void, intervalSeconds = 30) {
@@ -528,9 +529,11 @@ export default function CoursePlayer({
                         </div>
                       );
                     }
+                    const contentData = comp.content as Record<string, unknown>;
+                    const bStyles = blockStylesToCss(contentData.blockStyles as BlockStyles | undefined);
                     return (
-                      <div key={idx}>
-                        <BlockComponent {...(comp.content as Record<string, unknown>)} />
+                      <div key={idx} style={bStyles}>
+                        <BlockComponent {...contentData} />
                       </div>
                     );
                   })

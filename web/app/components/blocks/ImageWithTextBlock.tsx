@@ -11,6 +11,7 @@ export interface ImageWithTextBlockProps {
   alt?: string;
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  zoomable?: boolean;
   dark?: boolean;
 }
 
@@ -20,12 +21,13 @@ export default function ImageWithTextBlock({
   alt = 'Image',
   textStyle = {},
   textBackgroundStyle = {},
+  zoomable = false,
   dark = false,
 }: ImageWithTextBlockProps) {
   return (
     <div className={`w-full p-4 flex flex-col md:flex-row gap-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="relative w-full md:w-1/2 h-48 md:h-64">
-        <Image src={image} alt={alt} />
+        <Image src={image} alt={alt} zoomable={zoomable} />
       </div>
       <div
         className={`w-full md:w-1/2 flex items-center p-4 rounded-lg ${dark ? 'bg-gray-800' : ''}`}

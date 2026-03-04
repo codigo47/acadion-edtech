@@ -11,6 +11,7 @@ export interface ImageWithTextTopBlockProps {
   alt?: string;
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  zoomable?: boolean;
   dark?: boolean;
 }
 
@@ -20,12 +21,13 @@ export default function ImageWithTextTopBlock({
   alt = 'Image',
   textStyle = {},
   textBackgroundStyle = {},
+  zoomable = false,
   dark = false,
 }: ImageWithTextTopBlockProps) {
   return (
     <div className={`w-full p-4 flex flex-col-reverse gap-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="relative w-full h-64">
-        <Image src={image} alt={alt} />
+        <Image src={image} alt={alt} zoomable={zoomable} />
       </div>
       <div
         className={`p-4 rounded-lg ${dark ? 'bg-gray-800' : ''}`}

@@ -15,6 +15,7 @@ export interface TabsBlockProps {
   items: TabItem[];
   textStyle?: TextStyle;
   textBackgroundStyle?: BackgroundStyle;
+  openFirst?: boolean;
   dark?: boolean;
 }
 
@@ -22,9 +23,10 @@ export default function TabsBlock({
   items = [],
   textStyle = {},
   textBackgroundStyle = {},
+  openFirst = true,
   dark = false,
 }: TabsBlockProps) {
-  const [activeTab, setActiveTab] = useState(items?.[0]?.id || '');
+  const [activeTab, setActiveTab] = useState(openFirst ? (items?.[0]?.id || '') : '');
 
   // Handle empty or missing items
   if (!items || items.length === 0) {
@@ -83,7 +85,7 @@ export default function TabsBlock({
           <p
             style={{
               fontSize: textStyle.fontSize,
-              color: textStyle.color || (dark ? '#d1d5db' : '#374151'),
+              color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, #374151)'),
               lineHeight: textStyle.lineHeight || '1.6',
             }}
           >

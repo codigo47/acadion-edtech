@@ -17,7 +17,7 @@ export default function SubheadingBlock({
 }: SubheadingBlockProps) {
   const defaultStyle: TextStyle = {
     ...textStyle,
-    color: textStyle.color || (dark ? '#9ca3af' : '#6B7280'),
+    color: textStyle.color || (dark ? '#9ca3af' : 'var(--block-text-color, #6B7280)'),
   };
 
   return (

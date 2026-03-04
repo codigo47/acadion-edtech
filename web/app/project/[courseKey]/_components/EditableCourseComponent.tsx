@@ -131,7 +131,7 @@ export function EditableCourseComponent({
 
   // Chat blocks
   if (isChatBlock(componentName)) {
-    return <EditableChatBlock content={content} onDataChange={onDataChange} />;
+    return <EditableChatBlock content={content} onDataChange={onDataChange} componentName={componentName} />;
   }
   if (componentName === 'ChatQuestionWallBlock') {
     return <EditableChatQABlock content={content} onDataChange={onDataChange} />;
@@ -209,6 +209,11 @@ export function EditableCourseComponent({
   // Separator
   if (componentName === 'SeparatorBlock') {
     return <EditableSeparatorBlock content={content} onDataChange={onDataChange} />;
+  }
+
+  // Banner
+  if (componentName === 'BannerBlock') {
+    return <EditableBannerBlock content={content} onDataChange={onDataChange} />;
   }
 
   // Everything else (Graph, etc.): show as-is
@@ -311,7 +316,7 @@ function NotionStyleBlock({
           onChange={(v) => updateField('content', v)}
           tag="p"
           className="text-base leading-relaxed"
-          style={{ lineHeight: '1.75' }}
+          style={{ lineHeight: '1.75', color: 'var(--block-text-color, inherit)' }}
           placeholder="Enter paragraph text..."
         />
       </div>
@@ -326,6 +331,7 @@ function NotionStyleBlock({
           onChange={(v) => updateField('heading', v)}
           tag="h2"
           className="mb-4 text-2xl font-bold"
+          style={{ color: 'var(--block-text-color, inherit)' }}
           placeholder="Enter heading..."
           multiline={false}
         />
@@ -334,7 +340,7 @@ function NotionStyleBlock({
           onChange={(v) => updateField('content', v)}
           tag="p"
           className="text-base leading-relaxed"
-          style={{ lineHeight: '1.75' }}
+          style={{ lineHeight: '1.75', color: 'var(--block-text-color, inherit)' }}
           placeholder="Enter paragraph text..."
         />
       </div>
@@ -348,7 +354,8 @@ function NotionStyleBlock({
           value={String(content.subheading || '')}
           onChange={(v) => updateField('subheading', v)}
           tag="h3"
-          className="mb-3 text-lg font-semibold text-gray-700"
+          className="mb-3 text-lg font-semibold"
+          style={{ color: 'var(--block-text-color, #374151)' }}
           placeholder="Enter subheading..."
           multiline={false}
         />
@@ -357,7 +364,7 @@ function NotionStyleBlock({
           onChange={(v) => updateField('content', v)}
           tag="p"
           className="text-base leading-relaxed"
-          style={{ lineHeight: '1.75' }}
+          style={{ lineHeight: '1.75', color: 'var(--block-text-color, inherit)' }}
           placeholder="Enter paragraph text..."
         />
       </div>
@@ -372,6 +379,7 @@ function NotionStyleBlock({
           onChange={(v) => updateField('heading', v)}
           tag="h1"
           className="text-4xl font-bold"
+          style={{ color: 'var(--block-text-color, inherit)' }}
           placeholder="Enter heading..."
           multiline={false}
         />
@@ -387,7 +395,7 @@ function NotionStyleBlock({
           onChange={(v) => updateField('subheading', v)}
           tag="h2"
           className="text-2xl font-semibold"
-          style={{ color: '#6B7280' }}
+          style={{ color: 'var(--block-text-color, #6B7280)' }}
           placeholder="Enter subheading..."
           multiline={false}
         />
@@ -713,6 +721,7 @@ function EditableTabsBlock({
   const [placeholderName, setPlaceholderName] = useState('');
   const editInputRef = useRef<HTMLInputElement>(null);
   const placeholderInputRef = useRef<HTMLInputElement>(null);
+  const [showTabImagePicker, setShowTabImagePicker] = useState(false);
 
   const activeItem = items.find((item) => item.id === activeTab) || items[0];
 
@@ -826,7 +835,7 @@ function EditableTabsBlock({
               items.length > 1 && (
                 <button
                   onClick={() => setDeleteConfirmId(item.id)}
-                  className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-gray-200 hover:bg-red-500 text-gray-500 hover:text-white rounded-full z-[100]"
+                  className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-gray-200 hover:bg-red-500 text-gray-500 hover:text-white rounded-full z-[100] transition-colors"
                 >
                   <Trash2 className="w-3 h-3" />
                 </button>
@@ -868,6 +877,27 @@ function EditableTabsBlock({
       {/* Tab content — editable */}
       {activeItem && (
         <div className="p-3 sm:p-6">
+          {/* Tab image */}
+          {activeItem.image ? (
+            <div className="mb-4">
+              <div className="relative group/img rounded-lg overflow-hidden h-40 w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={activeItem.image} alt={activeItem.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                  <button onClick={() => setShowTabImagePicker(true)} className="px-2 py-1 text-xs text-white bg-white/20 hover:bg-white/30 rounded">Change</button>
+                  <button onClick={() => updateItem(activeItem.id, 'image', '')} className="px-2 py-1 text-xs text-white bg-red-500/60 hover:bg-red-500/80 rounded">Remove</button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowTabImagePicker(true)}
+              className="mb-3 flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-400 hover:text-[#9F80DA] border border-dashed border-gray-300 hover:border-[#9F80DA] rounded-lg transition-colors"
+            >
+              <ImageIcon className="w-3.5 h-3.5" />
+              Add image to tab
+            </button>
+          )}
           <div
             contentEditable
             suppressContentEditableWarning
@@ -878,6 +908,17 @@ function EditableTabsBlock({
             {activeItem.content}
           </div>
         </div>
+      )}
+
+      {showTabImagePicker && activeItem && (
+        <ImagePickerModal
+          currentUrl={activeItem.image}
+          onSelect={(url) => {
+            updateItem(activeItem.id, 'image', url);
+            setShowTabImagePicker(false);
+          }}
+          onClose={() => setShowTabImagePicker(false)}
+        />
       )}
     </div>
   );
@@ -892,12 +933,14 @@ function EditableAccordionBlock({
   content: Record<string, unknown>;
   onDataChange: (data: Record<string, unknown>) => void;
 }) {
-  const items = (content.items as Array<{ id: string; title: string; content: string }>) || [];
+  const items = (content.items as Array<{ id: string; title: string; content: string; image?: string; imagePosition?: string }>) || [];
   const [openItems, setOpenItems] = useState<string[]>([]);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [pendingItem, setPendingItem] = useState(false);
   const [pendingTitle, setPendingTitle] = useState('');
   const pendingInputRef = useRef<HTMLInputElement>(null);
+  const [showImagePickerFor, setShowImagePickerFor] = useState<string | null>(null);
+  const imagePositions = ['left', 'right', 'top', 'bottom', 'stretched'] as const;
 
   useEffect(() => {
     if (pendingItem && pendingInputRef.current) {
@@ -1003,22 +1046,73 @@ function EditableAccordionBlock({
             {/* Content — Notion-style editable */}
             <div
               className={`overflow-hidden transition-all duration-300 ${
-                isOpen(item.id) ? 'max-h-[500px]' : 'max-h-0'
+                isOpen(item.id) ? 'max-h-[800px]' : 'max-h-0'
               }`}
             >
-              <div className="bg-white p-4 border-t border-gray-100 cursor-text">
-                <EditableText
-                  value={item.content}
-                  onChange={(v) => updateItem(item.id, 'content', v)}
-                  tag="p"
-                  className="text-gray-600 leading-relaxed min-h-[1.5em]"
-                  style={{ lineHeight: '1.5', color: '#4B5563' }}
-                  placeholder="Enter content..."
-                />
+              <div className="bg-white p-4 border-t border-gray-100">
+                {/* Image area */}
+                {item.image ? (
+                  <div className="mb-3">
+                    <div className="relative group/img rounded-lg overflow-hidden h-32 w-full sm:w-48">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <button onClick={() => setShowImagePickerFor(item.id)} className="px-2 py-1 text-xs text-white bg-white/20 hover:bg-white/30 rounded">Change</button>
+                        <button onClick={() => updateItem(item.id, 'image', '')} className="px-2 py-1 text-xs text-white bg-red-500/60 hover:bg-red-500/80 rounded">Remove</button>
+                      </div>
+                    </div>
+                    {/* Image position selector */}
+                    <div className="flex items-center gap-1 mt-2">
+                      <span className="text-xs text-gray-400 mr-1">Position:</span>
+                      {imagePositions.map((pos) => (
+                        <button
+                          key={pos}
+                          onClick={() => updateItem(item.id, 'imagePosition', pos)}
+                          className={`px-2 py-0.5 text-xs rounded transition-colors ${
+                            (item.imagePosition || 'right') === pos
+                              ? 'bg-[#9F80DA] text-white'
+                              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                          }`}
+                        >
+                          {pos}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setShowImagePickerFor(item.id)}
+                    className="mb-3 flex items-center gap-1.5 px-3 py-1.5 text-xs text-gray-400 hover:text-[#9F80DA] border border-dashed border-gray-300 hover:border-[#9F80DA] rounded-lg transition-colors"
+                  >
+                    <ImageIcon className="w-3.5 h-3.5" />
+                    Add image
+                  </button>
+                )}
+                <div className="cursor-text">
+                  <EditableText
+                    value={item.content}
+                    onChange={(v) => updateItem(item.id, 'content', v)}
+                    tag="p"
+                    className="text-gray-600 leading-relaxed min-h-[1.5em]"
+                    style={{ lineHeight: '1.5', color: '#4B5563' }}
+                    placeholder="Enter content..."
+                  />
+                </div>
               </div>
             </div>
           </div>
         ))}
+
+        {showImagePickerFor && (
+          <ImagePickerModal
+            currentUrl={items.find((i) => i.id === showImagePickerFor)?.image}
+            onSelect={(url) => {
+              updateItem(showImagePickerFor, 'image', url);
+              setShowImagePickerFor(null);
+            }}
+            onClose={() => setShowImagePickerFor(null)}
+          />
+        )}
 
         {/* "New item" placeholder — always visible */}
         <div className="border border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-[#9F80DA] transition-colors">
@@ -1496,6 +1590,22 @@ function EditableMultipleResponseBlock({
           </div>
         </div>
       </div>
+      {/* Feedback */}
+      <div className="mt-4 space-y-2 border-t border-gray-100 pt-3">
+        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Feedback (shown after answering)</p>
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" />
+          <div className="flex-1 cursor-text">
+            <EditableText value={String(content.feedbackCorrect || '')} onChange={(v) => onDataChange({ ...content, feedbackCorrect: v })} tag="p" className="text-sm text-green-700" placeholder="All correct! Great job..." />
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+          <div className="flex-1 cursor-text">
+            <EditableText value={String(content.feedbackIncorrect || '')} onChange={(v) => onDataChange({ ...content, feedbackIncorrect: v })} tag="p" className="text-sm text-red-700" placeholder="Some answers are incorrect..." />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1647,7 +1757,7 @@ function EditableImageWithTextBlock({
   const [showPicker, setShowPicker] = useState(false);
   const image = String(content.image || '');
   const alt = String(content.alt || 'Image');
-
+  const imageSize = (content.imageSize as number) || 50;
   const updateText = useCallback(
     (value: string) => onDataChange({ ...content, text: value }),
     [content, onDataChange],
@@ -1672,10 +1782,12 @@ function EditableImageWithTextBlock({
     />
   );
 
+  const imgWidthClass = `w-full md:w-[${imageSize}%]`;
+  const txtWidthClass = `w-full md:w-[${100 - imageSize}%]`;
+
   let layout: React.ReactNode;
 
   if (componentName === 'ImageWithTextCenterBlock') {
-    // Image with text below, dark overlay on image for visual effect
     layout = (
       <div className="w-full p-4 space-y-4">
         <div className="relative w-full h-48 rounded-lg overflow-hidden">
@@ -1700,7 +1812,6 @@ function EditableImageWithTextBlock({
       </div>
     );
   } else if (componentName === 'ImageWithTextTopBlock') {
-    // Text on top, image below
     layout = (
       <div className="w-full p-4 flex flex-col-reverse gap-4">
         <div className="relative w-full h-64">
@@ -1712,7 +1823,6 @@ function EditableImageWithTextBlock({
       </div>
     );
   } else if (componentName === 'ImageWithTextBottomBlock') {
-    // Image on top, text below
     layout = (
       <div className="w-full p-4 flex flex-col gap-4">
         <div className="relative w-full h-64">
@@ -1724,26 +1834,29 @@ function EditableImageWithTextBlock({
       </div>
     );
   } else if (componentName === 'ImageWithTextLeftBlock') {
-    // Text left, image right
     layout = (
-      <div className="w-full p-4 flex flex-col md:flex-row-reverse gap-4">
-        <div className="relative w-full md:w-1/2 h-48 md:h-64">
-          {imageOverlay}
-        </div>
-        <div className="w-full md:w-1/2 flex items-center p-4 rounded-lg cursor-text">
-          {textEditor}
+      <div className="w-full p-4">
+        <div className="flex flex-col md:flex-row-reverse gap-4" style={{ alignItems: 'stretch' }}>
+          <div className="relative h-48 md:h-64" style={{ width: '100%', flex: `0 0 ${imageSize}%` }}>
+            {imageOverlay}
+          </div>
+          <div className="flex items-center p-4 rounded-lg cursor-text" style={{ flex: 1 }}>
+            {textEditor}
+          </div>
         </div>
       </div>
     );
   } else {
     // ImageWithTextBlock — image left, text right
     layout = (
-      <div className="w-full p-4 flex flex-col md:flex-row gap-4">
-        <div className="relative w-full md:w-1/2 h-48 md:h-64">
-          {imageOverlay}
-        </div>
-        <div className="w-full md:w-1/2 flex items-center p-4 rounded-lg cursor-text">
-          {textEditor}
+      <div className="w-full p-4">
+        <div className="flex flex-col md:flex-row gap-4" style={{ alignItems: 'stretch' }}>
+          <div className="relative h-48 md:h-64" style={{ width: '100%', flex: `0 0 ${imageSize}%` }}>
+            {imageOverlay}
+          </div>
+          <div className="flex items-center p-4 rounded-lg cursor-text" style={{ flex: 1 }}>
+            {textEditor}
+          </div>
         </div>
       </div>
     );
@@ -1832,6 +1945,22 @@ function EditableMultipleChoiceBlock({ content, onDataChange }: { content: Recor
                 <button onClick={() => setPendingItem(true)} className="text-gray-400 hover:text-gray-500 transition-colors">New option</button>
               )}
             </div>
+          </div>
+        </div>
+      </div>
+      {/* Feedback */}
+      <div className="mt-4 space-y-2 border-t border-gray-100 pt-3">
+        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Feedback (shown after answering)</p>
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" />
+          <div className="flex-1 cursor-text">
+            <EditableText value={String(content.feedbackCorrect || '')} onChange={(v) => onDataChange({ ...content, feedbackCorrect: v })} tag="p" className="text-sm text-green-700" placeholder="Correct! Well done..." />
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+          <div className="flex-1 cursor-text">
+            <EditableText value={String(content.feedbackIncorrect || '')} onChange={(v) => onDataChange({ ...content, feedbackIncorrect: v })} tag="p" className="text-sm text-red-700" placeholder="Not quite. Try again..." />
           </div>
         </div>
       </div>
@@ -2070,11 +2199,11 @@ function EditableTwoFieldBlock({ content, onDataChange, fieldA, fieldB, labelA, 
     <div className="w-full p-6 rounded-lg border border-gray-200 bg-white">
       <div className="flex flex-col sm:flex-row gap-4">
         <div className={`flex-1 p-4 rounded-lg ${colorA} cursor-text`}>
-          <p className="text-xs font-semibold text-gray-500 mb-2">{labelA}</p>
+          <EditableText value={String(content.labelA || labelA)} onChange={(v) => onDataChange({ ...content, labelA: v })} tag="h3" className="text-xs font-semibold text-gray-500 mb-2" placeholder={labelA} multiline={false} />
           <EditableText value={String(content[fieldA] || '')} onChange={(v) => onDataChange({ ...content, [fieldA]: v })} tag="p" className="text-sm text-gray-700" placeholder={`Enter ${labelA.toLowerCase()}...`} />
         </div>
         <div className={`flex-1 p-4 rounded-lg ${colorB} cursor-text`}>
-          <p className="text-xs font-semibold text-gray-500 mb-2">{labelB}</p>
+          <EditableText value={String(content.labelB || labelB)} onChange={(v) => onDataChange({ ...content, labelB: v })} tag="h3" className="text-xs font-semibold text-gray-500 mb-2" placeholder={labelB} multiline={false} />
           <EditableText value={String(content[fieldB] || '')} onChange={(v) => onDataChange({ ...content, [fieldB]: v })} tag="p" className="text-sm text-gray-700" placeholder={`Enter ${labelB.toLowerCase()}...`} />
         </div>
       </div>
@@ -2090,6 +2219,9 @@ function TwoListColumnEditor({ items, colConfig, content, onDataChange, variant 
   const [deleteConfirmIdx, setDeleteConfirmIdx] = useState<number | null>(null);
   const pendingRef = useRef<HTMLInputElement>(null);
   const { field, label, icon: Icon, iconBg, iconColor, labelColor, bg, borderColor, bulletColor, headerBar, headerBarBg } = colConfig;
+  const customLabelKey = `customLabel_${field}`;
+  const displayLabel = String(content[customLabelKey] || label);
+  const updateLabel = (v: string) => onDataChange({ ...content, [customLabelKey]: v });
 
   useEffect(() => { if (pendingActive && pendingRef.current) pendingRef.current.focus(); }, [pendingActive]);
 
@@ -2106,7 +2238,9 @@ function TwoListColumnEditor({ items, colConfig, content, onDataChange, variant 
   if (variant === 'header-bar') {
     return (
       <div className="flex-1 overflow-hidden rounded-lg">
-        <div className={`${headerBarBg} text-white text-center py-2 font-semibold`}>{label}</div>
+        <div className={`${headerBarBg} text-white text-center py-2 font-semibold`}>
+          <EditableText value={displayLabel} onChange={updateLabel} tag="span" className="text-white font-semibold" placeholder={label} multiline={false} />
+        </div>
         <div className={`p-4 ${bg}`}>
           <ul className="space-y-3">
             {items.map((item, idx) => (
@@ -2149,7 +2283,7 @@ function TwoListColumnEditor({ items, colConfig, content, onDataChange, variant 
             <Icon className={`w-4 h-4 ${iconColor}`} />
           </div>
         )}
-        <span className={`font-semibold ${labelColor || 'text-gray-700'}`}>{label}</span>
+        <EditableText value={displayLabel} onChange={updateLabel} tag="span" className={`font-semibold ${labelColor || 'text-gray-700'}`} placeholder={label} multiline={false} />
       </div>
       <ul className="space-y-2">
         {items.map((item, idx) => (
@@ -2196,8 +2330,9 @@ function EditableTwoListBlock({ content, onDataChange, config }: { content: Reco
 // ─── ComparisonItems: items with title/content ──────────────────────
 
 function EditableComparisonItemsBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
-  const items = (content.items as Array<{ title: string; content: string }>) || [];
+  const items = (content.items as Array<{ title: string; content: string; image?: string }>) || [];
   const [deleteConfirmIdx, setDeleteConfirmIdx] = useState<number | null>(null);
+  const [showCompImagePicker, setShowCompImagePicker] = useState<number | null>(null);
   const headerColors = ['bg-blue-500', 'bg-green-500', 'bg-orange-500', 'bg-purple-500', 'bg-pink-500', 'bg-teal-500'];
 
   const updateItem = useCallback((idx: number, field: string, value: string) => {
@@ -2208,9 +2343,16 @@ function EditableComparisonItemsBlock({ content, onDataChange }: { content: Reco
   const addItem = () => onDataChange({ ...content, items: [...items, { title: '', content: '' }] });
   const removeItem = (idx: number) => { onDataChange({ ...content, items: items.filter((_, i) => i !== idx) }); setDeleteConfirmIdx(null); };
 
+  const getGridCols = () => {
+    const count = items.length + 1; // +1 for the placeholder card
+    if (count <= 2) return 'grid-cols-2';
+    if (count === 3) return 'grid-cols-2 lg:grid-cols-3';
+    return 'grid-cols-2 lg:grid-cols-4';
+  };
+
   return (
     <div className="w-full p-4 rounded-lg">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className={`grid ${getGridCols()} gap-4`}>
         {items.map((item, idx) => (
           <div key={idx} className="border border-gray-200 rounded-lg overflow-hidden group/ci hover:border-gray-300">
             {/* Colored header */}
@@ -2229,6 +2371,25 @@ function EditableComparisonItemsBlock({ content, onDataChange }: { content: Reco
                 )
               )}
             </div>
+            {/* Image area */}
+            {item.image ? (
+              <div className="relative group/img h-28 w-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                  <button onClick={() => setShowCompImagePicker(idx)} className="px-2 py-1 text-xs text-white bg-white/20 hover:bg-white/30 rounded">Change</button>
+                  <button onClick={() => updateItem(idx, 'image', '')} className="px-2 py-1 text-xs text-white bg-red-500/60 hover:bg-red-500/80 rounded">Remove</button>
+                </div>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowCompImagePicker(idx)}
+                className="w-full py-2 flex items-center justify-center gap-1 text-xs text-gray-400 hover:text-[#9F80DA] border-b border-dashed border-gray-200 hover:border-[#9F80DA] transition-colors"
+              >
+                <ImageIcon className="w-3 h-3" />
+                Add image
+              </button>
+            )}
             {/* Content */}
             <div className="p-4 cursor-text">
               <EditableText value={item.content} onChange={(v) => updateItem(idx, 'content', v)} tag="p" className="text-sm text-gray-600" placeholder="Content..." />
@@ -2243,16 +2404,30 @@ function EditableComparisonItemsBlock({ content, onDataChange }: { content: Reco
           </div>
         </div>
       </div>
+
+      {showCompImagePicker !== null && (
+        <ImagePickerModal
+          currentUrl={items[showCompImagePicker]?.image}
+          onSelect={(url) => {
+            updateItem(showCompImagePicker, 'image', url);
+            setShowCompImagePicker(null);
+          }}
+          onClose={() => setShowCompImagePicker(null)}
+        />
+      )}
     </div>
   );
 }
 
 // ─── Chat: messages with sender/receiver ────────────────────────────
 
-function EditableChatBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
+function EditableChatBlock({ content, onDataChange, componentName }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void; componentName: string }) {
   const messages = (content.messages as Array<{ participantId: string; text: string }>) || [];
-  const sender = (content.sender as { name: string }) || { name: '' };
-  const receiver = (content.receiver as { name: string }) || { name: '' };
+  const sender = (content.sender as { name: string; avatar?: string }) || { name: '' };
+  const receiver = (content.receiver as { name: string; avatar?: string }) || { name: '' };
+  const isQAVariant = componentName === 'ChatQABlock';
+  const variantLabel = componentName === 'ChatQABlock' ? 'Q&A Chat (no avatars, names only)' : componentName === 'ChatFeedbackBlock' ? 'Feedback Chat (avatars, names, timestamps)' : 'Chat (avatars, names, timestamps)';
+  const [showAvatarPicker, setShowAvatarPicker] = useState<'sender' | 'receiver' | null>(null);
 
   const updateMessage = useCallback((idx: number, field: string, value: string) => {
     const n = [...messages]; n[idx] = { ...n[idx], [field]: value };
@@ -2273,17 +2448,53 @@ function EditableChatBlock({ content, onDataChange }: { content: Record<string, 
 
   return (
     <div className="w-full p-4 rounded-lg space-y-3">
+      <div className="mb-3 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg flex items-center gap-2">
+        <span className="text-xs font-medium text-gray-400">Variant:</span>
+        <span className="text-xs font-semibold text-[#9F80DA]">{variantLabel}</span>
+      </div>
       <div className="flex gap-4 mb-4">
         <div className="flex-1">
           <label className="text-xs font-medium text-gray-500">Sender</label>
-          <div className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg">
-            <EditableText value={sender.name} onChange={(v) => onDataChange({ ...content, sender: { ...sender, name: v } })} tag="span" className="text-sm" placeholder="Sender name..." multiline={false} />
+          <div className="flex items-center gap-2">
+            <div
+              className="w-10 h-10 rounded-full shrink-0 cursor-pointer relative group/avatar overflow-hidden border-2 border-gray-200 hover:border-[#9F80DA] transition-colors"
+              onClick={() => setShowAvatarPicker('sender')}
+            >
+              {sender.avatar ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={sender.avatar} alt={sender.name || 'Sender'} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-blue-300 flex items-center justify-center text-xs text-white font-bold">{(sender.name || 'S')[0].toUpperCase()}</div>
+              )}
+              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center">
+                <ImageIcon className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="flex-1 px-3 py-1.5 text-sm border border-gray-200 rounded-lg">
+              <EditableText value={sender.name} onChange={(v) => onDataChange({ ...content, sender: { ...sender, name: v } })} tag="span" className="text-sm" placeholder="Sender name..." multiline={false} />
+            </div>
           </div>
         </div>
         <div className="flex-1">
           <label className="text-xs font-medium text-gray-500">Receiver</label>
-          <div className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg">
-            <EditableText value={receiver.name} onChange={(v) => onDataChange({ ...content, receiver: { ...receiver, name: v } })} tag="span" className="text-sm" placeholder="Receiver name..." multiline={false} />
+          <div className="flex items-center gap-2">
+            <div
+              className="w-10 h-10 rounded-full shrink-0 cursor-pointer relative group/avatar overflow-hidden border-2 border-gray-200 hover:border-[#9F80DA] transition-colors"
+              onClick={() => setShowAvatarPicker('receiver')}
+            >
+              {receiver.avatar ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={receiver.avatar} alt={receiver.name || 'Receiver'} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-green-300 flex items-center justify-center text-xs text-white font-bold">{(receiver.name || 'R')[0].toUpperCase()}</div>
+              )}
+              <div className="absolute inset-0 bg-black/30 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center">
+                <ImageIcon className="w-4 h-4 text-white" />
+              </div>
+            </div>
+            <div className="flex-1 px-3 py-1.5 text-sm border border-gray-200 rounded-lg">
+              <EditableText value={receiver.name} onChange={(v) => onDataChange({ ...content, receiver: { ...receiver, name: v } })} tag="span" className="text-sm" placeholder="Receiver name..." multiline={false} />
+            </div>
           </div>
         </div>
       </div>
@@ -2291,17 +2502,63 @@ function EditableChatBlock({ content, onDataChange }: { content: Record<string, 
         const isSender = msg.participantId === 'sender';
         return (
           <div key={idx} className={`flex ${isSender ? 'justify-start' : 'justify-end'} group/msg`}>
-            <div className={`max-w-[80%] p-3 rounded-lg ${isSender ? 'bg-blue-100' : 'bg-green-100'}`}>
-              <button onClick={() => toggleParticipant(idx)} className="text-xs font-medium text-gray-500 mb-1 hover:text-[#9F80DA]">{isSender ? sender.name || 'Sender' : receiver.name || 'Receiver'} ↔</button>
-              <div className="cursor-text">
-                <EditableText value={msg.text} onChange={(v) => updateMessage(idx, 'text', v)} tag="p" className="text-sm text-gray-900" placeholder="Message text..." />
+            <div className="flex items-start gap-2 max-w-[80%]">
+              {!isQAVariant && isSender && (
+                <div
+                  className="w-8 h-8 rounded-full shrink-0 mt-1 cursor-pointer relative group/avatar overflow-hidden"
+                  onClick={() => setShowAvatarPicker('sender')}
+                >
+                  {sender.avatar ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={sender.avatar} alt={sender.name || 'Sender'} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-blue-300 flex items-center justify-center text-xs text-white font-bold">{(sender.name || 'S')[0].toUpperCase()}</div>
+                  )}
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center">
+                    <ImageIcon className="w-3 h-3 text-white" />
+                  </div>
+                </div>
+              )}
+              <div className={`flex-1 p-3 rounded-lg ${isSender ? 'bg-blue-100' : 'bg-green-100'}`}>
+                <button onClick={() => toggleParticipant(idx)} className="text-xs font-medium text-gray-500 mb-1 hover:text-[#9F80DA]">{isSender ? sender.name || 'Sender' : receiver.name || 'Receiver'} &#8596;</button>
+                <div className="cursor-text">
+                  <EditableText value={msg.text} onChange={(v) => updateMessage(idx, 'text', v)} tag="p" className="text-sm text-gray-900" placeholder="Message text..." />
+                </div>
+                {!isQAVariant && <span className="text-[10px] text-gray-400 mt-1 block">timestamp shown in preview</span>}
+                <button onClick={() => removeMessage(idx)} className="text-xs text-gray-400 hover:text-red-500 mt-1">Remove</button>
               </div>
-              <button onClick={() => removeMessage(idx)} className="text-xs text-gray-400 hover:text-red-500 mt-1">Remove</button>
+              {!isQAVariant && !isSender && (
+                <div
+                  className="w-8 h-8 rounded-full shrink-0 mt-1 cursor-pointer relative group/avatar overflow-hidden"
+                  onClick={() => setShowAvatarPicker('receiver')}
+                >
+                  {receiver.avatar ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={receiver.avatar} alt={receiver.name || 'Receiver'} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-green-300 flex items-center justify-center text-xs text-white font-bold">{(receiver.name || 'R')[0].toUpperCase()}</div>
+                  )}
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center">
+                    <ImageIcon className="w-3 h-3 text-white" />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         );
       })}
       <div onClick={addMessage} className="max-w-[80%] p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]">New message...</div>
+      {showAvatarPicker && (
+        <ImagePickerModal
+          currentUrl={String(showAvatarPicker === 'sender' ? sender.avatar || '' : receiver.avatar || '')}
+          onSelect={(url) => {
+            const participant = showAvatarPicker === 'sender' ? sender : receiver;
+            onDataChange({ ...content, [showAvatarPicker]: { ...participant, avatar: url } });
+            setShowAvatarPicker(null);
+          }}
+          onClose={() => setShowAvatarPicker(null)}
+        />
+      )}
     </div>
   );
 }
@@ -2440,6 +2697,7 @@ function EditableTimelineBlock({ content, onDataChange }: { content: Record<stri
 function EditableFlashCardBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
   const items = (content.items as Array<Record<string, unknown>>) || [];
   const [deleteConfirmIdx, setDeleteConfirmIdx] = useState<number | null>(null);
+  const [showImagePicker, setShowImagePicker] = useState<{ idx: number; side: 'front' | 'back' } | null>(null);
 
   const updateItem = useCallback((idx: number, field: string, value: string) => {
     const n = [...items]; n[idx] = { ...n[idx], [field]: value };
@@ -2456,11 +2714,65 @@ function EditableFlashCardBlock({ content, onDataChange }: { content: Record<str
           {/* Front (question) */}
           <div className="p-4 bg-white cursor-text">
             <p className="text-xs font-medium text-[#9F80DA] mb-1">Front</p>
+            {/* Front image */}
+            {item.frontImage ? (
+              <div className="relative h-24 w-full rounded-lg overflow-hidden mb-2 group/img cursor-pointer" onClick={() => setShowImagePicker({ idx, side: 'front' })}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={String(item.frontImage)} alt="Front" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-transparent group-hover/img:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover/img:opacity-100 pointer-events-none rounded-lg">
+                  <span className="px-2 py-1 bg-white/90 text-xs text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1">
+                    <ImageIcon className="w-3 h-3" />
+                    Change image
+                  </span>
+                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); updateItem(idx, 'frontImage', ''); }}
+                  className="absolute top-1 right-1 p-0.5 bg-white/80 rounded-full text-gray-500 hover:text-red-500 hover:bg-white transition-colors pointer-events-auto"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
+              <div
+                className="h-12 w-full border-2 border-dashed border-gray-200 rounded-lg mb-2 flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#9F80DA] hover:text-[#9F80DA] text-gray-400 transition-colors"
+                onClick={() => setShowImagePicker({ idx, side: 'front' })}
+              >
+                <ImageIcon className="w-3.5 h-3.5" />
+                <span className="text-xs">Add image</span>
+              </div>
+            )}
             <EditableText value={String(item.question || '')} onChange={(v) => updateItem(idx, 'question', v)} tag="p" className="font-medium text-gray-900" placeholder="Question..." />
           </div>
           {/* Back (answer) */}
           <div className="p-4 bg-gray-50 border-t border-gray-200 cursor-text">
             <p className="text-xs font-medium text-gray-400 mb-1">Back</p>
+            {/* Back image */}
+            {item.backImage ? (
+              <div className="relative h-24 w-full rounded-lg overflow-hidden mb-2 group/img cursor-pointer" onClick={() => setShowImagePicker({ idx, side: 'back' })}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={String(item.backImage)} alt="Back" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-transparent group-hover/img:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover/img:opacity-100 pointer-events-none rounded-lg">
+                  <span className="px-2 py-1 bg-white/90 text-xs text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1">
+                    <ImageIcon className="w-3 h-3" />
+                    Change image
+                  </span>
+                </div>
+                <button
+                  onClick={(e) => { e.stopPropagation(); updateItem(idx, 'backImage', ''); }}
+                  className="absolute top-1 right-1 p-0.5 bg-white/80 rounded-full text-gray-500 hover:text-red-500 hover:bg-white transition-colors pointer-events-auto"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
+              <div
+                className="h-12 w-full border-2 border-dashed border-gray-200 rounded-lg mb-2 flex items-center justify-center gap-1.5 cursor-pointer hover:border-[#9F80DA] hover:text-[#9F80DA] text-gray-400 transition-colors"
+                onClick={() => setShowImagePicker({ idx, side: 'back' })}
+              >
+                <ImageIcon className="w-3.5 h-3.5" />
+                <span className="text-xs">Add image</span>
+              </div>
+            )}
             <EditableText value={String(item.answer || '')} onChange={(v) => updateItem(idx, 'answer', v)} tag="p" className="text-sm text-gray-600" placeholder="Answer..." />
           </div>
           {/* Delete */}
@@ -2483,6 +2795,16 @@ function EditableFlashCardBlock({ content, onDataChange }: { content: Record<str
       <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:border-[#9F80DA] transition-colors" onClick={addItem}>
         <p className="text-sm text-gray-400 text-center">New card...</p>
       </div>
+      {showImagePicker && (
+        <ImagePickerModal
+          currentUrl={String(items[showImagePicker.idx]?.[showImagePicker.side === 'front' ? 'frontImage' : 'backImage'] || '')}
+          onSelect={(url) => {
+            updateItem(showImagePicker.idx, showImagePicker.side === 'front' ? 'frontImage' : 'backImage', url);
+            setShowImagePicker(null);
+          }}
+          onClose={() => setShowImagePicker(null)}
+        />
+      )}
     </div>
   );
 }
@@ -2721,10 +3043,18 @@ function EditableTableBlock({ content, onDataChange }: { content: Record<string,
 // ─── Buttons ────────────────────────────────────────────────────────
 
 function EditableButtonBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
-  const items = (content.items as Array<{ id: string; text: string; url: string }>) || [];
+  const items = (content.items as Array<{ id: string; text: string; url: string; linkType?: 'url' | 'deep' }>) || [];
 
   const updateItem = useCallback((id: string, field: string, value: string) => {
     onDataChange({ ...content, items: items.map(i => i.id === id ? { ...i, [field]: value } : i) });
+  }, [items, content, onDataChange]);
+
+  const toggleLinkType = useCallback((id: string) => {
+    onDataChange({ ...content, items: items.map(i => {
+      if (i.id !== id) return i;
+      const newType = i.linkType === 'deep' ? 'url' : 'deep';
+      return { ...i, linkType: newType, url: newType === 'deep' ? '#unit-' : '' };
+    })});
   }, [items, content, onDataChange]);
 
   const addItem = () => onDataChange({ ...content, items: [...items, { id: `btn-${Date.now()}`, text: '', url: '' }] });
@@ -2738,7 +3068,19 @@ function EditableButtonBlock({ content, onDataChange }: { content: Record<string
             <div className="inline-block px-6 py-2.5 bg-[#9F80DA] text-white rounded-full cursor-text">
               <EditableText value={item.text} onChange={(v) => updateItem(item.id, 'text', v)} tag="span" className="text-sm font-medium text-white" style={{ color: '#ffffff' }} placeholder="Button text..." multiline={false} />
             </div>
-            <BlurInput value={item.url} onSave={(v) => updateItem(item.id, 'url', v)} placeholder="URL..." />
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => toggleLinkType(item.id)}
+                className={`px-2 py-0.5 text-xs rounded transition-colors flex-shrink-0 ${item.linkType === 'deep' ? 'bg-[#9F80DA] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+              >
+                {item.linkType === 'deep' ? 'Deep Link' : 'URL'}
+              </button>
+              {item.linkType === 'deep' ? (
+                <BlurInput value={item.url.replace('#unit-', '')} onSave={(v) => updateItem(item.id, 'url', `#unit-${v}`)} placeholder="Unit code (e.g. 1.1)..." />
+              ) : (
+                <BlurInput value={item.url} onSave={(v) => updateItem(item.id, 'url', v)} placeholder="URL..." />
+              )}
+            </div>
           </div>
           {items.length > 1 && <button onClick={() => removeItem(item.id)} className="text-gray-300 hover:text-red-500"><Trash2 className="w-4 h-4" /></button>}
         </div>
@@ -2749,10 +3091,17 @@ function EditableButtonBlock({ content, onDataChange }: { content: Record<string
 }
 
 function EditableButtonStackBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
-  const items = (content.items as Array<{ text: string; description?: string; url: string }>) || [];
+  const items = (content.items as Array<{ text: string; description?: string; url: string; linkType?: 'url' | 'deep' }>) || [];
 
   const updateItem = useCallback((idx: number, field: string, value: string) => {
     const n = [...items]; n[idx] = { ...n[idx], [field]: value };
+    onDataChange({ ...content, items: n });
+  }, [items, content, onDataChange]);
+
+  const toggleLinkType = useCallback((idx: number) => {
+    const n = [...items];
+    const newType = n[idx].linkType === 'deep' ? 'url' : 'deep';
+    n[idx] = { ...n[idx], linkType: newType, url: newType === 'deep' ? '#unit-' : '' };
     onDataChange({ ...content, items: n });
   }, [items, content, onDataChange]);
 
@@ -2774,7 +3123,19 @@ function EditableButtonStackBlock({ content, onDataChange }: { content: Record<s
               <div className="px-3 py-1 border border-gray-200 rounded cursor-text">
                 <EditableText value={item.description || ''} onChange={(v) => updateItem(idx, 'description', v)} tag="span" className="text-xs text-gray-500" placeholder="Description..." multiline={false} />
               </div>
-              <BlurInput value={item.url} onSave={(v) => updateItem(idx, 'url', v)} className="w-full px-3 py-1 text-xs text-gray-400 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30" placeholder="URL..." />
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => toggleLinkType(idx)}
+                  className={`px-2 py-0.5 text-xs rounded transition-colors flex-shrink-0 ${item.linkType === 'deep' ? 'bg-[#9F80DA] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                >
+                  {item.linkType === 'deep' ? 'Deep Link' : 'URL'}
+                </button>
+                {item.linkType === 'deep' ? (
+                  <BlurInput value={item.url.replace('#unit-', '')} onSave={(v) => updateItem(idx, 'url', `#unit-${v}`)} className="w-full px-3 py-1 text-xs text-gray-400 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30" placeholder="Unit code (e.g. 1.1)..." />
+                ) : (
+                  <BlurInput value={item.url} onSave={(v) => updateItem(idx, 'url', v)} className="w-full px-3 py-1 text-xs text-gray-400 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30" placeholder="URL..." />
+                )}
+              </div>
             </div>
             {items.length > 1 && <button onClick={() => removeItem(idx)} className="text-gray-300 hover:text-red-500"><Trash2 className="w-4 h-4" /></button>}
           </div>
@@ -2800,6 +3161,9 @@ function EditableMediaUrlBlock({ content, onDataChange, label }: { content: Reco
 }
 
 function EditableEmbedBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
+  const [localHtml, setLocalHtml] = useState(String(content.html || ''));
+  const prevHtml = useRef(String(content.html || ''));
+  useEffect(() => { const v = String(content.html || ''); if (v !== prevHtml.current) { setLocalHtml(v); prevHtml.current = v; } }, [content.html]);
   return (
     <div className="w-full p-4 rounded-lg space-y-3">
       <h3 className="text-sm font-semibold text-gray-500">Embed</h3>
@@ -2807,7 +3171,7 @@ function EditableEmbedBlock({ content, onDataChange }: { content: Record<string,
         <EditableText value={String(content.title || '')} onChange={(v) => onDataChange({ ...content, title: v })} tag="span" className="text-sm" placeholder="Title..." multiline={false} />
       </div>
       <BlurInput value={String(content.url || '')} onSave={(v) => onDataChange({ ...content, url: v })} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30" placeholder="URL..." />
-      <textarea value={String(content.html || '')} onChange={(e) => onDataChange({ ...content, html: e.target.value })} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 font-mono" rows={4} placeholder="Embed HTML..." />
+      <textarea value={localHtml} onChange={(e) => setLocalHtml(e.target.value)} onBlur={() => { if (localHtml !== String(content.html || '')) onDataChange({ ...content, html: localHtml }); }} className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 font-mono" rows={4} placeholder="Embed HTML..." />
     </div>
   );
 }
@@ -2882,16 +3246,22 @@ function EditableCarouselBlock({ content, onDataChange }: { content: Record<stri
       {/* Main slide preview */}
       {current && (
         <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
-          <div className="w-full h-full cursor-pointer" onClick={() => setShowPicker(true)}>
+          <div className="w-full h-full group/img cursor-pointer relative" onClick={() => setShowPicker(true)}>
             {current.src ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={current.src} alt={current.alt || ''} className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-gray-400"><ImageIcon className="w-8 h-8" /></div>
             )}
+            <div className="absolute inset-0 bg-transparent group-hover/img:bg-black/20 transition-colors flex items-end justify-center pb-3 opacity-0 group-hover/img:opacity-100 pointer-events-none rounded-lg z-10">
+              <span className="px-3 py-1.5 bg-white/90 text-sm text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1.5">
+                <ImageIcon className="w-4 h-4" />
+                Change image
+              </span>
+            </div>
           </div>
           {/* Caption overlay */}
-          <div className="absolute bottom-0 inset-x-0 bg-black/40 p-3 cursor-text">
+          <div className={`absolute bottom-0 inset-x-0 p-3 cursor-text transition-colors ${current.caption ? 'bg-black/40' : 'bg-transparent'}`}>
             <EditableText value={current.caption || ''} onChange={(v) => updateImage(currentSlide, 'caption', v)} tag="span" className="text-sm text-white" style={{ color: '#ffffff' }} placeholder="Caption..." multiline={false} />
           </div>
           {/* Delete current slide */}
@@ -3061,7 +3431,12 @@ function EditableColumnsBlock({ content, onDataChange }: { content: Record<strin
 function EditableScenarioBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
   const answers = (content.answers as Array<{ id: string; text: string; order: number; isCorrect: boolean }>) || [];
   const [showPicker, setShowPicker] = useState(false);
+  const [pickerTarget, setPickerTarget] = useState<'background' | 'avatar'>('background');
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [showAvatarGallery, setShowAvatarGallery] = useState(false);
+  const blurAmount = (content.blur as number) || 0;
+
+  const AVATAR_IMAGES = Array.from({ length: 12 }, (_, i) => `/story-telling-block/torso-alto-${i + 1}.png`);
 
   const updateAnswer = useCallback((id: string, field: string, value: unknown) => {
     let n = answers.map(a => a.id === id ? { ...a, [field]: value } : a);
@@ -3080,21 +3455,66 @@ function EditableScenarioBlock({ content, onDataChange }: { content: Record<stri
 
   return (
     <div className="w-full p-4 rounded-lg space-y-4">
-      {/* Image with question overlay */}
-      <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
-        <div className="w-full h-full cursor-pointer" onClick={() => setShowPicker(true)}>
+      {/* Background image with avatar and question overlay */}
+      <div className="relative w-full min-h-[280px] bg-gray-100 rounded-lg overflow-hidden">
+        {/* Background image */}
+        <div className="absolute inset-0">
           {content.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={String(content.image)} alt="Scenario" className="w-full h-full object-cover" />
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={String(content.image)} alt="Background" className="w-full h-full object-cover" style={{ filter: blurAmount > 0 ? `blur(${blurAmount}px)` : undefined }} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+            </>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 gap-2"><ImageIcon className="w-8 h-8" /> Click to set image</div>
+            <div className="w-full h-full bg-gradient-to-b from-gray-200 to-gray-300" />
           )}
         </div>
-        {/* Question overlay */}
-        <div className="absolute bottom-0 inset-x-0 bg-black/50 p-4 cursor-text">
-          <EditableText value={String(content.question || '')} onChange={(v) => onDataChange({ ...content, question: v })} tag="h3" className="text-lg font-semibold text-white" style={{ color: '#ffffff' }} placeholder="Scenario question..." />
+
+        {/* Background controls - top right */}
+        <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
+          <button onClick={() => { setPickerTarget('background'); setShowPicker(true); }} className="px-2 py-1 text-xs text-white bg-black/40 hover:bg-black/60 rounded backdrop-blur-sm">
+            <ImageIcon className="w-3 h-3 inline mr-1" />BG
+          </button>
+          {String(content.image || '') !== '' && (
+            <div className="flex items-center gap-1 px-2 py-1 bg-black/40 rounded backdrop-blur-sm">
+              <span className="text-xs text-white/70">Blur</span>
+              <input type="range" min="0" max="10" value={blurAmount} onChange={(e) => onDataChange({ ...content, blur: parseInt(e.target.value) })} className="w-16 h-1 accent-white" />
+            </div>
+          )}
+        </div>
+
+        {/* Avatar character */}
+        <div className="absolute bottom-0 left-4 z-10">
+          <div className="relative group/avatar cursor-pointer" onClick={() => setShowAvatarGallery(true)}>
+            {content.avatar ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={String(content.avatar)} alt="Character" className="h-40 w-auto object-contain drop-shadow-lg" />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/avatar:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                  <span className="text-xs text-white bg-black/50 px-2 py-1 rounded">Change</span>
+                </div>
+              </>
+            ) : (
+              <div className="h-40 w-24 border-2 border-dashed border-white/40 rounded-lg flex flex-col items-center justify-center text-white/60 hover:border-white/70 hover:text-white/80 transition-colors">
+                <ImageIcon className="w-6 h-6 mb-1" />
+                <span className="text-xs">Avatar</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Speech bubble question */}
+        <div className="absolute bottom-4 left-32 right-4 z-10">
+          <div className="bg-white rounded-lg p-3 shadow-lg relative">
+            <div className="absolute -bottom-2 left-4 w-4 h-4 bg-white transform rotate-45" />
+            <div className="cursor-text relative z-10">
+              <EditableText value={String(content.question || '')} onChange={(v) => onDataChange({ ...content, question: v })} tag="p" className="text-sm font-medium text-gray-900" placeholder="Scenario question..." />
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Answers */}
       <div className="space-y-2">
         {answers.map(ans => (
           <div key={ans.id} className="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-lg hover:border-gray-300">
@@ -3118,8 +3538,64 @@ function EditableScenarioBlock({ content, onDataChange }: { content: Record<stri
         ))}
         <div onClick={addAnswer} className="p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]">New answer...</div>
       </div>
+
+      {/* Feedback */}
+      <div className="space-y-2 border-t border-gray-100 pt-3">
+        <p className="text-xs font-medium text-gray-400 uppercase tracking-wide">Feedback</p>
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-green-500 mt-2 flex-shrink-0" />
+          <div className="flex-1 cursor-text">
+            <EditableText value={String(content.feedbackCorrect || '')} onChange={(v) => onDataChange({ ...content, feedbackCorrect: v })} tag="p" className="text-sm text-green-700" placeholder="Correct answer feedback..." />
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <div className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+          <div className="flex-1 cursor-text">
+            <EditableText value={String(content.feedbackIncorrect || '')} onChange={(v) => onDataChange({ ...content, feedbackIncorrect: v })} tag="p" className="text-sm text-red-700" placeholder="Wrong answer feedback..." />
+          </div>
+        </div>
+      </div>
+
+      {/* Avatar gallery modal */}
+      {showAvatarGallery && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowAvatarGallery(false)} />
+          <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden mx-4">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900">Select Character</h3>
+              <button onClick={() => setShowAvatarGallery(false)} className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-500"><X className="w-5 h-5" /></button>
+            </div>
+            <div className="p-6 grid grid-cols-4 gap-3 max-h-[60vh] overflow-y-auto">
+              {AVATAR_IMAGES.map((src, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => { onDataChange({ ...content, avatar: src }); setShowAvatarGallery(false); }}
+                  className={`relative aspect-[3/4] rounded-lg overflow-hidden border-2 transition-all hover:shadow-md bg-gray-50 ${content.avatar === src ? 'border-[#9F80DA] ring-2 ring-[#9F80DA]/20' : 'border-gray-200 hover:border-[#9F80DA]'}`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt={`Character ${idx + 1}`} className="w-full h-full object-contain" />
+                </button>
+              ))}
+            </div>
+            <div className="px-6 py-3 border-t border-gray-200 flex justify-between">
+              <button onClick={() => { setShowAvatarGallery(false); setPickerTarget('avatar'); setShowPicker(true); }} className="text-sm text-[#9F80DA] hover:text-[#8A6BC5] font-medium">Use custom image...</button>
+              {String(content.avatar || '') !== '' && (
+                <button onClick={() => { onDataChange({ ...content, avatar: '' }); setShowAvatarGallery(false); }} className="text-sm text-red-400 hover:text-red-500">Remove avatar</button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {showPicker && (
-        <ImagePickerModal currentUrl={String(content.image || '')} onSelect={(url) => { onDataChange({ ...content, image: url }); setShowPicker(false); }} onClose={() => setShowPicker(false)} />
+        <ImagePickerModal
+          currentUrl={String(pickerTarget === 'avatar' ? (content.avatar || '') : (content.image || ''))}
+          onSelect={(url) => {
+            onDataChange({ ...content, [pickerTarget === 'avatar' ? 'avatar' : 'image']: url });
+            setShowPicker(false);
+          }}
+          onClose={() => setShowPicker(false)}
+        />
       )}
     </div>
   );
@@ -3128,7 +3604,7 @@ function EditableScenarioBlock({ content, onDataChange }: { content: Record<stri
 // ─── LabeledImage: image with positioned pin labels ─────────────────
 
 function EditableLabeledImageBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
-  const labels = (content.labels as Array<{ id: string; text: string; x: number; y: number }>) || [];
+  const labels = (content.labels as Array<{ id: string; text: string; description: string; x: number; y: number }>) || [];
   const [showPicker, setShowPicker] = useState(false);
   const [editingPinId, setEditingPinId] = useState<string | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
@@ -3144,7 +3620,7 @@ function EditableLabeledImageBlock({ content, onDataChange }: { content: Record<
     const x = Math.round(((e.clientX - rect.left) / rect.width) * 100);
     const y = Math.round(((e.clientY - rect.top) / rect.height) * 100);
     const newId = `pin-${Date.now()}`;
-    onDataChange({ ...content, labels: [...labels, { id: newId, text: '', x, y }] });
+    onDataChange({ ...content, labels: [...labels, { id: newId, text: '', description: '', x, y }] });
     setEditingPinId(newId);
   };
 
@@ -3182,9 +3658,12 @@ function EditableLabeledImageBlock({ content, onDataChange }: { content: Record<
             </div>
             {/* Popover */}
             {editingPinId === label.id && (
-              <div className="absolute top-8 left-1/2 -translate-x-1/2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg p-3 z-20" onClick={(e) => e.stopPropagation()}>
-                <div className="cursor-text mb-2">
+              <div className="absolute top-8 left-1/2 -translate-x-1/2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg p-3 z-50" onClick={(e) => e.stopPropagation()}>
+                <div className="cursor-text mb-1">
                   <EditableText value={label.text} onChange={(v) => updateLabel(label.id, 'text', v)} tag="p" className="text-sm text-gray-900" placeholder="Label text..." />
+                </div>
+                <div className="cursor-text mb-2">
+                  <EditableText value={label.description || ''} onChange={(v) => updateLabel(label.id, 'description', v)} tag="p" className="text-xs text-gray-500 mt-1" placeholder="Description..." />
                 </div>
                 {deleteConfirmId === label.id ? (
                   <div className="flex items-center gap-1">
@@ -3268,6 +3747,73 @@ function EditableSeparatorBlock({ content, onDataChange }: { content: Record<str
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+// ─── Banner: hero/banner editor ──────────────────────────────────────
+
+function EditableBannerBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
+  const [showPicker, setShowPicker] = useState(false);
+  const overlayOpacity = (content.overlayOpacity as number) ?? 40;
+  const height = (content.height as string) || 'medium';
+  const overlayColor = (content.overlayColor as string) || '#000000';
+
+  const heightClasses: Record<string, string> = {
+    small: 'min-h-[200px]',
+    medium: 'min-h-[300px]',
+    large: 'min-h-[400px]',
+  };
+
+  return (
+    <div className="w-full p-4 rounded-lg space-y-3">
+      {/* Live preview */}
+      <div className={`relative ${heightClasses[height] || heightClasses.medium} rounded-lg overflow-hidden bg-gray-200 flex items-center justify-center`}>
+        {String(content.image || '') && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={String(content.image)} alt="Banner" className="absolute inset-0 w-full h-full object-cover" />
+        )}
+        <div className="absolute inset-0" style={{ backgroundColor: overlayColor, opacity: overlayOpacity / 100 }} />
+        {/* Background change button */}
+        <button onClick={() => setShowPicker(true)} className="absolute top-2 right-2 z-20 px-2 py-1 text-xs text-white bg-black/40 hover:bg-black/60 rounded backdrop-blur-sm">
+          <ImageIcon className="w-3 h-3 inline mr-1" />Image
+        </button>
+        <div className="relative z-10 text-center px-6 max-w-2xl">
+          <div className="cursor-text">
+            <EditableText value={String(content.title || '')} onChange={(v) => onDataChange({ ...content, title: v })} tag="h1" className="text-3xl font-bold text-white drop-shadow-lg" style={{ color: '#ffffff' }} placeholder="Banner Title" multiline={false} />
+          </div>
+          <div className="cursor-text mt-2">
+            <EditableText value={String(content.subtitle || '')} onChange={(v) => onDataChange({ ...content, subtitle: v })} tag="p" className="text-lg text-white/90 drop-shadow-md" style={{ color: 'rgba(255,255,255,0.9)' }} placeholder="Subtitle text..." />
+          </div>
+        </div>
+      </div>
+
+      {/* Controls */}
+      <div className="flex flex-wrap items-center gap-4 text-sm">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-500">Height:</span>
+          {(['small', 'medium', 'large'] as const).map((h) => (
+            <button key={h} onClick={() => onDataChange({ ...content, height: h })} className={`px-2 py-0.5 text-xs rounded transition-colors ${height === h ? 'bg-[#9F80DA] text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}>
+              {h}
+            </button>
+          ))}
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-500">Overlay:</span>
+          <input type="range" min="0" max="80" value={overlayOpacity} onChange={(e) => onDataChange({ ...content, overlayOpacity: parseInt(e.target.value) })} className="w-20 h-1 accent-[#9F80DA]" />
+          <span className="text-xs text-gray-400">{overlayOpacity}%</span>
+        </div>
+        <div className="flex items-center gap-1">
+          <span className="text-xs text-gray-500">Color:</span>
+          {[{ label: 'Black', value: '#000000' }, { label: 'Purple', value: '#4c1d95' }, { label: 'Blue', value: '#1e3a5f' }, { label: 'Green', value: '#14532d' }].map(c => (
+            <button key={c.value} onClick={() => onDataChange({ ...content, overlayColor: c.value })} className={`w-5 h-5 rounded-full border-2 transition-all ${overlayColor === c.value ? 'border-gray-800 scale-110' : 'border-gray-200'}`} style={{ backgroundColor: c.value }} title={c.label} />
+          ))}
+        </div>
+      </div>
+
+      {showPicker && (
+        <ImagePickerModal currentUrl={String(content.image || '')} onSelect={(url) => { onDataChange({ ...content, image: url }); setShowPicker(false); }} onClose={() => setShowPicker(false)} />
+      )}
     </div>
   );
 }

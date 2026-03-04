@@ -63,7 +63,7 @@ export default function FillInTheBlankBlock({
             <span
               style={{
                 fontSize: textStyle.fontSize,
-                color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                 lineHeight: textStyle.lineHeight,
               }}
             >

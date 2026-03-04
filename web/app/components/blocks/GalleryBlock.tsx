@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import ZoomableImage from './ZoomableImage';
 
 export interface GalleryImage {
   src: string;
@@ -10,10 +11,11 @@ export interface GalleryImage {
 
 export interface GalleryBlockProps {
   images: GalleryImage[];
+  zoomable?: boolean;
   dark?: boolean;
 }
 
-export default function GalleryBlock({ images, dark = false }: GalleryBlockProps) {
+export default function GalleryBlock({ images, zoomable = false, dark = false }: GalleryBlockProps) {
   return (
     <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div
@@ -28,12 +30,21 @@ export default function GalleryBlock({ images, dark = false }: GalleryBlockProps
             className="flex-shrink-0 relative h-36 sm:h-48 min-w-[140px] sm:min-w-[200px] flex-1"
           >
             {image.src ? (
-              <Image
-                src={image.src}
-                alt={image.alt || `Gallery image ${index + 1}`}
-                fill
-                className="object-cover rounded-lg"
-              />
+              zoomable ? (
+                <ZoomableImage
+                  src={image.src}
+                  alt={image.alt || `Gallery image ${index + 1}`}
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              ) : (
+                <Image
+                  src={image.src}
+                  alt={image.alt || `Gallery image ${index + 1}`}
+                  fill
+                  className="object-cover rounded-lg"
+                />
+              )
             ) : (
               <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 rounded-lg text-sm">No image</div>
             )}

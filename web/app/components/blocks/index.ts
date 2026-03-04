@@ -81,3 +81,4 @@ export { default as FillInTheBlankBlock } from './FillInTheBlankBlock';
 export { default as MatchingPairsBlock } from './MatchingPairsBlock';
 export { default as ButtonBlock } from './ButtonBlock';
 export { default as ButtonStackBlock } from './ButtonStackBlock';
+export { default as BannerBlock } from './BannerBlock';

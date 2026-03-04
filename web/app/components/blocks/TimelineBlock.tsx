@@ -50,7 +50,7 @@ export default function TimelineBlock({
                   style={{
                     fontSize: textStyle.fontSize,
                     fontWeight: textStyle.fontWeight || '600',
-                    color: textStyle.color || (dark ? '#ffffff' : undefined),
+                    color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                     fontStyle: textStyle.fontStyle,
                   }}
                 >
@@ -60,7 +60,7 @@ export default function TimelineBlock({
                   className={dark ? 'text-gray-300' : 'text-gray-600'}
                   style={{
                     fontSize: textStyle.fontSize,
-                    color: textStyle.color || (dark ? '#d1d5db' : '#4B5563'),
+                    color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, #4B5563)'),
                     lineHeight: textStyle.lineHeight,
                   }}
                 >

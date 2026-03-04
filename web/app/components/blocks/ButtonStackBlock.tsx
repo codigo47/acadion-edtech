@@ -66,7 +66,7 @@ export default function ButtonStackBlock({
         {title && (
           <h3
             className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}
-            style={{ color: textStyle.color || (dark ? '#ffffff' : undefined) }}
+            style={{ color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)') }}
           >
             {title}
           </h3>
@@ -97,7 +97,7 @@ export default function ButtonStackBlock({
                   className={`font-medium ${dark ? 'text-white' : 'text-gray-900'}`}
                   style={{
                     fontSize: textStyle.fontSize,
-                    color: textStyle.color || (dark ? '#ffffff' : undefined),
+                    color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                   }}
                 >
                   {item.text}
@@ -126,7 +126,7 @@ export default function ButtonStackBlock({
         {title && (
           <h3
             className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}
-            style={{ color: textStyle.color || (dark ? '#ffffff' : undefined) }}
+            style={{ color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)') }}
           >
             {title}
           </h3>
@@ -154,7 +154,7 @@ export default function ButtonStackBlock({
                 className="font-medium"
                 style={{
                   fontSize: textStyle.fontSize,
-                  color: textStyle.color || undefined,
+                  color: textStyle.color || 'var(--block-text-color, inherit)',
                 }}
               >
                 {item.text}
@@ -177,7 +177,7 @@ export default function ButtonStackBlock({
         {title && (
           <h3
             className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}
-            style={{ color: textStyle.color || (dark ? '#ffffff' : undefined) }}
+            style={{ color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)') }}
           >
             {title}
           </h3>
@@ -205,7 +205,7 @@ export default function ButtonStackBlock({
                   className={`font-medium ${dark ? 'text-white' : 'text-gray-900'}`}
                   style={{
                     fontSize: textStyle.fontSize,
-                    color: textStyle.color || (dark ? '#ffffff' : undefined),
+                    color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                   }}
                 >
                   {item.text}
@@ -234,7 +234,7 @@ export default function ButtonStackBlock({
         {title && (
           <h3
             className={`text-lg font-semibold mb-4 ${dark ? 'text-white' : 'text-gray-900'}`}
-            style={{ color: textStyle.color || (dark ? '#ffffff' : undefined) }}
+            style={{ color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)') }}
           >
             {title}
           </h3>
@@ -264,7 +264,7 @@ export default function ButtonStackBlock({
                   className={`font-medium ${dark ? 'text-white' : 'text-gray-900'}`}
                   style={{
                     fontSize: textStyle.fontSize,
-                    color: textStyle.color || (dark ? '#ffffff' : undefined),
+                    color: textStyle.color || (dark ? '#ffffff' : 'var(--block-text-color, inherit)'),
                   }}
                 >
                   {item.text}

@@ -20,7 +20,7 @@ export default function Highlight({
       style={{
         fontSize: textStyle.fontSize || '18px',
         fontWeight: textStyle.fontWeight || '500',
-        color: textStyle.color || (dark ? '#e5e7eb' : undefined),
+        color: textStyle.color || (dark ? '#e5e7eb' : 'var(--block-text-color, inherit)'),
         fontStyle: textStyle.fontStyle,
         textAlign: textStyle.textAlign,
         lineHeight: textStyle.lineHeight || '1.6',

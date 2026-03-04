@@ -97,7 +97,7 @@ export default function Quote({
               <span
                 className={`font-medium ${dark && !backgroundImage ? 'text-gray-400' : ''}`}
                 style={{
-                  color: backgroundImage ? '#FFFFFF' : (dark ? '#9ca3af' : textStyle.color || '#6B7280'),
+                  color: backgroundImage ? '#FFFFFF' : (dark ? '#9ca3af' : textStyle.color || 'var(--block-text-color, #6B7280)'),
                 }}
               >
                 — {author}

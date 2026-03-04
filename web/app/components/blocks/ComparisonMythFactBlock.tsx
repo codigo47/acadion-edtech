@@ -31,7 +31,7 @@ export default function ComparisonMythFactBlock({
             <p
               className={`text-sm ${dark ? 'text-gray-300' : 'text-gray-700'}`}
               style={{
-                color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                 lineHeight: textStyle.lineHeight || '1.5',
               }}
             >
@@ -49,7 +49,7 @@ export default function ComparisonMythFactBlock({
             <p
               className={`text-sm ${dark ? 'text-gray-300' : 'text-gray-700'}`}
               style={{
-                color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                 lineHeight: textStyle.lineHeight || '1.5',
               }}
             >

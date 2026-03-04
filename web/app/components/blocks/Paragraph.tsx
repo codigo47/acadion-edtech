@@ -20,7 +20,7 @@ export default function Paragraph({
       style={{
         fontSize: contentStyle.fontSize,
         fontWeight: contentStyle.fontWeight,
-        color: contentStyle.color || (dark ? '#d1d5db' : undefined),
+        color: contentStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
         fontStyle: contentStyle.fontStyle,
         textAlign: contentStyle.textAlign,
         lineHeight: contentStyle.lineHeight || '1.75',

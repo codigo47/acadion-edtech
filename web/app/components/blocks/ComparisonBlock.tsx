@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
+import NextImage from 'next/image';
 import { TextStyle, BackgroundStyle, BlockStyle } from './types';
 
 export interface ComparisonItem {
   title: string;
   content: string;
+  image?: string;
 }
 
 export interface ComparisonBlockProps {
@@ -92,12 +94,23 @@ export default function ComparisonBlock({
                 {item.title}
               </h3>
             </div>
+            {item.image && (
+              <div className="relative h-32 w-full">
+                <NextImage
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  unoptimized={item.image.startsWith('http')}
+                />
+              </div>
+            )}
             <div className={`${styleClasses.content} p-4`}>
               <p
                 className={`text-center ${dark ? 'text-gray-300' : ''}`}
                 style={{
                   fontSize: textStyle.fontSize,
-                  color: textStyle.color || (dark ? '#d1d5db' : undefined),
+                  color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
                   lineHeight: textStyle.lineHeight,
                 }}
               >

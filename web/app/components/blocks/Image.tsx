@@ -2,6 +2,7 @@
 
 import React from 'react';
 import NextImage from 'next/image';
+import ZoomableImage from './ZoomableImage';
 
 export interface ImageProps {
   src: string;
@@ -10,6 +11,7 @@ export interface ImageProps {
   fill?: boolean;
   width?: number;
   height?: number;
+  zoomable?: boolean;
 }
 
 export default function Image({
@@ -19,6 +21,7 @@ export default function Image({
   fill = true,
   width,
   height,
+  zoomable = false,
 }: ImageProps) {
   // Handle missing or invalid src
   if (!src) {
@@ -33,6 +36,19 @@ export default function Image({
   const imageSrc = src === '/sample.jpeg' || src.includes('sample')
     ? 'https://placehold.co/800x600/e2e8f0/64748b?text=Sample+Image'
     : src;
+
+  if (zoomable) {
+    return (
+      <ZoomableImage
+        src={imageSrc}
+        alt={alt}
+        fill={fill}
+        width={width}
+        height={height}
+        className={className}
+      />
+    );
+  }
 
   if (fill) {
     return (

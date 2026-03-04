@@ -9,6 +9,7 @@ export interface TableBlockProps {
   content: string[][];
   textStyle?: TextStyle;
   headerRow?: boolean;
+  stripedRows?: boolean;
   dark?: boolean;
 }
 
@@ -18,6 +19,7 @@ export default function TableBlock({
   content,
   textStyle = {},
   headerRow = true,
+  stripedRows = false,
   dark = false,
 }: TableBlockProps) {
   const headers = headerRow && content.length > 0 ? content[0]?.slice(0, columns) : [];
@@ -32,7 +34,7 @@ export default function TableBlock({
           style={{
             fontSize: textStyle.fontSize,
             fontWeight: textStyle.fontWeight,
-            color: textStyle.color || (dark ? '#d1d5db' : undefined),
+            color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
             fontStyle: textStyle.fontStyle,
             textAlign: textStyle.textAlign,
             lineHeight: textStyle.lineHeight,
@@ -54,7 +56,11 @@ export default function TableBlock({
           )}
           <tbody>
             {dataRows.map((row, rowIndex) => (
-              <tr key={rowIndex} className={dark ? 'hover:bg-gray-800' : 'hover:bg-gray-50'}>
+              <tr key={rowIndex} className={`${
+                stripedRows && rowIndex % 2 === 1
+                  ? (dark ? 'bg-gray-800/50' : 'bg-gray-50')
+                  : ''
+              } ${dark ? 'hover:bg-gray-800' : 'hover:bg-gray-50'}`}>
                 {row.slice(0, columns).map((cell, cellIndex) => (
                   <td
                     key={cellIndex}
@@ -77,7 +83,7 @@ export default function TableBlock({
             className={`border rounded-lg overflow-hidden ${dark ? 'border-gray-700' : 'border-gray-300'}`}
             style={{
               fontSize: textStyle.fontSize,
-              color: textStyle.color || (dark ? '#d1d5db' : undefined),
+              color: textStyle.color || (dark ? '#d1d5db' : 'var(--block-text-color, inherit)'),
               lineHeight: textStyle.lineHeight,
             }}
           >
