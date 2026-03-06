@@ -388,9 +388,17 @@ interface CourseComponentData {
   name?: string;
 }
 
+interface GroupVariant {
+  componentId: number;
+  componentName: string;
+  name: string;
+  groupKey: string;
+}
+
 interface CourseComponentsResponse {
   courseId: number;
   components: CourseComponentData[];
+  groupVariants: GroupVariant[];
 }
 
 export function useCourseComponents(courseKey: string | null, enabled: boolean = true) {

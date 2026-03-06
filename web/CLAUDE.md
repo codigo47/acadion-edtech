@@ -121,6 +121,23 @@ it('renders heading', () => {
 });
 ```
 
+## Shared Color Picker
+
+Use `<ColorPicker>` from `app/components/ColorPicker.tsx` for ALL color selection UIs.
+Supports: basic grid (8x5), HEX/RGB inputs, project colors, favorites (localStorage via `use-favorite-colors` hook).
+
+```typescript
+import { ColorPicker } from '@/app/components/ColorPicker';
+
+<ColorPicker
+  selectedColor={color}
+  onSelect={(c) => setColor(c)}
+  onClose={() => setOpen(false)}
+  projectColors={['#9F80DA', '#1a1a1a']}  // optional
+  position="top"  // or "bottom"
+/>
+```
+
 ## Environment Variables
 
 Required: `NEXT_PUBLIC_API_URL` (e.g., `http://localhost:8001/api`)

@@ -149,6 +149,24 @@ export class ResourceModule {}
 
 Required: `DATABASE_URL`, `REDIS_HOST`, `REDIS_PORT`, `JWT_SECRET`, `OPENAI_API_KEY`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `FRONTEND_URL`
 
+## Course Components API
+
+`GET /course/:key/components` returns:
+```typescript
+{
+  courseId: number;
+  components: [...];          // Course's components
+  groupVariants: Array<{      // ALL sibling variants for each groupKey
+    componentId: number;      // Component table ID
+    componentName: string;    // internalName
+    name: string;             // display name
+    groupKey: string;         // e.g. 'paragraph', 'heading', 'quote'
+  }>;
+}
+```
+
+`groupVariants` enables the frontend style-switching dropdown to show all available variants, not just those present in the current course.
+
 ## Naming Conventions
 
 | What | Convention | Example |

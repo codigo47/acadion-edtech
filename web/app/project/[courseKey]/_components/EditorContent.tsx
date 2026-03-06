@@ -7,7 +7,7 @@ import { CustomScrollbar } from '../../../components/CustomScrollbar';
 import { EditorBlock } from './EditorBlock';
 import { PreviewModal } from './PreviewModal';
 import { AIPromptModal } from './AIPromptModal';
-import { getBlockMeta, getGroupVariants, blockMetadata } from './block-metadata';
+import { getBlockMeta } from './block-metadata';
 import {
   useDeleteComponent,
   useDuplicateComponent,
@@ -41,11 +41,20 @@ interface ProposedIndex {
   }>;
 }
 
+interface GroupVariant {
+  componentId: number;
+  componentName: string;
+  name: string;
+  groupKey: string;
+}
+
 interface EditorContentProps {
   courseKey: string;
   proposedIndex: ProposedIndex;
   components: CourseComponentData[];
   onSaveStatusChange?: (status: SaveStatus) => void;
+  courseColors?: string[];
+  groupVariants?: GroupVariant[];
 }
 
 export function EditorContent({
@@ -53,6 +62,8 @@ export function EditorContent({
   proposedIndex,
   components,
   onSaveStatusChange,
+  courseColors,
+  groupVariants = [],
 }: EditorContentProps) {
   // Drag state — SortingSteps-style live reorder
   const [draggedId, setDraggedId] = useState<number | null>(null);
@@ -105,31 +116,23 @@ export function EditorContent({
     }
   }, []);
 
-  // Build variants lookup (group → available component variants)
+  // Build variants lookup (group → available component variants) from groupVariants
   const variantsMap = useMemo(() => {
     const map = new Map<string, Array<{ componentName: string; componentId: number; name: string }>>();
-    for (const comp of components) {
-      if (comp.groupKey && comp.componentId) {
-        if (!map.has(comp.groupKey)) {
-          const groupNames = getGroupVariants(comp.groupKey);
-          map.set(comp.groupKey, []);
-        }
-      }
-    }
-    for (const comp of components) {
-      if (comp.groupKey && comp.componentId) {
-        const variants = map.get(comp.groupKey);
-        if (variants && !variants.find((v) => v.componentId === comp.componentId)) {
-          variants.push({
-            componentName: comp.componentName,
-            componentId: comp.componentId,
-            name: comp.name || getBlockMeta(comp.componentName).label,
-          });
-        }
+    for (const v of groupVariants) {
+      if (!v.groupKey) continue;
+      if (!map.has(v.groupKey)) map.set(v.groupKey, []);
+      const arr = map.get(v.groupKey)!;
+      if (!arr.find((x) => x.componentId === v.componentId)) {
+        arr.push({
+          componentName: v.componentName,
+          componentId: v.componentId,
+          name: v.name || getBlockMeta(v.componentName).label,
+        });
       }
     }
     return map;
-  }, [components]);
+  }, [groupVariants]);
 
   // Handlers
   const handleDelete = useCallback(
@@ -162,6 +165,26 @@ export function EditorContent({
 
   const handleSwitchStyle = useCallback(
     (id: number, newComponentId: number) => {
+      // Detect heading↔subheading switch and migrate data
+      const comp = localComponents.find((c) => c.id === id);
+      if (comp) {
+        const newVariant = groupVariants.find((v) => v.componentId === newComponentId);
+        const oldName = comp.componentName;
+        const newName = newVariant?.componentName;
+
+        if (oldName === 'HeadingBlock' && newName === 'SubheadingBlock') {
+          const data = comp.data as Record<string, unknown>;
+          if (data.heading && !data.subheading) {
+            updateComponentData.mutate({ id, data: { ...data, subheading: data.heading } });
+          }
+        } else if (oldName === 'SubheadingBlock' && newName === 'HeadingBlock') {
+          const data = comp.data as Record<string, unknown>;
+          if (data.subheading && !data.heading) {
+            updateComponentData.mutate({ id, data: { ...data, heading: data.subheading } });
+          }
+        }
+      }
+
       updateSaveStatus('saving');
       switchComponentStyle.mutate(
         { id, newComponentId },
@@ -171,7 +194,7 @@ export function EditorContent({
         },
       );
     },
-    [switchComponentStyle, updateSaveStatus],
+    [switchComponentStyle, updateSaveStatus, localComponents, groupVariants, updateComponentData],
   );
 
   const handleDataChange = useCallback(
@@ -406,6 +429,7 @@ export function EditorContent({
                                   isDragging={draggedId === comp.id}
                                   onDataChange={(data) => handleDataChange(comp.id, data)}
                                   availableVariants={variants}
+                                  courseColors={courseColors}
                                 />
 
                                 {/* Add button below component */}

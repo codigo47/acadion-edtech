@@ -5,7 +5,15 @@
 80+ reusable content blocks that render course content. Each block has two versions:
 
 1. **Read-only** (this directory) — The canonical visual representation. Used in `/preview`, `/lms`, PreviewModal, and public portfolio pages via `CourseComponent` and `CoursePlayer`.
-2. **Editor** (`EditableCourseComponent` in `app/project/[courseKey]/_components/`) — Inline editable version used in `/project`. Replaces static text with `EditableText`, adds image pickers, item add/remove controls, etc.
+2. **Editor** (this directory, co-located) — Inline editable version used in `/project`. Each `FooBlock.tsx` has a corresponding `EditableFooBlock.tsx` in the same directory. Replaces static text with `EditableText`, adds image pickers, item add/remove controls, etc.
+
+### File Naming Convention
+
+- Read-only: `FooBlock.tsx` (default export)
+- Editor: `EditableFooBlock.tsx` (named export)
+- Shared editor helpers: `editable-helpers.tsx` (named exports: `BlurInput`, `TwoListColumnEditor`, `EditableItemsBlock`, `twoListConfig`)
+
+The main router in `app/project/[courseKey]/_components/EditableCourseComponent.tsx` (~180 lines) imports all editors from this directory and dispatches by `componentName`.
 
 ### Visual Parity Rule
 
@@ -15,7 +23,7 @@
 - Items have add/remove/reorder controls
 - Placeholders shown for empty content
 
-When modifying a read-only block's visual style (colors, padding, border-radius, typography), the corresponding editor version in `EditableCourseComponent.tsx` must be updated to match, and vice versa. If a block uses shared base components (Paragraph, Heading, Highlight, Quote), the editor should use the same CSS classes and inline styles.
+When modifying a read-only block's visual style (colors, padding, border-radius, typography), the corresponding `EditableFooBlock.tsx` in this directory must be updated to match, and vice versa. If a block uses shared base components (Paragraph, Heading, Highlight, Quote), the editor should use the same CSS classes and inline styles.
 
 ## Block Categories
 
@@ -102,6 +110,21 @@ color: textStyle.color || (dark ? '#d1d5db' : undefined)
 
 For `undefined` fallbacks, use `'var(--block-text-color, inherit)'`.
 
+## Critical: CSS Variable for Font Size
+
+`--block-font-size` is set by `blockStylesToCss()` on the wrapper div when the user picks a font size in BlockFooter (same pattern as `--block-text-color`). Use it to respect user font size overrides:
+
+```typescript
+// In editable blocks — use var with appropriate fallback
+style={{ fontSize: 'var(--block-font-size, 1rem)' }}
+
+// Values: 0.875rem (S), 1rem (M), 1.125rem (L), 1.25rem (XL)
+```
+
+## Color Picker
+
+Use `<ColorPicker>` from `app/components/ColorPicker.tsx` for ALL color selection UIs in block editors. Do not create inline color pickers.
+
 ## Shared Base Components
 
 Most blocks delegate to shared components — edit these to affect many blocks at once:
@@ -128,12 +151,13 @@ The `Blocks` import comes from `app/components/blocks/index.ts` barrel export.
 
 ## Adding a New Block
 
-1. Create `MyNewBlock.tsx` in this directory with the standard pattern
-2. Export from `index.ts`
-3. Register in `CourseComponent.tsx` (`BlockComponents` map)
-4. Add block metadata in `_components/block-metadata.ts`
-5. Add editable version in `_components/EditableCourseComponent.tsx`
-6. Add to `Component` table in database (via migration or seed)
+1. Create `MyNewBlock.tsx` in this directory with the standard pattern (default export)
+2. Create `EditableMyNewBlock.tsx` in this directory with named export
+3. Export both from `index.ts`
+4. Register read-only block in `CourseComponent.tsx` (`BlockComponents` map)
+5. Add block metadata in `_components/block-metadata.ts`
+6. Add routing case in `_components/EditableCourseComponent.tsx` (imports from `@/app/components/blocks`)
+7. Add to `Component` table in database (via migration or seed)
 
 ## Props Consumed From PropertiesPopup
 

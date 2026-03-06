@@ -59,6 +59,34 @@ function getComponentProperties(componentName: string): PropertyDefinition[] {
     });
   }
 
+  // SeparatorBlock
+  if (componentName === 'SeparatorBlock') {
+    properties.push({ key: 'showLine', label: 'Show Line', type: 'toggle' });
+    properties.push({ key: 'showNumber', label: 'Show Number', type: 'toggle' });
+    properties.push({
+      key: 'thickness',
+      label: 'Thickness',
+      type: 'select',
+      options: [
+        { value: 'thin', label: 'Thin' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'thick', label: 'Thick' },
+      ],
+    });
+    properties.push({
+      key: 'lineColor',
+      label: 'Line Color',
+      type: 'select',
+      options: [
+        { value: '#d1d5db', label: 'Gray' },
+        { value: '#9F80DA', label: 'Purple' },
+        { value: '#3b82f6', label: 'Blue' },
+        { value: '#22c55e', label: 'Green' },
+        { value: '#f97316', label: 'Orange' },
+      ],
+    });
+  }
+
   // AccordionBlock
   if (componentName === 'AccordionBlock') {
     properties.push({
@@ -87,6 +115,10 @@ const DEFAULTS: Record<string, unknown> = {
   headerRow: true,
   stripedRows: false,
   openFirst: true,
+  showLine: true,
+  showNumber: false,
+  thickness: 'thin',
+  lineColor: '#d1d5db',
 };
 
 export function PropertiesPopup({

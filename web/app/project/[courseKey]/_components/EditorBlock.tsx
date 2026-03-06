@@ -33,6 +33,7 @@ interface EditorBlockProps {
   isDragging: boolean;
   onDataChange: (data: Record<string, unknown>) => void;
   availableVariants?: Array<{ componentName: string; componentId: number; name: string }>;
+  courseColors?: string[];
 }
 
 export function EditorBlock({
@@ -52,6 +53,7 @@ export function EditorBlock({
   isDragging,
   onDataChange,
   availableVariants,
+  courseColors,
 }: EditorBlockProps) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showStyleDropdown, setShowStyleDropdown] = useState(false);
@@ -237,6 +239,7 @@ export function EditorBlock({
         onStyleChange={(styles) => {
           onDataChange({ ...(component.content as Record<string, unknown>), blockStyles: styles });
         }}
+        courseColors={courseColors}
         componentName={component.componentName}
         imageSize={(component.content as Record<string, unknown>)?.imageSize as number | undefined}
         onImageSizeChange={(size) => {

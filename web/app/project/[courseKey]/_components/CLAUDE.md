@@ -153,6 +153,23 @@ style={{ color: 'var(--block-text-color, #6B7280)' }}
 // NOT: className="text-gray-700" (Tailwind overrides CSS var)
 ```
 
+### courseColors Prop
+
+Branding colors are threaded from page.tsx → EditorContent → EditorBlock → BlockFooter:
+```
+page.tsx:          courseColors={[visualIdentity.primaryColor, visualIdentity.secondaryColor]}
+EditorContent:     courseColors prop → passes to <EditorBlock courseColors={courseColors}>
+EditorBlock:       courseColors prop → passes to <BlockFooter courseColors={courseColors}>
+```
+
+### Heading↔Subheading Data Migration
+
+When switching between HeadingBlock and SubheadingBlock via the style dropdown, `handleSwitchStyle` in EditorContent.tsx automatically copies `data.heading` ↔ `data.subheading` so content is preserved across the switch.
+
+### groupVariants
+
+The variant dropdown for style switching is powered by `groupVariants` from the backend (`GET /course/:key/components`). This returns ALL sibling components for each `groupKey`, not just the ones used in the current course. This ensures the dropdown always shows all available variants.
+
 ### Input Save Pattern
 Never save on every keystroke. Two patterns:
 1. **EditableText** — 2s debounce + blur save (preferred)

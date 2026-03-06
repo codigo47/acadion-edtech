@@ -809,6 +809,40 @@ export class CourseService {
       orderBy: [{ module: 'asc' }, { unit: 'asc' }, { sequence: 'asc' }],
     });
 
+    // Collect unique groupKeys to fetch all sibling variants
+    const groupKeys = [
+      ...new Set(
+        components
+          .map((c) => c.component.groupKey)
+          .filter((gk): gk is string => !!gk),
+      ),
+    ];
+
+    let groupVariants: Array<{
+      componentId: number;
+      componentName: string;
+      name: string;
+      groupKey: string;
+    }> = [];
+
+    if (groupKeys.length > 0) {
+      const siblings = await this.prisma.component.findMany({
+        where: { groupKey: { in: groupKeys } },
+        select: {
+          id: true,
+          internalName: true,
+          name: true,
+          groupKey: true,
+        },
+      });
+      groupVariants = siblings.map((s) => ({
+        componentId: s.id,
+        componentName: s.internalName,
+        name: s.name,
+        groupKey: s.groupKey!,
+      }));
+    }
+
     return {
       courseId: course.id,
       components: components.map((c) => ({
@@ -823,6 +857,7 @@ export class CourseService {
         data: c.data,
         name: c.component.name,
       })),
+      groupVariants,
     };
   }
 

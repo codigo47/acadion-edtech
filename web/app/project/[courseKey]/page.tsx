@@ -1808,6 +1808,8 @@ export default function ProjectPage() {
                   proposedIndex={proposedIndex!}
                   components={courseComponentsData?.components || []}
                   onSaveStatusChange={setSaveStatus}
+                  courseColors={[visualIdentity.primaryColor, visualIdentity.secondaryColor]}
+                  groupVariants={courseComponentsData?.groupVariants || []}
                 />
               </motion.div>
             ) : (

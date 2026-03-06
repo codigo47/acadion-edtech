@@ -13,6 +13,7 @@ export interface ImageWithTextBlockProps {
   textBackgroundStyle?: BackgroundStyle;
   zoomable?: boolean;
   dark?: boolean;
+  imageSize?: number;
 }
 
 export default function ImageWithTextBlock({
@@ -23,15 +24,17 @@ export default function ImageWithTextBlock({
   textBackgroundStyle = {},
   zoomable = false,
   dark = false,
+  imageSize,
 }: ImageWithTextBlockProps) {
   return (
-    <div className={`w-full p-4 flex flex-col md:flex-row gap-4 ${dark ? 'bg-gray-900' : ''}`}>
-      <div className="relative w-full md:w-1/2 h-48 md:h-64">
+    <div className={`w-full p-4 flex flex-col md:flex-row gap-4 ${dark ? 'bg-gray-900' : ''}`} style={{ alignItems: 'stretch' }}>
+      <div className="relative h-48 md:h-64" style={{ width: '100%', flex: `0 0 ${imageSize || 50}%` }}>
         <Image src={image} alt={alt} zoomable={zoomable} />
       </div>
       <div
-        className={`w-full md:w-1/2 flex items-center p-4 rounded-lg ${dark ? 'bg-gray-800' : ''}`}
+        className={`flex items-center p-4 rounded-lg ${dark ? 'bg-gray-800' : ''}`}
         style={{
+          flex: 1,
           backgroundColor: textBackgroundStyle.backgroundColor || (dark ? '#1f2937' : undefined),
           padding: textBackgroundStyle.padding,
           borderRadius: textBackgroundStyle.borderRadius,

@@ -82,3 +82,52 @@ export { default as MatchingPairsBlock } from './MatchingPairsBlock';
 export { default as ButtonBlock } from './ButtonBlock';
 export { default as ButtonStackBlock } from './ButtonStackBlock';
 export { default as BannerBlock } from './BannerBlock';
+
+// Table Style Presets
+export { TableStylePresetsModal, TABLE_PRESETS } from './TableStylePresetsModal';
+export type { TablePreset } from './TableStylePresetsModal';
+
+// Editable Helpers
+export { BlurInput, TwoListColumnEditor, EditableItemsBlock, twoListConfig } from './editable-helpers';
+export type { TwoListColumnConfig, TwoListConfig } from './editable-helpers';
+
+// Editable Group Editors
+export { NotionStyleBlock, isParagraphOrHeading } from './EditableNotionStyleBlock';
+export { EditableChatBlock, isChatBlock } from './EditableChatBlock';
+export { EditableImageWithTextBlock, ImageOverlay, isImageWithTextBlock } from './EditableImageWithTextBlock';
+export { EditableListBlock, isListBlock } from './EditableListBlock';
+export { EditableTwoListBlock, isComparisonTwoList } from './EditableTwoListBlock';
+export { EditableTwoFieldBlock } from './EditableTwoFieldBlock';
+export { EditableMediaUrlBlock } from './EditableMediaUrlBlock';
+
+// Editable Standalone Editors
+export { EditableTabsBlock } from './EditableTabsBlock';
+export { EditableAccordionBlock } from './EditableAccordionBlock';
+export { EditableSortingStepsBlock } from './EditableSortingStepsBlock';
+export { EditableMultipleResponseBlock } from './EditableMultipleResponseBlock';
+export { EditableComparisonCauseEffectBlock } from './EditableComparisonCauseEffectBlock';
+export { EditableImageBlock } from './EditableImageBlock';
+export { EditableMultipleChoiceBlock } from './EditableMultipleChoiceBlock';
+export { EditableFillInTheBlankBlock } from './EditableFillInTheBlankBlock';
+export { EditableMatchingPairsBlock } from './EditableMatchingPairsBlock';
+export { EditableSortingBlock } from './EditableSortingBlock';
+export { EditableComparisonBlock } from './EditableComparisonBlock';
+export { EditableChatQuestionWallBlock } from './EditableChatQuestionWallBlock';
+export { EditableChatDialogBlock } from './EditableChatDialogBlock';
+export { EditableTimelineBlock } from './EditableTimelineBlock';
+export { EditableFlashCardBlock } from './EditableFlashCardBlock';
+export { EditableTestimonialBlock } from './EditableTestimonialBlock';
+export { EditableReviewsBlock } from './EditableReviewsBlock';
+export { EditableTableBlock } from './EditableTableBlock';
+export { EditableButtonBlock } from './EditableButtonBlock';
+export { EditableButtonStackBlock } from './EditableButtonStackBlock';
+export { EditableEmbedBlock } from './EditableEmbedBlock';
+export { EditableAttachmentBlock } from './EditableAttachmentBlock';
+export { EditableCarouselBlock } from './EditableCarouselBlock';
+export { EditableGalleryBlock } from './EditableGalleryBlock';
+export { EditableStoryTellingBlock } from './EditableStoryTellingBlock';
+export { EditableColumnsBlock } from './EditableColumnsBlock';
+export { EditableScenarioBlock } from './EditableScenarioBlock';
+export { EditableLabeledImageBlock } from './EditableLabeledImageBlock';
+export { EditableSeparatorBlock } from './EditableSeparatorBlock';
+export { EditableBannerBlock } from './EditableBannerBlock';

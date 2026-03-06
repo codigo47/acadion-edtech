@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import {
   AlignLeft,
   AlignCenter,
@@ -8,6 +8,7 @@ import {
   Type,
   Paintbrush,
 } from 'lucide-react';
+import { ColorPicker } from '../../../components/ColorPicker';
 
 export interface BlockStyles {
   marginTop?: string;
@@ -32,7 +33,10 @@ export function blockStylesToCss(styles?: BlockStyles): React.CSSProperties {
     css['--block-text-color'] = styles.textColor;
   }
   if (styles.textAlign) css.textAlign = styles.textAlign;
-  if (styles.fontSize && styles.fontSize !== 'normal') css.fontSize = FONT_SIZE_CSS[styles.fontSize];
+  if (styles.fontSize && styles.fontSize !== 'normal') {
+    css.fontSize = FONT_SIZE_CSS[styles.fontSize];
+    css['--block-font-size'] = FONT_SIZE_CSS[styles.fontSize];
+  }
   return css as React.CSSProperties;
 }
 
@@ -44,17 +48,6 @@ interface BlockFooterProps {
   imageSize?: number;
   onImageSizeChange?: (size: number) => void;
 }
-
-const PRESET_COLORS = [
-  '#000000',
-  '#374151',
-  '#6B7280',
-  '#9F80DA',
-  '#3B82F6',
-  '#10B981',
-  '#F59E0B',
-  '#EF4444',
-];
 
 const BG_PRESETS = [
   { color: '#FFFFFF', label: 'White' },
@@ -111,61 +104,6 @@ function MarginButton({
   );
 }
 
-function ColorPickerDropdown({
-  selectedColor,
-  onSelect,
-  onClose,
-  courseColors,
-}: {
-  selectedColor?: string;
-  onSelect: (color: string) => void;
-  onClose: () => void;
-  courseColors?: string[];
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handle = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        onClose();
-      }
-    };
-    document.addEventListener('mousedown', handle);
-    return () => document.removeEventListener('mousedown', handle);
-  }, [onClose]);
-
-  const allColors = [
-    ...PRESET_COLORS,
-    ...(courseColors || []).filter((c) => !PRESET_COLORS.includes(c)),
-  ];
-
-  return (
-    <div
-      ref={ref}
-      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-50"
-    >
-      <div className="flex flex-wrap gap-1.5 max-w-[180px]">
-        {allColors.map((color) => (
-          <button
-            key={color}
-            onClick={() => {
-              onSelect(color);
-              onClose();
-            }}
-            title={color}
-            className={`w-5 h-5 rounded-full border transition-all flex-shrink-0 ${
-              selectedColor === color
-                ? 'ring-2 ring-[#9F80DA] ring-offset-1 border-[#9F80DA]'
-                : 'border-gray-300 hover:scale-110'
-            }`}
-            style={{ backgroundColor: color }}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 const IMAGE_SIZE_PRESETS = [25, 33, 50, 66, 75] as const;
 const SIDE_BY_SIDE_COMPONENTS = ['ImageWithTextBlock', 'ImageWithTextLeftBlock'];
 
@@ -180,7 +118,6 @@ export function BlockFooter({
   const showImageSize = componentName && SIDE_BY_SIDE_COMPONENTS.includes(componentName) && onImageSizeChange;
   const [showTextColorPicker, setShowTextColorPicker] = useState(false);
   const [showBgColorPicker, setShowBgColorPicker] = useState(false);
-  const [customBgInput, setCustomBgInput] = useState('');
 
   const update = useCallback(
     (partial: Partial<BlockStyles>) => {
@@ -266,11 +203,11 @@ export function BlockFooter({
             />
           </button>
           {showTextColorPicker && (
-            <ColorPickerDropdown
+            <ColorPicker
               selectedColor={blockStyles.textColor}
               onSelect={(color) => update({ textColor: color })}
               onClose={() => setShowTextColorPicker(false)}
-              courseColors={courseColors}
+              projectColors={courseColors}
             />
           )}
         </div>
@@ -390,65 +327,12 @@ export function BlockFooter({
             <span className="text-[8px] text-gray-400 leading-none">+</span>
           </button>
           {showBgColorPicker && (
-            <div className="absolute bottom-full right-0 mb-2 bg-white border border-gray-200 rounded-lg shadow-lg p-2 z-50">
-              <div className="flex flex-wrap gap-1.5 max-w-[180px]">
-                {PRESET_COLORS.map((color) => (
-                  <button
-                    key={color}
-                    onClick={() => {
-                      update({ backgroundColor: color });
-                      setShowBgColorPicker(false);
-                    }}
-                    title={color}
-                    className={`w-5 h-5 rounded-full border transition-all flex-shrink-0 ${
-                      currentBg === color
-                        ? 'ring-2 ring-[#9F80DA] ring-offset-1 border-[#9F80DA]'
-                        : 'border-gray-300 hover:scale-110'
-                    }`}
-                    style={{ backgroundColor: color }}
-                  />
-                ))}
-                {courseColors &&
-                  courseColors
-                    .filter((c) => !PRESET_COLORS.includes(c))
-                    .map((color) => (
-                      <button
-                        key={color}
-                        onClick={() => {
-                          update({ backgroundColor: color });
-                          setShowBgColorPicker(false);
-                        }}
-                        title={color}
-                        className={`w-5 h-5 rounded-full border transition-all flex-shrink-0 ${
-                          currentBg === color
-                            ? 'ring-2 ring-[#9F80DA] ring-offset-1 border-[#9F80DA]'
-                            : 'border-gray-300 hover:scale-110'
-                        }`}
-                        style={{ backgroundColor: color }}
-                      />
-                    ))}
-              </div>
-              {/* Custom hex input */}
-              <div className="mt-2 pt-2 border-t border-gray-100">
-                <div className="flex items-center gap-1">
-                  <span className="text-[10px] text-gray-400">#</span>
-                  <input
-                    type="text"
-                    value={customBgInput}
-                    onChange={(e) => setCustomBgInput(e.target.value.replace(/[^0-9a-fA-F]/g, '').slice(0, 6))}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && customBgInput.length >= 3) {
-                        update({ backgroundColor: `#${customBgInput}` });
-                        setShowBgColorPicker(false);
-                        setCustomBgInput('');
-                      }
-                    }}
-                    placeholder="hex"
-                    className="w-16 text-[10px] px-1 py-0.5 border border-gray-200 rounded focus:outline-none focus:ring-1 focus:ring-[#9F80DA]/40"
-                  />
-                </div>
-              </div>
-            </div>
+            <ColorPicker
+              selectedColor={currentBg}
+              onSelect={(color) => update({ backgroundColor: color })}
+              onClose={() => setShowBgColorPicker(false)}
+              projectColors={courseColors}
+            />
           )}
         </div>
       </div>
