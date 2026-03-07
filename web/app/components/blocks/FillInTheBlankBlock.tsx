@@ -28,7 +28,7 @@ const normalizeText = (text: string): string => {
 };
 
 export default function FillInTheBlankBlock({
-  items,
+  items = [],
   textStyle = {},
   textBackgroundStyle = {},
   placeholder = '___',
