@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Plus, Trash2, AlignLeft, AlignCenter, AlignRight, AlignVerticalJustifyStart, AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, X, Type } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { Plus, Trash2, AlignLeft, AlignCenter, AlignRight, AlignVerticalJustifyStart, AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, X } from 'lucide-react';
 import { EditableText } from '@/app/project/[courseKey]/_components/EditableText';
 import { type TablePreset } from './TableStylePresetsModal';
 import { ColorPicker } from '@/app/components/ColorPicker';
@@ -91,20 +92,33 @@ export function EditableTableBlock({ content, onDataChange }: { content: Record<
     onDataChange({ ...content, cellStyles: newCellStyles });
   }, [cellStyles, content, onDataChange]);
 
-  // Position toolbar near selected cell
+  // Position toolbar near selected cell — using viewport coords for portal
   useEffect(() => {
     if (!selectedCell || !containerRef.current) {
       setToolbarPos(null);
       return;
     }
     const cellEl = containerRef.current.querySelector(`[data-cell="${selectedCell.r}-${selectedCell.c}"]`) as HTMLElement | null;
-    if (!cellEl || !containerRef.current) { setToolbarPos(null); return; }
-    const containerRect = containerRef.current.getBoundingClientRect();
+    if (!cellEl) { setToolbarPos(null); return; }
     const cellRect = cellEl.getBoundingClientRect();
     setToolbarPos({
-      top: cellRect.top - containerRect.top - 36,
-      left: cellRect.left - containerRect.left,
+      top: cellRect.top - 36,
+      left: cellRect.left,
     });
+  }, [selectedCell]);
+
+  // Reposition toolbar on scroll
+  useEffect(() => {
+    if (!selectedCell) return;
+    const reposition = () => {
+      if (!containerRef.current) return;
+      const cellEl = containerRef.current.querySelector(`[data-cell="${selectedCell.r}-${selectedCell.c}"]`) as HTMLElement | null;
+      if (!cellEl) return;
+      const cellRect = cellEl.getBoundingClientRect();
+      setToolbarPos({ top: cellRect.top - 36, left: cellRect.left });
+    };
+    window.addEventListener('scroll', reposition, true);
+    return () => window.removeEventListener('scroll', reposition, true);
   }, [selectedCell]);
 
   // Close cell selection on click outside
@@ -135,123 +149,125 @@ export function EditableTableBlock({ content, onDataChange }: { content: Record<
 
   const getCellStyle = (r: number, c: number): CellStyle => cellStyles[`${r}-${c}`] || {};
 
+  // Render toolbar via portal so it escapes overflow-x-auto
+  const toolbar = selectedCell && toolbarPos ? createPortal(
+    <div
+      ref={toolbarRef}
+      className="fixed flex items-center gap-0.5 px-1.5 py-1 bg-white border border-gray-200 rounded-lg shadow-lg"
+      style={{ top: Math.max(0, toolbarPos.top), left: Math.max(0, toolbarPos.left), zIndex: 9999 }}
+    >
+      {/* Cell background color */}
+      <div className="relative">
+        <button
+          onClick={() => { setShowCellBgPicker(!showCellBgPicker); setShowCellTextPicker(false); }}
+          title="Cell background"
+          className="w-6 h-6 rounded flex items-center justify-center hover:bg-gray-100 transition-colors"
+        >
+          <div className="w-4 h-4 rounded border border-gray-300" style={{ backgroundColor: getCellStyle(selectedCell.r, selectedCell.c).bg || 'transparent' }} />
+        </button>
+        {showCellBgPicker && (
+          <ColorPicker
+            selectedColor={getCellStyle(selectedCell.r, selectedCell.c).bg}
+            onSelect={(color) => { updateCellStyle(selectedCell.r, selectedCell.c, { bg: color }); setShowCellBgPicker(false); }}
+            onClose={() => setShowCellBgPicker(false)}
+            position="bottom"
+          />
+        )}
+      </div>
+      {/* Cell text color */}
+      <div className="relative">
+        <button
+          onClick={() => { setShowCellTextPicker(!showCellTextPicker); setShowCellBgPicker(false); }}
+          title="Cell text color"
+          className="w-6 h-6 rounded flex items-center justify-center hover:bg-gray-100 transition-colors"
+        >
+          <div className="w-4 h-4 rounded-full border border-gray-300" style={{ backgroundColor: getCellStyle(selectedCell.r, selectedCell.c).color || '#000' }} />
+        </button>
+        {showCellTextPicker && (
+          <ColorPicker
+            selectedColor={getCellStyle(selectedCell.r, selectedCell.c).color}
+            onSelect={(color) => { updateCellStyle(selectedCell.r, selectedCell.c, { color }); setShowCellTextPicker(false); }}
+            onClose={() => setShowCellTextPicker(false)}
+            position="bottom"
+          />
+        )}
+      </div>
+      <div className="w-px h-4 bg-gray-200 mx-0.5" />
+      {/* Font size */}
+      {CELL_FONT_SIZES.map(fs => {
+        const isActive = getCellStyle(selectedCell.r, selectedCell.c).fontSize === fs.value;
+        return (
+          <button
+            key={fs.value}
+            onClick={() => updateCellStyle(selectedCell.r, selectedCell.c, { fontSize: isActive ? undefined : fs.value })}
+            title={`Font size ${fs.label}`}
+            className={`w-6 h-6 rounded flex items-center justify-center text-[10px] font-semibold transition-colors ${isActive ? 'bg-[#9F80DA]/15 text-[#9F80DA]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'}`}
+          >
+            {fs.label}
+          </button>
+        );
+      })}
+      <div className="w-px h-4 bg-gray-200 mx-0.5" />
+      {/* Horizontal alignment */}
+      {([
+        { align: 'left' as const, Icon: AlignLeft },
+        { align: 'center' as const, Icon: AlignCenter },
+        { align: 'right' as const, Icon: AlignRight },
+      ]).map(({ align, Icon }) => {
+        const isActive = (getCellStyle(selectedCell.r, selectedCell.c).textAlign || 'left') === align;
+        return (
+          <button
+            key={align}
+            onClick={() => updateCellStyle(selectedCell.r, selectedCell.c, { textAlign: align })}
+            title={`Align ${align}`}
+            className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${isActive ? 'bg-[#9F80DA]/15 text-[#9F80DA]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'}`}
+          >
+            <Icon className="w-3 h-3" />
+          </button>
+        );
+      })}
+      <div className="w-px h-4 bg-gray-200 mx-0.5" />
+      {/* Vertical alignment */}
+      {([
+        { align: 'top' as const, Icon: AlignVerticalJustifyStart, label: 'Top' },
+        { align: 'middle' as const, Icon: AlignVerticalJustifyCenter, label: 'Middle' },
+        { align: 'bottom' as const, Icon: AlignVerticalJustifyEnd, label: 'Bottom' },
+      ]).map(({ align, Icon, label }) => {
+        const isActive = (getCellStyle(selectedCell.r, selectedCell.c).verticalAlign || 'top') === align;
+        return (
+          <button
+            key={align}
+            onClick={() => updateCellStyle(selectedCell.r, selectedCell.c, { verticalAlign: align })}
+            title={`Vertical align ${label}`}
+            className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${isActive ? 'bg-[#9F80DA]/15 text-[#9F80DA]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'}`}
+          >
+            <Icon className="w-3 h-3" />
+          </button>
+        );
+      })}
+      <div className="w-px h-4 bg-gray-200 mx-0.5" />
+      {/* Clear */}
+      {Object.keys(getCellStyle(selectedCell.r, selectedCell.c)).length > 0 && (
+        <button
+          onClick={() => {
+            const key = `${selectedCell.r}-${selectedCell.c}`;
+            const newCellStyles = { ...cellStyles };
+            delete newCellStyles[key];
+            onDataChange({ ...content, cellStyles: newCellStyles });
+          }}
+          title="Clear cell styles"
+          className="w-6 h-6 rounded flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+        >
+          <X className="w-3 h-3" />
+        </button>
+      )}
+    </div>,
+    document.body,
+  ) : null;
+
   return (
     <div ref={containerRef} className="w-full p-4 rounded-lg overflow-x-auto relative">
-      {/* Floating cell style toolbar — positioned absolutely near selected cell */}
-      {selectedCell && toolbarPos && (
-        <div
-          ref={toolbarRef}
-          className="absolute flex items-center gap-0.5 px-1.5 py-1 bg-white border border-gray-200 rounded-lg shadow-lg z-[90]"
-          style={{ top: Math.max(0, toolbarPos.top), left: Math.max(0, toolbarPos.left) }}
-        >
-          {/* Cell background color */}
-          <div className="relative">
-            <button
-              onClick={() => { setShowCellBgPicker(!showCellBgPicker); setShowCellTextPicker(false); }}
-              title="Cell background"
-              className="w-6 h-6 rounded flex items-center justify-center hover:bg-gray-100 transition-colors"
-            >
-              <div className="w-4 h-4 rounded border border-gray-300" style={{ backgroundColor: getCellStyle(selectedCell.r, selectedCell.c).bg || 'transparent' }} />
-            </button>
-            {showCellBgPicker && (
-              <ColorPicker
-                selectedColor={getCellStyle(selectedCell.r, selectedCell.c).bg}
-                onSelect={(color) => { updateCellStyle(selectedCell.r, selectedCell.c, { bg: color }); setShowCellBgPicker(false); }}
-                onClose={() => setShowCellBgPicker(false)}
-                position="bottom"
-              />
-            )}
-          </div>
-          {/* Cell text color */}
-          <div className="relative">
-            <button
-              onClick={() => { setShowCellTextPicker(!showCellTextPicker); setShowCellBgPicker(false); }}
-              title="Cell text color"
-              className="w-6 h-6 rounded flex items-center justify-center hover:bg-gray-100 transition-colors"
-            >
-              <div className="w-4 h-4 rounded-full border border-gray-300" style={{ backgroundColor: getCellStyle(selectedCell.r, selectedCell.c).color || '#000' }} />
-            </button>
-            {showCellTextPicker && (
-              <ColorPicker
-                selectedColor={getCellStyle(selectedCell.r, selectedCell.c).color}
-                onSelect={(color) => { updateCellStyle(selectedCell.r, selectedCell.c, { color }); setShowCellTextPicker(false); }}
-                onClose={() => setShowCellTextPicker(false)}
-                position="bottom"
-              />
-            )}
-          </div>
-          <div className="w-px h-4 bg-gray-200 mx-0.5" />
-          {/* Font size */}
-          {CELL_FONT_SIZES.map(fs => {
-            const isActive = getCellStyle(selectedCell.r, selectedCell.c).fontSize === fs.value;
-            return (
-              <button
-                key={fs.value}
-                onClick={() => updateCellStyle(selectedCell.r, selectedCell.c, { fontSize: isActive ? undefined : fs.value })}
-                title={`Font size ${fs.label}`}
-                className={`w-6 h-6 rounded flex items-center justify-center text-[10px] font-semibold transition-colors ${isActive ? 'bg-[#9F80DA]/15 text-[#9F80DA]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'}`}
-              >
-                {fs.label}
-              </button>
-            );
-          })}
-          <div className="w-px h-4 bg-gray-200 mx-0.5" />
-          {/* Horizontal alignment */}
-          {([
-            { align: 'left' as const, Icon: AlignLeft },
-            { align: 'center' as const, Icon: AlignCenter },
-            { align: 'right' as const, Icon: AlignRight },
-          ]).map(({ align, Icon }) => {
-            const isActive = (getCellStyle(selectedCell.r, selectedCell.c).textAlign || 'left') === align;
-            return (
-              <button
-                key={align}
-                onClick={() => updateCellStyle(selectedCell.r, selectedCell.c, { textAlign: align })}
-                title={`Align ${align}`}
-                className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${isActive ? 'bg-[#9F80DA]/15 text-[#9F80DA]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'}`}
-              >
-                <Icon className="w-3 h-3" />
-              </button>
-            );
-          })}
-          <div className="w-px h-4 bg-gray-200 mx-0.5" />
-          {/* Vertical alignment */}
-          {([
-            { align: 'top' as const, Icon: AlignVerticalJustifyStart, label: 'Top' },
-            { align: 'middle' as const, Icon: AlignVerticalJustifyCenter, label: 'Middle' },
-            { align: 'bottom' as const, Icon: AlignVerticalJustifyEnd, label: 'Bottom' },
-          ]).map(({ align, Icon, label }) => {
-            const isActive = (getCellStyle(selectedCell.r, selectedCell.c).verticalAlign || 'top') === align;
-            return (
-              <button
-                key={align}
-                onClick={() => updateCellStyle(selectedCell.r, selectedCell.c, { verticalAlign: align })}
-                title={`Vertical align ${label}`}
-                className={`w-6 h-6 rounded flex items-center justify-center transition-colors ${isActive ? 'bg-[#9F80DA]/15 text-[#9F80DA]' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-700'}`}
-              >
-                <Icon className="w-3 h-3" />
-              </button>
-            );
-          })}
-          <div className="w-px h-4 bg-gray-200 mx-0.5" />
-          {/* Clear */}
-          {Object.keys(getCellStyle(selectedCell.r, selectedCell.c)).length > 0 && (
-            <button
-              onClick={() => {
-                const key = `${selectedCell.r}-${selectedCell.c}`;
-                const newCellStyles = { ...cellStyles };
-                delete newCellStyles[key];
-                onDataChange({ ...content, cellStyles: newCellStyles });
-              }}
-              title="Clear cell styles"
-              className="w-6 h-6 rounded flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-            >
-              <X className="w-3 h-3" />
-            </button>
-          )}
-        </div>
-      )}
-
+      {toolbar}
       <table ref={tableRef} className="w-full border-collapse" style={{ color: cellTextColor || 'var(--block-text-color, inherit)', fontSize, border: borderStyle }}>
         {headerRow && tableContent.length > 0 && (
           <thead>
@@ -277,7 +293,7 @@ export function EditableTableBlock({ content, onDataChange }: { content: Record<
                   <Plus className="w-3.5 h-3.5" />
                 </button>
               </th>
-              {/* Delete row — no table styling */}
+              {/* Delete row */}
               <th className="w-8 px-1 align-middle" style={{ border: 'none', background: 'none' }}>
                 {rows > 1 && (
                   deleteConfirmRow === 0 ? (

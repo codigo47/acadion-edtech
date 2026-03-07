@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { X, Link, Image as ImageIcon, Crop } from 'lucide-react';
 import { ImageCropModal } from './ImageCropModal';
-import type { Area } from 'react-easy-crop';
 
 const PLACEHOLDER_IMAGES = [
   'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop',
@@ -44,7 +43,7 @@ export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerM
     setCropImage(url);
   }, []);
 
-  const handleCropComplete = useCallback((croppedArea: Area, croppedDataUrl?: string) => {
+  const handleCropComplete = useCallback((croppedArea: { x: number; y: number; width: number; height: number }, croppedDataUrl?: string) => {
     if (cropImage) {
       onSelect(croppedDataUrl || cropImage, {
         x: croppedArea.x,

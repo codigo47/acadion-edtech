@@ -1,37 +1,34 @@
 'use client';
 
 import { useState, useCallback, useEffect, useRef } from 'react';
-import Cropper from 'react-easy-crop';
-import type { Area, Point } from 'react-easy-crop';
-import { X, ZoomIn, ZoomOut, RotateCw } from 'lucide-react';
+import ReactCrop, { type Crop, type PixelCrop, centerCrop, makeAspectCrop } from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+import { X, Crop as CropIcon, RotateCw } from 'lucide-react';
+
+interface CropArea {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
 
 interface ImageCropModalProps {
   imageUrl: string;
   aspectRatio?: number;
-  onCropComplete: (croppedArea: Area, croppedDataUrl?: string) => void;
+  onCropComplete: (croppedArea: CropArea, croppedDataUrl?: string) => void;
   onClose: () => void;
   onSkipCrop?: () => void;
 }
 
 const ASPECT_PRESETS = [
-  { label: 'Free', value: undefined },
+  { label: 'Free', value: 0 },
   { label: '16:9', value: 16 / 9 },
   { label: '4:3', value: 4 / 3 },
   { label: '1:1', value: 1 },
   { label: '3:4', value: 3 / 4 },
 ] as const;
 
-const ROTATION_STEPS = [0, 90, 180, 270] as const;
-
-async function getCroppedImg(imageSrc: string, pixelCrop: Area, rotation = 0): Promise<string> {
-  const image = new Image();
-  image.crossOrigin = 'anonymous';
-  await new Promise<void>((resolve, reject) => {
-    image.onload = () => resolve();
-    image.onerror = reject;
-    image.src = imageSrc;
-  });
-
+function getCroppedImg(image: HTMLImageElement, pixelCrop: PixelCrop, rotation = 0): string {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
   if (!ctx) throw new Error('No canvas context');
@@ -39,43 +36,46 @@ async function getCroppedImg(imageSrc: string, pixelCrop: Area, rotation = 0): P
   const radians = (rotation * Math.PI) / 180;
   const sin = Math.abs(Math.sin(radians));
   const cos = Math.abs(Math.cos(radians));
-  const bBoxWidth = image.width * cos + image.height * sin;
-  const bBoxHeight = image.width * sin + image.height * cos;
+  const bBoxWidth = image.naturalWidth * cos + image.naturalHeight * sin;
+  const bBoxHeight = image.naturalWidth * sin + image.naturalHeight * cos;
 
-  canvas.width = bBoxWidth;
-  canvas.height = bBoxHeight;
-  ctx.translate(bBoxWidth / 2, bBoxHeight / 2);
-  ctx.rotate(radians);
-  ctx.translate(-image.width / 2, -image.height / 2);
-  ctx.drawImage(image, 0, 0);
+  // Draw rotated full image onto temp canvas
+  const tempCanvas = document.createElement('canvas');
+  const tempCtx = tempCanvas.getContext('2d');
+  if (!tempCtx) throw new Error('No canvas context');
+  tempCanvas.width = bBoxWidth;
+  tempCanvas.height = bBoxHeight;
+  tempCtx.translate(bBoxWidth / 2, bBoxHeight / 2);
+  tempCtx.rotate(radians);
+  tempCtx.translate(-image.naturalWidth / 2, -image.naturalHeight / 2);
+  tempCtx.drawImage(image, 0, 0);
 
-  const croppedCanvas = document.createElement('canvas');
-  const croppedCtx = croppedCanvas.getContext('2d');
-  if (!croppedCtx) throw new Error('No canvas context');
+  // Scale pixel crop from displayed size to natural size
+  const scaleX = (rotation % 180 === 0 ? image.naturalWidth : bBoxWidth) / image.width;
+  const scaleY = (rotation % 180 === 0 ? image.naturalHeight : bBoxHeight) / image.height;
+  const sx = pixelCrop.x * scaleX;
+  const sy = pixelCrop.y * scaleY;
+  const sw = pixelCrop.width * scaleX;
+  const sh = pixelCrop.height * scaleY;
 
-  croppedCanvas.width = pixelCrop.width;
-  croppedCanvas.height = pixelCrop.height;
-  croppedCtx.drawImage(
-    canvas,
-    pixelCrop.x,
-    pixelCrop.y,
-    pixelCrop.width,
-    pixelCrop.height,
-    0,
-    0,
-    pixelCrop.width,
-    pixelCrop.height,
-  );
+  canvas.width = sw;
+  canvas.height = sh;
 
-  return croppedCanvas.toDataURL('image/jpeg', 0.9);
+  if (rotation === 0) {
+    ctx.drawImage(image, sx, sy, sw, sh, 0, 0, sw, sh);
+  } else {
+    ctx.drawImage(tempCanvas, sx, sy, sw, sh, 0, 0, sw, sh);
+  }
+
+  return canvas.toDataURL('image/jpeg', 0.9);
 }
 
 export function ImageCropModal({ imageUrl, aspectRatio: initialAspect, onCropComplete, onClose, onSkipCrop }: ImageCropModalProps) {
-  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
-  const [zoom, setZoom] = useState(1);
+  const [crop, setCrop] = useState<Crop>();
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [rotation, setRotation] = useState(0);
-  const [aspect, setAspect] = useState<number | undefined>(initialAspect);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
+  const [activeAspect, setActiveAspect] = useState(initialAspect || 0);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -85,135 +85,170 @@ export function ImageCropModal({ imageUrl, aspectRatio: initialAspect, onCropCom
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  const onCropChange = useCallback((location: Point) => {
-    setCrop(location);
-  }, []);
+  const onImageLoad = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+    const { width, height } = e.currentTarget;
+    const aspect = activeAspect || undefined;
 
-  const onZoomChange = useCallback((z: number) => {
-    setZoom(z);
-  }, []);
+    const initialCrop = centerCrop(
+      makeAspectCrop(
+        { unit: '%', width: 80 },
+        aspect || width / height,
+        width,
+        height,
+      ),
+      width,
+      height,
+    );
+    setCrop(initialCrop);
+  }, [activeAspect]);
 
-  const onCropAreaComplete = useCallback((_croppedArea: Area, croppedPixels: Area) => {
-    setCroppedAreaPixels(croppedPixels);
+  const handleAspectChange = useCallback((value: number) => {
+    setActiveAspect(value);
+    if (imgRef.current) {
+      const { width, height } = imgRef.current;
+      const aspect = value || undefined;
+      const newCrop = centerCrop(
+        makeAspectCrop(
+          { unit: '%', width: 80 },
+          aspect || width / height,
+          width,
+          height,
+        ),
+        width,
+        height,
+      );
+      setCrop(newCrop);
+    }
   }, []);
 
   const handleRotate = useCallback(() => {
-    setRotation((prev) => {
-      const currentIndex = ROTATION_STEPS.indexOf(prev as typeof ROTATION_STEPS[number]);
-      const nextIndex = (currentIndex + 1) % ROTATION_STEPS.length;
-      return ROTATION_STEPS[nextIndex];
-    });
+    setRotation((prev) => (prev + 90) % 360);
   }, []);
 
-  const handleApply = useCallback(async () => {
-    if (croppedAreaPixels) {
+  const handleApply = useCallback(() => {
+    if (completedCrop && imgRef.current) {
       try {
-        const dataUrl = await getCroppedImg(imageUrl, croppedAreaPixels, rotation);
-        onCropComplete(croppedAreaPixels, dataUrl);
+        const dataUrl = getCroppedImg(imgRef.current, completedCrop, rotation);
+        const area: CropArea = {
+          x: completedCrop.x,
+          y: completedCrop.y,
+          width: completedCrop.width,
+          height: completedCrop.height,
+        };
+        onCropComplete(area, dataUrl);
       } catch {
-        onCropComplete(croppedAreaPixels);
+        if (completedCrop) {
+          onCropComplete({
+            x: completedCrop.x,
+            y: completedCrop.y,
+            width: completedCrop.width,
+            height: completedCrop.height,
+          });
+        }
       }
     }
-  }, [croppedAreaPixels, imageUrl, rotation, onCropComplete]);
+  }, [completedCrop, imgRef, rotation, onCropComplete]);
+
+  const cropAspect = activeAspect === 0 ? undefined : activeAspect;
 
   return (
-    <div className="fixed inset-0 z-[80] flex flex-col">
-      {/* Dark backdrop */}
-      <div className="absolute inset-0 bg-gray-900/95" />
+    <div className="fixed inset-0 z-[80] flex items-center justify-center">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
-      {/* Cropper area — takes all available space */}
-      <div className="relative flex-1 min-h-0">
-        <Cropper
-          image={imageUrl}
-          crop={crop}
-          zoom={zoom}
-          rotation={rotation}
-          aspect={aspect}
-          onCropChange={onCropChange}
-          onZoomChange={onZoomChange}
-          onCropComplete={onCropAreaComplete}
-        />
-      </div>
-
-      {/* Bottom controls bar — all buttons together */}
-      <div className="relative bg-gray-800 border-t border-white/10 px-6 py-4">
-        <div className="flex items-center gap-4">
-          {/* Zoom */}
+      <div className="relative w-full max-w-3xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden mx-4 flex flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
           <div className="flex items-center gap-2">
-            <ZoomOut className="w-4 h-4 text-gray-400 flex-shrink-0" />
-            <input
-              type="range"
-              min={1}
-              max={3}
-              step={0.05}
-              value={zoom}
-              onChange={(e) => setZoom(Number(e.target.value))}
-              className="w-24 h-1.5 bg-gray-600 rounded-full appearance-none cursor-pointer
-                [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4
-                [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#9F80DA]
-                [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md
-                [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full
-                [&::-moz-range-thumb]:bg-[#9F80DA] [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-0"
-            />
-            <ZoomIn className="w-4 h-4 text-gray-400 flex-shrink-0" />
-            <span className="text-xs text-gray-400 w-8 tabular-nums">{zoom.toFixed(1)}x</span>
+            <CropIcon className="w-5 h-5 text-[#9F80DA]" />
+            <h3 className="text-lg font-semibold text-gray-900">Crop Image</h3>
           </div>
-
-          <div className="w-px h-6 bg-white/10" />
-
-          {/* Rotation */}
           <button
-            onClick={handleRotate}
-            title={`Rotation: ${rotation}°`}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-700 hover:bg-gray-600 text-gray-300 hover:text-white transition-colors text-sm"
+            onClick={onClose}
+            className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-500"
           >
-            <RotateCw className="w-4 h-4" />
-            {rotation}°
+            <X className="w-5 h-5" />
           </button>
+        </div>
 
-          <div className="w-px h-6 bg-white/10" />
+        {/* Cropper area */}
+        <div className="flex-1 overflow-auto flex items-center justify-center bg-gray-100 p-4" style={{ maxHeight: 450 }}>
+          <ReactCrop
+            crop={crop}
+            onChange={(_, percentCrop) => setCrop(percentCrop)}
+            onComplete={(c) => setCompletedCrop(c)}
+            aspect={cropAspect}
+            className="max-h-full"
+          >
+            <img
+              ref={imgRef}
+              src={imageUrl}
+              alt="Crop"
+              onLoad={onImageLoad}
+              crossOrigin="anonymous"
+              style={{
+                maxHeight: 420,
+                transform: rotation ? `rotate(${rotation}deg)` : undefined,
+              }}
+            />
+          </ReactCrop>
+        </div>
 
-          {/* Aspect presets */}
-          <div className="flex items-center gap-1">
-            {ASPECT_PRESETS.map((preset) => (
-              <button
-                key={preset.label}
-                onClick={() => setAspect(preset.value)}
-                className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${
-                  aspect === preset.value
-                    ? 'bg-[#9F80DA] text-white'
-                    : 'bg-gray-700 text-gray-400 hover:bg-gray-600 hover:text-gray-300'
-                }`}
-              >
-                {preset.label}
-              </button>
-            ))}
+        {/* Controls */}
+        <div className="px-6 py-3 border-t border-gray-200">
+          <div className="flex items-center gap-4 flex-wrap">
+            {/* Rotation */}
+            <button
+              onClick={handleRotate}
+              title={`Rotation: ${rotation}°`}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-600 hover:text-gray-800 transition-colors text-sm"
+            >
+              <RotateCw className="w-4 h-4" />
+              {rotation}°
+            </button>
+
+            <div className="w-px h-5 bg-gray-200" />
+
+            {/* Aspect presets */}
+            <div className="flex items-center gap-1">
+              {ASPECT_PRESETS.map((preset) => (
+                <button
+                  key={preset.label}
+                  onClick={() => handleAspectChange(preset.value)}
+                  className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${
+                    activeAspect === preset.value
+                      ? 'bg-[#9F80DA] text-white'
+                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-700'
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
           </div>
+        </div>
 
-          {/* Spacer */}
-          <div className="flex-1" />
-
-          {/* Action buttons */}
+        {/* Footer buttons */}
+        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200">
           {onSkipCrop && (
             <button
               onClick={onSkipCrop}
-              className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             >
               Use as is
             </button>
           )}
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors"
+            className="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
           >
             Cancel
           </button>
           <button
             onClick={handleApply}
-            disabled={!croppedAreaPixels}
+            disabled={!completedCrop}
             className="px-5 py-2 text-sm font-medium text-white bg-[#9F80DA] hover:bg-[#8A6BC5] rounded-lg transition-colors disabled:opacity-50"
           >
-            Apply
+            Apply Crop
           </button>
         </div>
       </div>

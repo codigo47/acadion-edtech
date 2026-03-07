@@ -273,16 +273,17 @@ export function BlockFooter({
         )}
 
         {/* Table style presets button */}
+        {isTable && content && onDataChange && showTextControls && (
+          <div className="w-px h-4 bg-gray-200 mx-1" />
+        )}
         {isTable && content && onDataChange && (
           <div className="relative">
-            {showTextControls && <div className="w-px h-4 bg-gray-200 mx-1" />}
             <button
               onClick={() => setShowTablePresets(!showTablePresets)}
               title="Table style presets"
               className="h-6 px-1.5 flex items-center gap-1 rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
             >
               <Palette className="w-3.5 h-3.5" />
-              <span className="text-[10px] font-semibold leading-none">Style</span>
             </button>
             {showTablePresets && (
               <TableStylePresetsModal
