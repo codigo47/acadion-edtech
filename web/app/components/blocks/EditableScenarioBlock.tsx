@@ -259,7 +259,7 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
             )}
           </div>
         ))}
-        <div onClick={addAnswer} className="p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]">New answer...</div>
+        <div key="add-answer" onClick={addAnswer} className="p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]">New answer...</div>
       </div>
 
       {/* Feedback */}
