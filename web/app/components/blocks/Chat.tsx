@@ -44,8 +44,10 @@ export default function Chat({
   textStyle = {},
   dark = false,
 }: ChatProps) {
-  const getParticipant = (id: 'sender' | 'receiver') => {
-    return id === 'sender' ? sender : receiver;
+  const getParticipant = (id: string): ChatParticipant => {
+    if (id === 'sender') return sender;
+    if (id === 'receiver') return receiver;
+    return { name: id || 'Unknown' };
   };
 
   return (

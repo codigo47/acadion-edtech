@@ -46,9 +46,9 @@ export default function ReviewsBlock({
   return (
     <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
       <div className="space-y-4">
-        {reviews.map((review) => (
+        {reviews.map((review, index) => (
           <div
-            key={review.id}
+            key={review.id || index}
             className={`p-4 rounded-lg border ${
               dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
             }`}
