@@ -3,6 +3,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import { X, Link, Image as ImageIcon, Crop } from 'lucide-react';
 import { ImageCropModal } from './ImageCropModal';
+import { useUploadImage } from '@/lib/hooks/use-upload';
+import { useToast } from '@/app/components/ToastProvider';
+
+function dataUrlToBlob(dataUrl: string): Blob {
+  const [header, base64] = dataUrl.split(',');
+  const mime = header.match(/:(.*?);/)?.[1] || 'image/jpeg';
+  const bytes = atob(base64);
+  const array = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) {
+    array[i] = bytes.charCodeAt(i);
+  }
+  return new Blob([array], { type: mime });
+}
 
 const PLACEHOLDER_IMAGES = [
   'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop',
@@ -24,6 +37,9 @@ interface ImagePickerModalProps {
 export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerModalProps) {
   const [urlInput, setUrlInput] = useState(currentUrl || '');
   const [cropImage, setCropImage] = useState<string | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const uploadImage = useUploadImage();
+  const { showToast } = useToast();
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -43,17 +59,42 @@ export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerM
     setCropImage(url);
   }, []);
 
-  const handleCropComplete = useCallback((croppedArea: { x: number; y: number; width: number; height: number }, croppedDataUrl?: string) => {
-    if (cropImage) {
-      onSelect(croppedDataUrl || cropImage, {
-        x: croppedArea.x,
-        y: croppedArea.y,
-        width: croppedArea.width,
-        height: croppedArea.height,
-      });
-      onClose();
+  const handleCropComplete = useCallback(async (
+    croppedArea: { x: number; y: number; width: number; height: number },
+    croppedDataUrl?: string,
+  ) => {
+    if (!cropImage) return;
+
+    const imageToUse = croppedDataUrl || cropImage;
+
+    if (imageToUse.startsWith('data:')) {
+      setIsUploading(true);
+      try {
+        const blob = dataUrlToBlob(imageToUse);
+        const { url } = await uploadImage.mutateAsync(blob);
+        onSelect(url, {
+          x: croppedArea.x,
+          y: croppedArea.y,
+          width: croppedArea.width,
+          height: croppedArea.height,
+        });
+        onClose();
+      } catch {
+        showToast('Failed to upload image', 'error');
+      } finally {
+        setIsUploading(false);
+      }
+      return;
     }
-  }, [cropImage, onSelect, onClose]);
+
+    onSelect(imageToUse, {
+      x: croppedArea.x,
+      y: croppedArea.y,
+      width: croppedArea.width,
+      height: croppedArea.height,
+    });
+    onClose();
+  }, [cropImage, onSelect, onClose, uploadImage, showToast]);
 
   const handleSkipCrop = useCallback(() => {
     if (cropImage) {
@@ -70,6 +111,7 @@ export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerM
         onCropComplete={handleCropComplete}
         onClose={() => setCropImage(null)}
         onSkipCrop={handleSkipCrop}
+        isUploading={isUploading}
       />
     );
   }

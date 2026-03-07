@@ -18,6 +18,7 @@ interface ImageCropModalProps {
   onCropComplete: (croppedArea: CropArea, croppedDataUrl?: string) => void;
   onClose: () => void;
   onSkipCrop?: () => void;
+  isUploading?: boolean;
 }
 
 const ASPECT_PRESETS = [
@@ -70,7 +71,7 @@ function getCroppedImg(image: HTMLImageElement, pixelCrop: PixelCrop, rotation =
   return canvas.toDataURL('image/jpeg', 0.9);
 }
 
-export function ImageCropModal({ imageUrl, aspectRatio: initialAspect, onCropComplete, onClose, onSkipCrop }: ImageCropModalProps) {
+export function ImageCropModal({ imageUrl, aspectRatio: initialAspect, onCropComplete, onClose, onSkipCrop, isUploading }: ImageCropModalProps) {
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
   const [rotation, setRotation] = useState(0);
@@ -245,10 +246,10 @@ export function ImageCropModal({ imageUrl, aspectRatio: initialAspect, onCropCom
           </button>
           <button
             onClick={handleApply}
-            disabled={!completedCrop}
+            disabled={!completedCrop || isUploading}
             className="px-5 py-2 text-sm font-medium text-white bg-[#9F80DA] hover:bg-[#8A6BC5] rounded-lg transition-colors disabled:opacity-50"
           >
-            Apply Crop
+            {isUploading ? 'Uploading...' : 'Apply Crop'}
           </button>
         </div>
       </div>
