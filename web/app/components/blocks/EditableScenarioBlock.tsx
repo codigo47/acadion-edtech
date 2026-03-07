@@ -239,8 +239,8 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
 
       {/* Answers — always left-aligned */}
       <div className="space-y-2">
-        {answers.map(ans => (
-          <div key={ans.id} className="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-lg hover:border-gray-300">
+        {answers.map((ans, index) => (
+          <div key={ans.id || index} className="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-lg hover:border-gray-300">
             <button onClick={() => updateAnswer(ans.id, 'isCorrect', !ans.isCorrect)} className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${ans.isCorrect ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300'}`}>
               {ans.isCorrect && <Check className="w-3 h-3" />}
             </button>
