@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGenerateTitle, useCourse, useSetAudience, useSetObjective, useSetBuildingMethod, useSetModules, useSetUnits, useGetExerciseTypes, useSetEvaluation, useSetEvaluationDetails, useSetBranding, useGenerateCourse, useCourseComponents } from '../../../lib/hooks/use-course';
-import { Loader2, Check, AlertCircle, MessageSquare, PanelRightClose, PanelRightOpen } from 'lucide-react';
+import { Loader2, Check, AlertCircle, MessageSquare, PanelRightClose, PanelRightOpen, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useUser } from '../../../lib/hooks/use-auth';
 import { useCourseSSE, type ProposedIndex as SSEProposedIndex, type SSEEventData, type UnitStatus } from '../../../lib/hooks/use-course-sse';
 import StarLoader from '../../components/loaders/StarLoader';
@@ -31,6 +31,7 @@ import { CompletionPopup } from './_components/CompletionPopup';
 import { EditorContent, type SaveStatus } from './_components/EditorContent';
 import { getBlockMeta } from './_components/block-metadata';
 import { CustomScrollbar } from '../../components/CustomScrollbar';
+import { useReorderComponents } from '../../../lib/hooks/use-course-editor';
 
 export default function ProjectPage() {
   const params = useParams();
@@ -40,7 +41,7 @@ export default function ProjectPage() {
   const fromDashboard = searchParams.get('from') === 'dashboard';
   const { user } = useUser();
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [prompt, setPrompt] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [isLoadingCourse, setIsLoadingCourse] = useState(true);
@@ -133,6 +134,80 @@ export default function ProjectPage() {
   const generateCourseMutation = useGenerateCourse();
   const { data: courseData, isLoading: isCourseLoading } = useCourse(courseKey);
   const { data: courseComponentsData } = useCourseComponents(courseKey);
+  const reorderComponents = useReorderComponents(courseKey);
+
+  // Sidebar drag-and-drop state
+  const [sidebarDragId, setSidebarDragId] = useState<number | null>(null);
+  const [sidebarDropTarget, setSidebarDropTarget] = useState<{ id: number; position: 'before' | 'after' } | null>(null);
+
+  const handleSidebarDragStart = useCallback((e: React.DragEvent, compId: number) => {
+    setSidebarDragId(compId);
+    e.dataTransfer.effectAllowed = 'move';
+    // Create a ghost element
+    const ghost = document.createElement('div');
+    ghost.className = 'fixed bg-white border border-[#9F80DA] rounded px-2 py-1 text-xs text-[#9F80DA] shadow-lg pointer-events-none';
+    ghost.textContent = 'Moving...';
+    ghost.style.top = '-1000px';
+    document.body.appendChild(ghost);
+    e.dataTransfer.setDragImage(ghost, 0, 0);
+    requestAnimationFrame(() => document.body.removeChild(ghost));
+  }, []);
+
+  const handleSidebarDragOver = useCallback((e: React.DragEvent, compId: number) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (sidebarDragId === null || sidebarDragId === compId) {
+      setSidebarDropTarget(null);
+      return;
+    }
+    // Determine position (before/after) based on mouse Y within the element
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const midY = rect.top + rect.height / 2;
+    const position = e.clientY < midY ? 'before' : 'after';
+    setSidebarDropTarget({ id: compId, position });
+  }, [sidebarDragId]);
+
+  const handleSidebarDrop = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    if (sidebarDragId === null || !sidebarDropTarget || !courseComponentsData?.components) {
+      setSidebarDragId(null);
+      setSidebarDropTarget(null);
+      return;
+    }
+
+    const allComps = courseComponentsData.components as Array<{ id: number; module: number; unit: number; sequence: number }>;
+    const draggedComp = allComps.find(c => c.id === sidebarDragId);
+    const targetComp = allComps.find(c => c.id === sidebarDropTarget.id);
+
+    if (!draggedComp || !targetComp || draggedComp.module !== targetComp.module || draggedComp.unit !== targetComp.unit) {
+      // Only allow reorder within the same unit
+      setSidebarDragId(null);
+      setSidebarDropTarget(null);
+      return;
+    }
+
+    const unitComps = allComps
+      .filter(c => c.module === draggedComp.module && c.unit === draggedComp.unit)
+      .sort((a, b) => a.sequence - b.sequence);
+
+    // Remove dragged from array
+    const without = unitComps.filter(c => c.id !== sidebarDragId);
+    // Find target index
+    const targetIdx = without.findIndex(c => c.id === sidebarDropTarget.id);
+    const insertIdx = sidebarDropTarget.position === 'after' ? targetIdx + 1 : targetIdx;
+    without.splice(insertIdx, 0, draggedComp);
+
+    const reorderItems = without.map((c, idx) => ({ id: c.id, sequence: idx + 1 }));
+    reorderComponents.mutate({ courseKey, components: reorderItems });
+
+    setSidebarDragId(null);
+    setSidebarDropTarget(null);
+  }, [sidebarDragId, sidebarDropTarget, courseComponentsData, courseKey, reorderComponents]);
+
+  const handleSidebarDragEnd = useCallback(() => {
+    setSidebarDragId(null);
+    setSidebarDropTarget(null);
+  }, []);
 
   // Build initial data for SSE hook from course steps (for page refresh during generation)
   const sseInitialData = useMemo(() => {
@@ -1658,89 +1733,128 @@ export default function ProjectPage() {
       </nav>
 
       <div className="flex h-[calc(100vh-57px)]">
-        {/* Left Sidebar - Shows course index in editor layout */}
-        <AnimatePresence>
-          {(isSidebarOpen || showEditorLayout) && (
-            <motion.aside
-              initial={{ x: -300, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -300, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="w-[341px] h-full bg-gray-50 border-r border-gray-200 flex-shrink-0 relative"
-            >
-              <CustomScrollbar>
-                <div className="p-4">
-                  {showEditorLayout && proposedIndex ? (
-                    <>
-                      <h3 className="text-[14px] font-semibold text-gray-500 mb-3 px-1 uppercase tracking-wide">
-                        Course Structure
-                      </h3>
-                      <div className="space-y-3">
-                        {proposedIndex.modules.map((module) => {
-                          const moduleComps = (courseComponentsData?.components || []).filter(
-                            (c: { module: number }) => c.module === module.number
-                          );
-                          return (
-                          <div key={module.number} className="space-y-1">
-                            <div className="flex items-center gap-2 font-medium text-[#9F80DA]">
-                              <span className="text-[14px]">{module.number}.</span>
-                              <span className="text-[14px]">{module.title}</span>
-                            </div>
-                            <div className="ml-4 space-y-0.5">
-                              {module.units.map((unit) => {
-                                const unitNum = parseInt(unit.code.split('.')[1] || '0');
-                                const unitComps = moduleComps
-                                  .filter((c: { unit: number }) => c.unit === unitNum)
-                                  .sort((a: { sequence: number }, b: { sequence: number }) => a.sequence - b.sequence);
-                                return (
-                                <div key={unit.code}>
-                                  <div
-                                    onClick={() => setSelectedUnitCode(unit.code)}
-                                    className={`text-[14px] py-1 px-2 rounded cursor-pointer transition-colors ${
-                                      selectedUnitCode === unit.code
-                                        ? 'bg-[#9F80DA] text-white'
-                                        : 'text-gray-600 hover:bg-gray-100 hover:text-[#9F80DA]'
-                                    }`}
-                                  >
-                                    {unit.code} {unit.title}
-                                  </div>
-                                  {/* Components under this unit */}
-                                  {unitComps.length > 0 && (
-                                    <div className="ml-3 mt-0.5 mb-1 space-y-px">
-                                      {unitComps.map((comp: { id: number; componentName: string; name?: string }) => {
-                                        const meta = getBlockMeta(comp.componentName);
-                                        const CompIcon = meta.icon;
-                                        return (
-                                          <button
-                                            key={comp.id}
-                                            onClick={() => {
-                                              const el = document.getElementById(`component-${comp.id}`);
-                                              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                            }}
-                                            className="w-full flex items-center gap-1.5 px-2 py-0.5 text-[12px] text-gray-400 hover:text-[#9F80DA] hover:bg-gray-100 rounded transition-colors truncate"
-                                          >
-                                            <CompIcon className="w-3 h-3 flex-shrink-0" />
-                                            <span className="truncate">{comp.name || meta.label}</span>
-                                          </button>
-                                        );
-                                      })}
+        {/* Left Sidebar - Course Structure */}
+        {showEditorLayout && (
+          <motion.aside
+            initial={false}
+            animate={{ width: isSidebarOpen ? 341 : 48 }}
+            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+            className="h-full bg-gray-50 border-r border-gray-200 flex-shrink-0 overflow-hidden"
+          >
+            {/* Sidebar header with toggle */}
+            <div className={`flex items-center ${isSidebarOpen ? 'px-4 pt-3 pb-2 gap-2' : 'px-2 pt-3 pb-2 justify-center'}`}>
+              {isSidebarOpen && (
+                <h3 className="text-[13px] font-semibold text-gray-400 uppercase tracking-wider flex-1 whitespace-nowrap">
+                  Course Structure
+                </h3>
+              )}
+              <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="p-1.5 rounded-md text-gray-400 hover:text-[#9F80DA] hover:bg-[#9F80DA]/10 transition-colors flex-shrink-0"
+                title={isSidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+              >
+                {isSidebarOpen ? (
+                  <PanelLeftClose className="w-4 h-4" />
+                ) : (
+                  <PanelLeftOpen className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+
+            {/* Sidebar content — only when open */}
+            <AnimatePresence>
+              {isSidebarOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15, delay: isSidebarOpen ? 0.1 : 0 }}
+                  className="h-[calc(100%-44px)] relative"
+                >
+                  <CustomScrollbar>
+                    <div className="px-4 pb-4 w-[341px]">
+                      {proposedIndex ? (
+                        <div className="space-y-3">
+                          {proposedIndex.modules.map((module) => {
+                            const moduleComps = (courseComponentsData?.components || []).filter(
+                              (c: { module: number }) => c.module === module.number
+                            );
+                            return (
+                            <div key={module.number} className="space-y-1">
+                              <div className="flex items-center gap-2 font-medium text-[#9F80DA]">
+                                <span className="text-[14px]">{module.number}.</span>
+                                <span className="text-[14px]">{module.title}</span>
+                              </div>
+                              <div className="ml-4 space-y-0.5">
+                                {module.units.map((unit) => {
+                                  const unitNum = parseInt(unit.code.split('.')[1] || '0');
+                                  const unitComps = moduleComps
+                                    .filter((c: { unit: number }) => c.unit === unitNum)
+                                    .sort((a: { sequence: number }, b: { sequence: number }) => a.sequence - b.sequence);
+                                  return (
+                                  <div key={unit.code}>
+                                    <div
+                                      onClick={() => setSelectedUnitCode(unit.code)}
+                                      className={`text-[14px] py-1 px-2 rounded cursor-pointer transition-colors ${
+                                        selectedUnitCode === unit.code
+                                          ? 'bg-[#9F80DA] text-white'
+                                          : 'text-gray-600 hover:bg-gray-100 hover:text-[#9F80DA]'
+                                      }`}
+                                    >
+                                      {unit.code} {unit.title}
                                     </div>
-                                  )}
-                                </div>
-                                );
-                              })}
+                                    {/* Components under this unit */}
+                                    {unitComps.length > 0 && (
+                                      <div className="ml-3 mt-0.5 mb-1 space-y-px" onDrop={handleSidebarDrop} onDragOver={(e) => e.preventDefault()}>
+                                        {unitComps.map((comp: { id: number; componentName: string; name?: string }) => {
+                                          const meta = getBlockMeta(comp.componentName);
+                                          const CompIcon = meta.icon;
+                                          const isDragged = sidebarDragId === comp.id;
+                                          const isDropBefore = sidebarDropTarget?.id === comp.id && sidebarDropTarget.position === 'before';
+                                          const isDropAfter = sidebarDropTarget?.id === comp.id && sidebarDropTarget.position === 'after';
+                                          return (
+                                            <div key={comp.id} className="relative">
+                                              {isDropBefore && <div className="absolute -top-px left-1 right-1 h-0.5 bg-[#9F80DA] rounded-full z-10" />}
+                                              <button
+                                                draggable
+                                                onDragStart={(e) => handleSidebarDragStart(e, comp.id)}
+                                                onDragOver={(e) => handleSidebarDragOver(e, comp.id)}
+                                                onDragEnd={handleSidebarDragEnd}
+                                                onClick={() => {
+                                                  const el = document.getElementById(`component-${comp.id}`);
+                                                  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                                }}
+                                                className={`w-full flex items-center gap-1.5 px-2 py-0.5 text-[12px] rounded transition-colors truncate cursor-grab active:cursor-grabbing ${
+                                                  isDragged
+                                                    ? 'opacity-40 text-[#9F80DA]'
+                                                    : 'text-gray-400 hover:text-[#9F80DA] hover:bg-gray-100'
+                                                }`}
+                                              >
+                                                <CompIcon className="w-3 h-3 flex-shrink-0" />
+                                                <span className="truncate">{comp.name || meta.label}</span>
+                                              </button>
+                                              {isDropAfter && <div className="absolute -bottom-px left-1 right-1 h-0.5 bg-[#9F80DA] rounded-full z-10" />}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                    )}
+                                  </div>
+                                  );
+                                })}
+                              </div>
                             </div>
-                          </div>
-                          );
-                        })}
-                      </div>
-                    </>
-                  ) : null}
-                </div>
-              </CustomScrollbar>
-            </motion.aside>
-          )}
-        </AnimatePresence>
+                            );
+                          })}
+                        </div>
+                      ) : null}
+                    </div>
+                  </CustomScrollbar>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.aside>
+        )}
 
         {/* Main Content */}
         <main className="flex-1 flex flex-col overflow-hidden min-w-0">

@@ -245,6 +245,8 @@ export function EditorBlock({
         onImageSizeChange={(size) => {
           onDataChange({ ...(component.content as Record<string, unknown>), imageSize: size });
         }}
+        content={component.content as Record<string, unknown>}
+        onDataChange={onDataChange}
       />
     </div>
   );

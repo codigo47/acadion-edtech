@@ -44,9 +44,9 @@ export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerM
     setCropImage(url);
   }, []);
 
-  const handleCropComplete = useCallback((croppedArea: Area) => {
+  const handleCropComplete = useCallback((croppedArea: Area, croppedDataUrl?: string) => {
     if (cropImage) {
-      onSelect(cropImage, {
+      onSelect(croppedDataUrl || cropImage, {
         x: croppedArea.x,
         y: croppedArea.y,
         width: croppedArea.width,
@@ -66,20 +66,12 @@ export function ImagePickerModal({ currentUrl, onSelect, onClose }: ImagePickerM
   // Show crop modal when an image is selected
   if (cropImage) {
     return (
-      <div className="fixed inset-0 z-50">
-        <ImageCropModal
-          imageUrl={cropImage}
-          onCropComplete={handleCropComplete}
-          onClose={() => setCropImage(null)}
-        />
-        {/* "Use as is" button overlaid at top-right of crop modal */}
-        <button
-          onClick={handleSkipCrop}
-          className="fixed top-3 right-14 z-[70] flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-gray-300 bg-gray-800 hover:bg-gray-700 hover:text-white rounded-lg transition-colors border border-white/10"
-        >
-          Use as is
-        </button>
-      </div>
+      <ImageCropModal
+        imageUrl={cropImage}
+        onCropComplete={handleCropComplete}
+        onClose={() => setCropImage(null)}
+        onSkipCrop={handleSkipCrop}
+      />
     );
   }
 

@@ -16,6 +16,7 @@ import {
   useSwitchComponentStyle,
 } from '../../../../lib/hooks/use-course-editor';
 import type { UnitComponent } from './types';
+import { ProjectUsedColorsProvider, useComputeProjectColors } from '../../../../lib/hooks/use-project-colors';
 
 export type SaveStatus = 'idle' | 'saving' | 'saved' | 'error';
 
@@ -65,6 +66,9 @@ export function EditorContent({
   courseColors,
   groupVariants = [],
 }: EditorContentProps) {
+  // Project-used colors for ColorPicker "In Use" section
+  const projectUsedColors = useComputeProjectColors(components);
+
   // Drag state — SortingSteps-style live reorder
   const [draggedId, setDraggedId] = useState<number | null>(null);
   const [localComponents, setLocalComponents] = useState(components);
@@ -321,7 +325,7 @@ export function EditorContent({
   }, [components, courseKey, reorderComponents, updateSaveStatus]);
 
   return (
-    <>
+    <ProjectUsedColorsProvider value={projectUsedColors}>
       <CustomScrollbar>
         {localComponents.length > 0 && proposedIndex ? (
           <div className="max-w-4xl mx-auto py-8 px-4">
@@ -476,6 +480,6 @@ export function EditorContent({
           onGenerate={handleAIGenerate}
         />
       )}
-    </>
+    </ProjectUsedColorsProvider>
   );
 }

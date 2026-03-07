@@ -1,9 +1,53 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { X, Check, Trash2, Image as ImageIcon } from 'lucide-react';
+import React, { useState, useCallback, useRef } from 'react';
+import { X, Check, Trash2, Image as ImageIcon, GripVertical } from 'lucide-react';
 import { EditableText } from '@/app/project/[courseKey]/_components/EditableText';
 import { ImagePickerModal } from '@/app/project/[courseKey]/_components/ImagePickerModal';
+
+const BUBBLE_FONT_SIZES: Record<string, string> = {
+  small: '0.75rem',
+  normal: '0.875rem',
+  large: '1rem',
+  xlarge: '1.125rem',
+};
+
+function BubbleArrow({ direction, alignment, color }: { direction: string; alignment: string; color: string }) {
+  const base: React.CSSProperties = {
+    position: 'absolute',
+    width: 16,
+    height: 16,
+    backgroundColor: color,
+    transform: 'rotate(45deg)',
+  };
+
+  if (direction === 'top') {
+    const align: React.CSSProperties =
+      alignment === 'center' ? { left: '50%', marginLeft: -8 } :
+      alignment === 'right' ? { right: 16 } : { left: 16 };
+    return <div style={{ ...base, top: -8, ...align }} />;
+  }
+  if (direction === 'left') {
+    return <div style={{ ...base, left: -8, top: '50%', marginTop: -8 }} />;
+  }
+  if (direction === 'right') {
+    return <div style={{ ...base, right: -8, top: '50%', marginTop: -8 }} />;
+  }
+  // Default: bottom
+  const align: React.CSSProperties =
+    alignment === 'center' ? { left: '50%', marginLeft: -8 } :
+    alignment === 'right' ? { right: 16 } : { left: 16 };
+  return <div style={{ ...base, bottom: -8, ...align }} />;
+}
+
+function isLightColor(hex: string): boolean {
+  const h = hex.replace('#', '');
+  if (h.length !== 6) return true;
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 > 128;
+}
 
 export function EditableScenarioBlock({ content, onDataChange }: { content: Record<string, unknown>; onDataChange: (data: Record<string, unknown>) => void }) {
   const answers = (content.answers as Array<{ id: string; text: string; order: number; isCorrect: boolean }>) || [];
@@ -11,9 +55,77 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
   const [pickerTarget, setPickerTarget] = useState<'background' | 'avatar'>('background');
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [showAvatarGallery, setShowAvatarGallery] = useState(false);
+  const [dragPos, setDragPos] = useState<{ x: number; y: number } | null>(null);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dragStartRef = useRef<{ mouseX: number; mouseY: number; startX: number; startY: number; containerW: number; containerH: number } | null>(null);
+  const currentDragPosRef = useRef<{ x: number; y: number } | null>(null);
+  const contentRef = useRef(content);
+  contentRef.current = content;
+
   const blurAmount = (content.blur as number) || 0;
+  const bubbleX = (content.bubbleX as number) ?? 65;
+  const bubbleY = (content.bubbleY as number) ?? 75;
+  const arrowDirection = (content.arrowDirection as string) || 'bottom';
+  const arrowAlignment = (content.arrowAlignment as string) || 'left';
+  const bubbleBg = (content.bubbleBg as string) || '#FFFFFF';
+  const bubbleFontSize = (content.bubbleFontSize as string) || 'normal';
+  const bubbleTextAlign = (content.bubbleTextAlign as string) || 'left';
+
+  const displayX = dragPos?.x ?? bubbleX;
+  const displayY = dragPos?.y ?? bubbleY;
+  const bubbleTextColor = isLightColor(bubbleBg) ? '#1f2937' : '#f9fafb';
 
   const AVATAR_IMAGES = Array.from({ length: 12 }, (_, i) => `/story-telling-block/torso-alto-${i + 1}.png`);
+
+  const handleBubbleMouseDown = useCallback((e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    if (target.getAttribute('contenteditable') === 'true' || target.closest('[contenteditable="true"]')) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+
+    const container = containerRef.current;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+
+    dragStartRef.current = {
+      mouseX: e.clientX,
+      mouseY: e.clientY,
+      startX: (contentRef.current.bubbleX as number) ?? 65,
+      startY: (contentRef.current.bubbleY as number) ?? 75,
+      containerW: rect.width,
+      containerH: rect.height,
+    };
+
+    const handleMouseMove = (ev: MouseEvent) => {
+      const start = dragStartRef.current;
+      if (!start) return;
+      const dx = ev.clientX - start.mouseX;
+      const dy = ev.clientY - start.mouseY;
+      const newX = Math.max(10, Math.min(90, start.startX + (dx / start.containerW) * 100));
+      const newY = Math.max(10, Math.min(90, start.startY + (dy / start.containerH) * 100));
+      const pos = { x: Math.round(newX), y: Math.round(newY) };
+      currentDragPosRef.current = pos;
+      setDragPos(pos);
+    };
+
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      const finalPos = currentDragPosRef.current;
+      if (finalPos) {
+        onDataChange({ ...contentRef.current, bubbleX: finalPos.x, bubbleY: finalPos.y });
+      }
+      dragStartRef.current = null;
+      currentDragPosRef.current = null;
+      setDragPos(null);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  }, [onDataChange]);
 
   const updateAnswer = useCallback((id: string, field: string, value: unknown) => {
     let n = answers.map(a => a.id === id ? { ...a, [field]: value } : a);
@@ -28,12 +140,15 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
     onDataChange({ ...content, answers: [...answers, { id: `sa-${Date.now()}`, text: '', order: maxOrder + 1, isCorrect: false }] });
   };
 
-  const removeAnswer = (id: string) => { onDataChange({ ...content, answers: answers.filter(a => a.id !== id) }); setDeleteConfirmId(null); };
+  const removeAnswer = (id: string) => {
+    onDataChange({ ...content, answers: answers.filter(a => a.id !== id) });
+    setDeleteConfirmId(null);
+  };
 
   return (
     <div className="w-full p-4 rounded-lg space-y-4">
-      {/* Background image with avatar and question overlay */}
-      <div className="relative w-full min-h-[280px] bg-gray-100 rounded-lg overflow-hidden">
+      {/* Background image with avatar and bubble */}
+      <div ref={containerRef} className="relative w-full min-h-[280px] bg-gray-100 rounded-lg overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
           {content.image ? (
@@ -47,22 +162,23 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
           )}
         </div>
 
-        {/* Background controls - top right */}
-        <div className="absolute top-2 right-2 z-10 flex items-center gap-1">
-          <button onClick={() => { setPickerTarget('background'); setShowPicker(true); }} className="px-2 py-1 text-xs text-white bg-black/40 hover:bg-black/60 rounded backdrop-blur-sm">
-            <ImageIcon className="w-3 h-3 inline mr-1" />BG
-          </button>
-          {String(content.image || '') !== '' && (
-            <div className="flex items-center gap-1 px-2 py-1 bg-black/40 rounded backdrop-blur-sm">
-              <span className="text-xs text-white/70">Blur</span>
-              <input type="range" min="0" max="10" value={blurAmount} onChange={(e) => onDataChange({ ...content, blur: parseInt(e.target.value) })} className="w-16 h-1 accent-white" />
-            </div>
-          )}
+        {/* BG overlay — click uncovered area to change image */}
+        <div
+          className="absolute inset-0 z-[5] cursor-pointer group/bg"
+          onClick={() => { setPickerTarget('background'); setShowPicker(true); }}
+        >
+          <div className="absolute inset-0 bg-transparent group-hover/bg:bg-black/20 transition-colors" />
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/bg:opacity-100 transition-opacity pointer-events-none">
+            <span className="px-3 py-1.5 bg-white/90 text-sm text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1.5">
+              <ImageIcon className="w-4 h-4" />
+              Change BG
+            </span>
+          </div>
         </div>
 
         {/* Avatar character */}
         <div className="absolute bottom-0 left-4 z-10">
-          <div className="relative group/avatar cursor-pointer" onClick={() => setShowAvatarGallery(true)}>
+          <div className="relative group/avatar cursor-pointer" onClick={(e) => { e.stopPropagation(); setShowAvatarGallery(true); }}>
             {content.avatar ? (
               <>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -80,25 +196,55 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
           </div>
         </div>
 
-        {/* Speech bubble question */}
-        <div className="absolute bottom-4 left-32 right-4 z-10">
-          <div className="bg-white rounded-lg p-3 shadow-lg relative">
-            <div className="absolute -bottom-2 left-4 w-4 h-4 bg-white transform rotate-45" />
-            <div className="cursor-text relative z-10">
-              <EditableText value={String(content.question || '')} onChange={(v) => onDataChange({ ...content, question: v })} tag="p" className="text-sm font-medium text-gray-900" placeholder="Scenario question..." />
+        {/* Draggable speech bubble */}
+        <div
+          className="absolute z-10"
+          style={{
+            left: `${displayX}%`,
+            top: `${displayY}%`,
+            transform: 'translate(-50%, -50%)',
+          }}
+          onMouseDown={handleBubbleMouseDown}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className="rounded-lg p-3 shadow-lg relative max-w-[240px] min-w-[160px]"
+            style={{ backgroundColor: bubbleBg, cursor: dragPos ? 'grabbing' : 'grab' }}
+          >
+            <BubbleArrow direction={arrowDirection} alignment={arrowAlignment} color={bubbleBg} />
+
+            {/* Drag indicator */}
+            <div className="absolute top-1 right-1 opacity-30 pointer-events-none">
+              <GripVertical className="w-3 h-3" style={{ color: bubbleTextColor }} />
+            </div>
+
+            {/* Question text */}
+            <div className="cursor-text relative z-10" onMouseDown={(e) => e.stopPropagation()}>
+              <EditableText
+                value={String(content.question || '')}
+                onChange={(v) => onDataChange({ ...content, question: v })}
+                tag="p"
+                className="font-medium"
+                style={{
+                  color: bubbleTextColor,
+                  fontSize: BUBBLE_FONT_SIZES[bubbleFontSize] || '0.875rem',
+                  textAlign: bubbleTextAlign as React.CSSProperties['textAlign'],
+                }}
+                placeholder="Scenario question..."
+              />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Answers */}
+      {/* Answers — always left-aligned */}
       <div className="space-y-2">
         {answers.map(ans => (
           <div key={ans.id} className="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-lg hover:border-gray-300">
             <button onClick={() => updateAnswer(ans.id, 'isCorrect', !ans.isCorrect)} className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${ans.isCorrect ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300'}`}>
               {ans.isCorrect && <Check className="w-3 h-3" />}
             </button>
-            <div className="flex-1 cursor-text">
+            <div className="flex-1 cursor-text text-left">
               <EditableText value={ans.text} onChange={(v) => updateAnswer(ans.id, 'text', v)} tag="span" className="text-sm text-gray-900" placeholder="Answer text..." multiline={false} />
             </div>
             {answers.length > 1 && (

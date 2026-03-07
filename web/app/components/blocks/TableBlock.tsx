@@ -16,6 +16,14 @@ interface TablePreset {
   fontSize: string;
 }
 
+interface CellStyle {
+  bg?: string;
+  color?: string;
+  fontSize?: string;
+  textAlign?: 'left' | 'center' | 'right';
+  verticalAlign?: 'top' | 'middle' | 'bottom';
+}
+
 export interface TableBlockProps {
   rows: number;
   columns: number;
@@ -25,6 +33,7 @@ export interface TableBlockProps {
   stripedRows?: boolean;
   dark?: boolean;
   tableStyle?: TablePreset;
+  cellStyles?: Record<string, CellStyle>;
 }
 
 export default function TableBlock({
@@ -36,6 +45,7 @@ export default function TableBlock({
   stripedRows = false,
   dark = false,
   tableStyle,
+  cellStyles = {},
 }: TableBlockProps) {
   const headers = headerRow && content.length > 0 ? content[0]?.slice(0, columns) : [];
   const dataRows = content.slice(headerRow ? 1 : 0, rows);
@@ -71,15 +81,18 @@ export default function TableBlock({
           {headerRow && content.length > 0 && (
             <thead>
               <tr style={{ backgroundColor: headerBg }}>
-                {headers.map((cell, cellIndex) => (
-                  <th
-                    key={cellIndex}
-                    className="px-4 py-2 font-semibold text-left"
-                    style={{ border: borderStyle, color: headerTextColor }}
-                  >
-                    {cell}
-                  </th>
-                ))}
+                {headers.map((cell, cellIndex) => {
+                  const cs = cellStyles[`0-${cellIndex}`];
+                  return (
+                    <th
+                      key={cellIndex}
+                      className="px-4 py-2 font-semibold text-left"
+                      style={{ border: borderStyle, backgroundColor: cs?.bg || headerBg, color: cs?.color || headerTextColor, fontSize: cs?.fontSize, textAlign: cs?.textAlign, verticalAlign: cs?.verticalAlign }}
+                    >
+                      {cell}
+                    </th>
+                  );
+                })}
               </tr>
             </thead>
           )}
@@ -91,15 +104,19 @@ export default function TableBlock({
                   backgroundColor: rowIndex % 2 === 0 ? evenRowBg : oddRowBg,
                 }}
               >
-                {row.slice(0, columns).map((cell, cellIndex) => (
-                  <td
-                    key={cellIndex}
-                    className="px-4 py-2"
-                    style={{ border: borderStyle, color: cellTextColor }}
-                  >
-                    {cell}
-                  </td>
-                ))}
+                {row.slice(0, columns).map((cell, cellIndex) => {
+                  const ri = headerRow ? rowIndex + 1 : rowIndex;
+                  const cs = cellStyles[`${ri}-${cellIndex}`];
+                  return (
+                    <td
+                      key={cellIndex}
+                      className="px-4 py-2"
+                      style={{ border: borderStyle, backgroundColor: cs?.bg, color: cs?.color || cellTextColor, fontSize: cs?.fontSize, textAlign: cs?.textAlign, verticalAlign: cs?.verticalAlign }}
+                    >
+                      {cell}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

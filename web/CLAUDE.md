@@ -124,7 +124,7 @@ it('renders heading', () => {
 ## Shared Color Picker
 
 Use `<ColorPicker>` from `app/components/ColorPicker.tsx` for ALL color selection UIs.
-Supports: basic grid (8x5), HEX/RGB inputs, project colors, favorites (localStorage via `use-favorite-colors` hook).
+Supports: basic grid (8×5), rainbow spectrum picker, HEX/RGB inputs, project colors prop, and an "In Use" section showing colors currently used across all project components (via `ProjectUsedColorsProvider` context from `lib/hooks/use-project-colors.tsx`).
 
 ```typescript
 import { ColorPicker } from '@/app/components/ColorPicker';

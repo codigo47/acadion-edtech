@@ -170,6 +170,23 @@ When switching between HeadingBlock and SubheadingBlock via the style dropdown, 
 
 The variant dropdown for style switching is powered by `groupVariants` from the backend (`GET /course/:key/components`). This returns ALL sibling components for each `groupKey`, not just the ones used in the current course. This ensures the dropdown always shows all available variants.
 
+### Style Controls in Footer Rule
+
+**All style controls belong in the BlockFooter**, not inside the component content area. The editable component should only contain the content editing surface.
+
+If a component doesn't respond to a style property (e.g., SeparatorBlock doesn't use font size), **hide that control** in the footer. This is enforced by the `NO_TEXT_CONTROLS` set in `BlockFooter.tsx`.
+
+Components in `NO_TEXT_CONTROLS` (SeparatorBlock, ImageBlock, VideoBlock, AudioBlock, AttachmentBlock, EmbedBlock, GalleryBlock, LabeledImageBlock, GraphBlock) do NOT show font size, text alignment, or text color controls.
+
+Component-specific style controls (e.g., table style presets) go in the footer via conditional props (`content`, `onDataChange`).
+
+### Sidebar Drag-and-Drop
+
+Components in the Course Structure sidebar are draggable for reordering within the same unit. The sidebar uses `useReorderComponents` (same as the main editor area) and shows:
+- A purple drop indicator line at the insertion point
+- Ghost opacity on the dragged item
+- Only allows reorder within the same module+unit
+
 ### Input Save Pattern
 Never save on every keystroke. Two patterns:
 1. **EditableText** — 2s debounce + blur save (preferred)

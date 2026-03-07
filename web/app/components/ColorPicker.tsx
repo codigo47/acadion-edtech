@@ -1,8 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Star, X } from 'lucide-react';
-import { useFavoriteColors } from '@/lib/hooks/use-favorite-colors';
+import { useProjectUsedColors } from '@/lib/hooks/use-project-colors';
 
 // 8 columns × 5 rows color grid
 const BASIC_COLORS = [
@@ -49,6 +48,41 @@ function rgbToHex(r: number, g: number, b: number): string {
   return `#${[clamp(r), clamp(g), clamp(b)].map((v) => v.toString(16).padStart(2, '0')).join('').toUpperCase()}`;
 }
 
+// Convert HSV to RGB
+function hsvToRgb(h: number, s: number, v: number): { r: number; g: number; b: number } {
+  const c = v * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = v - c;
+  let r = 0, g = 0, b = 0;
+  if (h < 60) { r = c; g = x; }
+  else if (h < 120) { r = x; g = c; }
+  else if (h < 180) { g = c; b = x; }
+  else if (h < 240) { g = x; b = c; }
+  else if (h < 300) { r = x; b = c; }
+  else { r = c; b = x; }
+  return {
+    r: Math.round((r + m) * 255),
+    g: Math.round((g + m) * 255),
+    b: Math.round((b + m) * 255),
+  };
+}
+
+// Convert RGB to HSV
+function rgbToHsv(r: number, g: number, b: number): { h: number; s: number; v: number } {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const d = max - min;
+  let h = 0;
+  if (d !== 0) {
+    if (max === r) h = 60 * (((g - b) / d) % 6);
+    else if (max === g) h = 60 * ((b - r) / d + 2);
+    else h = 60 * ((r - g) / d + 4);
+  }
+  if (h < 0) h += 360;
+  const s = max === 0 ? 0 : d / max;
+  return { h, s, v: max };
+}
+
 export function ColorPicker({
   selectedColor,
   onSelect,
@@ -57,7 +91,7 @@ export function ColorPicker({
   position = 'top',
 }: ColorPickerProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const { favorites, addFavorite, removeFavorite } = useFavoriteColors();
+  const usedColors = useProjectUsedColors();
   const [hexInput, setHexInput] = useState(selectedColor?.replace('#', '') || '');
   const [rgb, setRgb] = useState<{ r: string; g: string; b: string }>(() => {
     const parsed = selectedColor ? hexToRgb(selectedColor) : null;
@@ -76,6 +110,14 @@ export function ColorPicker({
     document.addEventListener('mousedown', handle);
     return () => document.removeEventListener('mousedown', handle);
   }, [onClose]);
+
+  const selectAndClose = useCallback(
+    (color: string) => {
+      onSelect(color);
+      onClose();
+    },
+    [onSelect, onClose],
+  );
 
   const applyHex = useCallback(
     (raw: string) => {
@@ -104,10 +146,6 @@ export function ColorPicker({
     [onSelect],
   );
 
-  const isFavorite = selectedColor
-    ? favorites.some((c) => c.toUpperCase() === selectedColor.toUpperCase())
-    : false;
-
   const positionClass = position === 'top'
     ? 'bottom-full mb-2'
     : 'top-full mt-2';
@@ -115,7 +153,7 @@ export function ColorPicker({
   return (
     <div
       ref={ref}
-      className={`absolute ${positionClass} left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-xl shadow-xl z-50 w-[280px]`}
+      className={`absolute ${positionClass} left-1/2 -translate-x-1/2 bg-white border border-gray-200 rounded-xl shadow-xl z-[100] w-[280px]`}
     >
       {/* Basic Colors */}
       <div className="p-3 pb-2">
@@ -126,12 +164,7 @@ export function ColorPicker({
               key={color}
               color={color}
               selected={selectedColor?.toUpperCase() === color.toUpperCase()}
-              onClick={() => {
-                onSelect(color);
-                setHexInput(color.replace('#', ''));
-                const parsed = hexToRgb(color);
-                if (parsed) setRgb({ r: String(parsed.r), g: String(parsed.g), b: String(parsed.b) });
-              }}
+              onClick={() => selectAndClose(color)}
             />
           ))}
         </div>
@@ -147,58 +180,37 @@ export function ColorPicker({
                 key={color}
                 color={color}
                 selected={selectedColor?.toUpperCase() === color.toUpperCase()}
-                onClick={() => {
-                  onSelect(color);
-                  setHexInput(color.replace('#', ''));
-                  const parsed = hexToRgb(color);
-                  if (parsed) setRgb({ r: String(parsed.r), g: String(parsed.g), b: String(parsed.b) });
-                }}
+                onClick={() => selectAndClose(color)}
               />
             ))}
           </div>
         </div>
       )}
 
-      {/* Favorites */}
-      <div className="px-3 pb-2">
-        <div className="flex items-center gap-1.5">
-          <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Favorites</span>
-          {selectedColor && (
-            <button
-              onClick={() => (isFavorite ? removeFavorite(selectedColor) : addFavorite(selectedColor))}
-              className={`p-0.5 rounded transition-colors ${isFavorite ? 'text-amber-500' : 'text-gray-300 hover:text-amber-400'}`}
-              title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-            >
-              <Star className="w-3 h-3" fill={isFavorite ? 'currentColor' : 'none'} />
-            </button>
-          )}
-        </div>
-        {favorites.length > 0 ? (
+      {/* In Use — colors currently used across project components */}
+      {usedColors.length > 0 && (
+        <div className="px-3 pb-2">
+          <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">In Use</span>
           <div className="flex gap-1 mt-1.5 flex-wrap">
-            {favorites.map((color) => (
-              <div key={color} className="relative group/fav">
-                <ColorSwatch
-                  color={color}
-                  selected={selectedColor?.toUpperCase() === color.toUpperCase()}
-                  onClick={() => {
-                    onSelect(color);
-                    setHexInput(color.replace('#', ''));
-                    const parsed = hexToRgb(color);
-                    if (parsed) setRgb({ r: String(parsed.r), g: String(parsed.g), b: String(parsed.b) });
-                  }}
-                />
-                <button
-                  onClick={(e) => { e.stopPropagation(); removeFavorite(color); }}
-                  className="absolute -top-1 -right-1 w-3 h-3 bg-white border border-gray-300 rounded-full flex items-center justify-center opacity-0 group-hover/fav:opacity-100 transition-opacity"
-                >
-                  <X className="w-2 h-2 text-gray-500" />
-                </button>
-              </div>
+            {usedColors.map((color) => (
+              <ColorSwatch
+                key={color}
+                color={color}
+                selected={selectedColor?.toUpperCase() === color.toUpperCase()}
+                onClick={() => selectAndClose(color)}
+              />
             ))}
           </div>
-        ) : (
-          <p className="text-[10px] text-gray-300 mt-1">Click the star to save colors</p>
-        )}
+        </div>
+      )}
+
+      {/* Rainbow gradient picker */}
+      <div className="px-3 pb-2">
+        <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Spectrum</span>
+        <RainbowPicker
+          selectedColor={selectedColor}
+          onSelect={selectAndClose}
+        />
       </div>
 
       {/* HEX + RGB inputs */}
@@ -252,6 +264,91 @@ export function ColorPicker({
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function RainbowPicker({
+  selectedColor,
+  onSelect,
+}: {
+  selectedColor?: string;
+  onSelect: (color: string) => void;
+}) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Compute initial cursor position from selectedColor
+  const initialPos = useRef<{ x: number; y: number } | null>(null);
+  if (!initialPos.current && selectedColor) {
+    const rgb = hexToRgb(selectedColor);
+    if (rgb) {
+      const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b);
+      initialPos.current = { x: hsv.h / 360, y: 1 - hsv.v };
+    }
+  }
+
+  // Draw the gradient on mount
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const w = canvas.width;
+    const h = canvas.height;
+
+    // Draw hue × brightness gradient (full saturation)
+    for (let x = 0; x < w; x++) {
+      for (let y = 0; y < h; y++) {
+        const hue = (x / w) * 360;
+        const brightness = 1 - y / h;
+        const { r, g, b } = hsvToRgb(hue, 1, brightness);
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        ctx.fillRect(x, y, 1, 1);
+      }
+    }
+  }, []);
+
+  const pickColor = useCallback(
+    (e: React.MouseEvent | MouseEvent) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = Math.max(0, Math.min(rect.width - 1, e.clientX - rect.left));
+      const y = Math.max(0, Math.min(rect.height - 1, e.clientY - rect.top));
+      const hue = (x / rect.width) * 360;
+      const brightness = 1 - y / rect.height;
+      const { r, g, b } = hsvToRgb(hue, 1, brightness);
+      onSelect(rgbToHex(r, g, b));
+    },
+    [onSelect],
+  );
+
+  useEffect(() => {
+    if (!isDragging) return;
+    const handleMove = (e: MouseEvent) => pickColor(e);
+    const handleUp = () => setIsDragging(false);
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleUp);
+    return () => {
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleUp);
+    };
+  }, [isDragging, pickColor]);
+
+  return (
+    <div ref={containerRef} className="mt-1.5 relative">
+      <canvas
+        ref={canvasRef}
+        width={252}
+        height={32}
+        className="w-full h-8 rounded-md cursor-crosshair border border-gray-200"
+        onMouseDown={(e) => {
+          setIsDragging(true);
+          pickColor(e);
+        }}
+      />
     </div>
   );
 }

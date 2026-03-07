@@ -167,6 +167,53 @@ These props are saved in `content` and must be read by the block:
 - `headerRow`, `stripedRows` → TableBlock
 - `openFirst` → AccordionBlock, TabsBlock
 
+## Table Cell Styles
+
+TableBlock supports per-cell styling via `content.cellStyles`:
+```typescript
+cellStyles: Record<string, { bg?: string; color?: string }>
+// Key format: "rowIndex-colIndex" (e.g., "0-2" = row 0, column 2)
+```
+
+Applied by both `EditableTableBlock` and `TableBlock` (read-only). Cell styles override the table preset's row/header colors for individual cells.
+
+## Table Style Presets
+
+Table presets are selected via `TableStylePresetsModal` (triggered from `BlockFooter` for TableBlock). The preset is stored in `content.tableStyle`. Individual cell styles override the preset for specific cells.
+
+## Icon-Only Buttons Rule
+
+All control buttons in editable block components must be **icon-only with title tooltips**. No text labels on buttons. This keeps the UI compact and consistent.
+
+```typescript
+// CORRECT — icon-only with tooltip
+<button onClick={...} title="Delete column" className="...">
+  <Trash2 className="w-3.5 h-3.5" />
+</button>
+
+// WRONG — text label on button
+<button onClick={...} className="...">
+  <Trash2 className="w-3.5 h-3.5" /> Delete
+</button>
+```
+
+## Scenario Block Data Fields
+
+ScenarioBlock supports these additional content fields:
+- `bubbleX`, `bubbleY` — Bubble position as percentages (default: 65, 75)
+- `arrowDirection` — Arrow direction: `'top'|'bottom'|'left'|'right'` (default: `'bottom'`)
+- `arrowAlignment` — Arrow alignment: `'left'|'center'|'right'` (default: `'left'`, only for top/bottom arrows)
+- `bubbleBg` — Bubble background color (default: `'#FFFFFF'`)
+- `bubbleFontSize` — Bubble font size: `'small'|'normal'|'large'|'xlarge'` (default: `'normal'`)
+- `bubbleTextAlign` — Bubble text alignment: `'left'|'center'|'right'` (default: `'left'`)
+- `blur` — Background image blur amount: 0-10 (default: 0)
+
+Bubble styles are controlled from BlockFooter (scenario-specific controls section).
+
+## Project-Used Colors
+
+ColorPicker shows an "In Use" section with colors currently used across all project components. This is powered by `ProjectUsedColorsProvider` context from `lib/hooks/use-project-colors.tsx`, wrapped around EditorContent. The old localStorage-based favorites system has been replaced.
+
 ## Dark Mode
 
 All blocks accept `dark?: boolean`. Pattern:

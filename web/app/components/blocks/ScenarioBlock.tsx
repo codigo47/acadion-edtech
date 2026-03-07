@@ -17,6 +17,53 @@ export interface ScenarioBlockProps {
   avatar?: string;
   blur?: number;
   dark?: boolean;
+  bubbleBg?: string;
+  bubbleFontSize?: string;
+  bubbleTextAlign?: string;
+  arrowDirection?: string;
+  arrowAlignment?: string;
+}
+
+const BUBBLE_FONT_SIZES: Record<string, string> = {
+  small: '0.75rem',
+  normal: '0.875rem',
+  large: '1rem',
+  xlarge: '1.125rem',
+};
+
+function BubbleArrow({ direction, alignment, color }: { direction: string; alignment: string; color: string }) {
+  const base: React.CSSProperties = {
+    position: 'absolute',
+    width: 16,
+    height: 16,
+    backgroundColor: color,
+    transform: 'rotate(45deg)',
+  };
+  if (direction === 'top') {
+    const align: React.CSSProperties =
+      alignment === 'center' ? { left: '50%', marginLeft: -8 } :
+      alignment === 'right' ? { right: 16 } : { left: 16 };
+    return <div style={{ ...base, top: -8, ...align }} />;
+  }
+  if (direction === 'left') {
+    return <div style={{ ...base, left: -8, top: '50%', marginTop: -8 }} />;
+  }
+  if (direction === 'right') {
+    return <div style={{ ...base, right: -8, top: '50%', marginTop: -8 }} />;
+  }
+  const align: React.CSSProperties =
+    alignment === 'center' ? { left: '50%', marginLeft: -8 } :
+    alignment === 'right' ? { right: 16 } : { left: 16 };
+  return <div style={{ ...base, bottom: -8, ...align }} />;
+}
+
+function isLightColor(hex: string): boolean {
+  const h = hex.replace('#', '');
+  if (h.length !== 6) return true;
+  const r = parseInt(h.substring(0, 2), 16);
+  const g = parseInt(h.substring(2, 4), 16);
+  const b = parseInt(h.substring(4, 6), 16);
+  return (r * 299 + g * 587 + b * 114) / 1000 > 128;
 }
 
 export default function ScenarioBlock({
@@ -26,7 +73,13 @@ export default function ScenarioBlock({
   avatar,
   blur = 0,
   dark = false,
+  bubbleBg = '#FFFFFF',
+  bubbleFontSize = 'normal',
+  bubbleTextAlign = 'left',
+  arrowDirection = 'bottom',
+  arrowAlignment = 'left',
 }: ScenarioBlockProps) {
+  const bubbleTextColor = isLightColor(bubbleBg) ? '#1f2937' : '#f9fafb';
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
 
@@ -75,9 +128,16 @@ export default function ScenarioBlock({
         <div className={`absolute inset-0 flex flex-col justify-end p-3 sm:p-6 ${avatar ? 'pl-28 sm:pl-40' : ''}`}>
           {/* Speech bubble */}
           <div className="mb-3 sm:mb-4">
-            <div className="bg-white rounded-lg p-3 sm:p-4 shadow-lg relative inline-block max-w-lg">
-              <div className="absolute -bottom-2 left-8 w-4 h-4 bg-white transform rotate-45" />
-              <p className="text-sm sm:text-lg font-medium text-gray-900 relative z-10">
+            <div className="rounded-lg p-3 sm:p-4 shadow-lg relative inline-block max-w-lg" style={{ backgroundColor: bubbleBg }}>
+              <BubbleArrow direction={arrowDirection} alignment={arrowAlignment} color={bubbleBg} />
+              <p
+                className="text-sm sm:text-lg font-medium relative z-10"
+                style={{
+                  color: bubbleTextColor,
+                  fontSize: BUBBLE_FONT_SIZES[bubbleFontSize] || undefined,
+                  textAlign: bubbleTextAlign as React.CSSProperties['textAlign'],
+                }}
+              >
                 {question}
               </p>
             </div>

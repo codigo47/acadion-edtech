@@ -7,8 +7,14 @@ import {
   AlignRight,
   Type,
   Paintbrush,
+  Palette,
+  ArrowUp,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
 } from 'lucide-react';
 import { ColorPicker } from '../../../components/ColorPicker';
+import { TableStylePresetsModal, type TablePreset } from '../../../components/blocks/TableStylePresetsModal';
 
 export interface BlockStyles {
   marginTop?: string;
@@ -40,6 +46,42 @@ export function blockStylesToCss(styles?: BlockStyles): React.CSSProperties {
   return css as React.CSSProperties;
 }
 
+// Components that don't respond to text color / text alignment
+const NO_TEXT_CONTROLS = new Set([
+  'SeparatorBlock',
+  'ImageBlock',
+  'VideoBlock',
+  'AudioBlock',
+  'AttachmentBlock',
+  'EmbedBlock',
+  'GalleryBlock',
+  'LabeledImageBlock',
+  'GraphBlock',
+  'ScenarioBlock',
+]);
+
+// Components that don't respond to font size (includes NO_TEXT_CONTROLS + fixed-size blocks)
+const NO_FONT_SIZE = new Set([
+  ...NO_TEXT_CONTROLS,
+  'HeadingBlock',
+  'SubheadingBlock',
+  'TableBlock',
+  'CarouselBlock',
+  'FlashCardBlock',
+  'MultipleChoiceBlock',
+  'MultipleResponseBlock',
+  'FillInTheBlankBlock',
+  'MatchingPairsBlock',
+  'ScenarioBlock',
+  'SortingBlock',
+  'SortingStepsBlock',
+  'ButtonBlock',
+  'ButtonStackBlock',
+  'BannerBlock',
+  'TimelineBlock',
+  'CheckboxBlock',
+]);
+
 interface BlockFooterProps {
   blockStyles: BlockStyles;
   onStyleChange: (styles: BlockStyles) => void;
@@ -47,6 +89,8 @@ interface BlockFooterProps {
   componentName?: string;
   imageSize?: number;
   onImageSizeChange?: (size: number) => void;
+  content?: Record<string, unknown>;
+  onDataChange?: (data: Record<string, unknown>) => void;
 }
 
 const BG_PRESETS = [
@@ -114,10 +158,18 @@ export function BlockFooter({
   componentName,
   imageSize,
   onImageSizeChange,
+  content,
+  onDataChange,
 }: BlockFooterProps) {
   const showImageSize = componentName && SIDE_BY_SIDE_COMPONENTS.includes(componentName) && onImageSizeChange;
+  const showTextControls = !componentName || !NO_TEXT_CONTROLS.has(componentName);
+  const showFontSize = !componentName || !NO_FONT_SIZE.has(componentName);
+  const isTable = componentName === 'TableBlock';
+  const isScenario = componentName === 'ScenarioBlock';
   const [showTextColorPicker, setShowTextColorPicker] = useState(false);
   const [showBgColorPicker, setShowBgColorPicker] = useState(false);
+  const [showTablePresets, setShowTablePresets] = useState(false);
+  const [showBubbleBgPicker, setShowBubbleBgPicker] = useState(false);
 
   const update = useCallback(
     (partial: Partial<BlockStyles>) => {
@@ -146,71 +198,233 @@ export function BlockFooter({
 
   return (
     <div className="px-3 py-2 bg-gray-50 border-t border-gray-200 rounded-b-xl flex items-center justify-between gap-4">
-      {/* Left group - Typography */}
+      {/* Left group - Typography (only for text-supporting components) */}
       <div className="flex items-center gap-1">
-        {/* Font size cycle */}
-        <button
-          onClick={cycleFontSize}
-          title={`Font size: ${currentFontSize}`}
-          className="h-6 px-1.5 flex items-center gap-0.5 rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
-        >
-          <Type className="w-3 h-3" />
-          <span className="text-[10px] font-semibold leading-none">
-            {FONT_SIZE_LABELS[currentFontSize]}
-          </span>
-        </button>
+        {showTextControls && (
+          <>
+            {/* Font size cycle — only for blocks that support it */}
+            {showFontSize && (
+              <>
+                <button
+                  onClick={cycleFontSize}
+                  title={`Font size: ${currentFontSize}`}
+                  className="h-6 px-1.5 flex items-center gap-0.5 rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
+                >
+                  <Type className="w-3 h-3" />
+                  <span className="text-[10px] font-semibold leading-none">
+                    {FONT_SIZE_LABELS[currentFontSize]}
+                  </span>
+                </button>
 
-        {/* Separator */}
-        <div className="w-px h-4 bg-gray-200 mx-0.5" />
+                {/* Separator */}
+                <div className="w-px h-4 bg-gray-200 mx-0.5" />
+              </>
+            )}
 
-        {/* Text alignment */}
-        {(['left', 'center', 'right'] as const).map((align) => {
-          const icons = { left: AlignLeft, center: AlignCenter, right: AlignRight };
-          const AlignIcon = icons[align];
-          const isActive = currentAlign === align;
-          return (
+            {/* Text alignment */}
+            {(['left', 'center', 'right'] as const).map((align) => {
+              const icons = { left: AlignLeft, center: AlignCenter, right: AlignRight };
+              const AlignIcon = icons[align];
+              const isActive = currentAlign === align;
+              return (
+                <button
+                  key={align}
+                  onClick={() => update({ textAlign: align })}
+                  title={`Align ${align}`}
+                  className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
+                    isActive
+                      ? 'text-[#9F80DA] bg-[#9F80DA]/10'
+                      : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/70'
+                  }`}
+                >
+                  <AlignIcon className="w-3.5 h-3.5" />
+                </button>
+              );
+            })}
+
+            {/* Separator */}
+            <div className="w-px h-4 bg-gray-200 mx-0.5" />
+
+            {/* Text color */}
+            <div className="relative">
+              <button
+                onClick={() => {
+                  setShowTextColorPicker(!showTextColorPicker);
+                  setShowBgColorPicker(false);
+                }}
+                title={`Text color: ${blockStyles.textColor || 'default'}`}
+                className="w-6 h-6 flex items-center justify-center rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
+              >
+                <div
+                  className="w-3.5 h-3.5 rounded-full border border-gray-300"
+                  style={{ backgroundColor: blockStyles.textColor || '#000000' }}
+                />
+              </button>
+              {showTextColorPicker && (
+                <ColorPicker
+                  selectedColor={blockStyles.textColor}
+                  onSelect={(color) => update({ textColor: color })}
+                  onClose={() => setShowTextColorPicker(false)}
+                  projectColors={courseColors}
+                />
+              )}
+            </div>
+          </>
+        )}
+
+        {/* Table style presets button */}
+        {isTable && content && onDataChange && (
+          <div className="relative">
+            {showTextControls && <div className="w-px h-4 bg-gray-200 mx-1" />}
             <button
-              key={align}
-              onClick={() => update({ textAlign: align })}
-              title={`Align ${align}`}
-              className={`w-6 h-6 flex items-center justify-center rounded transition-all ${
-                isActive
-                  ? 'text-[#9F80DA] bg-[#9F80DA]/10'
-                  : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/70'
-              }`}
+              onClick={() => setShowTablePresets(!showTablePresets)}
+              title="Table style presets"
+              className="h-6 px-1.5 flex items-center gap-1 rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
             >
-              <AlignIcon className="w-3.5 h-3.5" />
+              <Palette className="w-3.5 h-3.5" />
+              <span className="text-[10px] font-semibold leading-none">Style</span>
             </button>
+            {showTablePresets && (
+              <TableStylePresetsModal
+                currentPresetId={(content.tableStyle as TablePreset | undefined)?.id}
+                onSelect={(preset) => onDataChange({ ...content, tableStyle: preset })}
+                onClose={() => setShowTablePresets(false)}
+              />
+            )}
+          </div>
+        )}
+
+        {/* Scenario controls */}
+        {isScenario && content && onDataChange && (() => {
+          const bubbleBg = (content.bubbleBg as string) || '#FFFFFF';
+          const bubbleTextAlign = (content.bubbleTextAlign as string) || 'left';
+          const bubbleFontSize = (content.bubbleFontSize as string) || 'normal';
+          const arrowDir = (content.arrowDirection as string) || 'bottom';
+          const arrowAlign = (content.arrowAlignment as string) || 'left';
+          const blurVal = (content.blur as number) || 0;
+          const bubbleFontIdx = FONT_SIZES.indexOf(bubbleFontSize as typeof FONT_SIZES[number]);
+          const cycleBubbleFont = () => {
+            const nextIdx = (bubbleFontIdx + 1) % FONT_SIZES.length;
+            onDataChange({ ...content, bubbleFontSize: FONT_SIZES[nextIdx] });
+          };
+          const updateContent = (partial: Record<string, unknown>) => onDataChange({ ...content, ...partial });
+
+          return (
+            <div className="flex items-center gap-1">
+              {/* Bubble BG color */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowBubbleBgPicker(!showBubbleBgPicker)}
+                  title={`Bubble color: ${bubbleBg}`}
+                  className="w-6 h-6 flex items-center justify-center rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
+                >
+                  <div
+                    className="w-3.5 h-3.5 rounded-full border border-gray-300"
+                    style={{ backgroundColor: bubbleBg }}
+                  />
+                </button>
+                {showBubbleBgPicker && (
+                  <ColorPicker
+                    selectedColor={bubbleBg}
+                    onSelect={(color) => updateContent({ bubbleBg: color })}
+                    onClose={() => setShowBubbleBgPicker(false)}
+                    projectColors={courseColors}
+                  />
+                )}
+              </div>
+
+              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+
+              {/* Bubble text alignment */}
+              {(['left', 'center', 'right'] as const).map((align) => {
+                const icons = { left: AlignLeft, center: AlignCenter, right: AlignRight };
+                const AlignIcon = icons[align];
+                return (
+                  <button
+                    key={align}
+                    onClick={() => updateContent({ bubbleTextAlign: align })}
+                    title={`Bubble align ${align}`}
+                    className={`w-5 h-5 flex items-center justify-center rounded transition-all ${
+                      bubbleTextAlign === align
+                        ? 'text-[#9F80DA] bg-[#9F80DA]/10'
+                        : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/70'
+                    }`}
+                  >
+                    <AlignIcon className="w-3 h-3" />
+                  </button>
+                );
+              })}
+
+              {/* Bubble font size */}
+              <button
+                onClick={cycleBubbleFont}
+                title={`Bubble font: ${bubbleFontSize}`}
+                className="h-5 px-1 flex items-center gap-0.5 rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
+              >
+                <Type className="w-2.5 h-2.5" />
+                <span className="text-[9px] font-semibold leading-none">{FONT_SIZE_LABELS[bubbleFontSize]}</span>
+              </button>
+
+              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+
+              {/* Arrow direction */}
+              {([
+                { d: 'top', Icon: ArrowUp },
+                { d: 'bottom', Icon: ArrowDown },
+                { d: 'left', Icon: ArrowLeft },
+                { d: 'right', Icon: ArrowRight },
+              ] as const).map(({ d, Icon }) => (
+                <button
+                  key={d}
+                  onClick={() => updateContent({ arrowDirection: d })}
+                  title={`Arrow ${d}`}
+                  className={`w-5 h-5 flex items-center justify-center rounded transition-all ${
+                    arrowDir === d
+                      ? 'text-[#9F80DA] bg-[#9F80DA]/10'
+                      : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/70'
+                  }`}
+                >
+                  <Icon className="w-3 h-3" />
+                </button>
+              ))}
+
+              {/* Arrow alignment (only for top/bottom) */}
+              {(arrowDir === 'top' || arrowDir === 'bottom') && (
+                <>
+                  <div className="w-px h-4 bg-gray-200 mx-0.5" />
+                  {(['left', 'center', 'right'] as const).map((a) => (
+                    <button
+                      key={a}
+                      onClick={() => updateContent({ arrowAlignment: a })}
+                      title={`Arrow align ${a}`}
+                      className={`w-5 h-5 flex items-center justify-center rounded text-[9px] font-semibold transition-all ${
+                        arrowAlign === a
+                          ? 'text-[#9F80DA] bg-[#9F80DA]/10'
+                          : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/70'
+                      }`}
+                    >
+                      {a[0].toUpperCase()}
+                    </button>
+                  ))}
+                </>
+              )}
+
+              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+
+              {/* Blur */}
+              <span className="text-[9px] text-gray-400 font-medium select-none">Blur</span>
+              <input
+                type="range"
+                min={0}
+                max={10}
+                value={blurVal}
+                onChange={(e) => updateContent({ blur: parseInt(e.target.value) })}
+                className="w-14 h-1 accent-[#9F80DA] cursor-pointer"
+              />
+              <span className="text-[9px] text-gray-400 tabular-nums w-3">{blurVal}</span>
+            </div>
           );
-        })}
-
-        {/* Separator */}
-        <div className="w-px h-4 bg-gray-200 mx-0.5" />
-
-        {/* Text color */}
-        <div className="relative">
-          <button
-            onClick={() => {
-              setShowTextColorPicker(!showTextColorPicker);
-              setShowBgColorPicker(false);
-            }}
-            title={`Text color: ${blockStyles.textColor || 'default'}`}
-            className="w-6 h-6 flex items-center justify-center rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
-          >
-            <div
-              className="w-3.5 h-3.5 rounded-full border border-gray-300"
-              style={{ backgroundColor: blockStyles.textColor || '#000000' }}
-            />
-          </button>
-          {showTextColorPicker && (
-            <ColorPicker
-              selectedColor={blockStyles.textColor}
-              onSelect={(color) => update({ textColor: color })}
-              onClose={() => setShowTextColorPicker(false)}
-              projectColors={courseColors}
-            />
-          )}
-        </div>
+        })()}
       </div>
 
       {/* Image size presets (side-by-side image+text only) */}

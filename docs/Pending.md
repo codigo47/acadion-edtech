@@ -1,5 +1,45 @@
 
 
+
+- El menu paleta de colores, dentro del componente table para una celda, queda con mal z index, aumentalo para que se vea completo.
+- En Subheading Editable, oculta el icono de tamaño de texto, no se usa en este componente. Hace lo mismo para componentes que no usen el tamaño.
+- En table, en edicion de celda, quiero cambiar, tamaño de tipografia tambien y alineacion del texto, vertical y horizontal.
+- En Table Editable, el menu contextual del estilo de edicion de la celda, aparece adentro del componente, debe ser flotante, no debe cambiar el alto del componente al aparecer.
+- En Table Editable: el boton style esta mal alineado, los botones no deben tener texto, el texto debe ser un tooltip, deja solo el icono, agrega este informacion para todos los componentes en el CLAUDE.md
+- El componente Crop Image, tiene un estilo muy diferente al resto del editor (windows popup, tan grande como sea necesaria, los botones del estilo del editor, todos los botones juntos, Use as is esta arriba, el esto abajo, prefiero todos abajo.), el zindex en principio debe ser mas grande porque ciertos botones del editor siguen quedando por arriba.
+- El componente Crop Image no cropea imagenes, la cuadricula puede moverse pero no resizing, agregalo. La imagen resultante por ahora guardala en memoria nada mas.
+- En Scenario Editable: la burbuja debe poder moverse haciendo drag and drop
+- En Scenario Editable: tambien debe poder cambiarse la direccion de la flecha de la burbuja, top, bottom, left side, right side y la alineacion cuando es top o bottom (left, right middle). Blur debe estar en el footer del estilo del comp.
+En Scenario Editable: BG debe ser un boton que aparece sobre la imagen igual que pasa en los componentes IMAGE Editable.
+- En Scenario Editable: La burbuja debe tener su serie de estilos propios, background color, tipografia, alineacion del texto, tamaño. Agregalos tambien en el footer. Cuando cambio la alineacion, las respuestas no deben cambiar de alineacion, esas dejalas siempre a la izquierda.
+- Cambia la logica de los colores favoritos del menu de paleta de colores: Los favoritos deben ser los colores que actualmente se estan usando en el proyecto en todos los componentes, en letras y fondos, esos colores deben aparecer en favoritos, si un color no esta siendo usando en el proyecto entero entonces removelo de favoritos.
+
+
+-------------------------------
+
+
+Si un componente editable no se le puede cambiar el tamaño de la fuente, porque esa feature no esta implementada, entonces oculta el iconito para cambiar el tamaño de la fuente.
+En Table Editable, el estilo de la columna donde esta el icono para borrar la fila no debe tener el estilo de la tabla, debe ser sin borde, sin background color, sin bordes, eso es parte de la interfaz de usuario no de la tabla misma. Saca "+ Column" y "Last column" esas funcionalidades deben estar en la misma tabla, El boton e icono "Style" deben estar en el footer de estilo, on dentro del contenido del compoenten. Agrega esa regla a CLAUDE.md: todo lo referente a estilo va en el footer del componente editable. Si el componente no reaccion a una propiedad de estilo, no mostrar esafuncionalidad en el footer.
+Sigo con Table: despues de aplicar un estilo preset, quiero igualmente poder modificar a mano el estilo y sobreescribir lo que muestra el preset. Ademas quiero cambiar individualmente el estilo de 1 celda, busca con el plugin frontend-designer como comunicar que se esta trabajando sobre una celda al usuario.
+Despues de elegir un color, oculta el menu de paleta de colores.
+No quiero tener que hacer click en la estrella de la paleta de colores para guardarlo como favorito, quiero que se guarde automaticamente todo color que yo elija de los colores predefinidos o ingrese custom con HEX.
+Modifia el menu de paleta de colores para que muestre tambien el clasico "arcoiris" de colores para que yo pueda elegir un color visualmente tambien.
+En el menu Course Structure quiero poder hacer drag and drop de los componentes para cambiarlos de orden. Hace un drag and drop con el clasico fantasma del elemento que estoy moviendo que se vea claramente donde se va a soltar el componente si suelto el click del mouse, puede ser una linea indicativa.
+
+----------------------------
+
+en la pagina /project/{COURSE_KEY} del proyecto web los componentes editables tienen una barra de formato en el footer de cada componente. Para la eleccion de colores quiero que uses un componente de eleccion de colores mas completo, como las color pickers de office, notion, etc. Las funcionalidades que quiero son, poder pegar un HEX o RGB, que cada color custom que elijo se guarde como favorito y aparezca automaticamente en el resto de las paletas de colores de los otros componentes y que sea facil elegirlo, como estan ahora los pocos colores que hay fijos, ademas quiero ver colores basicos como siempre y una seccion de "project colors" que son los que se toman de la primera pantalla para generar el curso.
+Intenta reutilizar este componente de colores por supuesto y agrega este instruccion de reutilizacion el CLAUDE.md general del back y web.
+El tamaño de la tipografia debe ser un estilo a elegir, ahora veo un icono pero no funciona, asegurate que funcione en todos los componentes.
+Para el componente editable "table" quiero unos 10 presets de estilos para headers, filas impares pares, backgrounds colors, tamaño de letra por celda, bordes, crea una popup window para setear los estilos de "table" con un previsualizador para que el usuario vea como va a quedar su diseño de colores etc.
+Subheading es un componente que podria convertirse en Heading
+Cuando cambio paragraph a "Paragraph + heading" no puedo volver a desplegar el menu para elegir otro tipo decomponente, eso pasa con varios componentes y ademas cambio de opcion y luego no aparecen las mismas, busca ese error y arreglalo.
+En Separator move las opciones de estilo al footer, ahora mismo estan adentro del "area del componente" que se va a previsualizar en "modo preview"
+El componente EditableQuote no se ve igual que su version read only
+En el componente Iamge + Text Left (por ejemplo, pasa en varios otros componentes de imagen) yo selecciono un ancho de imagen y se ve bien, pero en el componente read only no se renderiza de la misma forma. Y esto va todos los componentes, tenes que ver que el codigo o es estilo final de los 2 componentes Editable y Read Only sea el mismo (no se si el codigo va a ser exacto el mismo, pero quizas el html final si debar serlo para que se vean igual)
+
+---------------------
+
 Te voy a pasar una lista de cambios, si tenes preguntas hacelas o si queres que se amplie algo preguntalo.
 Usa team agents para trabajar en diferentes partes al mismo tiempo.
 1. Editor de imagen en bloques con imagen: reemplazar imagen, crop, mover/reencuadrar para elegir qué parte se ve
