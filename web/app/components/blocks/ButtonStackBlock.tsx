@@ -72,9 +72,9 @@ export default function ButtonStackBlock({
           </h3>
         )}
         <div className="space-y-3">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <a
-              key={item.id}
+              key={item.id || index}
               href={item.url}
               target={item.target || '_self'}
               rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
@@ -132,9 +132,9 @@ export default function ButtonStackBlock({
           </h3>
         )}
         <div className="space-y-2">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <a
-              key={item.id}
+              key={item.id || index}
               href={item.url}
               target={item.target || '_self'}
               rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
@@ -183,9 +183,9 @@ export default function ButtonStackBlock({
           </h3>
         )}
         <div className="space-y-2">
-          {items.map((item) => (
+          {items.map((item, index) => (
             <a
-              key={item.id}
+              key={item.id || index}
               href={item.url}
               target={item.target || '_self'}
               rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
