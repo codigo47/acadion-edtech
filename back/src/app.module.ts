@@ -19,6 +19,7 @@ import { LearningPlanModule } from './learning-plan/learning-plan.module';
 import { GroupModule } from './group/group.module';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { EmailModule } from './email/email.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { EmailModule } from './email/email.module';
     GroupModule,
     AnalyticsModule,
     EmailModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [AppService],
