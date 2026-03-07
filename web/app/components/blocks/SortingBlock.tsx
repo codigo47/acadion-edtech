@@ -22,8 +22,8 @@ export interface SortingBlockProps {
 }
 
 export default function SortingBlock({
-  cards: initialCards,
-  categories,
+  cards: initialCards = [],
+  categories = [],
   dark = false,
 }: SortingBlockProps) {
   const [deckCards, setDeckCards] = useState<SortingCard[]>(initialCards);
