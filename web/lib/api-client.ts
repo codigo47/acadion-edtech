@@ -16,13 +16,14 @@ export class ApiError extends Error {
 interface RequestOptions extends Omit<RequestInit, 'body'> {
   body?: unknown;
   auth?: boolean;
+  raw?: boolean;
 }
 
 async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
-  const { body, auth = true, headers: customHeaders, ...restOptions } = options;
+  const { body, auth = true, raw = false, headers: customHeaders, ...restOptions } = options;
 
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    ...(raw ? {} : { 'Content-Type': 'application/json' }),
     ...customHeaders,
   };
 
@@ -36,7 +37,7 @@ async function request<T>(endpoint: string, options: RequestOptions = {}): Promi
   const response = await fetch(`${API_URL}${endpoint}`, {
     ...restOptions,
     headers,
-    body: body ? JSON.stringify(body) : undefined,
+    body: raw ? (body as BodyInit) : body ? JSON.stringify(body) : undefined,
   });
 
   if (!response.ok) {
@@ -70,6 +71,12 @@ export const api = {
 
   delete: <T>(endpoint: string, options?: RequestOptions) =>
     request<T>(endpoint, { ...options, method: 'DELETE' }),
+
+  upload: <T>(endpoint: string, file: Blob, fieldName = 'file') => {
+    const formData = new FormData();
+    formData.append(fieldName, file);
+    return request<T>(endpoint, { method: 'POST', body: formData, raw: true });
+  },
 };
 
 export interface PaginatedResponse<T> {
