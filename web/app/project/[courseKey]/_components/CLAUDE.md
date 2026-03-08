@@ -172,13 +172,31 @@ The variant dropdown for style switching is powered by `groupVariants` from the 
 
 ### Style Controls in Footer Rule
 
-**All style controls belong in the BlockFooter**, not inside the component content area. The editable component should only contain the content editing surface.
+**All style controls belong in the FormatToolBar** (inline variant at the bottom of each block), not inside the component content area. The editable component should only contain the content editing surface.
 
-If a component doesn't respond to a style property (e.g., SeparatorBlock doesn't use font size), **hide that control** in the footer. This is enforced by the `NO_TEXT_CONTROLS` set in `BlockFooter.tsx`.
+If a component doesn't respond to a style property (e.g., SeparatorBlock doesn't use font size), that control group is hidden via `hideControls` in `EditorBlock.tsx` (using `NO_TEXT_CONTROLS` / `NO_FONT_SIZE` sets).
 
-Components in `NO_TEXT_CONTROLS` (SeparatorBlock, ImageBlock, VideoBlock, AudioBlock, AttachmentBlock, EmbedBlock, GalleryBlock, LabeledImageBlock, GraphBlock) do NOT show font size, text alignment, or text color controls.
+Component-specific controls live in `block-toolbar-rows.tsx` and render as the FormatToolBar `secondRow`.
 
-Component-specific style controls (e.g., table style presets) go in the footer via conditional props (`content`, `onDataChange`).
+### Disable Instead of Hide
+
+When a toolbar control becomes irrelevant due to a toggle state (e.g., line color when the line is hidden), **disable the control instead of hiding it**. This keeps the toolbar layout stable and lets users see what options exist.
+
+Use the `disabled` prop on `ToolBtn`:
+```tsx
+<ToolBtn
+  active={thickness === 'thin'}
+  onClick={() => update({ thickness: 'thin' })}
+  tooltip="Thin"
+  disabled={!showLine}   // visually muted + not clickable, but still visible
+>
+  ...
+</ToolBtn>
+```
+
+- Disabled buttons show `text-gray-300 cursor-not-allowed` (no hover effects).
+- Color swatches inside disabled buttons should use neutral grays (e.g., `#e5e7eb`) instead of the actual color.
+- Pickers (ColorPicker, modals) must not open when the button is disabled — gate the picker render: `{showPicker && !disabled && <ColorPicker ... />}`.
 
 ### Sidebar Drag-and-Drop
 

@@ -1,4 +1,7 @@
 
+
+------------------------------------
+
 Modifiaciones para el modal de add component en el editor:
 - la ventana no debe cambiar de tamaño, hacela grande para que entren 20 componentes, debe ser mas ancha
 - saca la categoria All Components

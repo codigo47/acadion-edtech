@@ -8,7 +8,7 @@ import {
   type ProposedModule,
 } from '../../lib/hooks/use-lms';
 import { BlockComponents } from '../project/[courseKey]/_components/CourseComponent';
-import { blockStylesToCss, type BlockStyles } from '../project/[courseKey]/_components/BlockFooter';
+import { blockStylesToCss, type BlockStyles } from '@/lib/block-styles';
 
 // ---- Time tracking ----
 function useActiveTimer(onTick: (seconds: number) => void, intervalSeconds = 30) {

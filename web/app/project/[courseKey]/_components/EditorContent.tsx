@@ -8,7 +8,6 @@ import { EditorBlock } from './EditorBlock';
 import { PreviewModal } from './PreviewModal';
 import { AIPromptModal } from './AIPromptModal';
 import { AddComponentModal } from './AddComponentModal';
-import { FormatToolBar, type FormatState } from '../../../components/FormatToolBar';
 import { getBlockMeta } from './block-metadata';
 import {
   useDeleteComponent,
@@ -82,7 +81,6 @@ export function EditorContent({
   const [previewComponent, setPreviewComponent] = useState<UnitComponent | null>(null);
   const [aiPromptComponent, setAiPromptComponent] = useState<{ id: number; name: string } | null>(null);
   const [addComponentTarget, setAddComponentTarget] = useState<{ module: number; unit: number; afterSequence: number } | null>(null);
-  const [previewFormat, setPreviewFormat] = useState<FormatState>({ fontSize: 14, hAlign: 'left', vAlign: 'top' });
   // Save status
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const saveTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -356,17 +354,6 @@ export function EditorContent({
   return (
     <ProjectUsedColorsProvider value={projectUsedColors}>
       <CustomScrollbar>
-        {/* FormatToolBar preview — temporal */}
-        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
-          <div className="pointer-events-auto">
-            <FormatToolBar
-              format={previewFormat}
-              onChange={setPreviewFormat}
-              projectColors={courseColors}
-            />
-          </div>
-        </div>
-
         {localComponents.length > 0 && proposedIndex ? (
           <div className="max-w-4xl mx-auto py-8 px-4">
             {/* Course title */}

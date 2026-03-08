@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import * as Blocks from '../../../components/blocks';
 import { UnitComponent } from './types';
-import { blockStylesToCss, type BlockStyles } from './BlockFooter';
+import { blockStylesToCss, type BlockStyles } from '@/lib/block-styles';
 
 // Map of component names to their React components
 export const BlockComponents: Record<string, ComponentType<any>> = {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   GripVertical,
   Sparkles,
@@ -12,9 +12,91 @@ import {
 } from 'lucide-react';
 import { getBlockMeta } from './block-metadata';
 import { EditableCourseComponent } from './EditableCourseComponent';
-import { BlockFooter, blockStylesToCss, type BlockStyles } from './BlockFooter';
+import { FormatToolBar } from '@/app/components/FormatToolBar';
+import { blockStylesToCss, blockStylesToFormat, formatToBlockStyles, type BlockStyles } from '@/lib/block-styles';
+import { SeparatorSecondRow, ScenarioSecondRow, TablePresetControl, ImageSizeSecondRow, ColumnsControl } from './block-toolbar-rows';
 import { PropertiesPopup } from './PropertiesPopup';
 import type { UnitComponent } from './types';
+
+// Components that hide ALL text controls (formatting, color, alignment, font size)
+const NO_TEXT_CONTROLS = new Set([
+  'ImageBlock',
+  'VideoBlock',
+  'AudioBlock',
+  'AttachmentBlock',
+  'EmbedBlock',
+  'GalleryBlock',
+  'LabeledImageBlock',
+  'GraphBlock',
+]);
+
+// Components that hide text formatting, color and alignment but keep font size
+const NO_TEXT_KEEP_FONT_SIZE = new Set([
+  'SeparatorBlock',
+  'ScenarioBlock',
+]);
+
+// Components that only hide font size (they have their own fixed sizing)
+const NO_FONT_SIZE = new Set([
+  'HeadingBlock',
+  'SubheadingBlock',
+  'TableBlock',
+  'CarouselBlock',
+  'FlashCardBlock',
+  'MultipleChoiceBlock',
+  'MultipleResponseBlock',
+  'FillInTheBlankBlock',
+  'MatchingPairsBlock',
+  'SortingBlock',
+  'SortingStepsBlock',
+  'ButtonBlock',
+  'ButtonStackBlock',
+  'BannerBlock',
+  'TimelineBlock',
+  'CheckboxBlock',
+]);
+
+function getHideControls(componentName?: string): Set<string> {
+  const hidden = new Set(['vAlign', 'lineColor', 'superSub']);
+  if (!componentName) return hidden;
+
+  if (NO_TEXT_CONTROLS.has(componentName)) {
+    hidden.add('textFormatting');
+    hidden.add('textColor');
+    hidden.add('hAlign');
+    hidden.add('fontSize');
+  } else if (NO_TEXT_KEEP_FONT_SIZE.has(componentName)) {
+    hidden.add('textFormatting');
+    hidden.add('textColor');
+    hidden.add('hAlign');
+  } else if (NO_FONT_SIZE.has(componentName)) {
+    hidden.add('fontSize');
+  }
+  return hidden;
+}
+
+function getExtraControls(
+  componentName: string | undefined,
+  content: Record<string, unknown>,
+  onDataChange: (data: Record<string, unknown>) => void,
+  projectColors?: string[],
+): React.ReactNode | undefined {
+  switch (componentName) {
+    case 'SeparatorBlock':
+      return <SeparatorSecondRow content={content} onDataChange={onDataChange} projectColors={projectColors} />;
+    case 'ScenarioBlock':
+      return <ScenarioSecondRow content={content} onDataChange={onDataChange} projectColors={projectColors} />;
+    case 'TableBlock':
+      return <TablePresetControl content={content} onDataChange={onDataChange} />;
+    case 'ImageWithTextBlock':
+    case 'ImageWithTextLeftBlock':
+      return <ImageSizeSecondRow content={content} onDataChange={onDataChange} />;
+    case 'ColumnsBlock':
+      return <ColumnsControl content={content} onDataChange={onDataChange} />;
+    default:
+      return undefined;
+  }
+}
 
 interface EditorBlockProps {
   component: UnitComponent;
@@ -61,6 +143,29 @@ export function EditorBlock({
   const styleDropdownRef = useRef<HTMLDivElement>(null);
   const propertiesRef = useRef<HTMLDivElement>(null);
   const blockRef = useRef<HTMLDivElement>(null);
+
+  // Local blockStyles state for instant UI response + debounced save
+  const content = component.content as Record<string, unknown>;
+  const serverBlockStyles = (content?.blockStyles as BlockStyles) || {};
+  const [localBlockStyles, setLocalBlockStyles] = useState<BlockStyles>(serverBlockStyles);
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  // Sync from server when server data changes (e.g. after AI edit, undo, etc.)
+  useEffect(() => {
+    setLocalBlockStyles(serverBlockStyles);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(serverBlockStyles)]);
+
+  const handleFormatChange = useCallback((newStyles: BlockStyles) => {
+    setLocalBlockStyles(newStyles);
+    clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => {
+      onDataChange({ ...content, blockStyles: newStyles });
+    }, 600);
+  }, [content, onDataChange]);
+
+  // Flush pending save on unmount
+  useEffect(() => () => clearTimeout(saveTimerRef.current), []);
 
   const meta = getBlockMeta(component.componentName);
   const Icon = meta.icon;
@@ -144,13 +249,13 @@ export function EditorBlock({
         <div className="absolute inset-x-0 flex items-center justify-center gap-1 pointer-events-none">
           <div className="flex items-center gap-1 pointer-events-auto">
           <ToolbarButton
-            icon={<Sparkles className="w-3.5 h-3.5" />}
+            icon={<Sparkles className="w-5 h-5" />}
             tooltip="AI"
             onClick={onAIPrompt}
           />
           <div className="relative" ref={propertiesRef}>
             <ToolbarButton
-              icon={<Settings className="w-3.5 h-3.5" />}
+              icon={<Settings className="w-5 h-5" />}
               tooltip="Properties"
               onClick={() => setShowProperties(!showProperties)}
               active={showProperties}
@@ -165,12 +270,12 @@ export function EditorBlock({
             )}
           </div>
           <ToolbarButton
-            icon={<Eye className="w-3.5 h-3.5" />}
+            icon={<Eye className="w-5 h-5" />}
             tooltip="Preview"
             onClick={onPreview}
           />
           <ToolbarButton
-            icon={<Copy className="w-3.5 h-3.5" />}
+            icon={<Copy className="w-5 h-5" />}
             tooltip="Duplicate"
             onClick={() => onDuplicate(componentId)}
           />
@@ -195,7 +300,7 @@ export function EditorBlock({
             </div>
           ) : (
             <ToolbarButton
-              icon={<Trash2 className="w-3.5 h-3.5" />}
+              icon={<Trash2 className="w-5 h-5" />}
               tooltip="Delete"
               onClick={() => setShowDeleteConfirm(true)}
               variant="danger"
@@ -227,26 +332,20 @@ export function EditorBlock({
 
       {/* Component content */}
       <div
-        style={blockStylesToCss(((component.content as Record<string, unknown>)?.blockStyles as BlockStyles) || undefined)}
+        style={blockStylesToCss(localBlockStyles)}
         className="rounded-lg"
       >
         <EditableCourseComponent component={component} onDataChange={onDataChange} />
       </div>
 
       {/* Block footer with styling controls */}
-      <BlockFooter
-        blockStyles={((component.content as Record<string, unknown>)?.blockStyles as Record<string, string>) || {}}
-        onStyleChange={(styles) => {
-          onDataChange({ ...(component.content as Record<string, unknown>), blockStyles: styles });
-        }}
-        courseColors={courseColors}
-        componentName={component.componentName}
-        imageSize={(component.content as Record<string, unknown>)?.imageSize as number | undefined}
-        onImageSizeChange={(size) => {
-          onDataChange({ ...(component.content as Record<string, unknown>), imageSize: size });
-        }}
-        content={component.content as Record<string, unknown>}
-        onDataChange={onDataChange}
+      <FormatToolBar
+        variant="inline"
+        format={blockStylesToFormat(localBlockStyles)}
+        onChange={(fmt) => handleFormatChange(formatToBlockStyles(fmt))}
+        projectColors={courseColors}
+        hideControls={getHideControls(component.componentName)}
+        extraControls={getExtraControls(component.componentName, content, onDataChange, courseColors)}
       />
     </div>
   );
@@ -269,7 +368,7 @@ function ToolbarButton({
     <div className="relative group/tooltip">
       <button
         onClick={onClick}
-        className={`w-7 h-7 flex items-center justify-center rounded-md transition-all ${
+        className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all ${
           active
             ? 'bg-[#9F80DA] text-white'
             : variant === 'danger'
