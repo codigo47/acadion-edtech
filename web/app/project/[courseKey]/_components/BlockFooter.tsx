@@ -12,6 +12,7 @@ import {
   ArrowDown,
   ArrowLeft,
   ArrowRight,
+  Minus,
 } from 'lucide-react';
 import { ColorPicker } from '../../../components/ColorPicker';
 import { TableStylePresetsModal, type TablePreset } from '../../../components/blocks/TableStylePresetsModal';
@@ -166,10 +167,13 @@ export function BlockFooter({
   const showFontSize = !componentName || !NO_FONT_SIZE.has(componentName);
   const isTable = componentName === 'TableBlock';
   const isScenario = componentName === 'ScenarioBlock';
+  const isSeparator = componentName === 'SeparatorBlock';
   const [showTextColorPicker, setShowTextColorPicker] = useState(false);
   const [showBgColorPicker, setShowBgColorPicker] = useState(false);
   const [showTablePresets, setShowTablePresets] = useState(false);
   const [showBubbleBgPicker, setShowBubbleBgPicker] = useState(false);
+  const [showLineColorPicker, setShowLineColorPicker] = useState(false);
+  const [showNumberColorPicker, setShowNumberColorPicker] = useState(false);
 
   const update = useCallback(
     (partial: Partial<BlockStyles>) => {
@@ -423,6 +427,131 @@ export function BlockFooter({
                 className="w-14 h-1 accent-[#9F80DA] cursor-pointer"
               />
               <span className="text-[9px] text-gray-400 tabular-nums w-3">{blurVal}</span>
+            </div>
+          );
+        })()}
+
+        {/* Separator controls */}
+        {isSeparator && content && onDataChange && (() => {
+          const showLine = content.showLine !== false;
+          const showNumber = content.showNumber === true;
+          const lineColor = (content.lineColor as string) || '#d1d5db';
+          const numberColor = (content.numberColor as string) || '#FFFFFF';
+          const thickness = (content.thickness as string) || 'thin';
+          const updateContent = (partial: Record<string, unknown>) => onDataChange({ ...content, ...partial });
+
+          return (
+            <div className="flex items-center gap-1">
+              {/* Show Line toggle */}
+              <button
+                onClick={() => updateContent({ showLine: !showLine })}
+                title={showLine ? 'Hide line' : 'Show line'}
+                className={`h-6 px-1.5 flex items-center gap-1 rounded transition-all text-[10px] font-medium ${
+                  showLine
+                    ? 'bg-[#9F80DA]/10 text-[#9F80DA]'
+                    : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/70'
+                }`}
+              >
+                <Minus className="w-3 h-3" />
+                Line
+              </button>
+
+              {/* Show Number toggle */}
+              <button
+                onClick={() => updateContent({ showNumber: !showNumber })}
+                title={showNumber ? 'Hide number' : 'Show number'}
+                className={`h-6 px-1.5 flex items-center gap-1 rounded transition-all text-[10px] font-medium ${
+                  showNumber
+                    ? 'bg-[#9F80DA]/10 text-[#9F80DA]'
+                    : 'text-gray-400 hover:text-gray-700 hover:bg-gray-200/70'
+                }`}
+              >
+                #
+              </button>
+
+              {/* Thickness */}
+              {showLine && (
+                <>
+                  <div className="w-px h-4 bg-gray-200 mx-0.5" />
+                  {([
+                    { value: 'thin', h: '1px' },
+                    { value: 'medium', h: '2px' },
+                    { value: 'thick', h: '4px' },
+                  ] as const).map((opt) => (
+                    <button
+                      key={opt.value}
+                      onClick={() => updateContent({ thickness: opt.value })}
+                      title={opt.value}
+                      className={`w-7 h-6 flex items-center justify-center rounded transition-all ${
+                        thickness === opt.value
+                          ? 'bg-[#9F80DA]/10 ring-1 ring-[#9F80DA]/40'
+                          : 'hover:bg-gray-200/70 opacity-50 hover:opacity-100'
+                      }`}
+                    >
+                      <div className="w-4 rounded-full" style={{ height: opt.h, backgroundColor: lineColor }} />
+                    </button>
+                  ))}
+                </>
+              )}
+
+              {/* Line color */}
+              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+              <div className="relative">
+                <button
+                  onClick={() => {
+                    setShowLineColorPicker(!showLineColorPicker);
+                    setShowBgColorPicker(false);
+                    setShowTextColorPicker(false);
+                    setShowNumberColorPicker(false);
+                  }}
+                  title={`Line color: ${lineColor}`}
+                  className="w-6 h-6 flex items-center justify-center rounded transition-all text-gray-400 hover:text-gray-700 hover:bg-gray-200/70"
+                >
+                  <div
+                    className="w-3.5 h-3.5 rounded-full border border-gray-300"
+                    style={{ backgroundColor: lineColor }}
+                  />
+                </button>
+                {showLineColorPicker && (
+                  <ColorPicker
+                    selectedColor={lineColor}
+                    onSelect={(color) => updateContent({ lineColor: color })}
+                    onClose={() => setShowLineColorPicker(false)}
+                    projectColors={courseColors}
+                  />
+                )}
+              </div>
+
+              {/* Number text color */}
+              {showNumber && (
+                <div className="relative">
+                  <button
+                    onClick={() => {
+                      setShowNumberColorPicker(!showNumberColorPicker);
+                      setShowLineColorPicker(false);
+                      setShowBgColorPicker(false);
+                      setShowTextColorPicker(false);
+                    }}
+                    title={`Number color: ${numberColor}`}
+                    className="w-6 h-6 flex items-center justify-center rounded transition-all hover:bg-gray-200/70"
+                  >
+                    <div
+                      className="w-3.5 h-3.5 rounded-full border border-gray-300 flex items-center justify-center"
+                      style={{ backgroundColor: lineColor }}
+                    >
+                      <span className="text-[7px] font-bold leading-none" style={{ color: numberColor }}>1</span>
+                    </div>
+                  </button>
+                  {showNumberColorPicker && (
+                    <ColorPicker
+                      selectedColor={numberColor}
+                      onSelect={(color) => updateContent({ numberColor: color })}
+                      onClose={() => setShowNumberColorPicker(false)}
+                      projectColors={courseColors}
+                    />
+                  )}
+                </div>
+              )}
             </div>
           );
         })()}

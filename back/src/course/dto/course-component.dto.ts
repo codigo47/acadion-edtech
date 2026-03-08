@@ -1,5 +1,6 @@
 import {
   IsNumber,
+  IsString,
   IsObject,
   IsArray,
   ValidateNested,
@@ -29,4 +30,18 @@ export class ReorderComponentsDto {
 export class SwitchStyleDto {
   @IsNumber()
   newComponentId: number;
+}
+
+export class CreateComponentDto {
+  @IsString()
+  componentName: string;
+
+  @IsNumber()
+  module: number;
+
+  @IsNumber()
+  unit: number;
+
+  @IsNumber()
+  afterSequence: number;
 }

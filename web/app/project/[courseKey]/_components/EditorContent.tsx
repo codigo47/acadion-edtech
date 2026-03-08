@@ -7,10 +7,13 @@ import { CustomScrollbar } from '../../../components/CustomScrollbar';
 import { EditorBlock } from './EditorBlock';
 import { PreviewModal } from './PreviewModal';
 import { AIPromptModal } from './AIPromptModal';
+import { AddComponentModal } from './AddComponentModal';
+import { FormatToolBar, type FormatState } from '../../../components/FormatToolBar';
 import { getBlockMeta } from './block-metadata';
 import {
   useDeleteComponent,
   useDuplicateComponent,
+  useCreateComponent,
   useReorderComponents,
   useUpdateComponentData,
   useSwitchComponentStyle,
@@ -78,6 +81,8 @@ export function EditorContent({
   // Modal state
   const [previewComponent, setPreviewComponent] = useState<UnitComponent | null>(null);
   const [aiPromptComponent, setAiPromptComponent] = useState<{ id: number; name: string } | null>(null);
+  const [addComponentTarget, setAddComponentTarget] = useState<{ module: number; unit: number; afterSequence: number } | null>(null);
+  const [previewFormat, setPreviewFormat] = useState<FormatState>({ fontSize: 14, hAlign: 'left', vAlign: 'top' });
   // Save status
   const [saveStatus, setSaveStatus] = useState<SaveStatus>('idle');
   const saveTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -103,6 +108,7 @@ export function EditorContent({
   // Mutations
   const deleteComponent = useDeleteComponent(courseKey);
   const duplicateComponent = useDuplicateComponent(courseKey);
+  const createComponent = useCreateComponent(courseKey);
   const reorderComponents = useReorderComponents(courseKey);
   const updateComponentData = useUpdateComponentData(courseKey);
   const switchComponentStyle = useSwitchComponentStyle(courseKey);
@@ -246,6 +252,29 @@ export function EditorContent({
     [updateSaveStatus],
   );
 
+  const handleAddComponent = useCallback(
+    (componentName: string) => {
+      if (!addComponentTarget) return;
+      updateSaveStatus('saving');
+      createComponent.mutate(
+        {
+          componentName,
+          module: addComponentTarget.module,
+          unit: addComponentTarget.unit,
+          afterSequence: addComponentTarget.afterSequence,
+        },
+        {
+          onSuccess: () => {
+            updateSaveStatus('saved');
+            setAddComponentTarget(null);
+          },
+          onError: () => updateSaveStatus('error'),
+        },
+      );
+    },
+    [addComponentTarget, createComponent, updateSaveStatus],
+  );
+
   // Drag and drop — SortingSteps-style live reorder
   const handleDragStart = useCallback((id: number) => {
     draggedIdRef.current = id;
@@ -327,6 +356,17 @@ export function EditorContent({
   return (
     <ProjectUsedColorsProvider value={projectUsedColors}>
       <CustomScrollbar>
+        {/* FormatToolBar preview — temporal */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+          <div className="pointer-events-auto">
+            <FormatToolBar
+              format={previewFormat}
+              onChange={setPreviewFormat}
+              projectColors={courseColors}
+            />
+          </div>
+        </div>
+
         {localComponents.length > 0 && proposedIndex ? (
           <div className="max-w-4xl mx-auto py-8 px-4">
             {/* Course title */}
@@ -438,7 +478,10 @@ export function EditorContent({
 
                                 {/* Add button below component */}
                                 <div className="flex justify-center py-2">
-                                  <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-white bg-gray-100 hover:bg-[#9F80DA] border border-gray-300 hover:border-[#9F80DA] rounded-lg transition-all shadow-sm">
+                                  <button
+                                    onClick={() => setAddComponentTarget({ module: comp.module, unit: comp.unit, afterSequence: comp.sequence })}
+                                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-white bg-gray-100 hover:bg-[#9F80DA] border border-gray-300 hover:border-[#9F80DA] rounded-lg transition-all shadow-sm"
+                                  >
                                     <Plus className="w-3.5 h-3.5" />
                                     Add component
                                   </button>
@@ -480,6 +523,14 @@ export function EditorContent({
           onGenerate={handleAIGenerate}
         />
       )}
+
+      {/* Add Component Modal */}
+      <AddComponentModal
+        isOpen={addComponentTarget !== null}
+        onClose={() => setAddComponentTarget(null)}
+        onAdd={handleAddComponent}
+        usedComponentNames={components.map((c) => c.componentName)}
+      />
     </ProjectUsedColorsProvider>
   );
 }

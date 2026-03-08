@@ -1,5 +1,31 @@
 
+Modifiaciones para el modal de add component en el editor:
+- la ventana no debe cambiar de tamaño, hacela grande para que entren 20 componentes, debe ser mas ancha
+- saca la categoria All Components
+- la primera caregoria debe ser: Recientemente usados
+- Al abrir la ventana hace foco en el text de search
+- al apretar Escape que se cierre la ventana, agrega esto en todas las ventanas modal
 
+
+---------------------------------
+
+
+nueva feature: "Add component":
+- en las paginas http://localhost:8000/project/87873ee9-2668-4007-9d94-69127358eeb3, cuando se clickee en  "+ Add component" se tiene que abrir esta nueva ventana modal para agregar componentes.
+- Debe aparecer una lista de componentes con un buscador por nombre, la lista deben ser cuadrados como estamos haciendo en /dashboard para mostrar los cursos.
+- Debe haber un menu a la izquierda con los grupos o categorias, si el usuario selecciona una categoria, solo mostrar esos componentes.
+- Cada componente va a tener una imagen de preview, por ahora no tengo la imagen, usa placeholders
+- Cuando el usuario elija el componente haciendo click en Add, un boton en el footer de esta nueva ventana modal, debe cerrarse la ventana, y el componente debe haber sido agregado abajo del boton que se uso para agregarlo, debe volver a aparecer un boton "+ Add component"arriba y abajo de este nuevo componente, como siempre.
+- el nuevo componente debe guardarse en la tabla correspondiente. Crea los endpoints necesarios para esto en el proyecto back.
+
+
+----
+
+- El ImageCropModal debe ser del mismo estilo que "Select Image" modal, ventana blanca, botones del color principal, no full screen
+- no agregaste la funcion de CROP que te pedi, no puedo modificar el tamaño de la seleccion para nada y el crop debe dejarme cambiar el tamaño de la seleccion
+
+g
+------------------
 
 - El menu paleta de colores, dentro del componente table para una celda, queda con mal z index, aumentalo para que se vea completo.
 - En Subheading Editable, oculta el icono de tamaño de texto, no se usa en este componente. Hace lo mismo para componentes que no usen el tamaño.

@@ -2,42 +2,30 @@
 
 import React from 'react';
 
-export type SeparatorColor = 'gray' | 'red' | 'green' | 'blue' | 'yellow';
-
 export interface SeparatorBlockProps {
   height?: number;
-  color?: SeparatorColor;
+  lineColor?: string;
+  numberColor?: string;
   showNumber?: boolean;
   showLine?: boolean;
   number?: number;
+  thickness?: string;
   dark?: boolean;
 }
 
 export default function SeparatorBlock({
   height = 40,
-  color = 'gray',
+  lineColor,
+  numberColor = '#FFFFFF',
   showNumber = false,
   showLine = true,
   number = 1,
+  thickness = 'thin',
   dark = false,
 }: SeparatorBlockProps) {
-  const colorClasses = dark ? {
-    gray: 'bg-gray-600 text-gray-400 border-gray-600',
-    red: 'bg-red-500 text-red-400 border-red-500',
-    green: 'bg-green-500 text-green-400 border-green-500',
-    blue: 'bg-blue-500 text-blue-400 border-blue-500',
-    yellow: 'bg-yellow-500 text-yellow-400 border-yellow-500',
-  }[color] : {
-    gray: 'bg-gray-300 text-gray-600 border-gray-300',
-    red: 'bg-red-400 text-red-600 border-red-400',
-    green: 'bg-green-400 text-green-600 border-green-400',
-    blue: 'bg-blue-400 text-blue-600 border-blue-400',
-    yellow: 'bg-yellow-400 text-yellow-600 border-yellow-400',
-  }[color];
-
-  const bgColor = colorClasses.split(' ')[0];
-  const textColor = colorClasses.split(' ')[1];
-  const borderColor = colorClasses.split(' ')[2];
+  const resolvedLineColor = lineColor || (dark ? '#4B5563' : '#d1d5db');
+  const thicknessMap: Record<string, string> = { thin: '1px', medium: '2px', thick: '4px' };
+  const lineHeight = thicknessMap[thickness] || '1px';
 
   return (
     <div
@@ -45,12 +33,13 @@ export default function SeparatorBlock({
       style={{ height: `${height}px` }}
     >
       {showLine && !showNumber && (
-        <div className={`w-full h-0.5 ${bgColor}`} />
+        <div className="w-full" style={{ borderTop: `${lineHeight} solid ${resolvedLineColor}` }} />
       )}
 
       {showNumber && !showLine && (
         <div
-          className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${textColor} border-2 ${borderColor}`}
+          className="w-10 h-10 rounded-full flex items-center justify-center font-bold border-2"
+          style={{ borderColor: resolvedLineColor, color: numberColor }}
         >
           {number}
         </div>
@@ -58,13 +47,14 @@ export default function SeparatorBlock({
 
       {showLine && showNumber && (
         <div className="w-full flex items-center gap-4">
-          <div className={`flex-1 h-0.5 ${bgColor}`} />
+          <div className="flex-1" style={{ borderTop: `${lineHeight} solid ${resolvedLineColor}` }} />
           <div
-            className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${textColor} border-2 ${borderColor}`}
+            className="w-10 h-10 rounded-full flex items-center justify-center font-bold"
+            style={{ backgroundColor: resolvedLineColor, color: numberColor }}
           >
             {number}
           </div>
-          <div className={`flex-1 h-0.5 ${bgColor}`} />
+          <div className="flex-1" style={{ borderTop: `${lineHeight} solid ${resolvedLineColor}` }} />
         </div>
       )}
 

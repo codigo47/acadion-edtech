@@ -208,6 +208,14 @@ export function TableStylePresetsModal({ currentPresetId, onSelect, onClose }: T
     return () => document.removeEventListener('mousedown', handle);
   }, [onClose]);
 
+  useEffect(() => {
+    const handle = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handle);
+    return () => document.removeEventListener('keydown', handle);
+  }, [onClose]);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
       <div ref={ref} className="bg-white rounded-xl shadow-2xl border border-gray-200 w-[480px] max-h-[90vh] overflow-y-auto">

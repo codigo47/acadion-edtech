@@ -46,6 +46,7 @@ import {
   UpdateComponentDataDto,
   ReorderComponentsDto,
   SwitchStyleDto,
+  CreateComponentDto,
 } from './dto/course-component.dto';
 import { TaskName } from './enums/task-name.enum';
 
@@ -178,6 +179,16 @@ export class CourseController {
   @Get(':key/components')
   async getCourseComponents(@Param('key') key: string) {
     return this.courseService.getCourseComponents(key);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post(':key/components')
+  async createComponent(
+    @Param('key') key: string,
+    @Body() dto: CreateComponentDto,
+    @Request() req: RequestWithUser,
+  ) {
+    return this.courseService.createComponent(key, dto, req.user.id);
   }
 
   @UseGuards(JwtAuthGuard)

@@ -148,7 +148,7 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
   return (
     <div className="w-full p-4 rounded-lg space-y-4">
       {/* Background image with avatar and bubble */}
-      <div ref={containerRef} className="relative w-full min-h-[280px] bg-gray-100 rounded-lg overflow-hidden">
+      <div ref={containerRef} className="relative w-full min-h-[420px] bg-gray-100 rounded-lg overflow-hidden">
         {/* Background image */}
         <div className="absolute inset-0">
           {content.image ? (
@@ -235,31 +235,33 @@ export function EditableScenarioBlock({ content, onDataChange }: { content: Reco
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Answers — always left-aligned */}
-      <div className="space-y-2">
-        {answers.map((ans, index) => (
-          <div key={ans.id || index} className="flex items-center gap-3 p-3 border-2 border-gray-200 rounded-lg hover:border-gray-300">
-            <button onClick={() => updateAnswer(ans.id, 'isCorrect', !ans.isCorrect)} className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${ans.isCorrect ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300'}`}>
-              {ans.isCorrect && <Check className="w-3 h-3" />}
-            </button>
-            <div className="flex-1 cursor-text text-left">
-              <EditableText value={ans.text} onChange={(v) => updateAnswer(ans.id, 'text', v)} tag="span" className="text-sm text-gray-900" placeholder="Answer text..." multiline={false} />
-            </div>
-            {answers.length > 1 && (
-              deleteConfirmId === ans.id ? (
-                <div className="flex items-center gap-1 flex-shrink-0">
-                  <button onClick={() => removeAnswer(ans.id)} className="px-2 py-0.5 text-xs text-white bg-red-500 rounded">Yes</button>
-                  <button onClick={() => setDeleteConfirmId(null)} className="px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded">No</button>
+        {/* Answers — overlaid at bottom of image */}
+        <div className={`absolute bottom-0 left-0 right-0 p-3 z-20 ${content.avatar ? 'pl-32' : ''}`} onClick={(e) => e.stopPropagation()}>
+          <div className="space-y-2">
+            {answers.map((ans, index) => (
+              <div key={ans.id || index} className="flex items-center gap-3 p-3 border-2 border-white/80 rounded-lg bg-white/90 backdrop-blur-sm hover:border-gray-300">
+                <button onClick={() => updateAnswer(ans.id, 'isCorrect', !ans.isCorrect)} className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${ans.isCorrect ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300'}`}>
+                  {ans.isCorrect && <Check className="w-3 h-3" />}
+                </button>
+                <div className="flex-1 cursor-text text-left">
+                  <EditableText value={ans.text} onChange={(v) => updateAnswer(ans.id, 'text', v)} tag="span" className="text-sm text-gray-900" placeholder="Answer text..." multiline={false} />
                 </div>
-              ) : (
-                <button onClick={() => setDeleteConfirmId(ans.id)} className="text-gray-300 hover:text-red-500"><Trash2 className="w-4 h-4" /></button>
-              )
-            )}
+                {answers.length > 1 && (
+                  deleteConfirmId === ans.id ? (
+                    <div className="flex items-center gap-1 flex-shrink-0">
+                      <button onClick={() => removeAnswer(ans.id)} className="px-2 py-0.5 text-xs text-white bg-red-500 rounded">Yes</button>
+                      <button onClick={() => setDeleteConfirmId(null)} className="px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded">No</button>
+                    </div>
+                  ) : (
+                    <button onClick={() => setDeleteConfirmId(ans.id)} className="text-gray-300 hover:text-red-500"><Trash2 className="w-4 h-4" /></button>
+                  )
+                )}
+              </div>
+            ))}
+            <div key="add-answer" onClick={addAnswer} className="p-3 border-2 border-dashed border-white/50 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-white/70 hover:text-[#9F80DA] backdrop-blur-sm">New answer...</div>
           </div>
-        ))}
-        <div key="add-answer" onClick={addAnswer} className="p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]">New answer...</div>
+        </div>
       </div>
 
       {/* Feedback */}

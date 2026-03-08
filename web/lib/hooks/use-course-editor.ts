@@ -14,6 +14,13 @@ interface DuplicateComponentParams {
   id: number;
 }
 
+interface CreateComponentParams {
+  componentName: string;
+  module: number;
+  unit: number;
+  afterSequence: number;
+}
+
 interface ReorderComponentsParams {
   courseKey: string;
   components: Array<{ id: number; sequence: number }>;
@@ -86,6 +93,25 @@ export function useDuplicateComponent(courseKey: string | null) {
   return useMutation({
     mutationFn: ({ id }: DuplicateComponentParams) =>
       api.post<ComponentResponse>(`/course/components/${id}/duplicate`),
+    onSuccess: () => {
+      if (courseKey) {
+        queryClient.invalidateQueries({ queryKey: ['course-components', courseKey] });
+      }
+    },
+  });
+}
+
+export function useCreateComponent(courseKey: string | null) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ componentName, module, unit, afterSequence }: CreateComponentParams) =>
+      api.post<ComponentResponse>(`/course/${courseKey}/components`, {
+        componentName,
+        module,
+        unit,
+        afterSequence,
+      }),
     onSuccess: () => {
       if (courseKey) {
         queryClient.invalidateQueries({ queryKey: ['course-components', courseKey] });

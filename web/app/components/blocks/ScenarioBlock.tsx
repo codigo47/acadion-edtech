@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 
 export interface ScenarioAnswer {
   id: string;
@@ -20,6 +19,8 @@ export interface ScenarioBlockProps {
   bubbleBg?: string;
   bubbleFontSize?: string;
   bubbleTextAlign?: string;
+  bubbleX?: number;
+  bubbleY?: number;
   arrowDirection?: string;
   arrowAlignment?: string;
 }
@@ -39,6 +40,7 @@ function BubbleArrow({ direction, alignment, color }: { direction: string; align
     backgroundColor: color,
     transform: 'rotate(45deg)',
   };
+
   if (direction === 'top') {
     const align: React.CSSProperties =
       alignment === 'center' ? { left: '50%', marginLeft: -8 } :
@@ -51,6 +53,7 @@ function BubbleArrow({ direction, alignment, color }: { direction: string; align
   if (direction === 'right') {
     return <div style={{ ...base, right: -8, top: '50%', marginTop: -8 }} />;
   }
+  // Default: bottom
   const align: React.CSSProperties =
     alignment === 'center' ? { left: '50%', marginLeft: -8 } :
     alignment === 'right' ? { right: 16 } : { left: 16 };
@@ -69,13 +72,15 @@ function isLightColor(hex: string): boolean {
 export default function ScenarioBlock({
   image,
   question,
-  answers,
+  answers = [],
   avatar,
   blur = 0,
   dark = false,
   bubbleBg = '#FFFFFF',
   bubbleFontSize = 'normal',
   bubbleTextAlign = 'left',
+  bubbleX = 65,
+  bubbleY = 75,
   arrowDirection = 'bottom',
   arrowAlignment = 'left',
 }: ScenarioBlockProps) {
@@ -111,48 +116,63 @@ export default function ScenarioBlock({
   };
 
   return (
-    <div className={`w-full p-4 ${dark ? 'bg-gray-900' : ''}`}>
-      <div className="relative w-full min-h-[350px] sm:min-h-[500px] rounded-lg overflow-hidden">
-        <Image src={image} alt="Scenario" fill className="object-cover" style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+    <div className={`w-full p-4 rounded-lg ${dark ? 'bg-gray-900' : ''}`}>
+      {/* Background image with avatar and bubble — matches EditableScenarioBlock */}
+      <div className="relative w-full min-h-[420px] bg-gray-100 rounded-lg overflow-hidden">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          {image ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={image} alt="Background" className="w-full h-full object-cover" style={blur > 0 ? { filter: `blur(${blur}px)` } : undefined} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+            </>
+          ) : (
+            <div className="w-full h-full bg-gradient-to-b from-gray-200 to-gray-300" />
+          )}
+        </div>
 
         {/* Avatar character */}
         {avatar && (
-          <div className="absolute bottom-0 left-3 sm:left-6 z-10">
+          <div className="absolute bottom-0 left-4 z-10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={avatar} alt="Character" className="h-48 sm:h-64 w-auto object-contain drop-shadow-lg" />
+            <img src={avatar} alt="Character" className="h-40 w-auto object-contain drop-shadow-lg" />
           </div>
         )}
 
-        {/* Content overlay */}
-        <div className={`absolute inset-0 flex flex-col justify-end p-3 sm:p-6 ${avatar ? 'pl-28 sm:pl-40' : ''}`}>
-          {/* Speech bubble */}
-          <div className="mb-3 sm:mb-4">
-            <div className="rounded-lg p-3 sm:p-4 shadow-lg relative inline-block max-w-lg" style={{ backgroundColor: bubbleBg }}>
-              <BubbleArrow direction={arrowDirection} alignment={arrowAlignment} color={bubbleBg} />
-              <p
-                className="text-sm sm:text-lg font-medium relative z-10"
-                style={{
-                  color: bubbleTextColor,
-                  fontSize: BUBBLE_FONT_SIZES[bubbleFontSize] || undefined,
-                  textAlign: bubbleTextAlign as React.CSSProperties['textAlign'],
-                }}
-              >
-                {question}
-              </p>
-            </div>
+        {/* Speech bubble — absolutely positioned */}
+        <div
+          className="absolute z-10"
+          style={{
+            left: `${bubbleX}%`,
+            top: `${bubbleY}%`,
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <div className="rounded-lg p-3 shadow-lg relative max-w-[240px] min-w-[160px]" style={{ backgroundColor: bubbleBg }}>
+            <BubbleArrow direction={arrowDirection} alignment={arrowAlignment} color={bubbleBg} />
+            <p
+              className="font-medium relative z-10"
+              style={{
+                color: bubbleTextColor,
+                fontSize: BUBBLE_FONT_SIZES[bubbleFontSize] || '0.875rem',
+                textAlign: bubbleTextAlign as React.CSSProperties['textAlign'],
+              }}
+            >
+              {question}
+            </p>
           </div>
+        </div>
 
-          {/* Answers */}
+        {/* Answers — overlaid at bottom of image */}
+        <div className={`absolute bottom-0 left-0 right-0 p-3 z-20 ${avatar ? 'pl-32' : ''}`}>
           <div className="space-y-2">
             {sortedAnswers.map((answer) => (
               <button
                 key={answer.id}
                 onClick={() => !showResult && handleAnswer(answer.id)}
                 disabled={showResult}
-                className={`w-full p-3 rounded-lg border-2 text-left transition-all backdrop-blur-sm ${getAnswerStyle(
-                  answer
-                )} ${!showResult ? 'cursor-pointer' : 'cursor-default'}`}
+                className={`w-full p-3 rounded-lg border-2 text-left transition-all backdrop-blur-sm ${getAnswerStyle(answer)} ${!showResult ? 'cursor-pointer' : 'cursor-default'}`}
               >
                 <span className="font-medium">{answer.text}</span>
                 {showResult && selectedAnswer === answer.id && (
@@ -167,7 +187,7 @@ export default function ScenarioBlock({
           {showResult && (
             <button
               onClick={reset}
-              className="mt-4 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors self-start"
+              className="mt-3 px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
             >
               Try Again
             </button>

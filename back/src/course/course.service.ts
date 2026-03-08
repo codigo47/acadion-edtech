@@ -964,6 +964,80 @@ export class CourseService {
     return duplicate;
   }
 
+  async createComponent(
+    courseKey: string,
+    dto: { componentName: string; module: number; unit: number; afterSequence: number },
+    userId: string,
+  ) {
+    const course = await this.prisma.course.findFirst({
+      where: { key: courseKey },
+    });
+
+    if (!course) {
+      throw new NotFoundException(`Course with key ${courseKey} not found`);
+    }
+
+    const component = await this.prisma.component.findFirst({
+      where: { internalName: dto.componentName },
+    });
+
+    if (!component) {
+      throw new NotFoundException(
+        `Component with name ${dto.componentName} not found`,
+      );
+    }
+
+    // Shift subsequent siblings (same module/unit, sequence > afterSequence) by +1
+    const subsequentSiblings = await this.prisma.courseComponent.findMany({
+      where: {
+        courseId: course.id,
+        module: dto.module,
+        unit: dto.unit,
+        sequence: { gt: dto.afterSequence },
+      },
+      orderBy: { sequence: 'asc' },
+    });
+
+    if (subsequentSiblings.length > 0) {
+      await this.prisma.$transaction(
+        subsequentSiblings
+          .slice()
+          .reverse()
+          .map((sibling) =>
+            this.prisma.courseComponent.update({
+              where: { id: sibling.id },
+              data: { sequence: sibling.sequence + 1 },
+            }),
+          ),
+      );
+    }
+
+    const created = await this.prisma.courseComponent.create({
+      data: {
+        courseId: course.id,
+        module: dto.module,
+        unit: dto.unit,
+        sequence: dto.afterSequence + 1,
+        componentId: component.id,
+        data: {},
+        userId,
+      },
+    });
+
+    return {
+      id: created.id,
+      module: created.module,
+      unit: created.unit,
+      sequence: created.sequence,
+      componentId: component.id,
+      componentName: component.internalName,
+      componentType: component.type,
+      groupKey: component.groupKey,
+      data: created.data,
+      name: component.name,
+    };
+  }
+
   async reorderComponents(
     courseKey: string,
     items: Array<{ id: number; sequence: number }>,
