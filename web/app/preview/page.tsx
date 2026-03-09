@@ -165,7 +165,7 @@ export default function PreviewPage() {
         <HeadingBlock heading="Block Components Preview" level={1} textStyle={{ textAlign: 'center' }} dark={dark} />
         <ParagraphBlock content="A comprehensive showcase of all available block components" contentStyle={{ textAlign: 'center', color: dark ? '#9ca3af' : '#6B7280' }} dark={dark} />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={1} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={1} dark={dark} />
 
         {/* ============================================ */}
         {/* LOADING INDICATORS */}
@@ -224,7 +224,7 @@ export default function PreviewPage() {
           />
         </div>
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={2} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={2} dark={dark} />
 
         {/* ============================================ */}
         {/* SEPARATOR BLOCK VARIANTS */}
@@ -232,29 +232,29 @@ export default function PreviewPage() {
         <HeadingBlock heading="SeparatorBlock Variants" level={2} textStyle={{ color: '#9F80DA' }} dark={dark} />
 
         <ParagraphBlock content="Line only (showLine=true, showNumber=false):" contentStyle={{ fontWeight: '600' }} dark={dark} />
-        <SeparatorBlock height={40} color="gray" showLine={true} showNumber={false} dark={dark} />
-        <SeparatorBlock height={40} color="red" showLine={true} showNumber={false} dark={dark} />
-        <SeparatorBlock height={40} color="green" showLine={true} showNumber={false} dark={dark} />
-        <SeparatorBlock height={40} color="blue" showLine={true} showNumber={false} dark={dark} />
-        <SeparatorBlock height={40} color="yellow" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} lineColor="gray" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} lineColor="red" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} lineColor="green" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} lineColor="blue" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} lineColor="yellow" showLine={true} showNumber={false} dark={dark} />
 
         <div className="mt-6">
           <ParagraphBlock content="Number only (showLine=false, showNumber=true):" contentStyle={{ fontWeight: '600' }} dark={dark} />
         </div>
-        <SeparatorBlock height={60} color="gray" showLine={false} showNumber={true} number={1} dark={dark} />
-        <SeparatorBlock height={60} color="red" showLine={false} showNumber={true} number={2} dark={dark} />
-        <SeparatorBlock height={60} color="green" showLine={false} showNumber={true} number={3} dark={dark} />
-        <SeparatorBlock height={60} color="blue" showLine={false} showNumber={true} number={4} dark={dark} />
-        <SeparatorBlock height={60} color="yellow" showLine={false} showNumber={true} number={5} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={false} showNumber={true} number={1} dark={dark} />
+        <SeparatorBlock height={60} lineColor="red" showLine={false} showNumber={true} number={2} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={false} showNumber={true} number={3} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={false} showNumber={true} number={4} dark={dark} />
+        <SeparatorBlock height={60} lineColor="yellow" showLine={false} showNumber={true} number={5} dark={dark} />
 
         <div className="mt-6">
           <ParagraphBlock content="Line with number (showLine=true, showNumber=true):" contentStyle={{ fontWeight: '600' }} dark={dark} />
         </div>
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={1} dark={dark} />
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={2} dark={dark} />
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={3} dark={dark} />
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={4} dark={dark} />
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={5} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={1} dark={dark} />
+        <SeparatorBlock height={60} lineColor="red" showLine={true} showNumber={true} number={2} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={true} showNumber={true} number={3} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={4} dark={dark} />
+        <SeparatorBlock height={60} lineColor="yellow" showLine={true} showNumber={true} number={5} dark={dark} />
 
         <div className="mt-6">
           <ParagraphBlock content="Spacer only (showLine=false, showNumber=false):" contentStyle={{ fontWeight: '600' }} dark={dark} />
@@ -264,7 +264,7 @@ export default function PreviewPage() {
         </div>
         <ParagraphBlock content="(The dashed border shows the separator area)" contentStyle={{ fontSize: '12px', color: dark ? '#9ca3af' : '#6B7280', fontStyle: 'italic' }} dark={dark} />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={3} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={3} dark={dark} />
 
         {/* ============================================ */}
         {/* HEADING COMPONENTS */}
@@ -279,7 +279,7 @@ export default function PreviewPage() {
         <ParagraphBlock content="SubheadingBlock:" contentStyle={{ fontWeight: '600' }} dark={dark} />
         <SubheadingBlock subheading="This is a subheading for additional context" dark={dark} />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={2} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={2} dark={dark} />
 
         {/* ============================================ */}
         {/* PARAGRAPH COMPONENTS */}
@@ -313,7 +313,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={3} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={true} showNumber={true} number={3} dark={dark} />
 
         {/* ============================================ */}
         {/* HIGHLIGHT COMPONENTS */}
@@ -352,7 +352,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={4} dark={dark} />
+        <SeparatorBlock height={60} lineColor="yellow" showLine={true} showNumber={true} number={4} dark={dark} />
 
         {/* ============================================ */}
         {/* IMAGE COMPONENTS */}
@@ -397,7 +397,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={5} dark={dark} />
+        <SeparatorBlock height={60} lineColor="red" showLine={true} showNumber={true} number={5} dark={dark} />
 
         {/* ============================================ */}
         {/* COMPARISON COMPONENTS */}
@@ -448,7 +448,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={6} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={6} dark={dark} />
 
         {/* ============================================ */}
         {/* CHAT COMPONENTS */}
@@ -498,7 +498,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={7} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={7} dark={dark} />
 
         {/* ============================================ */}
         {/* QUOTE COMPONENTS */}
@@ -552,7 +552,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={8} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={true} showNumber={true} number={8} dark={dark} />
 
         {/* ============================================ */}
         {/* LIST BLOCK STYLES */}
@@ -602,7 +602,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={9} dark={dark} />
+        <SeparatorBlock height={60} lineColor="yellow" showLine={true} showNumber={true} number={9} dark={dark} />
 
         {/* ============================================ */}
         {/* NEW COMPONENTS: Reviews, Video, Audio, Attachment, Embed, ButtonStack */}
@@ -700,7 +700,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={10} dark={dark} />
+        <SeparatorBlock height={60} lineColor="red" showLine={true} showNumber={true} number={10} dark={dark} />
 
         {/* ============================================ */}
         {/* TABLE BLOCK */}
@@ -720,7 +720,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={11} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={11} dark={dark} />
 
         {/* ============================================ */}
         {/* GALLERY BLOCK */}
@@ -736,7 +736,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={12} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={12} dark={dark} />
 
         {/* ============================================ */}
         {/* GRAPH BLOCK */}
@@ -780,7 +780,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={13} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={true} showNumber={true} number={13} dark={dark} />
 
         {/* ============================================ */}
         {/* TIMELINE BLOCK */}
@@ -795,7 +795,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={14} dark={dark} />
+        <SeparatorBlock height={60} lineColor="yellow" showLine={true} showNumber={true} number={14} dark={dark} />
 
         {/* ============================================ */}
         {/* STORYTELLING BLOCK */}
@@ -851,7 +851,7 @@ export default function PreviewPage() {
           />
         ))}
 
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={15} dark={dark} />
+        <SeparatorBlock height={60} lineColor="red" showLine={true} showNumber={true} number={15} dark={dark} />
 
         {/* ============================================ */}
         {/* TESTIMONIAL BLOCK */}
@@ -877,11 +877,11 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={80} color="red" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={80} lineColor="red" showLine={true} showNumber={false} dark={dark} />
         <HeadingBlock heading="Interactive Blocks" level={2} textStyle={{ textAlign: 'center', color: dark ? '#ffffff' : '#1a1a1a' }} dark={dark} />
-        <SeparatorBlock height={40} color="red" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={40} lineColor="red" showLine={true} showNumber={false} dark={dark} />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={16} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={16} dark={dark} />
 
         {/* ============================================ */}
         {/* CHECKBOX BLOCK */}
@@ -897,7 +897,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={17} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={17} dark={dark} />
 
         {/* ============================================ */}
         {/* CAROUSEL BLOCK */}
@@ -912,7 +912,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={18} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={true} showNumber={true} number={18} dark={dark} />
 
         {/* ============================================ */}
         {/* ACCORDION BLOCK (with images) */}
@@ -946,7 +946,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={19} dark={dark} />
+        <SeparatorBlock height={60} lineColor="yellow" showLine={true} showNumber={true} number={19} dark={dark} />
 
         {/* ============================================ */}
         {/* TABS BLOCK */}
@@ -961,7 +961,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={20} dark={dark} />
+        <SeparatorBlock height={60} lineColor="red" showLine={true} showNumber={true} number={20} dark={dark} />
 
         {/* ============================================ */}
         {/* LABELED IMAGE BLOCK (with navigation) */}
@@ -978,7 +978,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={21} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={21} dark={dark} />
 
         {/* ============================================ */}
         {/* SCENARIO BLOCK */}
@@ -996,7 +996,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={22} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={22} dark={dark} />
 
         {/* ============================================ */}
         {/* SORTING BLOCKS */}
@@ -1032,7 +1032,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={23} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={true} showNumber={true} number={23} dark={dark} />
 
         {/* ============================================ */}
         {/* FLASH CARD BLOCK */}
@@ -1047,7 +1047,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="yellow" showLine={true} showNumber={true} number={24} dark={dark} />
+        <SeparatorBlock height={60} lineColor="yellow" showLine={true} showNumber={true} number={24} dark={dark} />
 
         {/* ============================================ */}
         {/* MULTIPLE CHOICE BLOCK (with feedback) */}
@@ -1064,7 +1064,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="red" showLine={true} showNumber={true} number={25} dark={dark} />
+        <SeparatorBlock height={60} lineColor="red" showLine={true} showNumber={true} number={25} dark={dark} />
 
         {/* ============================================ */}
         {/* MULTIPLE RESPONSE BLOCK (with feedback) */}
@@ -1084,7 +1084,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="gray" showLine={true} showNumber={true} number={26} dark={dark} />
+        <SeparatorBlock height={60} lineColor="gray" showLine={true} showNumber={true} number={26} dark={dark} />
 
         {/* ============================================ */}
         {/* FILL IN THE BLANK BLOCK (multiple answers) */}
@@ -1099,7 +1099,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="blue" showLine={true} showNumber={true} number={27} dark={dark} />
+        <SeparatorBlock height={60} lineColor="blue" showLine={true} showNumber={true} number={27} dark={dark} />
 
         {/* ============================================ */}
         {/* MATCHING PAIRS BLOCK */}
@@ -1122,7 +1122,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={60} color="green" showLine={true} showNumber={true} number={28} dark={dark} />
+        <SeparatorBlock height={60} lineColor="green" showLine={true} showNumber={true} number={28} dark={dark} />
 
         {/* ============================================ */}
         {/* BUTTON BLOCK */}
@@ -1165,7 +1165,7 @@ export default function PreviewPage() {
           dark={dark}
         />
 
-        <SeparatorBlock height={80} color="gray" showLine={true} showNumber={false} dark={dark} />
+        <SeparatorBlock height={80} lineColor="gray" showLine={true} showNumber={false} dark={dark} />
 
       </div>
     </div>
