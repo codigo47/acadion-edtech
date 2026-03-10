@@ -1,6 +1,6 @@
 # Database Entity-Relationship Diagram
 
-> Auto-generated from the Prisma schema at `back/prisma/schema.prisma`.
+> Auto-generated from the Prisma schema at `apps/api/prisma/schema.prisma`.
 
 This document describes the complete data model for **acadion.ai**, organized into logical domains: authentication, course creation, LMS/enrollment, organizations, learning plans, badges, portfolio, and notifications.
 

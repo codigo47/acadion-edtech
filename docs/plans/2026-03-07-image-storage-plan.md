@@ -13,13 +13,13 @@
 ### Task 1: Install multer types
 
 **Files:**
-- Modify: `back/package.json`
+- Modify: `apps/api/package.json`
 
 **Step 1: Install `@types/multer` and `uuid`**
 
 Run:
 ```bash
-cd back && npm install uuid && npm install -D @types/multer @types/uuid
+cd apps/api && npm install uuid && npm install -D @types/multer @types/uuid
 ```
 
 `@nestjs/platform-express` already includes multer. We only need the types for TypeScript and `uuid` for generating unique filenames.
@@ -27,7 +27,7 @@ cd back && npm install uuid && npm install -D @types/multer @types/uuid
 **Step 2: Commit**
 
 ```bash
-git add back/package.json back/package-lock.json
+git add apps/api/package.json apps/api/package-lock.json
 git commit -m "chore: add uuid and multer types for image upload support"
 ```
 
@@ -36,12 +36,12 @@ git commit -m "chore: add uuid and multer types for image upload support"
 ### Task 2: Create StorageProvider interface and LocalStorageProvider
 
 **Files:**
-- Create: `back/src/storage/storage.interface.ts`
-- Create: `back/src/storage/providers/local-storage.provider.ts`
+- Create: `apps/api/src/storage/storage.interface.ts`
+- Create: `apps/api/src/storage/providers/local-storage.provider.ts`
 
 **Step 1: Create the interface**
 
-Create `back/src/storage/storage.interface.ts`:
+Create `apps/api/src/storage/storage.interface.ts`:
 
 ```typescript
 export interface StorageProvider {
@@ -52,7 +52,7 @@ export interface StorageProvider {
 
 **Step 2: Create LocalStorageProvider**
 
-Create `back/src/storage/providers/local-storage.provider.ts`:
+Create `apps/api/src/storage/providers/local-storage.provider.ts`:
 
 ```typescript
 import { Injectable, Logger } from '@nestjs/common';
@@ -91,7 +91,7 @@ export class LocalStorageProvider implements StorageProvider {
 **Step 3: Commit**
 
 ```bash
-git add back/src/storage/storage.interface.ts back/src/storage/providers/local-storage.provider.ts
+git add apps/api/src/storage/storage.interface.ts apps/api/src/storage/providers/local-storage.provider.ts
 git commit -m "feat: add StorageProvider interface and LocalStorageProvider"
 ```
 
@@ -100,12 +100,12 @@ git commit -m "feat: add StorageProvider interface and LocalStorageProvider"
 ### Task 3: Create StorageService
 
 **Files:**
-- Create: `back/src/storage/storage.service.ts`
-- Test: `back/src/storage/storage.service.spec.ts`
+- Create: `apps/api/src/storage/storage.service.ts`
+- Test: `apps/api/src/storage/storage.service.spec.ts`
 
 **Step 1: Write the test**
 
-Create `back/src/storage/storage.service.spec.ts`:
+Create `apps/api/src/storage/storage.service.spec.ts`:
 
 ```typescript
 import { Test, TestingModule } from '@nestjs/testing';
@@ -154,12 +154,12 @@ describe('StorageService', () => {
 
 **Step 2: Run test to verify it fails**
 
-Run: `cd back && npx jest src/storage/storage.service.spec.ts --no-cache`
+Run: `cd apps/api && npx jest src/storage/storage.service.spec.ts --no-cache`
 Expected: FAIL — module `StorageService` not found.
 
 **Step 3: Write the implementation**
 
-Create `back/src/storage/storage.service.ts`:
+Create `apps/api/src/storage/storage.service.ts`:
 
 ```typescript
 import { Injectable } from '@nestjs/common';
@@ -195,13 +195,13 @@ export class StorageService {
 
 **Step 4: Run test to verify it passes**
 
-Run: `cd back && npx jest src/storage/storage.service.spec.ts --no-cache`
+Run: `cd apps/api && npx jest src/storage/storage.service.spec.ts --no-cache`
 Expected: PASS
 
 **Step 5: Commit**
 
 ```bash
-git add back/src/storage/storage.service.ts back/src/storage/storage.service.spec.ts
+git add apps/api/src/storage/storage.service.ts apps/api/src/storage/storage.service.spec.ts
 git commit -m "feat: add StorageService with provider delegation"
 ```
 
@@ -210,13 +210,13 @@ git commit -m "feat: add StorageService with provider delegation"
 ### Task 4: Create UploadController and StorageModule
 
 **Files:**
-- Create: `back/src/storage/upload.controller.ts`
-- Create: `back/src/storage/upload.controller.spec.ts`
-- Create: `back/src/storage/storage.module.ts`
+- Create: `apps/api/src/storage/upload.controller.ts`
+- Create: `apps/api/src/storage/upload.controller.spec.ts`
+- Create: `apps/api/src/storage/storage.module.ts`
 
 **Step 1: Write the controller test**
 
-Create `back/src/storage/upload.controller.spec.ts`:
+Create `apps/api/src/storage/upload.controller.spec.ts`:
 
 ```typescript
 import { Test, TestingModule } from '@nestjs/testing';
@@ -262,12 +262,12 @@ describe('UploadController', () => {
 
 **Step 2: Run test to verify it fails**
 
-Run: `cd back && npx jest src/storage/upload.controller.spec.ts --no-cache`
+Run: `cd apps/api && npx jest src/storage/upload.controller.spec.ts --no-cache`
 Expected: FAIL — module not found.
 
 **Step 3: Write the controller**
 
-Create `back/src/storage/upload.controller.ts`:
+Create `apps/api/src/storage/upload.controller.ts`:
 
 ```typescript
 import {
@@ -321,7 +321,7 @@ export class UploadController {
 
 **Step 4: Write the module**
 
-Create `back/src/storage/storage.module.ts`:
+Create `apps/api/src/storage/storage.module.ts`:
 
 ```typescript
 import { Module } from '@nestjs/common';
@@ -339,13 +339,13 @@ export class StorageModule {}
 
 **Step 5: Run test to verify it passes**
 
-Run: `cd back && npx jest src/storage/upload.controller.spec.ts --no-cache`
+Run: `cd apps/api && npx jest src/storage/upload.controller.spec.ts --no-cache`
 Expected: PASS
 
 **Step 6: Commit**
 
 ```bash
-git add back/src/storage/upload.controller.ts back/src/storage/upload.controller.spec.ts back/src/storage/storage.module.ts
+git add apps/api/src/storage/upload.controller.ts apps/api/src/storage/upload.controller.spec.ts apps/api/src/storage/storage.module.ts
 git commit -m "feat: add UploadController and StorageModule"
 ```
 
@@ -354,12 +354,12 @@ git commit -m "feat: add UploadController and StorageModule"
 ### Task 5: Register StorageModule and serve static uploads
 
 **Files:**
-- Modify: `back/src/app.module.ts`
-- Modify: `back/src/main.ts`
+- Modify: `apps/api/src/app.module.ts`
+- Modify: `apps/api/src/main.ts`
 
 **Step 1: Add StorageModule to AppModule**
 
-In `back/src/app.module.ts`, add import and register:
+In `apps/api/src/app.module.ts`, add import and register:
 
 ```typescript
 import { StorageModule } from './storage/storage.module';
@@ -372,7 +372,7 @@ imports: [
 
 **Step 2: Serve static files in main.ts**
 
-In `back/src/main.ts`, add express static middleware after the app is created:
+In `apps/api/src/main.ts`, add express static middleware after the app is created:
 
 ```typescript
 import { join } from 'path';
@@ -384,7 +384,7 @@ app.use('/api/v1/uploads', express.static(join(process.cwd(), 'uploads')));
 
 **Step 3: Add `uploads/` to `.gitignore`**
 
-Append to `back/.gitignore` (create if it doesn't exist):
+Append to `apps/api/.gitignore` (create if it doesn't exist):
 
 ```
 uploads/
@@ -392,13 +392,13 @@ uploads/
 
 **Step 4: Verify backend starts**
 
-Run: `cd back && npm run build`
+Run: `cd apps/api && npm run build`
 Expected: Compiles without errors.
 
 **Step 5: Commit**
 
 ```bash
-git add back/src/app.module.ts back/src/main.ts back/.gitignore
+git add apps/api/src/app.module.ts apps/api/src/main.ts apps/api/.gitignore
 git commit -m "feat: register StorageModule and serve uploaded files statically"
 ```
 
@@ -407,11 +407,11 @@ git commit -m "feat: register StorageModule and serve uploaded files statically"
 ### Task 6: Add `upload` method to frontend api-client
 
 **Files:**
-- Modify: `web/lib/api-client.ts`
+- Modify: `apps/web/lib/api-client.ts`
 
 **Step 1: Modify the `request` function to support raw body (FormData)**
 
-In `web/lib/api-client.ts`, update the `RequestOptions` interface and `request` function:
+In `apps/web/lib/api-client.ts`, update the `RequestOptions` interface and `request` function:
 
 The `RequestOptions` interface needs a `raw` boolean. When `raw` is true:
 - Don't set `Content-Type: application/json` (let browser set the multipart boundary)
@@ -461,7 +461,7 @@ export const api = {
 **Step 3: Commit**
 
 ```bash
-git add web/lib/api-client.ts
+git add apps/web/lib/api-client.ts
 git commit -m "feat: add upload method with multipart support to api-client"
 ```
 
@@ -470,11 +470,11 @@ git commit -m "feat: add upload method with multipart support to api-client"
 ### Task 7: Create `useUploadImage` hook
 
 **Files:**
-- Create: `web/lib/hooks/use-upload.ts`
+- Create: `apps/web/lib/hooks/use-upload.ts`
 
 **Step 1: Create the hook**
 
-Create `web/lib/hooks/use-upload.ts`:
+Create `apps/web/lib/hooks/use-upload.ts`:
 
 ```typescript
 import { useMutation } from '@tanstack/react-query';
@@ -491,7 +491,7 @@ export function useUploadImage() {
 **Step 2: Commit**
 
 ```bash
-git add web/lib/hooks/use-upload.ts
+git add apps/web/lib/hooks/use-upload.ts
 git commit -m "feat: add useUploadImage hook"
 ```
 
@@ -500,7 +500,7 @@ git commit -m "feat: add useUploadImage hook"
 ### Task 8: Update ImagePickerModal to upload cropped images
 
 **Files:**
-- Modify: `web/app/project/[courseKey]/_components/ImagePickerModal.tsx`
+- Modify: `apps/web/app/project/[courseKey]/_components/ImagePickerModal.tsx`
 
 This is the key integration point. The modal needs to:
 1. Detect when a crop result is a data URL (base64)
@@ -619,8 +619,8 @@ isUploading?: boolean;
 
 Run both servers:
 ```bash
-cd back && npm run start:dev   # Terminal 1
-cd web && npm run dev           # Terminal 2
+cd apps/api && npm run start:dev   # Terminal 1
+cd apps/web && npm run dev           # Terminal 2
 ```
 
 1. Open a course in the editor
@@ -632,7 +632,7 @@ cd web && npm run dev           # Terminal 2
 **Step 4: Commit**
 
 ```bash
-git add web/app/project/[courseKey]/_components/ImagePickerModal.tsx web/app/project/[courseKey]/_components/ImageCropModal.tsx
+git add apps/web/app/project/[courseKey]/_components/ImagePickerModal.tsx apps/web/app/project/[courseKey]/_components/ImageCropModal.tsx
 git commit -m "feat: upload cropped images to server instead of storing base64"
 ```
 
@@ -642,12 +642,12 @@ git commit -m "feat: upload cropped images to server instead of storing base64"
 
 **Step 1: Run backend tests**
 
-Run: `cd back && npm test`
+Run: `cd apps/api && npm test`
 Expected: All tests pass.
 
 **Step 2: Run frontend build**
 
-Run: `cd web && npm run build`
+Run: `cd apps/web && npm run build`
 Expected: Compiles without errors.
 
 **Step 3: End-to-end manual test**
@@ -656,7 +656,7 @@ Expected: Compiles without errors.
 2. Edit a course, click an image block
 3. Paste an external URL → skip crop → should save external URL as-is
 4. Select a placeholder → crop it → should upload to server, save `/api/v1/uploads/images/{uuid}.jpg`
-5. Verify the uploaded file exists in `back/uploads/images/`
+5. Verify the uploaded file exists in `apps/api/uploads/images/`
 6. Verify the image renders in the editor and preview
 
 **Step 4: Commit any remaining changes**

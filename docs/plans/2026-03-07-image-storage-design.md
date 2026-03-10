@@ -8,7 +8,7 @@ When users crop images in the editor, the result is a base64 data URL stored dir
 
 Implement a `StorageModule` with a Strategy Pattern — a common `StorageProvider` interface with swappable implementations:
 
-- **Now:** `LocalStorageProvider` — saves files to `back/uploads/images/`, served via static endpoint.
+- **Now:** `LocalStorageProvider` — saves files to `apps/api/uploads/images/`, served via static endpoint.
 - **Future:** `S3StorageProvider` — uploads to S3, returns CDN/S3 URL.
 
 The active provider is selected via `STORAGE_PROVIDER` env var. The frontend and all consumers only see URLs.
@@ -27,7 +27,7 @@ The active provider is selected via `STORAGE_PROVIDER` env var. The frontend and
 ### Backend — New `storage/` module
 
 ```
-back/src/storage/
+apps/api/src/storage/
 ├── storage.module.ts              # NestJS module, exports StorageService
 ├── storage.interface.ts           # StorageProvider interface
 ├── storage.service.ts             # Delegates to active provider based on env
@@ -51,7 +51,7 @@ Reads `STORAGE_PROVIDER` from `ConfigService`. Instantiates the matching provide
 
 #### LocalStorageProvider
 
-- Saves files to `back/uploads/images/{uuid}.{ext}`
+- Saves files to `apps/api/uploads/images/{uuid}.{ext}`
 - Returns URL: `/api/v1/uploads/images/{uuid}.{ext}`
 - `delete()` removes the file from disk
 
@@ -67,7 +67,7 @@ POST /api/v1/uploads/image
 
 #### Static file serving
 
-In `main.ts`, configure express static middleware to serve `back/uploads/` at `/api/v1/uploads/`.
+In `main.ts`, configure express static middleware to serve `apps/api/uploads/` at `/api/v1/uploads/`.
 
 ### Frontend — Changes
 

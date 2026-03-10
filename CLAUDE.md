@@ -6,30 +6,30 @@ This is **acadion.ai**, a full-stack AI-powered educational content creation pla
 
 ```
 source/
-├── web/          # Next.js 16 + React 19 frontend
-├── back/         # NestJS 11 backend
+├── apps/web/     # Next.js 16 + React 19 frontend
+├── apps/api/     # NestJS 11 backend
 └── .claude/      # Claude Code settings
 ```
 
 ## Quick Commands
 
 ```bash
-# Frontend (web/)
-cd web && npm run dev      # Start dev server on port 8000
-cd web && npm run build    # Build for production
-cd web && npm test         # Run Jest tests
+# Frontend (apps/web/)
+cd apps/web && npm run dev      # Start dev server on port 8000
+cd apps/web && npm run build    # Build for production
+cd apps/web && npm test         # Run Jest tests
 
-# Backend (back/)
-cd back && npm run start:dev   # Start dev server (port 8001)
-cd back && npm run build       # Build for production
-cd back && npm test            # Run Jest tests
-cd back && npx prisma generate # Generate Prisma client
-cd back && npx prisma migrate dev # Run migrations
+# Backend (apps/api/)
+cd apps/api && npm run start:dev   # Start dev server (port 8001)
+cd apps/api && npm run build       # Build for production
+cd apps/api && npm test            # Run Jest tests
+cd apps/api && npx prisma generate # Generate Prisma client
+cd apps/api && npx prisma migrate dev # Run migrations
 ```
 
 ## Architecture Overview
 
-### Frontend (web/)
+### Frontend (apps/web/)
 
 - **Framework:** Next.js 16 with App Router
 - **State:** React Query (@tanstack/react-query) for server state
@@ -45,7 +45,7 @@ cd back && npx prisma migrate dev # Run migrations
 
 **API Client:** `lib/api-client.ts` - Centralized fetch wrapper with auth token injection
 
-### Backend (back/)
+### Backend (apps/api/)
 
 - **Framework:** NestJS 11
 - **Database:** PostgreSQL with Prisma ORM
@@ -99,7 +99,7 @@ Task types defined in `src/course/enums/task-name.enum.ts`
 
 ## Database Schema
 
-Key models in `back/prisma/schema.prisma`:
+Key models in `apps/api/prisma/schema.prisma`:
 - **User** - Authentication & profile
 - **Course** - Course with status (draft/generating/completed/failed)
 - **CourseStep** - Generation step tracking
@@ -140,13 +140,13 @@ Frontend requires: `NEXT_PUBLIC_API_URL`
 3. Register in orchestrator processor
 
 **Adding a new React Query hook:**
-1. Create in `web/lib/hooks/`
+1. Create in `apps/web/lib/hooks/`
 2. Use `useMutation` or `useQuery` from @tanstack/react-query
 3. Use `apiClient` from `lib/api-client.ts`
 
 ## Important Notes
 
-- CORS is configured for frontend URL in `back/src/main.ts`
+- CORS is configured for frontend URL in `apps/api/src/main.ts`
 - Global validation pipe enabled - all DTOs validated automatically
 - Password hashing uses bcryptjs with salt rounds
 - SSE used for real-time updates (not WebSockets)

@@ -177,7 +177,7 @@ Marketing and legal pages.
 | RBAC | Roles are stored per org member but not enforced on API endpoints | Any authenticated user can access any endpoint |
 | Email | No email service configured (invitations, password reset, notifications) | Invitations are stored as records but users aren't notified |
 | Onboarding | `/onboarding` page exists but flow is incomplete | New users don't go through guided org creation |
-| Blog CMS | Blog content is hardcoded in `web/app/blog/data.ts` | No dynamic content management |
+| Blog CMS | Blog content is hardcoded in `apps/web/app/blog/data.ts` | No dynamic content management |
 | Payment/Plans | `/compare-plans` page exists but no payment integration | Pricing is display-only |
 | Course editing | No post-generation content editing (UI buttons exist but are non-functional, no backend endpoints) | Generated content is read-only; the editor toolbar (edit, delete, duplicate, add, AI) has no onClick handlers and no backend support |
 | Learning plan badge trigger | `plan_completed` event is defined but not triggered when a plan is completed | Badges with `plan_completed` condition won't auto-award |
