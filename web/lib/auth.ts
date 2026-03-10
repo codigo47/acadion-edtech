@@ -1,4 +1,4 @@
-const API_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api/v1'}`;
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api'}`;
 
 export interface User {
   id: string;
@@ -17,7 +17,7 @@ export async function login(
   email: string,
   password: string,
 ): Promise<AuthResponse> {
-  const response = await fetch(`${API_URL}/auth/login`, {
+  const response = await fetch(`${API_URL}/v1/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ export async function register(
   password: string,
   name?: string,
 ): Promise<AuthResponse> {
-  const response = await fetch(`${API_URL}/auth/register`, {
+  const response = await fetch(`${API_URL}/v1/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -55,11 +55,11 @@ export async function register(
 }
 
 export function getGoogleLoginUrl(): string {
-  return `${API_URL}/auth/google`;
+  return `${API_URL}/v1/auth/google`;
 }
 
 export async function getProfile(token: string): Promise<User> {
-  const response = await fetch(`${API_URL}/auth/profile`, {
+  const response = await fetch(`${API_URL}/v1/auth/profile`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

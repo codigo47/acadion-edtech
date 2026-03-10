@@ -49,8 +49,8 @@ export function useMyBadges(page?: number, limit?: number) {
     queryKey: isPaginated ? ['badges', 'me', page, limit] : ['badges', 'me'],
     queryFn: () =>
       isPaginated
-        ? api.get<PaginatedResponse<UserBadge>>(`/badges/me?page=${page}&limit=${limit}`)
-        : api.get<PaginatedResponse<UserBadge>>('/badges/me'),
+        ? api.get<PaginatedResponse<UserBadge>>(`/v1/badges/me?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<UserBadge>>('/v1/badges/me'),
   });
 }
 
@@ -60,15 +60,15 @@ export function useAllBadges(page?: number, limit?: number) {
     queryKey: isPaginated ? ['badges', 'my', page, limit] : ['badges', 'my'],
     queryFn: () =>
       isPaginated
-        ? api.get<PaginatedResponse<Badge>>(`/badges/my?page=${page}&limit=${limit}`)
-        : api.get<PaginatedResponse<Badge>>('/badges/my'),
+        ? api.get<PaginatedResponse<Badge>>(`/v1/badges/my?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<Badge>>('/v1/badges/my'),
   });
 }
 
 export function useBadgeDetail(id: number | null) {
   return useQuery({
     queryKey: ['badges', 'detail', id],
-    queryFn: () => api.get<BadgeDetail>(`/badges/${id}`),
+    queryFn: () => api.get<BadgeDetail>(`/v1/badges/${id}`),
     enabled: !!id,
   });
 }
@@ -76,7 +76,7 @@ export function useBadgeDetail(id: number | null) {
 export function useOrgBadges(orgKey: string) {
   return useQuery({
     queryKey: ['badges', 'org', orgKey],
-    queryFn: () => api.get<Badge[]>(`/badges/org/${orgKey}`),
+    queryFn: () => api.get<Badge[]>(`/v1/badges/org/${orgKey}`),
     enabled: !!orgKey,
   });
 }
@@ -93,7 +93,7 @@ export function useCreateBadge(orgKey: string) {
       conditionValue?: Record<string, any>;
       targetId?: number;
       isPublic?: boolean;
-    }) => api.post<Badge>(`/badges/org/${orgKey}`, data),
+    }) => api.post<Badge>(`/v1/badges/org/${orgKey}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['badges'] });
     },
@@ -104,7 +104,7 @@ export function useUpdateBadge() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, ...data }: { id: number } & Partial<Omit<Badge, 'id' | 'key' | 'createdAt' | '_count' | 'org'>>) =>
-      api.patch<Badge>(`/badges/${id}`, data),
+      api.patch<Badge>(`/v1/badges/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['badges'] });
     },
@@ -114,7 +114,7 @@ export function useUpdateBadge() {
 export function useDeleteBadge() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: number) => api.delete(`/badges/${id}`),
+    mutationFn: (id: number) => api.delete(`/v1/badges/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['badges'] });
     },
@@ -124,7 +124,7 @@ export function useDeleteBadge() {
 export function useDuplicateBadge() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (id: number) => api.post<Badge>(`/badges/${id}/duplicate`, {}),
+    mutationFn: (id: number) => api.post<Badge>(`/v1/badges/${id}/duplicate`, {}),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['badges'] });
     },
@@ -135,7 +135,7 @@ export function useAwardBadge() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ badgeId, userId }: { badgeId: number; userId: string }) =>
-      api.post(`/badges/${badgeId}/award`, { userId }),
+      api.post(`/v1/badges/${badgeId}/award`, { userId }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['badges'] });
     },

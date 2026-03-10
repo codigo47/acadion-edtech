@@ -310,8 +310,8 @@ export function useCourseSSE(
       eventSourceRef.current.close();
     }
 
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api/v1';
-    const url = `${apiUrl}/course/${courseKey}/events`;
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api';
+    const url = `${apiUrl}/v1/course/${courseKey}/events`;
 
     const eventSource = new EventSource(url);
     eventSourceRef.current = eventSource;

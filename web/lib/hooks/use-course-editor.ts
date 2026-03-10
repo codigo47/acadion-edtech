@@ -49,7 +49,7 @@ export function useUpdateComponentData(courseKey: string | null) {
 
   return useMutation({
     mutationFn: ({ id, data }: UpdateComponentDataParams) =>
-      api.patch<{ success: boolean }>(`/course/components/${id}/data`, { data }),
+      api.patch<{ success: boolean }>(`/v1/course/components/${id}/data`, { data }),
     onMutate: async ({ id, data }) => {
       if (!courseKey) return;
       await queryClient.cancelQueries({ queryKey: ['course-components', courseKey] });
@@ -78,7 +78,7 @@ export function useDeleteComponent(courseKey: string | null) {
 
   return useMutation({
     mutationFn: ({ id }: DeleteComponentParams) =>
-      api.delete<{ success: boolean }>(`/course/components/${id}`),
+      api.delete<{ success: boolean }>(`/v1/course/components/${id}`),
     onSuccess: () => {
       if (courseKey) {
         queryClient.invalidateQueries({ queryKey: ['course-components', courseKey] });
@@ -92,7 +92,7 @@ export function useDuplicateComponent(courseKey: string | null) {
 
   return useMutation({
     mutationFn: ({ id }: DuplicateComponentParams) =>
-      api.post<ComponentResponse>(`/course/components/${id}/duplicate`),
+      api.post<ComponentResponse>(`/v1/course/components/${id}/duplicate`),
     onSuccess: () => {
       if (courseKey) {
         queryClient.invalidateQueries({ queryKey: ['course-components', courseKey] });
@@ -106,7 +106,7 @@ export function useCreateComponent(courseKey: string | null) {
 
   return useMutation({
     mutationFn: ({ componentName, module, unit, afterSequence }: CreateComponentParams) =>
-      api.post<ComponentResponse>(`/course/${courseKey}/components`, {
+      api.post<ComponentResponse>(`/v1/course/${courseKey}/components`, {
         componentName,
         module,
         unit,
@@ -125,7 +125,7 @@ export function useReorderComponents(courseKey: string | null) {
 
   return useMutation({
     mutationFn: ({ courseKey: key, components }: ReorderComponentsParams) =>
-      api.patch<{ success: boolean }>(`/course/${key}/components/reorder`, { components }),
+      api.patch<{ success: boolean }>(`/v1/course/${key}/components/reorder`, { components }),
     onSuccess: () => {
       if (courseKey) {
         queryClient.invalidateQueries({ queryKey: ['course-components', courseKey] });
@@ -139,7 +139,7 @@ export function useSwitchComponentStyle(courseKey: string | null) {
 
   return useMutation({
     mutationFn: ({ id, newComponentId }: SwitchStyleParams) =>
-      api.patch<{ success: boolean }>(`/course/components/${id}/switch-style`, { newComponentId }),
+      api.patch<{ success: boolean }>(`/v1/course/components/${id}/switch-style`, { newComponentId }),
     onSuccess: () => {
       if (courseKey) {
         queryClient.invalidateQueries({ queryKey: ['course-components', courseKey] });

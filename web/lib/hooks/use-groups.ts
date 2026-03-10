@@ -35,7 +35,7 @@ export interface GroupDetail {
 export function useOrgGroups(orgKey: string) {
   return useQuery({
     queryKey: ['groups', orgKey],
-    queryFn: () => api.get<Group[]>(`/groups/org/${orgKey}`),
+    queryFn: () => api.get<Group[]>(`/v1/groups/org/${orgKey}`),
     enabled: !!orgKey,
   });
 }
@@ -43,7 +43,7 @@ export function useOrgGroups(orgKey: string) {
 export function useGroupDetail(groupId: number | null) {
   return useQuery({
     queryKey: ['groups', 'detail', groupId],
-    queryFn: () => api.get<GroupDetail>(`/groups/${groupId}`),
+    queryFn: () => api.get<GroupDetail>(`/v1/groups/${groupId}`),
     enabled: !!groupId,
   });
 }
@@ -52,7 +52,7 @@ export function useCreateGroup(orgKey: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { name: string; description?: string }) =>
-      api.post<Group>(`/groups/org/${orgKey}`, data),
+      api.post<Group>(`/v1/groups/org/${orgKey}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['groups', orgKey] });
     },
@@ -68,7 +68,7 @@ export function useUpdateGroup() {
       description?: string;
     }) => {
       const { groupId, ...body } = data;
-      return api.patch<Group>(`/groups/${groupId}`, body);
+      return api.patch<Group>(`/v1/groups/${groupId}`, body);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['groups'] });
@@ -79,7 +79,7 @@ export function useUpdateGroup() {
 export function useDeleteGroup(orgKey: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (groupId: number) => api.delete(`/groups/${groupId}`),
+    mutationFn: (groupId: number) => api.delete(`/v1/groups/${groupId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['groups', orgKey] });
     },
@@ -90,7 +90,7 @@ export function useAddGroupMember(groupId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { userId: string }) =>
-      api.post(`/groups/${groupId}/members`, data),
+      api.post(`/v1/groups/${groupId}/members`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['groups', 'detail', groupId],
@@ -103,7 +103,7 @@ export function useRemoveGroupMember(groupId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (userId: string) =>
-      api.delete(`/groups/${groupId}/members/${userId}`),
+      api.delete(`/v1/groups/${groupId}/members/${userId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['groups', 'detail', groupId],

@@ -21,15 +21,15 @@ export function useNotifications(page?: number, limit?: number) {
     queryKey: isPaginated ? ['notifications', page, limit] : ['notifications'],
     queryFn: () =>
       isPaginated
-        ? api.get<PaginatedResponse<Notification>>(`/notifications?page=${page}&limit=${limit}`)
-        : api.get<PaginatedResponse<Notification>>('/notifications'),
+        ? api.get<PaginatedResponse<Notification>>(`/v1/notifications?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<Notification>>('/v1/notifications'),
   });
 }
 
 export function useUnreadCount() {
   return useQuery({
     queryKey: ['notifications', 'unread-count'],
-    queryFn: () => api.get<UnreadCount>('/notifications/unread-count'),
+    queryFn: () => api.get<UnreadCount>('/v1/notifications/unread-count'),
     refetchInterval: 30000,
   });
 }
@@ -38,7 +38,7 @@ export function useMarkAsRead() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: number) =>
-      api.patch(`/notifications/${id}/read`),
+      api.patch(`/v1/notifications/${id}/read`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications'] });
     },
@@ -48,7 +48,7 @@ export function useMarkAsRead() {
 export function useMarkAllAsRead() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: () => api.patch('/notifications/read-all'),
+    mutationFn: () => api.patch('/v1/notifications/read-all'),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['notifications'] });
     },

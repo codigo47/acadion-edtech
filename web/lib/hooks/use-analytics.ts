@@ -83,7 +83,7 @@ export interface StudentAnalytics {
 export function useCourseAnalytics(courseKey: string) {
   return useQuery({
     queryKey: ['analytics', 'course', courseKey],
-    queryFn: () => api.get<CourseAnalytics>(`/analytics/course/${courseKey}`),
+    queryFn: () => api.get<CourseAnalytics>(`/v1/analytics/course/${courseKey}`),
     enabled: !!courseKey,
   });
 }
@@ -92,7 +92,7 @@ export function useCourseUserProgress(courseKey: string) {
   return useQuery({
     queryKey: ['analytics', 'course', courseKey, 'users'],
     queryFn: () =>
-      api.get<CourseUserProgress[]>(`/analytics/course/${courseKey}/users`),
+      api.get<CourseUserProgress[]>(`/v1/analytics/course/${courseKey}/users`),
     enabled: !!courseKey,
   });
 }
@@ -100,7 +100,7 @@ export function useCourseUserProgress(courseKey: string) {
 export function useOrgAnalytics(orgKey: string) {
   return useQuery({
     queryKey: ['analytics', 'org', orgKey],
-    queryFn: () => api.get<OrgAnalytics>(`/analytics/org/${orgKey}`),
+    queryFn: () => api.get<OrgAnalytics>(`/v1/analytics/org/${orgKey}`),
     enabled: !!orgKey,
   });
 }
@@ -108,6 +108,6 @@ export function useOrgAnalytics(orgKey: string) {
 export function useStudentAnalytics() {
   return useQuery({
     queryKey: ['analytics', 'me'],
-    queryFn: () => api.get<StudentAnalytics>('/analytics/me'),
+    queryFn: () => api.get<StudentAnalytics>('/v1/analytics/me'),
   });
 }

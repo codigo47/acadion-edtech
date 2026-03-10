@@ -31,7 +31,7 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: (credentials: LoginCredentials) =>
-      api.post<AuthResponse>('/auth/login', credentials, { auth: false }),
+      api.post<AuthResponse>('/v1/auth/login', credentials, { auth: false }),
     onSuccess: (data) => {
       saveAuth(data);
       queryClient.setQueryData(['user'], data.user);
@@ -46,7 +46,7 @@ export function useRegister() {
 
   return useMutation({
     mutationFn: (credentials: RegisterCredentials) =>
-      api.post<AuthResponse>('/auth/register', credentials, { auth: false }),
+      api.post<AuthResponse>('/v1/auth/register', credentials, { auth: false }),
     onSuccess: (data) => {
       saveAuth(data);
       queryClient.setQueryData(['user'], data.user);
@@ -60,7 +60,7 @@ export function useLogout() {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: () => api.post('/auth/logout'),
+    mutationFn: () => api.post('/v1/auth/logout'),
     onSettled: () => {
       clearAuth();
       queryClient.setQueryData(['user'], null);
@@ -74,7 +74,7 @@ export function useProfile() {
   return useQuery({
     queryKey: ['user'],
     queryFn: async () => {
-      const user = await api.get<User>('/auth/profile');
+      const user = await api.get<User>('/v1/auth/profile');
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(user));
       }
@@ -110,7 +110,7 @@ export function useUpdateProfile() {
 
   return useMutation({
     mutationFn: (data: { name?: string; image?: string; username?: string }) =>
-      api.patch('/users/me/profile', data),
+      api.patch('/v1/users/me/profile', data),
     onSuccess: (updatedUser: any) => {
       const merged = { ...getUser(), ...updatedUser };
       queryClient.setQueryData(['user'], merged);
@@ -123,5 +123,5 @@ export function useUpdateProfile() {
 }
 
 export function getGoogleLoginUrl(): string {
-  return `${API_URL}/auth/google`;
+  return `${API_URL}/v1/auth/google`;
 }

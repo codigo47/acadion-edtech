@@ -109,15 +109,15 @@ export function useMyLearningPlans(page?: number, limit?: number) {
     queryKey: isPaginated ? ['learning-plans', 'my', page, limit] : ['learning-plans', 'my'],
     queryFn: () =>
       isPaginated
-        ? api.get<PaginatedResponse<LearningPlan>>(`/learning-plans/my?page=${page}&limit=${limit}`)
-        : api.get<PaginatedResponse<LearningPlan>>('/learning-plans/my'),
+        ? api.get<PaginatedResponse<LearningPlan>>(`/v1/learning-plans/my?page=${page}&limit=${limit}`)
+        : api.get<PaginatedResponse<LearningPlan>>('/v1/learning-plans/my'),
   });
 }
 
 export function useOrgLearningPlans(orgKey: string) {
   return useQuery({
     queryKey: ['learning-plans', orgKey],
-    queryFn: () => api.get<LearningPlan[]>(`/learning-plans/org/${orgKey}`),
+    queryFn: () => api.get<LearningPlan[]>(`/v1/learning-plans/org/${orgKey}`),
     enabled: !!orgKey,
   });
 }
@@ -126,7 +126,7 @@ export function useLearningPlanDetail(planId: number | null) {
   return useQuery({
     queryKey: ['learning-plans', 'detail', planId],
     queryFn: () =>
-      api.get<LearningPlanDetail>(`/learning-plans/${planId}`),
+      api.get<LearningPlanDetail>(`/v1/learning-plans/${planId}`),
     enabled: !!planId,
   });
 }
@@ -144,7 +144,7 @@ export function useCreateLearningPlan(orgKey: string) {
       isCorrelative?: boolean;
       isOptional?: boolean;
       parentId?: number;
-    }) => api.post<LearningPlan>(`/learning-plans/org/${orgKey}`, data),
+    }) => api.post<LearningPlan>(`/v1/learning-plans/org/${orgKey}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['learning-plans'] });
     },
@@ -167,7 +167,7 @@ export function useUpdateLearningPlan() {
       parentId?: number;
     }) => {
       const { planId, ...body } = data;
-      return api.patch<LearningPlan>(`/learning-plans/${planId}`, body);
+      return api.patch<LearningPlan>(`/v1/learning-plans/${planId}`, body);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['learning-plans'] });
@@ -179,7 +179,7 @@ export function useDeleteLearningPlan(orgKey?: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (planId: number) =>
-      api.delete(`/learning-plans/${planId}`),
+      api.delete(`/v1/learning-plans/${planId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['learning-plans'] });
     },
@@ -190,7 +190,7 @@ export function useAddPlanCourse(planId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { courseId: number; order?: number; required?: boolean }) =>
-      api.post(`/learning-plans/${planId}/courses`, data),
+      api.post(`/v1/learning-plans/${planId}/courses`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['learning-plans', 'detail', planId],
@@ -203,7 +203,7 @@ export function useRemovePlanCourse(planId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (courseId: number) =>
-      api.delete(`/learning-plans/${planId}/courses/${courseId}`),
+      api.delete(`/v1/learning-plans/${planId}/courses/${courseId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['learning-plans', 'detail', planId],
@@ -216,7 +216,7 @@ export function useReorderPlanCourses(planId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (courses: { courseId: number; order: number }[]) =>
-      api.patch(`/learning-plans/${planId}/courses/reorder`, { courses }),
+      api.patch(`/v1/learning-plans/${planId}/courses/reorder`, { courses }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['learning-plans', 'detail', planId],
@@ -229,7 +229,7 @@ export function useAssignPlan(planId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { userId: string; deadline?: string }) =>
-      api.post(`/learning-plans/${planId}/assign`, data),
+      api.post(`/v1/learning-plans/${planId}/assign`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['learning-plans', 'detail', planId],
@@ -242,7 +242,7 @@ export function useAssignPlanToGroup(planId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { groupId: number; deadline?: string }) =>
-      api.post(`/learning-plans/${planId}/assign-group`, data),
+      api.post(`/v1/learning-plans/${planId}/assign-group`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['learning-plans', 'detail', planId],
@@ -255,7 +255,7 @@ export function useStudentPlanDetail(planId: number | null) {
   return useQuery({
     queryKey: ['learning-plans', 'student', planId],
     queryFn: () =>
-      api.get<StudentPlanDetail>(`/learning-plans/${planId}/student`),
+      api.get<StudentPlanDetail>(`/v1/learning-plans/${planId}/student`),
     enabled: !!planId,
   });
 }
@@ -270,7 +270,7 @@ export function useBulkAssignPlan(planId: number) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { users: { email: string }[]; deadline?: string }) =>
-      api.post<BulkAssignResult[]>(`/learning-plans/${planId}/assign-bulk`, data),
+      api.post<BulkAssignResult[]>(`/v1/learning-plans/${planId}/assign-bulk`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['learning-plans', 'detail', planId],

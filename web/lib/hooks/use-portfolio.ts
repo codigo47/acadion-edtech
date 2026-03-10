@@ -99,7 +99,7 @@ export function usePublicPortfolio(username: string) {
   return useQuery({
     queryKey: ['portfolio', username],
     queryFn: () =>
-      api.get<PublicPortfolioData>(`/portfolio/${username}`, { auth: false }),
+      api.get<PublicPortfolioData>(`/v1/portfolio/${username}`, { auth: false }),
     enabled: !!username,
     retry: false,
   });
@@ -108,7 +108,7 @@ export function usePublicPortfolio(username: string) {
 export function useMyPortfolio() {
   return useQuery({
     queryKey: ['portfolio', 'me'],
-    queryFn: () => api.get<MyPortfolioData>('/portfolio/me/settings'),
+    queryFn: () => api.get<MyPortfolioData>('/v1/portfolio/me/settings'),
   });
 }
 
@@ -116,7 +116,7 @@ export function useUpdatePortfolio() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: UpdatePortfolioInput) =>
-      api.put('/portfolio/me/settings', data),
+      api.put('/v1/portfolio/me/settings', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['portfolio', 'me'] });
     },
@@ -127,7 +127,7 @@ export function useUpdatePortfolioCourses() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (courseIds: number[]) =>
-      api.put('/portfolio/me/courses', { courseIds }),
+      api.put('/v1/portfolio/me/courses', { courseIds }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['portfolio', 'me'] });
     },
@@ -137,7 +137,7 @@ export function useUpdatePortfolioCourses() {
 export function usePortfolioAnalytics() {
   return useQuery({
     queryKey: ['portfolio', 'me', 'analytics'],
-    queryFn: () => api.get<PortfolioAnalytics>('/portfolio/me/analytics'),
+    queryFn: () => api.get<PortfolioAnalytics>('/v1/portfolio/me/analytics'),
   });
 }
 
@@ -152,7 +152,7 @@ export function useTrackPortfolioVisit() {
       country?: string;
       courseId?: number;
     }) =>
-      api.post(`/portfolio/${username}/visit`, { country, courseId }, { auth: false }),
+      api.post(`/v1/portfolio/${username}/visit`, { country, courseId }, { auth: false }),
   });
 }
 
@@ -170,7 +170,7 @@ export function useContactPortfolio() {
       message: string;
     }) =>
       api.post(
-        `/portfolio/${username}/contact`,
+        `/v1/portfolio/${username}/contact`,
         { name, email, message },
         { auth: false },
       ),

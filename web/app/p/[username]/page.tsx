@@ -58,9 +58,9 @@ interface PortfolioData {
 
 async function getPortfolioData(username: string): Promise<PortfolioData | null> {
   const apiUrl =
-    process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api/v1';
+    process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8001/api';
   try {
-    const res = await fetch(`${apiUrl}/portfolio/${username}`, {
+    const res = await fetch(`${apiUrl}/v1/portfolio/${username}`, {
       cache: 'no-store',
     });
     if (!res.ok) return null;

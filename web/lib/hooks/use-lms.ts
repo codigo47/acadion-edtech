@@ -96,14 +96,14 @@ export interface LmsCourseContent {
 export function useLmsDashboard() {
   return useQuery({
     queryKey: ['lms-dashboard'],
-    queryFn: () => api.get<LmsDashboard>('/lms/dashboard'),
+    queryFn: () => api.get<LmsDashboard>('/v1/lms/dashboard'),
   });
 }
 
 export function useLmsCourseContent(courseKey: string | null) {
   return useQuery({
     queryKey: ['lms-course', courseKey],
-    queryFn: () => api.get<LmsCourseContent>(`/lms/courses/${courseKey}`),
+    queryFn: () => api.get<LmsCourseContent>(`/v1/lms/courses/${courseKey}`),
     enabled: !!courseKey,
   });
 }
@@ -112,7 +112,7 @@ export function useLmsSelfEnroll() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (courseKey: string) =>
-      api.post(`/lms/courses/${courseKey}/enroll`, {}),
+      api.post(`/v1/lms/courses/${courseKey}/enroll`, {}),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lms-dashboard'] });
     },
@@ -128,7 +128,7 @@ export function useLmsUpdateProgress(courseKey: string) {
       completed?: boolean;
       focusLossCount?: number;
     }) => api.patch<{ progress: number; completedUnits: number; totalUnits: number }>(
-      `/lms/courses/${courseKey}/progress`,
+      `/v1/lms/courses/${courseKey}/progress`,
       data,
     ),
     onSuccess: () => {
@@ -142,7 +142,7 @@ export function useLmsCompleteCourse(courseKey: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { passed: boolean; score: number }) =>
-      api.post(`/lms/courses/${courseKey}/complete`, data),
+      api.post(`/v1/lms/courses/${courseKey}/complete`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lms-course', courseKey] });
       queryClient.invalidateQueries({ queryKey: ['lms-dashboard'] });
@@ -158,7 +158,7 @@ export function useLmsSubmitKnowledgeCheck(courseKey: string) {
       answer: unknown;
       isCorrect: boolean;
     }) => api.post<{ attemptNumber: number; isCorrect: boolean; remainingAttempts: number }>(
-      `/lms/courses/${courseKey}/knowledge-check`,
+      `/v1/lms/courses/${courseKey}/knowledge-check`,
       data,
     ),
   });
@@ -168,7 +168,7 @@ export function useLmsAdminEnroll(courseKey: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { userId: string }) =>
-      api.post(`/lms/courses/${courseKey}/admin-enroll`, data),
+      api.post(`/v1/lms/courses/${courseKey}/admin-enroll`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['analytics'] });
     },
@@ -179,7 +179,7 @@ export function useLmsReEnroll(courseKey: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (userId: string) =>
-      api.post(`/lms/courses/${courseKey}/re-enroll/${userId}`, {}),
+      api.post(`/v1/lms/courses/${courseKey}/re-enroll/${userId}`, {}),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['analytics'] });
     },
