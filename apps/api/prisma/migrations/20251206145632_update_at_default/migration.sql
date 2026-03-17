@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "components" ALTER COLUMN "updatedAt" SET DEFAULT CURRENT_TIMESTAMP;
