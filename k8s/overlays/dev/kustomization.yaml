@@ -18,7 +18,7 @@ configMapGenerator:
   - name: acadion-config
     behavior: create
     literals:
-      - REDIS_HOST=redis
+      - REDIS_HOST=host.minikube.internal
       - REDIS_PORT=6379
       - PORT=8001
       - FRONTEND_URL=http://dev.acadion.local
