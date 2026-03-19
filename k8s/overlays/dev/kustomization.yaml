@@ -21,6 +21,6 @@ configMapGenerator:
       - REDIS_HOST=host.minikube.internal
       - REDIS_PORT=6379
       - PORT=8001
-      - FRONTEND_URL=http://dev.acadion.local
-      - GOOGLE_CALLBACK_URL=http://dev.acadion.local/api/v1/auth/google/callback
+      - FRONTEND_URL=http://localhost:8000
+      - GOOGLE_CALLBACK_URL=http://localhost:8001/api/v1/auth/google/callback
       - JWT_EXPIRES_IN=7d
