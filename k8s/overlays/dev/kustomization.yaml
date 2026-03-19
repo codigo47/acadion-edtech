@@ -7,7 +7,6 @@ namePrefix: ""
 
 resources:
   - ../../base
-  - secrets.yaml
   - patches/namespace.yaml
 
 patches:
