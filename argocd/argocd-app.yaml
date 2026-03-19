@@ -1,26 +1,43 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: acadion
+  name: acadion-dev
   namespace: argocd
 spec:
   project: default
   source:
-    # Apunta a tu repo Git (cambia la URL a tu repo real)
     repoURL: https://github.com/codigo47/acadion.git
     targetRevision: main
-    path: k8s
-    directory:
-      recurse: false
-      # Excluir el propio argocd-app.yaml para evitar loops
-      exclude: "argocd-app.yaml"
+    path: k8s/overlays/dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: acadion
+    namespace: acadion-dev
   syncPolicy:
     automated:
-      prune: true       # Elimina recursos que ya no están en Git
-      selfHeal: true     # Re-aplica si alguien modifica manualmente
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: acadion-prod
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/codigo47/acadion.git
+    targetRevision: main
+    path: k8s/overlays/prod
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: acadion-prod
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ApplyOutOfSyncOnly=true

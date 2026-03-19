@@ -2,12 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: acadion-ingress
-  namespace: acadion
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
-    - host: acadion.local
+    - host: dev.acadion.local
       http:
         paths:
           - path: /api

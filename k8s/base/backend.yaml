@@ -2,9 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: acadion
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -16,7 +15,6 @@ spec:
       containers:
         - name: backend
           image: acadion-back:latest
-          imagePullPolicy: Never          # Usa la imagen local de Minikube
           ports:
             - containerPort: 8001
           envFrom:
@@ -24,13 +22,11 @@ spec:
                 name: acadion-config
             - secretRef:
                 name: acadion-secrets
-
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend
-  namespace: acadion
 spec:
   selector:
     app: backend
