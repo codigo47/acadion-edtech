@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: acadion-dev
+  name: acadion
   namespace: argocd
 spec:
   project: default
@@ -12,28 +12,6 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: acadion-dev
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ApplyOutOfSyncOnly=true
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: acadion-prod
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/codigo47/acadion.git
-    targetRevision: main
-    path: k8s/overlays/prod
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: acadion-prod
   syncPolicy:
     automated:
       prune: true
