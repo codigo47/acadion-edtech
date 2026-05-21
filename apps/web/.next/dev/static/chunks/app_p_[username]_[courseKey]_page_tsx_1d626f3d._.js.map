@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/codigo47/sistemas/course/source/web/app/p/%5Busername%5D/%5BcourseKey%5D/page.tsx"],"sourcesContent":["'use client';\n\nimport { useParams } from 'next/navigation';\nimport CoursePlayer from '../../../components/CoursePlayer';\n\nexport default function PortfolioCoursePage() {\n  const params = useParams();\n  const username = params.username as string;\n  const courseKey = params.courseKey as string;\n\n  return (\n    <CoursePlayer\n      courseKey={courseKey}\n      backUrl={`/p/${username}`}\n      backLabel=\"Back to Portfolio\"\n    />\n  );\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;;;AAHA;;;AAKe,SAAS;;IACtB,MAAM,SAAS,IAAA,kJAAS;IACxB,MAAM,WAAW,OAAO,QAAQ;IAChC,MAAM,YAAY,OAAO,SAAS;IAElC,qBACE,6LAAC,gJAAY;QACX,WAAW;QACX,SAAS,CAAC,GAAG,EAAE,UAAU;QACzB,WAAU;;;;;;AAGhB;GAZwB;;QACP,kJAAS;;;KADF"}}]
-}
