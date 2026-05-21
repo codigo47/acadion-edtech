@@ -1,0 +1,593 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Component {
+  id               Int               @id @default(autoincrement())
+  key              String            @default(uuid()) @db.Uuid
+  name             String
+  description      String?
+  properties       Json?
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @default(now()) @updatedAt
+  version          Int               @default(1)
+  internalName     String
+  type             ComponentType     @default(static)
+  subtype          ComponentSubtype  @default(content)
+  groupKey         String?           @map("group_key")
+  courseComponents CourseComponent[]
+
+  @@map("components")
+}
+
+model CourseComponent {
+  id          Int       @id @default(autoincrement())
+  courseId    Int       @map("course_id")
+  componentId Int       @map("component_id")
+  module      Int
+  unit        Int
+  sequence    Int
+  data        Json?
+  userId      String    @map("user_id") @db.Uuid
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+  component   Component @relation(fields: [componentId], references: [id], onDelete: Cascade)
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("course_components")
+}
+
+model Organization {
+  id            Int                @id @default(autoincrement())
+  key           String             @default(uuid()) @db.Uuid
+  name          String
+  slug          String             @unique
+  logo          String?
+  createdAt     DateTime           @default(now()) @map("created_at")
+  updatedAt     DateTime           @default(now()) @updatedAt @map("updated_at")
+  courses       Course[]
+  users         UserOrganization[]
+  groups        Group[]
+  learningPlans LearningPlan[]
+  badges        Badge[]
+  invitations   Invitation[]
+
+  @@map("organizations")
+}
+
+model UserOrganization {
+  userId       String       @map("user_id") @db.Uuid
+  orgId        Int          @map("org_id")
+  role         OrgRole      @default(student)
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @default(now()) @updatedAt @map("updated_at")
+  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, orgId])
+  @@map("users_organizations")
+}
+
+model Course {
+  id                  Int                  @id @default(autoincrement())
+  key                 String               @default(uuid()) @db.Uuid
+  title               String?
+  orgId               Int?                 @map("org_id")
+  userId              String               @map("user_id") @db.Uuid
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @default(now()) @updatedAt
+  completedAt         DateTime?            @map("completed_at")
+  input               Json?
+  output              Json?
+  status              CourseStatus         @default(draft)
+  estimatedMinutes    Int?                 @map("estimated_minutes")
+  isAdaptive          Boolean              @default(false) @map("is_adaptive")
+  conversations       Conversation[]
+  courseComponents    CourseComponent[]
+  steps               CourseStep[]
+  organization        Organization?        @relation(fields: [orgId], references: [id])
+  user                User                 @relation("UserCourses", fields: [userId], references: [id], onDelete: Cascade)
+  enrollments         Enrollment[]
+  learningPlanCourses LearningPlanCourse[]
+  portfolioCourses    PortfolioCourse[]
+
+  @@map("courses")
+}
+
+model CourseStep {
+  id               Int        @id @default(autoincrement())
+  courseId         Int        @map("course_id")
+  status           StepStatus @default(pending)
+  payload          Json?
+  error            Json?
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @default(now()) @updatedAt @map("updated_at")
+  type             StepType
+  completionTokens Int?       @map("completion_tokens")
+  promptTokens     Int?       @map("prompt_tokens")
+  course           Course     @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@map("course_steps")
+}
+
+model Conversation {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @map("user_id") @db.Uuid
+  title      String?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @default(now()) @updatedAt @map("updated_at")
+  isArchived Boolean   @default(false) @map("is_archived")
+  courseId   Int?      @map("course_id")
+  course     Course?   @relation(fields: [courseId], references: [id])
+  user       User      @relation("UserConversations", fields: [userId], references: [id], onDelete: Cascade)
+  messages   Message[]
+
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(uuid()) @db.Uuid
+  conversationId String       @map("conversation_id") @db.Uuid
+  role           MessageRole
+  content        String
+  createdAt      DateTime     @default(now()) @map("created_at")
+  sequence       Int          @default(0)
+  modelName      String?      @map("model_name")
+  tokensUsed     Int?         @map("tokens_used")
+  metadata       Json?
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@map("messages")
+}
+
+model User {
+  id               String             @id @default(uuid()) @db.Uuid
+  name             String?
+  email            String             @unique
+  emailVerified    DateTime?          @map("email_verified")
+  image            String?
+  password         String?
+  username         String?            @unique @map("username")
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @default(now()) @updatedAt @map("updated_at")
+  accounts         Account[]
+  conversations    Conversation[]     @relation("UserConversations")
+  courseComponents CourseComponent[]
+  courses          Course[]           @relation("UserCourses")
+  sessions         Session[]
+  organizations    UserOrganization[]
+  portfolio        Portfolio?
+  notifications    Notification[]
+  enrollments      Enrollment[]
+  learningPlans    UserLearningPlan[]
+  groups           UserGroup[]
+  badges           UserBadge[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @map("user_id") @db.Uuid
+  type              String
+  provider          String
+  providerAccountId String   @map("provider_account_id")
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at")
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(uuid()) @db.Uuid
+  sessionToken String   @unique @map("session_token")
+  userId       String   @map("user_id") @db.Uuid
+  expires      DateTime
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model Group {
+  id          Int          @id @default(autoincrement())
+  key         String       @default(uuid()) @db.Uuid
+  orgId       Int          @map("org_id")
+  name        String
+  description String?
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @default(now()) @updatedAt @map("updated_at")
+  org         Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  members     UserGroup[]
+
+  @@map("groups")
+}
+
+model UserGroup {
+  userId    String   @map("user_id") @db.Uuid
+  groupId   Int      @map("group_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group     Group    @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@id([userId, groupId])
+  @@map("users_groups")
+}
+
+model LearningPlan {
+  id            Int                  @id @default(autoincrement())
+  key           String               @default(uuid()) @db.Uuid
+  orgId         Int                  @map("org_id")
+  name          String
+  description   String?
+  image         String?
+  badgeImage    String?              @map("badge_image")
+  badgeName     String?              @map("badge_name")
+  estimatedDays Int?                 @map("estimated_days")
+  isCorrelative Boolean              @default(false) @map("is_correlative")
+  isOptional    Boolean              @default(false) @map("is_optional")
+  parentId      Int?                 @map("parent_id")
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @default(now()) @updatedAt @map("updated_at")
+  parent        LearningPlan?        @relation("LearningPlanHierarchy", fields: [parentId], references: [id])
+  children      LearningPlan[]       @relation("LearningPlanHierarchy")
+  org           Organization         @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  courses       LearningPlanCourse[]
+  enrollments   UserLearningPlan[]
+
+  @@map("learning_plans")
+}
+
+model LearningPlanCourse {
+  learningPlanId Int          @map("learning_plan_id")
+  courseId       Int          @map("course_id")
+  order          Int          @default(0)
+  required       Boolean      @default(true)
+  learningPlan   LearningPlan @relation(fields: [learningPlanId], references: [id], onDelete: Cascade)
+  course         Course       @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@id([learningPlanId, courseId])
+  @@map("learning_plan_courses")
+}
+
+model UserLearningPlan {
+  id             Int          @id @default(autoincrement())
+  userId         String       @map("user_id") @db.Uuid
+  learningPlanId Int          @map("learning_plan_id")
+  enrolledAt     DateTime     @default(now()) @map("enrolled_at")
+  deadline       DateTime?
+  completedAt    DateTime?    @map("completed_at")
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  learningPlan   LearningPlan @relation(fields: [learningPlanId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, learningPlanId])
+  @@map("users_learning_plans")
+}
+
+model Enrollment {
+  id                      Int                      @id @default(autoincrement())
+  userId                  String                   @map("user_id") @db.Uuid
+  courseId                 Int                      @map("course_id")
+  enrolledAt              DateTime                 @default(now()) @map("enrolled_at")
+  startedAt               DateTime?                @map("started_at")
+  completedAt             DateTime?                @map("completed_at")
+  passed                  Boolean?
+  score                   Float?
+  attempts                Int                      @default(0)
+  user                    User                     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course                  Course                   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  unitProgress            CourseUnitProgress[]
+  knowledgeCheckAttempts  KnowledgeCheckAttempt[]
+  adaptiveAssessments     AdaptiveAssessment[]
+
+  @@unique([userId, courseId])
+  @@map("enrollments")
+}
+
+model CourseUnitProgress {
+  id               Int        @id @default(autoincrement())
+  enrollmentId     Int        @map("enrollment_id")
+  unitCode         String     @map("unit_code")
+  completedAt      DateTime?  @map("completed_at")
+  timeSpentSeconds Int        @default(0) @map("time_spent_seconds")
+  focusLossCount   Int        @default(0) @map("focus_loss_count")
+  enrollment       Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@unique([enrollmentId, unitCode])
+  @@map("course_unit_progress")
+}
+
+model KnowledgeCheckAttempt {
+  id            Int        @id @default(autoincrement())
+  enrollmentId  Int        @map("enrollment_id")
+  unitCode      String     @map("unit_code")
+  questionIndex Int        @map("question_index")
+  answer        Json
+  isCorrect     Boolean    @map("is_correct")
+  attemptNumber Int        @map("attempt_number")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  enrollment    Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@map("knowledge_check_attempts")
+}
+
+model AdaptiveAssessment {
+  id              Int        @id @default(autoincrement())
+  enrollmentId    Int        @map("enrollment_id")
+  type            AssessmentType
+  unitCode        String     @map("unit_code")
+  confidenceScore Int        @map("confidence_score")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  enrollment      Enrollment @relation(fields: [enrollmentId], references: [id], onDelete: Cascade)
+
+  @@map("adaptive_assessments")
+}
+
+model Badge {
+  id             Int           @id @default(autoincrement())
+  key            String        @default(uuid()) @db.Uuid
+  orgId          Int?          @map("org_id")
+  name           String
+  description    String?
+  image          String?
+  type           BadgeType
+  conditionType  String        @map("condition_type")
+  conditionValue Json?         @map("condition_value")
+  targetId       Int?          @map("target_id")
+  isPublic       Boolean       @default(false) @map("is_public")
+  isActive       Boolean       @default(true) @map("is_active")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  org            Organization? @relation(fields: [orgId], references: [id])
+  userBadges     UserBadge[]
+
+  @@map("badges")
+}
+
+model UserBadge {
+  id       Int      @id @default(autoincrement())
+  userId   String   @map("user_id") @db.Uuid
+  badgeId  Int      @map("badge_id")
+  earnedAt DateTime @default(now()) @map("earned_at")
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge    Badge    @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@map("users_badges")
+}
+
+model Notification {
+  id        Int              @id @default(autoincrement())
+  userId    String           @map("user_id") @db.Uuid
+  type      NotificationType
+  data      Json
+  readAt    DateTime?        @map("read_at")
+  createdAt DateTime         @default(now()) @map("created_at")
+  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Portfolio {
+  id              Int                       @id @default(autoincrement())
+  userId          String                    @unique @map("user_id") @db.Uuid
+  title           String?
+  bio             String?
+  tagline         String?
+  portraitImage   String?                   @map("portrait_image")
+  coverImage      String?                   @map("cover_image")
+  email           String?
+  phone           String?
+  theme           String?                   @default("corporate_professional")
+  skills          String[]                  @default([])
+  languages       String[]                  @default([])
+  socialLinkedin  String?                   @map("social_linkedin")
+  socialTwitter   String?                   @map("social_twitter")
+  socialInstagram String?                   @map("social_instagram")
+  socialCustom    Json?                     @map("social_custom")
+  isPublic        Boolean                   @default(true) @map("is_public")
+  createdAt       DateTime                  @default(now()) @map("created_at")
+  updatedAt       DateTime                  @default(now()) @updatedAt @map("updated_at")
+  user            User                      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courses         PortfolioCourse[]
+  images          PortfolioImage[]
+  videos          PortfolioVideo[]
+  visits          PortfolioVisit[]
+  contactMessages PortfolioContactMessage[]
+
+  @@map("portfolios")
+}
+
+model PortfolioImage {
+  id          Int       @id @default(autoincrement())
+  portfolioId Int       @map("portfolio_id")
+  url         String
+  description String?
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("portfolio_images")
+}
+
+model PortfolioVideo {
+  id          Int       @id @default(autoincrement())
+  portfolioId Int       @map("portfolio_id")
+  url         String
+  description String?
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("portfolio_videos")
+}
+
+model PortfolioVisit {
+  id          Int       @id @default(autoincrement())
+  portfolioId Int       @map("portfolio_id")
+  country     String?
+  courseId     Int?      @map("course_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("portfolio_visits")
+}
+
+model PortfolioContactMessage {
+  id          Int       @id @default(autoincrement())
+  portfolioId Int       @map("portfolio_id")
+  senderName  String    @map("sender_name")
+  senderEmail String    @map("sender_email")
+  message     String
+  createdAt   DateTime  @default(now()) @map("created_at")
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+
+  @@map("portfolio_contact_messages")
+}
+
+model PortfolioCourse {
+  portfolioId Int       @map("portfolio_id")
+  courseId    Int       @map("course_id")
+  order       Int       @default(0)
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  course      Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@id([portfolioId, courseId])
+  @@map("portfolio_courses")
+}
+
+enum ComponentType {
+  static
+  interactive
+  evaluation
+
+  @@map("component_type")
+}
+
+enum ComponentSubtype {
+  content
+  exercise
+  navigation
+
+  @@map("component_subtype")
+}
+
+enum CourseStatus {
+  draft
+  generating
+  completed
+  failed
+
+  @@map("course_status")
+}
+
+enum StepStatus {
+  pending
+  running
+  completed
+  failed
+
+  @@map("step_status")
+}
+
+enum StepType {
+  generating_index
+  generating_objectives
+  generating_intro_unit
+  generating_content_unit
+  generating_module_evaluation
+  generating_course_evaluation
+
+  @@map("step_type")
+}
+
+enum MessageRole {
+  user
+  assistant
+  system
+
+  @@map("message_role")
+}
+
+enum OrgRole {
+  super_admin
+  org_admin
+  editor
+  viewer
+  commenter
+  student
+
+  @@map("org_role")
+}
+
+enum BadgeType {
+  progress
+  level
+  excellence
+  role
+
+  @@map("badge_type")
+}
+
+enum NotificationType {
+  enrolled
+  learning_plan_assigned
+  course_completed
+  course_failed
+  badge_earned
+  invitation
+
+  @@map("notification_type")
+}
+
+enum AssessmentType {
+  pre
+  post
+
+  @@map("assessment_type")
+}
+
+model Invitation {
+  id        Int              @id @default(autoincrement())
+  email     String
+  role      OrgRole
+  orgId     Int              @map("org_id")
+  token     String           @unique @default(uuid())
+  status    InvitationStatus @default(pending)
+  expiresAt DateTime         @map("expires_at")
+  createdAt DateTime         @default(now()) @map("created_at")
+  org       Organization     @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("invitations")
+}
+
+enum InvitationStatus {
+  pending
+  accepted
+  expired
+
+  @@map("invitation_status")
+}

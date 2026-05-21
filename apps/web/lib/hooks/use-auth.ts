@@ -1,0 +1,127 @@
+'use client';
+
+import { useEffect } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { api, API_URL } from '../api-client';
+import {
+  User,
+  AuthResponse,
+  saveAuth,
+  clearAuth,
+  getToken,
+  getUser,
+} from '../auth';
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+interface RegisterCredentials {
+  email: string;
+  password: string;
+  name?: string;
+  username?: string;
+}
+
+export function useLogin() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (credentials: LoginCredentials) =>
+      api.post<AuthResponse>('/v1/auth/login', credentials, { auth: false }),
+    onSuccess: (data) => {
+      saveAuth(data);
+      queryClient.setQueryData(['user'], data.user);
+      router.push('/dashboard');
+    },
+  });
+}
+
+export function useRegister() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (credentials: RegisterCredentials) =>
+      api.post<AuthResponse>('/v1/auth/register', credentials, { auth: false }),
+    onSuccess: (data) => {
+      saveAuth(data);
+      queryClient.setQueryData(['user'], data.user);
+      router.push('/onboarding');
+    },
+  });
+}
+
+export function useLogout() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: () => api.post('/v1/auth/logout'),
+    onSettled: () => {
+      clearAuth();
+      queryClient.setQueryData(['user'], null);
+      queryClient.clear();
+      router.push('/login');
+    },
+  });
+}
+
+export function useProfile() {
+  return useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const user = await api.get<User>('/v1/auth/profile');
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(user));
+      }
+      return user;
+    },
+    enabled: !!getToken(),
+    initialData: getUser,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
+}
+
+export function useUser() {
+  const { data: user, isLoading, isError } = useProfile();
+  const token = getToken();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && (!token || isError)) {
+      clearAuth();
+      router.push('/login');
+    }
+  }, [isLoading, token, isError, router]);
+
+  return {
+    user,
+    isLoading,
+    isAuthenticated: !!token && !!user,
+  };
+}
+
+export function useUpdateProfile() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: { name?: string; image?: string; username?: string }) =>
+      api.patch('/v1/users/me/profile', data),
+    onSuccess: (updatedUser: any) => {
+      const merged = { ...getUser(), ...updatedUser };
+      queryClient.setQueryData(['user'], merged);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(merged));
+      }
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+    },
+  });
+}
+
+export function getGoogleLoginUrl(): string {
+  return `${API_URL}/v1/auth/google`;
+}

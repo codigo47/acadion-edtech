@@ -1,0 +1,114 @@
+/* Burbuja base */
+.bubble {
+  position: relative;
+  background: var(--bubble-bg, #ffffff);
+  border-radius: var(--bubble-radius, 15px);
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: var(--bubble-border-width, 2px) solid var(--bubble-border, #d1d5db);
+  margin-top: 8px;
+}
+
+/* ================================ */
+/* SPEECH BUBBLE - Cola triangular */
+/* ================================ */
+
+/* Cola hacia la izquierda (avatar a la izquierda) */
+.speech.left::before,
+.speech.left::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  border-style: solid;
+}
+
+/* Triángulo exterior (borde) */
+.speech.left::before {
+  left: -16px;
+  border-width: 10px 16px 10px 0;
+  border-color: transparent var(--bubble-border, #d1d5db) transparent transparent;
+}
+
+/* Triángulo interior (relleno) */
+.speech.left::after {
+  left: calc(-14px + var(--bubble-border-width, 2px));
+  border-width: 8px 14px 8px 0;
+  border-color: transparent var(--bubble-bg, #ffffff) transparent transparent;
+  top: 22px;
+}
+
+/* Cola hacia la derecha (avatar a la derecha) */
+.speech.right::before,
+.speech.right::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  border-style: solid;
+}
+
+/* Triángulo exterior (borde) */
+.speech.right::before {
+  right: -16px;
+  border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent var(--bubble-border, #d1d5db);
+}
+
+/* Triángulo interior (relleno) */
+.speech.right::after {
+  right: calc(-14px + var(--bubble-border-width, 2px));
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent var(--bubble-bg, #ffffff);
+  top: 22px;
+}
+
+/* ================================ */
+/* THOUGHT BUBBLE - Círculos       */
+/* ================================ */
+
+/* Círculos hacia la izquierda */
+.thought.left::before,
+.thought.left::after {
+  content: "";
+  position: absolute;
+  background: var(--bubble-bg, #ffffff);
+  border: var(--bubble-border-width, 2px) solid var(--bubble-border, #d1d5db);
+  border-radius: 50%;
+}
+
+.thought.left::before {
+  width: 16px;
+  height: 16px;
+  left: -24px;
+  top: 16px;
+}
+
+.thought.left::after {
+  width: 10px;
+  height: 10px;
+  left: -36px;
+  top: 24px;
+}
+
+/* Círculos hacia la derecha */
+.thought.right::before,
+.thought.right::after {
+  content: "";
+  position: absolute;
+  background: var(--bubble-bg, #ffffff);
+  border: var(--bubble-border-width, 2px) solid var(--bubble-border, #d1d5db);
+  border-radius: 50%;
+}
+
+.thought.right::before {
+  width: 16px;
+  height: 16px;
+  right: -24px;
+  top: 16px;
+}
+
+.thought.right::after {
+  width: 10px;
+  height: 10px;
+  right: -36px;
+  top: 24px;
+}
