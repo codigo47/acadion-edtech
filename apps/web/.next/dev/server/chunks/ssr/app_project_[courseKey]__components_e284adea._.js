@@ -1,0 +1,11845 @@
+module.exports = [
+"[project]/app/project/[courseKey]/_components/types.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// Proposed index structure type
+__turbopack_context__.s([
+    "fontOptions",
+    ()=>fontOptions
+]);
+const fontOptions = [
+    'Inter',
+    'Roboto',
+    'Open Sans',
+    'Lato',
+    'Montserrat',
+    'Poppins',
+    'Source Sans Pro',
+    'Nunito',
+    'Raleway',
+    'Work Sans'
+];
+}),
+"[project]/app/project/[courseKey]/_components/CourseIndexView.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "CourseIndexView",
+    ()=>CourseIndexView
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+;
+function CourseIndexView({ index }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-white border-2 border-gray-200 rounded-xl p-5 max-w-2xl",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "text-lg font-semibold text-[#1a1a1a] mb-4",
+                children: index.title
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                lineNumber: 6,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "space-y-4",
+                children: index.modules.map((module)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "space-y-2",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "flex items-center justify-center w-7 h-7 rounded-full bg-[#9F80DA] text-white text-sm font-medium",
+                                        children: module.number
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                                        lineNumber: 11,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "font-medium text-[#1a1a1a]",
+                                        children: module.title
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                                        lineNumber: 14,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                                lineNumber: 10,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "ml-9 space-y-1",
+                                children: module.units.map((unit)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-2 text-sm text-gray-600 py-1 px-3 bg-gray-50 rounded-lg",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-[#9F80DA] font-medium",
+                                                children: unit.code
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                                                lineNumber: 22,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                children: unit.title
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                                                lineNumber: 23,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, unit.code, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                                        lineNumber: 18,
+                                        columnNumber: 17
+                                    }, this))
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                                lineNumber: 16,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, module.number, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                        lineNumber: 9,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+                lineNumber: 7,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/CourseIndexView.tsx",
+        lineNumber: 5,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "EvaluationDetailsView",
+    ()=>EvaluationDetailsView
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+;
+function EvaluationDetailsView({ details }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-white border-2 border-gray-200 rounded-xl p-4 max-w-md",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "space-y-2 text-sm",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Knowledge check at end of unit:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 8,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: details.knowledgeCheckEndUnit ? 'text-green-600 font-medium' : 'text-gray-400',
+                            children: details.knowledgeCheckEndUnit ? 'Yes' : 'No'
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 9,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                    lineNumber: 7,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Knowledge check at end of module:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 14,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: details.knowledgeCheckEndModule ? 'text-green-600 font-medium' : 'text-gray-400',
+                            children: details.knowledgeCheckEndModule ? 'Yes' : 'No'
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 15,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                    lineNumber: 13,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Final exercise:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 20,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: details.finalExercise ? 'text-green-600 font-medium' : 'text-gray-400',
+                            children: details.finalExercise ? 'Yes' : 'No'
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 21,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                    lineNumber: 19,
+                    columnNumber: 9
+                }, this),
+                details.restrictions && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "pt-2 border-t border-gray-100",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Restrictions: "
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 27,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-800",
+                            children: details.restrictions
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                            lineNumber: 28,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+                    lineNumber: 26,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+            lineNumber: 6,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx",
+        lineNumber: 5,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/ObjectivesView.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "ObjectivesView",
+    ()=>ObjectivesView
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+;
+const bloomColors = {
+    Remember: {
+        bg: 'bg-blue-50',
+        border: 'border-blue-200',
+        text: 'text-blue-700'
+    },
+    Understand: {
+        bg: 'bg-green-50',
+        border: 'border-green-200',
+        text: 'text-green-700'
+    },
+    Apply: {
+        bg: 'bg-yellow-50',
+        border: 'border-yellow-200',
+        text: 'text-yellow-700'
+    },
+    Analyze: {
+        bg: 'bg-orange-50',
+        border: 'border-orange-200',
+        text: 'text-orange-700'
+    },
+    Evaluate: {
+        bg: 'bg-red-50',
+        border: 'border-red-200',
+        text: 'text-red-700'
+    },
+    Create: {
+        bg: 'bg-purple-50',
+        border: 'border-purple-200',
+        text: 'text-purple-700'
+    }
+};
+function ObjectivesView({ objectives }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-white border-2 border-gray-200 rounded-xl p-5 max-w-2xl",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "space-y-3",
+            children: objectives.items.map((item, index)=>{
+                const colors = bloomColors[item.title] || {
+                    bg: 'bg-gray-50',
+                    border: 'border-gray-200',
+                    text: 'text-gray-700'
+                };
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `${colors.bg} ${colors.border} border rounded-lg p-3`,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-start gap-3",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: `${colors.text} font-semibold text-sm whitespace-nowrap`,
+                                children: item.title
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ObjectivesView.tsx",
+                                lineNumber: 24,
+                                columnNumber: 17
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-gray-700 text-sm",
+                                children: item.text
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ObjectivesView.tsx",
+                                lineNumber: 27,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/ObjectivesView.tsx",
+                        lineNumber: 23,
+                        columnNumber: 15
+                    }, this)
+                }, index, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/ObjectivesView.tsx",
+                    lineNumber: 19,
+                    columnNumber: 13
+                }, this);
+            })
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/ObjectivesView.tsx",
+            lineNumber: 15,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/ObjectivesView.tsx",
+        lineNumber: 14,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/ExerciseTypesView.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "ExerciseTypesView",
+    ()=>ExerciseTypesView
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+;
+function ExerciseTypesView({ data }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-white border-2 border-gray-200 rounded-xl p-4 max-w-md",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex flex-wrap gap-2",
+            children: data.exerciseTypes.map((type, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 text-purple-700",
+                    children: type
+                }, index, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/ExerciseTypesView.tsx",
+                    lineNumber: 8,
+                    columnNumber: 11
+                }, this))
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/ExerciseTypesView.tsx",
+            lineNumber: 6,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/ExerciseTypesView.tsx",
+        lineNumber: 5,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/BrandingView.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "BrandingView",
+    ()=>BrandingView
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+;
+function BrandingView({ branding }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "bg-white border-2 border-gray-200 rounded-xl p-4 max-w-md",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "space-y-3 text-sm",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center gap-3",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Primary Color:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 8,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-2",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "w-6 h-6 rounded-md border border-gray-300",
+                                    style: {
+                                        backgroundColor: branding.primaryColor
+                                    }
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                                    lineNumber: 10,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-gray-800 font-mono",
+                                    children: branding.primaryColor
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                                    lineNumber: 14,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 9,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                    lineNumber: 7,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center gap-3",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Secondary Color:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 18,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-2",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "w-6 h-6 rounded-md border border-gray-300",
+                                    style: {
+                                        backgroundColor: branding.secondaryColor
+                                    }
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                                    lineNumber: 20,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-gray-800 font-mono",
+                                    children: branding.secondaryColor
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                                    lineNumber: 24,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 19,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                    lineNumber: 17,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Typography 1:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 28,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-800",
+                            children: branding.typo1
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 29,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                    lineNumber: 27,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Typography 2:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 32,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-800",
+                            children: branding.typo2
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 33,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                    lineNumber: 31,
+                    columnNumber: 9
+                }, this),
+                branding.logo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Logo:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 37,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-800",
+                            children: branding.logo
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 38,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                    lineNumber: 36,
+                    columnNumber: 11
+                }, this),
+                branding.guidelines && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-600",
+                            children: "Guidelines:"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 43,
+                            columnNumber: 13
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-800",
+                            children: branding.guidelines
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                            lineNumber: 44,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+                    lineNumber: 42,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+            lineNumber: 6,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/BrandingView.tsx",
+        lineNumber: 5,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/CourseComponent.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "BlockComponents",
+    ()=>BlockComponents,
+    "CourseComponent",
+    ()=>CourseComponent
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/index.ts [app-ssr] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ParagraphBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ParagraphBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ParagraphBlock.tsx [app-ssr] (ecmascript) <export default as ParagraphBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ParagraphWithHeadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ParagraphWithHeadingBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ParagraphWithHeadingBlock.tsx [app-ssr] (ecmascript) <export default as ParagraphWithHeadingBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ParagraphWithSubheadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ParagraphWithSubheadingBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ParagraphWithSubheadingBlock.tsx [app-ssr] (ecmascript) <export default as ParagraphWithSubheadingBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HeadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HeadingBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HeadingBlock.tsx [app-ssr] (ecmascript) <export default as HeadingBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SubheadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SubheadingBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/SubheadingBlock.tsx [app-ssr] (ecmascript) <export default as SubheadingBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HighlightBlock.tsx [app-ssr] (ecmascript) <export default as HighlightBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightNoteBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightNoteBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HighlightNoteBlock.tsx [app-ssr] (ecmascript) <export default as HighlightNoteBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightColumnBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightColumnBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HighlightColumnBlock.tsx [app-ssr] (ecmascript) <export default as HighlightColumnBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightCenterLineBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightCenterLineBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HighlightCenterLineBlock.tsx [app-ssr] (ecmascript) <export default as HighlightCenterLineBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightLeftLineBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightLeftLineBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HighlightLeftLineBlock.tsx [app-ssr] (ecmascript) <export default as HighlightLeftLineBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightBackgroundBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightBackgroundBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HighlightBackgroundBlock.tsx [app-ssr] (ecmascript) <export default as HighlightBackgroundBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ImageBlock.tsx [app-ssr] (ecmascript) <export default as ImageBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ImageWithTextBlock.tsx [app-ssr] (ecmascript) <export default as ImageWithTextBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextLeftBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextLeftBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ImageWithTextLeftBlock.tsx [app-ssr] (ecmascript) <export default as ImageWithTextLeftBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextCenterBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextCenterBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ImageWithTextCenterBlock.tsx [app-ssr] (ecmascript) <export default as ImageWithTextCenterBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextBottomBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextBottomBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ImageWithTextBottomBlock.tsx [app-ssr] (ecmascript) <export default as ImageWithTextBottomBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextTopBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextTopBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ImageWithTextTopBlock.tsx [app-ssr] (ecmascript) <export default as ImageWithTextTopBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/QuoteBlock.tsx [app-ssr] (ecmascript) <export default as QuoteBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteCenterBorderBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteCenterBorderBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/QuoteCenterBorderBlock.tsx [app-ssr] (ecmascript) <export default as QuoteCenterBorderBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteCenterLightBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteCenterLightBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/QuoteCenterLightBlock.tsx [app-ssr] (ecmascript) <export default as QuoteCenterLightBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteLeftLightBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteLeftLightBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/QuoteLeftLightBlock.tsx [app-ssr] (ecmascript) <export default as QuoteLeftLightBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteLeftBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteLeftBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/QuoteLeftBlock.tsx [app-ssr] (ecmascript) <export default as QuoteLeftBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteImageBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteImageBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/QuoteImageBlock.tsx [app-ssr] (ecmascript) <export default as QuoteImageBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ComparisonBlock.tsx [app-ssr] (ecmascript) <export default as ComparisonBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonProsConsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonProsConsBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ComparisonProsConsBlock.tsx [app-ssr] (ecmascript) <export default as ComparisonProsConsBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonCauseEffectBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonCauseEffectBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ComparisonCauseEffectBlock.tsx [app-ssr] (ecmascript) <export default as ComparisonCauseEffectBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonDosDontsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonDosDontsBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ComparisonDosDontsBlock.tsx [app-ssr] (ecmascript) <export default as ComparisonDosDontsBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonMythFactBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonMythFactBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ComparisonMythFactBlock.tsx [app-ssr] (ecmascript) <export default as ComparisonMythFactBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonBeforeAfterBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonBeforeAfterBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ComparisonBeforeAfterBlock.tsx [app-ssr] (ecmascript) <export default as ComparisonBeforeAfterBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ChatBlock.tsx [app-ssr] (ecmascript) <export default as ChatBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatFeedbackBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatFeedbackBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ChatFeedbackBlock.tsx [app-ssr] (ecmascript) <export default as ChatFeedbackBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatQABlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatQABlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ChatQABlock.tsx [app-ssr] (ecmascript) <export default as ChatQABlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatQuestionWallBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatQuestionWallBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ChatQuestionWallBlock.tsx [app-ssr] (ecmascript) <export default as ChatQuestionWallBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatDialogBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatDialogBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ChatDialogBlock.tsx [app-ssr] (ecmascript) <export default as ChatDialogBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TableBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TableBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/TableBlock.tsx [app-ssr] (ecmascript) <export default as TableBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ListBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ListBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ListBlock.tsx [app-ssr] (ecmascript) <export default as ListBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$GalleryBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GalleryBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/GalleryBlock.tsx [app-ssr] (ecmascript) <export default as GalleryBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$GraphBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GraphBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/GraphBlock.tsx [app-ssr] (ecmascript) <export default as GraphBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TimelineBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TimelineBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/TimelineBlock.tsx [app-ssr] (ecmascript) <export default as TimelineBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SeparatorBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SeparatorBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/SeparatorBlock.tsx [app-ssr] (ecmascript) <export default as SeparatorBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TestimonialBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TestimonialBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/TestimonialBlock.tsx [app-ssr] (ecmascript) <export default as TestimonialBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$StoryTellingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__StoryTellingBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/StoryTellingBlock.tsx [app-ssr] (ecmascript) <export default as StoryTellingBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ColumnsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ColumnsBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ColumnsBlock.tsx [app-ssr] (ecmascript) <export default as ColumnsBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ReviewsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ReviewsBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ReviewsBlock.tsx [app-ssr] (ecmascript) <export default as ReviewsBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$VideoBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__VideoBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/VideoBlock.tsx [app-ssr] (ecmascript) <export default as VideoBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$AudioBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AudioBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/AudioBlock.tsx [app-ssr] (ecmascript) <export default as AudioBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$AttachmentBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AttachmentBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/AttachmentBlock.tsx [app-ssr] (ecmascript) <export default as AttachmentBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$EmbedBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__EmbedBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/EmbedBlock.tsx [app-ssr] (ecmascript) <export default as EmbedBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$CheckboxBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckboxBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/CheckboxBlock.tsx [app-ssr] (ecmascript) <export default as CheckboxBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$CarouselBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CarouselBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/CarouselBlock.tsx [app-ssr] (ecmascript) <export default as CarouselBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$AccordionBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AccordionBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/AccordionBlock.tsx [app-ssr] (ecmascript) <export default as AccordionBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TabsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TabsBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/TabsBlock.tsx [app-ssr] (ecmascript) <export default as TabsBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$LabeledImageBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LabeledImageBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/LabeledImageBlock.tsx [app-ssr] (ecmascript) <export default as LabeledImageBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ScenarioBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ScenarioBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ScenarioBlock.tsx [app-ssr] (ecmascript) <export default as ScenarioBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SortingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SortingBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/SortingBlock.tsx [app-ssr] (ecmascript) <export default as SortingBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SortingStepsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SortingStepsBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/SortingStepsBlock.tsx [app-ssr] (ecmascript) <export default as SortingStepsBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$FlashCardBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FlashCardBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/FlashCardBlock.tsx [app-ssr] (ecmascript) <export default as FlashCardBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$MultipleChoiceBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MultipleChoiceBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/MultipleChoiceBlock.tsx [app-ssr] (ecmascript) <export default as MultipleChoiceBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$MultipleResponseBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MultipleResponseBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/MultipleResponseBlock.tsx [app-ssr] (ecmascript) <export default as MultipleResponseBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$FillInTheBlankBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FillInTheBlankBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/FillInTheBlankBlock.tsx [app-ssr] (ecmascript) <export default as FillInTheBlankBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$MatchingPairsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MatchingPairsBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/MatchingPairsBlock.tsx [app-ssr] (ecmascript) <export default as MatchingPairsBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ButtonBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ButtonBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ButtonBlock.tsx [app-ssr] (ecmascript) <export default as ButtonBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ButtonStackBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ButtonStackBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/ButtonStackBlock.tsx [app-ssr] (ecmascript) <export default as ButtonStackBlock>");
+;
+;
+const BlockComponents = {
+    // Paragraph Blocks
+    ParagraphBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ParagraphBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ParagraphBlock$3e$__["ParagraphBlock"],
+    ParagraphWithHeadingBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ParagraphWithHeadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ParagraphWithHeadingBlock$3e$__["ParagraphWithHeadingBlock"],
+    ParagraphWithSubheadingBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ParagraphWithSubheadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ParagraphWithSubheadingBlock$3e$__["ParagraphWithSubheadingBlock"],
+    // Heading Blocks
+    HeadingBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HeadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HeadingBlock$3e$__["HeadingBlock"],
+    SubheadingBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SubheadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SubheadingBlock$3e$__["SubheadingBlock"],
+    // Highlight Blocks
+    HighlightBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightBlock$3e$__["HighlightBlock"],
+    HighlightNoteBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightNoteBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightNoteBlock$3e$__["HighlightNoteBlock"],
+    HighlightColumnBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightColumnBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightColumnBlock$3e$__["HighlightColumnBlock"],
+    HighlightCenterLineBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightCenterLineBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightCenterLineBlock$3e$__["HighlightCenterLineBlock"],
+    HighlightLeftLineBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightLeftLineBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightLeftLineBlock$3e$__["HighlightLeftLineBlock"],
+    HighlightBackgroundBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HighlightBackgroundBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HighlightBackgroundBlock$3e$__["HighlightBackgroundBlock"],
+    // Image Blocks
+    ImageBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageBlock$3e$__["ImageBlock"],
+    ImageWithTextBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextBlock$3e$__["ImageWithTextBlock"],
+    ImageWithTextLeftBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextLeftBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextLeftBlock$3e$__["ImageWithTextLeftBlock"],
+    ImageWithTextCenterBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextCenterBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextCenterBlock$3e$__["ImageWithTextCenterBlock"],
+    ImageWithTextBottomBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextBottomBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextBottomBlock$3e$__["ImageWithTextBottomBlock"],
+    ImageWithTextTopBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ImageWithTextTopBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ImageWithTextTopBlock$3e$__["ImageWithTextTopBlock"],
+    // Quote Blocks
+    QuoteBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteBlock$3e$__["QuoteBlock"],
+    QuoteCenterBorderBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteCenterBorderBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteCenterBorderBlock$3e$__["QuoteCenterBorderBlock"],
+    QuoteCenterLightBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteCenterLightBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteCenterLightBlock$3e$__["QuoteCenterLightBlock"],
+    QuoteLeftLightBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteLeftLightBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteLeftLightBlock$3e$__["QuoteLeftLightBlock"],
+    QuoteLeftBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteLeftBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteLeftBlock$3e$__["QuoteLeftBlock"],
+    QuoteImageBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$QuoteImageBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__QuoteImageBlock$3e$__["QuoteImageBlock"],
+    // Comparison Blocks
+    ComparisonBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonBlock$3e$__["ComparisonBlock"],
+    ComparisonProsConsBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonProsConsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonProsConsBlock$3e$__["ComparisonProsConsBlock"],
+    ComparisonCauseEffectBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonCauseEffectBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonCauseEffectBlock$3e$__["ComparisonCauseEffectBlock"],
+    ComparisonDosDontsBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonDosDontsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonDosDontsBlock$3e$__["ComparisonDosDontsBlock"],
+    ComparisonMythFactBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonMythFactBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonMythFactBlock$3e$__["ComparisonMythFactBlock"],
+    ComparisonBeforeAfterBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ComparisonBeforeAfterBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ComparisonBeforeAfterBlock$3e$__["ComparisonBeforeAfterBlock"],
+    // Chat Blocks
+    ChatBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatBlock$3e$__["ChatBlock"],
+    ChatFeedbackBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatFeedbackBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatFeedbackBlock$3e$__["ChatFeedbackBlock"],
+    ChatQABlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatQABlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatQABlock$3e$__["ChatQABlock"],
+    ChatQuestionWallBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatQuestionWallBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatQuestionWallBlock$3e$__["ChatQuestionWallBlock"],
+    ChatDialogBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ChatDialogBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChatDialogBlock$3e$__["ChatDialogBlock"],
+    // Other Static Blocks
+    TableBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TableBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TableBlock$3e$__["TableBlock"],
+    ListBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ListBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ListBlock$3e$__["ListBlock"],
+    GalleryBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$GalleryBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GalleryBlock$3e$__["GalleryBlock"],
+    GraphBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$GraphBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GraphBlock$3e$__["GraphBlock"],
+    TimelineBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TimelineBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TimelineBlock$3e$__["TimelineBlock"],
+    SeparatorBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SeparatorBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SeparatorBlock$3e$__["SeparatorBlock"],
+    TestimonialBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TestimonialBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TestimonialBlock$3e$__["TestimonialBlock"],
+    StoryTellingBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$StoryTellingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__StoryTellingBlock$3e$__["StoryTellingBlock"],
+    ColumnsBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ColumnsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ColumnsBlock$3e$__["ColumnsBlock"],
+    ReviewsBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ReviewsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ReviewsBlock$3e$__["ReviewsBlock"],
+    VideoBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$VideoBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__VideoBlock$3e$__["VideoBlock"],
+    AudioBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$AudioBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AudioBlock$3e$__["AudioBlock"],
+    AttachmentBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$AttachmentBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AttachmentBlock$3e$__["AttachmentBlock"],
+    EmbedBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$EmbedBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__EmbedBlock$3e$__["EmbedBlock"],
+    // Interactive Blocks
+    CheckboxBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$CheckboxBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckboxBlock$3e$__["CheckboxBlock"],
+    CarouselBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$CarouselBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CarouselBlock$3e$__["CarouselBlock"],
+    AccordionBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$AccordionBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AccordionBlock$3e$__["AccordionBlock"],
+    TabsBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$TabsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TabsBlock$3e$__["TabsBlock"],
+    LabeledImageBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$LabeledImageBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LabeledImageBlock$3e$__["LabeledImageBlock"],
+    ScenarioBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ScenarioBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ScenarioBlock$3e$__["ScenarioBlock"],
+    SortingBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SortingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SortingBlock$3e$__["SortingBlock"],
+    SortingStepsBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$SortingStepsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__SortingStepsBlock$3e$__["SortingStepsBlock"],
+    FlashCardBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$FlashCardBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FlashCardBlock$3e$__["FlashCardBlock"],
+    MultipleChoiceBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$MultipleChoiceBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MultipleChoiceBlock$3e$__["MultipleChoiceBlock"],
+    MultipleResponseBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$MultipleResponseBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MultipleResponseBlock$3e$__["MultipleResponseBlock"],
+    FillInTheBlankBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$FillInTheBlankBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__FillInTheBlankBlock$3e$__["FillInTheBlankBlock"],
+    MatchingPairsBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$MatchingPairsBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MatchingPairsBlock$3e$__["MatchingPairsBlock"],
+    ButtonBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ButtonBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ButtonBlock$3e$__["ButtonBlock"],
+    ButtonStackBlock: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$ButtonStackBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ButtonStackBlock$3e$__["ButtonStackBlock"]
+};
+function CourseComponent({ component }) {
+    const { componentName, content } = component;
+    // Get the corresponding block component
+    const BlockComponent = BlockComponents[componentName];
+    if (BlockComponent) {
+        // Pass the content directly as props to the block component
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BlockComponent, {
+            ...content
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/CourseComponent.tsx",
+            lineNumber: 89,
+            columnNumber: 12
+        }, this);
+    }
+    // Fallback for unknown components
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "py-6 px-6 bg-yellow-50 border border-yellow-200 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-yellow-700 text-sm",
+                children: [
+                    "Unknown component: ",
+                    componentName
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/CourseComponent.tsx",
+                lineNumber: 95,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("pre", {
+                className: "mt-2 text-xs text-gray-600 overflow-auto",
+                children: JSON.stringify(content, null, 2)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/CourseComponent.tsx",
+                lineNumber: 96,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/CourseComponent.tsx",
+        lineNumber: 94,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/CompletionPopup.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "CompletionPopup",
+    ()=>CompletionPopup
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-ssr] (ecmascript)");
+'use client';
+;
+;
+function CompletionPopup({ onClose }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+        initial: {
+            opacity: 0
+        },
+        animate: {
+            opacity: 1
+        },
+        exit: {
+            opacity: 0
+        },
+        className: "fixed inset-0 bg-black/50 flex items-center justify-center z-50",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+            initial: {
+                scale: 0.9,
+                opacity: 0
+            },
+            animate: {
+                scale: 1,
+                opacity: 1
+            },
+            exit: {
+                scale: 0.9,
+                opacity: 0
+            },
+            className: "bg-white rounded-2xl p-8 max-w-md mx-4 shadow-2xl",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "text-center",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                            className: "w-8 h-8 text-green-500",
+                            fill: "none",
+                            stroke: "currentColor",
+                            viewBox: "0 0 24 24",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                strokeLinecap: "round",
+                                strokeLinejoin: "round",
+                                strokeWidth: 2,
+                                d: "M5 13l4 4L19 7"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+                                lineNumber: 22,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+                            lineNumber: 21,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+                        lineNumber: 20,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        className: "text-2xl font-bold text-gray-900 mb-2",
+                        children: "Course Generated!"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+                        lineNumber: 25,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-gray-600 mb-6",
+                        children: "Your course has been successfully created. You can now edit it manually or continue refining it with AI assistance using the chat panel."
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+                        lineNumber: 26,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: onClose,
+                        className: "w-full bg-[#9F80DA] hover:bg-[#8A6BC5] text-white font-medium py-3 px-6 rounded-xl transition-colors",
+                        children: "Start Editing"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+                        lineNumber: 29,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+                lineNumber: 19,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+            lineNumber: 13,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/CompletionPopup.tsx",
+        lineNumber: 7,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/block-metadata.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "blockMetadata",
+    ()=>blockMetadata,
+    "getBlockMeta",
+    ()=>getBlockMeta,
+    "getGroupVariants",
+    ()=>getGroupVariants
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$type$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Type$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/type.js [app-ssr] (ecmascript) <export default as Type>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heading$2d$1$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heading1$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/heading-1.js [app-ssr] (ecmascript) <export default as Heading1>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heading$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heading2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/heading-2.js [app-ssr] (ecmascript) <export default as Heading2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$highlighter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Highlighter$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/highlighter.js [app-ssr] (ecmascript) <export default as Highlighter>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/image.js [app-ssr] (ecmascript) <export default as Image>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/quote.js [app-ssr] (ecmascript) <export default as Quote>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/git-compare.js [app-ssr] (ecmascript) <export default as GitCompare>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/message-square.js [app-ssr] (ecmascript) <export default as MessageSquare>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$table$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Table2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/table-2.js [app-ssr] (ecmascript) <export default as Table2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__List$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list.js [app-ssr] (ecmascript) <export default as List>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-ssr] (ecmascript) <export default as ChevronDown>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Layers$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layers.js [app-ssr] (ecmascript) <export default as Layers>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$dot$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CircleDot$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-dot.js [app-ssr] (ecmascript) <export default as CircleDot>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list-checks.js [app-ssr] (ecmascript) <export default as ListChecks>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sparkles.js [app-ssr] (ecmascript) <export default as Sparkles>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/video.js [app-ssr] (ecmascript) <export default as Video>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$music$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Music$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/music.js [app-ssr] (ecmascript) <export default as Music>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$paperclip$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Paperclip$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/paperclip.js [app-ssr] (ecmascript) <export default as Paperclip>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$code$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Code$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/code.js [app-ssr] (ecmascript) <export default as Code>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$grid$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutGrid$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/layout-grid.js [app-ssr] (ecmascript) <export default as LayoutGrid>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/star.js [app-ssr] (ecmascript) <export default as Star>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/clock.js [app-ssr] (ecmascript) <export default as Clock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$column$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart3$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chart-column.js [app-ssr] (ecmascript) <export default as BarChart3>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckSquare$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/square-check-big.js [app-ssr] (ecmascript) <export default as CheckSquare>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gallery$2d$horizontal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GalleryHorizontal$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/gallery-horizontal.js [app-ssr] (ecmascript) <export default as GalleryHorizontal>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/book-open.js [app-ssr] (ecmascript) <export default as BookOpen>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$tag$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Tag$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/tag.js [app-ssr] (ecmascript) <export default as Tag>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$down$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowDownUp$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-down-up.js [app-ssr] (ecmascript) <export default as ArrowDownUp>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$ordered$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ListOrdered$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/list-ordered.js [app-ssr] (ecmascript) <export default as ListOrdered>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointer$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/mouse-pointer.js [app-ssr] (ecmascript) <export default as MousePointer>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$minus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Minus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/minus.js [app-ssr] (ecmascript) <export default as Minus>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/message-circle.js [app-ssr] (ecmascript) <export default as MessageCircle>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/users.js [app-ssr] (ecmascript) <export default as Users>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$question$2d$mark$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HelpCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-question-mark.js [app-ssr] (ecmascript) <export default as HelpCircle>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$messages$2d$square$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessagesSquare$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/messages-square.js [app-ssr] (ecmascript) <export default as MessagesSquare>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$tool$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__PenTool$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/pen-tool.js [app-ssr] (ecmascript) <export default as PenTool>");
+;
+const blockMetadata = {
+    // Paragraph group (blue)
+    ParagraphBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$type$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Type$3e$__["Type"],
+        color: 'bg-blue-100',
+        textColor: 'text-blue-700',
+        group: 'paragraph',
+        label: 'Paragraph'
+    },
+    ParagraphWithHeadingBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$type$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Type$3e$__["Type"],
+        color: 'bg-blue-100',
+        textColor: 'text-blue-700',
+        group: 'paragraph',
+        label: 'Paragraph + Heading'
+    },
+    ParagraphWithSubheadingBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$type$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Type$3e$__["Type"],
+        color: 'bg-blue-100',
+        textColor: 'text-blue-700',
+        group: 'paragraph',
+        label: 'Paragraph + Subheading'
+    },
+    // Heading group (indigo)
+    HeadingBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heading$2d$1$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heading1$3e$__["Heading1"],
+        color: 'bg-indigo-100',
+        textColor: 'text-indigo-700',
+        group: 'heading',
+        label: 'Heading'
+    },
+    SubheadingBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heading$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heading2$3e$__["Heading2"],
+        color: 'bg-indigo-100',
+        textColor: 'text-indigo-700',
+        group: 'heading',
+        label: 'Subheading'
+    },
+    // Highlight group (amber)
+    HighlightBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$highlighter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Highlighter$3e$__["Highlighter"],
+        color: 'bg-amber-100',
+        textColor: 'text-amber-700',
+        group: 'highlight',
+        label: 'Highlight'
+    },
+    HighlightNoteBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$highlighter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Highlighter$3e$__["Highlighter"],
+        color: 'bg-amber-100',
+        textColor: 'text-amber-700',
+        group: 'highlight',
+        label: 'Highlight Note'
+    },
+    HighlightColumnBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$highlighter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Highlighter$3e$__["Highlighter"],
+        color: 'bg-amber-100',
+        textColor: 'text-amber-700',
+        group: 'highlight',
+        label: 'Highlight Column'
+    },
+    HighlightCenterLineBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$highlighter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Highlighter$3e$__["Highlighter"],
+        color: 'bg-amber-100',
+        textColor: 'text-amber-700',
+        group: 'highlight',
+        label: 'Highlight Center'
+    },
+    HighlightLeftLineBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$highlighter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Highlighter$3e$__["Highlighter"],
+        color: 'bg-amber-100',
+        textColor: 'text-amber-700',
+        group: 'highlight',
+        label: 'Highlight Left'
+    },
+    HighlightBackgroundBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$highlighter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Highlighter$3e$__["Highlighter"],
+        color: 'bg-amber-100',
+        textColor: 'text-amber-700',
+        group: 'highlight',
+        label: 'Highlight Background'
+    },
+    // Image group (emerald)
+    ImageBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"],
+        color: 'bg-emerald-100',
+        textColor: 'text-emerald-700',
+        group: 'image',
+        label: 'Image'
+    },
+    ImageWithTextBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"],
+        color: 'bg-emerald-100',
+        textColor: 'text-emerald-700',
+        group: 'image',
+        label: 'Image + Text'
+    },
+    ImageWithTextLeftBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"],
+        color: 'bg-emerald-100',
+        textColor: 'text-emerald-700',
+        group: 'image',
+        label: 'Image + Text Left'
+    },
+    ImageWithTextCenterBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"],
+        color: 'bg-emerald-100',
+        textColor: 'text-emerald-700',
+        group: 'image',
+        label: 'Image + Text Center'
+    },
+    ImageWithTextBottomBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"],
+        color: 'bg-emerald-100',
+        textColor: 'text-emerald-700',
+        group: 'image',
+        label: 'Image + Text Bottom'
+    },
+    ImageWithTextTopBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"],
+        color: 'bg-emerald-100',
+        textColor: 'text-emerald-700',
+        group: 'image',
+        label: 'Image + Text Top'
+    },
+    // Quote group (green)
+    QuoteBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"],
+        color: 'bg-green-100',
+        textColor: 'text-green-700',
+        group: 'quote',
+        label: 'Quote'
+    },
+    QuoteCenterBorderBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"],
+        color: 'bg-green-100',
+        textColor: 'text-green-700',
+        group: 'quote',
+        label: 'Quote Center Border'
+    },
+    QuoteCenterLightBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"],
+        color: 'bg-green-100',
+        textColor: 'text-green-700',
+        group: 'quote',
+        label: 'Quote Center Light'
+    },
+    QuoteLeftLightBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"],
+        color: 'bg-green-100',
+        textColor: 'text-green-700',
+        group: 'quote',
+        label: 'Quote Left Light'
+    },
+    QuoteLeftBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"],
+        color: 'bg-green-100',
+        textColor: 'text-green-700',
+        group: 'quote',
+        label: 'Quote Left'
+    },
+    QuoteImageBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$quote$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Quote$3e$__["Quote"],
+        color: 'bg-green-100',
+        textColor: 'text-green-700',
+        group: 'quote',
+        label: 'Quote Image'
+    },
+    // Comparison blocks (purple) — each has incompatible data, no style switching
+    ComparisonBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__["GitCompare"],
+        color: 'bg-purple-100',
+        textColor: 'text-purple-700',
+        group: null,
+        label: 'Comparison'
+    },
+    ComparisonProsConsBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__["GitCompare"],
+        color: 'bg-purple-100',
+        textColor: 'text-purple-700',
+        group: null,
+        label: 'Pros & Cons'
+    },
+    ComparisonCauseEffectBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__["GitCompare"],
+        color: 'bg-purple-100',
+        textColor: 'text-purple-700',
+        group: null,
+        label: 'Cause & Effect'
+    },
+    ComparisonDosDontsBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__["GitCompare"],
+        color: 'bg-purple-100',
+        textColor: 'text-purple-700',
+        group: null,
+        label: "Do's & Don'ts"
+    },
+    ComparisonMythFactBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__["GitCompare"],
+        color: 'bg-purple-100',
+        textColor: 'text-purple-700',
+        group: null,
+        label: 'Myth vs Fact'
+    },
+    ComparisonBeforeAfterBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__["GitCompare"],
+        color: 'bg-purple-100',
+        textColor: 'text-purple-700',
+        group: null,
+        label: 'Before & After'
+    },
+    // Chat group (teal)
+    ChatBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__["MessageSquare"],
+        color: 'bg-teal-100',
+        textColor: 'text-teal-700',
+        group: 'chat',
+        label: 'Chat'
+    },
+    ChatFeedbackBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageCircle$3e$__["MessageCircle"],
+        color: 'bg-teal-100',
+        textColor: 'text-teal-700',
+        group: 'chat',
+        label: 'Chat Feedback'
+    },
+    ChatQABlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$question$2d$mark$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HelpCircle$3e$__["HelpCircle"],
+        color: 'bg-teal-100',
+        textColor: 'text-teal-700',
+        group: 'chat',
+        label: 'Chat Q&A'
+    },
+    ChatQuestionWallBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$messages$2d$square$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessagesSquare$3e$__["MessagesSquare"],
+        color: 'bg-teal-100',
+        textColor: 'text-teal-700',
+        group: 'chat',
+        label: 'Question Wall'
+    },
+    ChatDialogBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"],
+        color: 'bg-teal-100',
+        textColor: 'text-teal-700',
+        group: 'chat',
+        label: 'Chat Dialog'
+    },
+    // Sorting group (orange)
+    SortingBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$down$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowDownUp$3e$__["ArrowDownUp"],
+        color: 'bg-orange-100',
+        textColor: 'text-orange-700',
+        group: 'sorting',
+        label: 'Sorting'
+    },
+    SortingStepsBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$ordered$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ListOrdered$3e$__["ListOrdered"],
+        color: 'bg-orange-100',
+        textColor: 'text-orange-700',
+        group: 'sorting',
+        label: 'Sorting Steps'
+    },
+    // Button group (rose)
+    ButtonBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointer$3e$__["MousePointer"],
+        color: 'bg-rose-100',
+        textColor: 'text-rose-700',
+        group: 'button',
+        label: 'Button'
+    },
+    ButtonStackBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mouse$2d$pointer$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MousePointer$3e$__["MousePointer"],
+        color: 'bg-rose-100',
+        textColor: 'text-rose-700',
+        group: 'button',
+        label: 'Button Stack'
+    },
+    // Unique blocks (no group)
+    TableBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$table$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Table2$3e$__["Table2"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Table'
+    },
+    ListBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__List$3e$__["List"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'List'
+    },
+    AccordionBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Accordion'
+    },
+    TabsBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Layers$3e$__["Layers"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Tabs'
+    },
+    GalleryBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gallery$2d$horizontal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GalleryHorizontal$3e$__["GalleryHorizontal"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Gallery'
+    },
+    GraphBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chart$2d$column$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__BarChart3$3e$__["BarChart3"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Graph'
+    },
+    TimelineBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Timeline'
+    },
+    SeparatorBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$minus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Minus$3e$__["Minus"],
+        color: 'bg-gray-100',
+        textColor: 'text-gray-500',
+        group: null,
+        label: 'Separator'
+    },
+    TestimonialBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Testimonial'
+    },
+    StoryTellingBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__["BookOpen"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Storytelling'
+    },
+    ColumnsBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layout$2d$grid$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__LayoutGrid$3e$__["LayoutGrid"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Columns'
+    },
+    ReviewsBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"],
+        color: 'bg-slate-100',
+        textColor: 'text-slate-700',
+        group: null,
+        label: 'Reviews'
+    },
+    // Media blocks (gray)
+    VideoBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$video$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Video$3e$__["Video"],
+        color: 'bg-gray-100',
+        textColor: 'text-gray-700',
+        group: null,
+        label: 'Video'
+    },
+    AudioBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$music$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Music$3e$__["Music"],
+        color: 'bg-gray-100',
+        textColor: 'text-gray-700',
+        group: null,
+        label: 'Audio'
+    },
+    AttachmentBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$paperclip$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Paperclip$3e$__["Paperclip"],
+        color: 'bg-gray-100',
+        textColor: 'text-gray-700',
+        group: null,
+        label: 'Attachment'
+    },
+    EmbedBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$code$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Code$3e$__["Code"],
+        color: 'bg-gray-100',
+        textColor: 'text-gray-700',
+        group: null,
+        label: 'Embed'
+    },
+    // Interactive blocks (orange)
+    CheckboxBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$square$2d$check$2d$big$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckSquare$3e$__["CheckSquare"],
+        color: 'bg-orange-100',
+        textColor: 'text-orange-700',
+        group: null,
+        label: 'Checkbox'
+    },
+    CarouselBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$gallery$2d$horizontal$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GalleryHorizontal$3e$__["GalleryHorizontal"],
+        color: 'bg-orange-100',
+        textColor: 'text-orange-700',
+        group: null,
+        label: 'Carousel'
+    },
+    LabeledImageBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$tag$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Tag$3e$__["Tag"],
+        color: 'bg-orange-100',
+        textColor: 'text-orange-700',
+        group: null,
+        label: 'Labeled Image'
+    },
+    ScenarioBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$pen$2d$tool$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__PenTool$3e$__["PenTool"],
+        color: 'bg-orange-100',
+        textColor: 'text-orange-700',
+        group: null,
+        label: 'Scenario'
+    },
+    FlashCardBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$layers$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Layers$3e$__["Layers"],
+        color: 'bg-orange-100',
+        textColor: 'text-orange-700',
+        group: null,
+        label: 'Flash Card'
+    },
+    // Evaluation blocks (red)
+    MultipleChoiceBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$dot$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CircleDot$3e$__["CircleDot"],
+        color: 'bg-red-100',
+        textColor: 'text-red-700',
+        group: null,
+        label: 'Multiple Choice'
+    },
+    MultipleResponseBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$list$2d$checks$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ListChecks$3e$__["ListChecks"],
+        color: 'bg-red-100',
+        textColor: 'text-red-700',
+        group: null,
+        label: 'Multiple Response'
+    },
+    FillInTheBlankBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$type$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Type$3e$__["Type"],
+        color: 'bg-red-100',
+        textColor: 'text-red-700',
+        group: null,
+        label: 'Fill in the Blank'
+    },
+    MatchingPairsBlock: {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$git$2d$compare$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GitCompare$3e$__["GitCompare"],
+        color: 'bg-red-100',
+        textColor: 'text-red-700',
+        group: null,
+        label: 'Matching Pairs'
+    }
+};
+function getBlockMeta(componentName) {
+    return blockMetadata[componentName] || {
+        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"],
+        color: 'bg-gray-100',
+        textColor: 'text-gray-600',
+        group: null,
+        label: componentName.replace(/Block$/, '')
+    };
+}
+function getGroupVariants(group) {
+    if (!group) return [];
+    return Object.entries(blockMetadata).filter(([, meta])=>meta.group === group).map(([name])=>name);
+}
+}),
+"[project]/app/project/[courseKey]/_components/EditableText.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "EditableText",
+    ()=>EditableText
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+'use client';
+;
+;
+function EditableText({ value, onChange, tag: Tag = 'div', className = '', style, placeholder = 'Click to edit...', multiline = true }) {
+    const ref = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const idleTimerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(undefined);
+    const lastValueRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(value);
+    const isMountedRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
+    // Set content on mount
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (ref.current && !isMountedRef.current) {
+            ref.current.textContent = value || '';
+            lastValueRef.current = value;
+            isMountedRef.current = true;
+        }
+    }, [
+        value
+    ]);
+    // Update content when value changes externally (not during editing)
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (ref.current && isMountedRef.current && document.activeElement !== ref.current) {
+            if (ref.current.textContent !== value) {
+                ref.current.textContent = value || '';
+                lastValueRef.current = value;
+            }
+        }
+    }, [
+        value
+    ]);
+    const save = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if (ref.current) {
+            const text = ref.current.textContent || '';
+            if (text !== lastValueRef.current) {
+                lastValueRef.current = text;
+                onChange(text);
+            }
+        }
+    }, [
+        onChange
+    ]);
+    const handleInput = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = setTimeout(save, 2000);
+    }, [
+        save
+    ]);
+    const handleBlur = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+        save();
+    }, [
+        save
+    ]);
+    const handleKeyDown = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((e)=>{
+        if (!multiline && e.key === 'Enter') {
+            e.preventDefault();
+            e.target.blur();
+        }
+    }, [
+        multiline
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("style", {
+                children: `
+        [data-editable-placeholder]:empty:before {
+          content: attr(data-editable-placeholder);
+          color: #9ca3af;
+          pointer-events: none;
+        }
+      `
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableText.tsx",
+                lineNumber: 80,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Tag, {
+                ref: ref,
+                contentEditable: true,
+                suppressContentEditableWarning: true,
+                onInput: handleInput,
+                onBlur: handleBlur,
+                onKeyDown: handleKeyDown,
+                className: `outline-none focus:ring-2 focus:ring-[#9F80DA]/30 focus:rounded-sm transition-shadow ${className}`,
+                style: style,
+                spellCheck: false,
+                "data-editable-placeholder": placeholder
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableText.tsx",
+                lineNumber: 87,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true);
+}
+}),
+"[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "ImagePickerModal",
+    ()=>ImagePickerModal
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Link$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/link.js [app-ssr] (ecmascript) <export default as Link>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/image.js [app-ssr] (ecmascript) <export default as Image>");
+'use client';
+;
+;
+;
+const PLACEHOLDER_IMAGES = [
+    'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400&h=300&fit=crop',
+    'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400&h=300&fit=crop'
+];
+function ImagePickerModal({ currentUrl, onSelect, onClose }) {
+    const [urlInput, setUrlInput] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(currentUrl || '');
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const handleKeyDown = (e)=>{
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return ()=>document.removeEventListener('keydown', handleKeyDown);
+    }, [
+        onClose
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "fixed inset-0 z-50 flex items-center justify-center",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 bg-black/50 backdrop-blur-sm",
+                onClick: onClose
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                lineNumber: 36,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative w-full max-w-2xl max-h-[85vh] bg-white rounded-2xl shadow-2xl overflow-hidden mx-4 flex flex-col",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center justify-between px-6 py-4 border-b border-gray-200",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                        className: "w-5 h-5 text-[#9F80DA]"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                        lineNumber: 42,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-lg font-semibold text-gray-900",
+                                        children: "Select Image"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                        lineNumber: 43,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                lineNumber: 41,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: onClose,
+                                className: "p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-500",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                    lineNumber: 49,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                lineNumber: 45,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                        lineNumber: 40,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "px-6 pt-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                className: "block text-sm font-medium text-gray-700 mb-1",
+                                children: "Image URL"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                lineNumber: 55,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex-1 flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#9F80DA]",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Link$3e$__["Link"], {
+                                                className: "w-4 h-4 text-gray-400 ml-3"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                                lineNumber: 58,
+                                                columnNumber: 15
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                type: "url",
+                                                value: urlInput,
+                                                onChange: (e)=>setUrlInput(e.target.value),
+                                                className: "flex-1 px-3 py-2 text-sm focus:outline-none",
+                                                placeholder: "https://example.com/image.jpg"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                                lineNumber: 59,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                        lineNumber: 57,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            if (urlInput.trim()) {
+                                                onSelect(urlInput.trim());
+                                                onClose();
+                                            }
+                                        },
+                                        disabled: !urlInput.trim(),
+                                        className: "px-4 py-2 text-sm font-medium text-white bg-[#9F80DA] hover:bg-[#8A6BC5] rounded-lg transition-colors disabled:opacity-50",
+                                        children: "Use URL"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                        lineNumber: 67,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                lineNumber: 56,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                        lineNumber: 54,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 overflow-y-auto p-6",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm text-gray-500 mb-3",
+                                children: "Or select a placeholder image:"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                lineNumber: 84,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-4 gap-3",
+                                children: PLACEHOLDER_IMAGES.map((url, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            onSelect(url);
+                                            onClose();
+                                        },
+                                        className: `relative aspect-[4/3] rounded-lg overflow-hidden border-2 transition-all hover:shadow-md ${currentUrl === url ? 'border-[#9F80DA] ring-2 ring-[#9F80DA]/20' : 'border-gray-200 hover:border-[#9F80DA]'}`,
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                            src: url,
+                                            alt: `Placeholder ${idx + 1}`,
+                                            className: "w-full h-full object-cover"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                            lineNumber: 99,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, idx, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                        lineNumber: 87,
+                                        columnNumber: 15
+                                    }, this))
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                                lineNumber: 85,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                        lineNumber: 83,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+                lineNumber: 38,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx",
+        lineNumber: 35,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "EditableCourseComponent",
+    ()=>EditableCourseComponent
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-ssr] (ecmascript) <export default as ChevronDown>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-ssr] (ecmascript) <export default as ChevronRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/image.js [app-ssr] (ecmascript) <export default as Image>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle.js [app-ssr] (ecmascript) <export default as Circle>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-ssr] (ecmascript) <export default as ArrowRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/star.js [app-ssr] (ecmascript) <export default as Star>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$grip$2d$vertical$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GripVertical$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/grip-vertical.js [app-ssr] (ecmascript) <export default as GripVertical>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$thumbs$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ThumbsUp$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/thumbs-up.js [app-ssr] (ecmascript) <export default as ThumbsUp>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$thumbs$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ThumbsDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/thumbs-down.js [app-ssr] (ecmascript) <export default as ThumbsDown>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EditableText.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/CourseComponent.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx [app-ssr] (ecmascript)");
+'use client';
+;
+;
+;
+;
+;
+;
+// Blur-save input: uses local state, saves on blur
+function BlurInput({ value, onSave, className, placeholder }) {
+    const [local, setLocal] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(value);
+    const prevValue = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(value);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (value !== prevValue.current) {
+            setLocal(value);
+            prevValue.current = value;
+        }
+    }, [
+        value
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+        type: "text",
+        value: local,
+        onChange: (e)=>setLocal(e.target.value),
+        onBlur: ()=>{
+            if (local !== value) onSave(local);
+        },
+        className: className || 'w-full px-3 py-1 text-xs text-gray-500 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30',
+        placeholder: placeholder
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 16,
+        columnNumber: 5
+    }, this);
+}
+function EditableCourseComponent({ component, onDataChange }) {
+    const { componentName, content } = component;
+    // Tabs: real tab UI with add/delete/edit
+    if (componentName === 'TabsBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableTabsBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 40,
+            columnNumber: 12
+        }, this);
+    }
+    // Accordion: real accordion UI with add/delete/edit
+    if (componentName === 'AccordionBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableAccordionBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 45,
+            columnNumber: 12
+        }, this);
+    }
+    // Lists: real component + add input at bottom
+    if (isListBlock(componentName)) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableListBlock, {
+            component: component,
+            componentName: componentName,
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 51,
+            columnNumber: 7
+        }, this);
+    }
+    // Image+text: editable image + Notion-style text
+    if (isImageWithTextBlock(componentName)) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableImageWithTextBlock, {
+            componentName: componentName,
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 63,
+            columnNumber: 7
+        }, this);
+    }
+    // Image only: click to change image
+    if (componentName === 'ImageBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableImageBlock, {
+            component: component,
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 74,
+            columnNumber: 7
+        }, this);
+    }
+    // SortingSteps
+    if (componentName === 'SortingStepsBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableSortingStepsBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 84,
+            columnNumber: 12
+        }, this);
+    }
+    // MultipleResponse
+    if (componentName === 'MultipleResponseBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableMultipleResponseBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 89,
+            columnNumber: 12
+        }, this);
+    }
+    // MultipleChoice
+    if (componentName === 'MultipleChoiceBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableMultipleChoiceBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 94,
+            columnNumber: 12
+        }, this);
+    }
+    // FillInTheBlank
+    if (componentName === 'FillInTheBlankBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableFillInBlankBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 99,
+            columnNumber: 12
+        }, this);
+    }
+    // MatchingPairs
+    if (componentName === 'MatchingPairsBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableMatchingPairsBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 104,
+            columnNumber: 12
+        }, this);
+    }
+    // SortingBlock (categories)
+    if (componentName === 'SortingBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableSortingCategoriesBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 109,
+            columnNumber: 12
+        }, this);
+    }
+    // Paragraphs, headings, highlights, quotes: Notion-style
+    if (isParagraphOrHeading(componentName)) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(NotionStyleBlock, {
+            componentName: componentName,
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 114,
+            columnNumber: 12
+        }, this);
+    }
+    // Comparisons
+    if (componentName === 'ComparisonCauseEffectBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableCauseEffectBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 119,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'ComparisonMythFactBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableTwoFieldBlock, {
+            content: content,
+            onDataChange: onDataChange,
+            fieldA: "myth",
+            fieldB: "fact",
+            labelA: "Myth",
+            labelB: "Fact",
+            colorA: "bg-red-100",
+            colorB: "bg-green-100"
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 122,
+            columnNumber: 12
+        }, this);
+    }
+    if (isComparisonTwoList(componentName)) {
+        const cfg = twoListConfig[componentName];
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableTwoListBlock, {
+            content: content,
+            onDataChange: onDataChange,
+            config: cfg
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 126,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'ComparisonBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableComparisonItemsBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 129,
+            columnNumber: 12
+        }, this);
+    }
+    // Chat blocks
+    if (isChatBlock(componentName)) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableChatBlock, {
+            content: content,
+            onDataChange: onDataChange,
+            componentName: componentName
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 134,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'ChatQuestionWallBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableChatQABlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 137,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'ChatDialogBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableChatDialogBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 140,
+            columnNumber: 12
+        }, this);
+    }
+    // Items-based blocks
+    if (componentName === 'TimelineBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableTimelineBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 145,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'FlashCardBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableFlashCardBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 148,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'TestimonialBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableTestimonialBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 151,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'ReviewsBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableReviewsBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 154,
+            columnNumber: 12
+        }, this);
+    }
+    // Table
+    if (componentName === 'TableBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableTableBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 159,
+            columnNumber: 12
+        }, this);
+    }
+    // Buttons
+    if (componentName === 'ButtonBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableButtonBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 164,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'ButtonStackBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableButtonStackBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 167,
+            columnNumber: 12
+        }, this);
+    }
+    // Media
+    if (componentName === 'VideoBlock' || componentName === 'AudioBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableMediaUrlBlock, {
+            content: content,
+            onDataChange: onDataChange,
+            label: componentName === 'VideoBlock' ? 'Video' : 'Audio'
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 172,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'EmbedBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableEmbedBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 175,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'AttachmentBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableAttachmentBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 178,
+            columnNumber: 12
+        }, this);
+    }
+    // Carousel / Gallery
+    if (componentName === 'CarouselBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableCarouselBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 183,
+            columnNumber: 12
+        }, this);
+    }
+    if (componentName === 'GalleryBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableGalleryBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 186,
+            columnNumber: 12
+        }, this);
+    }
+    // StoryTelling
+    if (componentName === 'StoryTellingBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableStoryBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 191,
+            columnNumber: 12
+        }, this);
+    }
+    // Columns
+    if (componentName === 'ColumnsBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableColumnsBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 196,
+            columnNumber: 12
+        }, this);
+    }
+    // Scenario
+    if (componentName === 'ScenarioBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableScenarioBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 201,
+            columnNumber: 12
+        }, this);
+    }
+    // LabeledImage
+    if (componentName === 'LabeledImageBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableLabeledImageBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 206,
+            columnNumber: 12
+        }, this);
+    }
+    // Separator
+    if (componentName === 'SeparatorBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(EditableSeparatorBlock, {
+            content: content,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 211,
+            columnNumber: 12
+        }, this);
+    }
+    // Everything else (Graph, etc.): show as-is
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CourseComponent"], {
+        component: component
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 215,
+        columnNumber: 10
+    }, this);
+}
+// ─── Category Checks ───────────────────────────────────────────────
+function isParagraphOrHeading(name) {
+    return [
+        'ParagraphBlock',
+        'ParagraphWithHeadingBlock',
+        'ParagraphWithSubheadingBlock',
+        'HeadingBlock',
+        'SubheadingBlock',
+        'HighlightBlock',
+        'HighlightNoteBlock',
+        'HighlightColumnBlock',
+        'HighlightCenterLineBlock',
+        'HighlightLeftLineBlock',
+        'HighlightBackgroundBlock',
+        'QuoteBlock',
+        'QuoteCenterBorderBlock',
+        'QuoteCenterLightBlock',
+        'QuoteLeftLightBlock',
+        'QuoteLeftBlock',
+        'QuoteImageBlock'
+    ].includes(name);
+}
+function isListBlock(name) {
+    return [
+        'ListBlock',
+        'CheckboxBlock'
+    ].includes(name);
+}
+function isImageWithTextBlock(name) {
+    return [
+        'ImageWithTextBlock',
+        'ImageWithTextLeftBlock',
+        'ImageWithTextCenterBlock',
+        'ImageWithTextBottomBlock',
+        'ImageWithTextTopBlock'
+    ].includes(name);
+}
+function isComparisonTwoList(name) {
+    return [
+        'ComparisonProsConsBlock',
+        'ComparisonDosDontsBlock',
+        'ComparisonBeforeAfterBlock'
+    ].includes(name);
+}
+const twoListConfig = {
+    ComparisonDosDontsBlock: {
+        variant: 'bordered',
+        left: {
+            field: 'dos',
+            label: "Do's",
+            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"],
+            iconBg: 'bg-green-500',
+            iconColor: 'text-white',
+            labelColor: 'text-green-700',
+            bg: 'bg-white',
+            borderColor: 'border-green-500'
+        },
+        right: {
+            field: 'donts',
+            label: "Don'ts",
+            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"],
+            iconBg: 'bg-red-500',
+            iconColor: 'text-white',
+            labelColor: 'text-red-700',
+            bg: 'bg-white',
+            borderColor: 'border-red-500'
+        }
+    },
+    ComparisonProsConsBlock: {
+        variant: 'filled',
+        left: {
+            field: 'pros',
+            label: 'Pros',
+            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$thumbs$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ThumbsUp$3e$__["ThumbsUp"],
+            iconBg: 'bg-green-500',
+            iconColor: 'text-white',
+            labelColor: 'text-green-700',
+            bg: 'bg-green-50',
+            bulletColor: 'text-green-500'
+        },
+        right: {
+            field: 'cons',
+            label: 'Cons',
+            icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$thumbs$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ThumbsDown$3e$__["ThumbsDown"],
+            iconBg: 'bg-red-500',
+            iconColor: 'text-white',
+            labelColor: 'text-red-700',
+            bg: 'bg-red-50',
+            bulletColor: 'text-red-500'
+        }
+    },
+    ComparisonBeforeAfterBlock: {
+        variant: 'header-bar',
+        left: {
+            field: 'beforeItems',
+            label: 'Before',
+            headerBar: true,
+            headerBarBg: 'bg-orange-500',
+            bg: 'bg-gray-50'
+        },
+        right: {
+            field: 'afterItems',
+            label: 'After',
+            headerBar: true,
+            headerBarBg: 'bg-orange-500',
+            bg: 'bg-gray-50'
+        }
+    }
+};
+function isChatBlock(name) {
+    return [
+        'ChatBlock',
+        'ChatFeedbackBlock',
+        'ChatQABlock'
+    ].includes(name);
+}
+// ─── Notion-style: always editable, no click-to-edit ────────────────
+function NotionStyleBlock({ componentName, content, onDataChange }) {
+    const updateField = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((field, value)=>{
+        onDataChange({
+            ...content,
+            [field]: value
+        });
+    }, [
+        content,
+        onDataChange
+    ]);
+    if (componentName === 'ParagraphBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 cursor-text",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                value: String(content.content || ''),
+                onChange: (v)=>updateField('content', v),
+                tag: "p",
+                className: "text-base leading-relaxed",
+                style: {
+                    lineHeight: '1.75'
+                },
+                placeholder: "Enter paragraph text..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 309,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 308,
+            columnNumber: 7
+        }, this);
+    }
+    if (componentName === 'ParagraphWithHeadingBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 cursor-text",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.heading || ''),
+                    onChange: (v)=>updateField('heading', v),
+                    tag: "h2",
+                    className: "mb-4 text-2xl font-bold",
+                    placeholder: "Enter heading...",
+                    multiline: false
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 324,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.content || ''),
+                    onChange: (v)=>updateField('content', v),
+                    tag: "p",
+                    className: "text-base leading-relaxed",
+                    style: {
+                        lineHeight: '1.75'
+                    },
+                    placeholder: "Enter paragraph text..."
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 332,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 323,
+            columnNumber: 7
+        }, this);
+    }
+    if (componentName === 'ParagraphWithSubheadingBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 cursor-text",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.subheading || ''),
+                    onChange: (v)=>updateField('subheading', v),
+                    tag: "h3",
+                    className: "mb-3 text-lg font-semibold text-gray-700",
+                    placeholder: "Enter subheading...",
+                    multiline: false
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 347,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.content || ''),
+                    onChange: (v)=>updateField('content', v),
+                    tag: "p",
+                    className: "text-base leading-relaxed",
+                    style: {
+                        lineHeight: '1.75'
+                    },
+                    placeholder: "Enter paragraph text..."
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 355,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 346,
+            columnNumber: 7
+        }, this);
+    }
+    if (componentName === 'HeadingBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 cursor-text",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                value: String(content.heading || ''),
+                onChange: (v)=>updateField('heading', v),
+                tag: "h1",
+                className: "text-4xl font-bold",
+                placeholder: "Enter heading...",
+                multiline: false
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 370,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 369,
+            columnNumber: 7
+        }, this);
+    }
+    if (componentName === 'SubheadingBlock') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 cursor-text",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                value: String(content.subheading || ''),
+                onChange: (v)=>updateField('subheading', v),
+                tag: "h2",
+                className: "text-2xl font-semibold",
+                style: {
+                    color: '#6B7280'
+                },
+                placeholder: "Enter subheading...",
+                multiline: false
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 385,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 384,
+            columnNumber: 7
+        }, this);
+    }
+    // Quote variants — each with unique visual treatment
+    if (componentName.startsWith('Quote')) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(QuoteVariantEditor, {
+            componentName: componentName,
+            content: content,
+            updateField: updateField,
+            onDataChange: onDataChange
+        }, void 0, false, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 400,
+            columnNumber: 12
+        }, this);
+    }
+    // Highlight variants — each with unique visual treatment
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(HighlightVariantEditor, {
+        componentName: componentName,
+        content: content,
+        updateField: updateField
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 404,
+        columnNumber: 10
+    }, this);
+}
+// ─── Quote Variant Editor ───────────────────────────────────────────
+function QuoteVariantEditor({ componentName, content, updateField, onDataChange }) {
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const quoteFields = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                value: String(content.content || ''),
+                onChange: (v)=>updateField('content', v),
+                tag: "p",
+                className: "text-lg italic",
+                style: {
+                    lineHeight: '1.6'
+                },
+                placeholder: "Enter quote text..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 414,
+                columnNumber: 7
+            }, this),
+            content.author !== undefined && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                value: String(content.author || ''),
+                onChange: (v)=>updateField('author', v),
+                tag: "span",
+                className: "text-sm mt-2 block",
+                placeholder: "Attribution...",
+                multiline: false
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 423,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true);
+    switch(componentName){
+        case 'QuoteBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-full bg-gray-50 rounded-xl p-8 text-center cursor-text",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-4xl text-gray-300 block mb-2",
+                        children: "“"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 439,
+                        columnNumber: 11
+                    }, this),
+                    quoteFields
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 438,
+                columnNumber: 9
+            }, this);
+        case 'QuoteCenterBorderBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-full border-2 border-gray-300 rounded-lg p-6 text-center cursor-text",
+                children: quoteFields
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 446,
+                columnNumber: 9
+            }, this);
+        case 'QuoteCenterLightBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-full text-center py-6 cursor-text",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-3xl text-gray-300",
+                        children: "“"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 454,
+                        columnNumber: 11
+                    }, this),
+                    quoteFields,
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-3xl text-gray-300",
+                        children: "”"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 456,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 453,
+                columnNumber: 9
+            }, this);
+        case 'QuoteLeftLightBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-full py-4 border-l-2 border-gray-200 pl-6 cursor-text",
+                children: quoteFields
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 462,
+                columnNumber: 9
+            }, this);
+        case 'QuoteLeftBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-full bg-gray-50 border-l-4 border-gray-400 p-6 cursor-text",
+                children: quoteFields
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 469,
+                columnNumber: 9
+            }, this);
+        case 'QuoteImageBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-full relative rounded-lg overflow-hidden cursor-text",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-full h-48 group/img cursor-pointer relative",
+                                onClick: ()=>setShowPicker(true),
+                                children: [
+                                    content.quoteImage ? // eslint-disable-next-line @next/next/no-img-element
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                        src: String(content.quoteImage),
+                                        alt: "Quote background",
+                                        className: "w-full h-full object-cover"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 481,
+                                        columnNumber: 17
+                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "w-full h-full bg-gray-800 flex items-center justify-center text-gray-400 gap-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                                className: "w-6 h-6"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 484,
+                                                columnNumber: 19
+                                            }, this),
+                                            " Click to set background image"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 483,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute inset-0 z-20 bg-transparent group-hover/img:bg-black/20 transition-colors flex items-end justify-center pb-3 opacity-0 group-hover/img:opacity-100 pointer-events-none rounded-lg",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "px-3 py-1.5 bg-white/90 text-sm text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1.5",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                                    className: "w-4 h-4"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 489,
+                                                    columnNumber: 19
+                                                }, this),
+                                                "Change image"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 488,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 487,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 478,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute inset-0 bg-black/50 flex items-center justify-center p-6 pointer-events-none",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "pointer-events-auto text-center cursor-text",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: String(content.content || ''),
+                                            onChange: (v)=>updateField('content', v),
+                                            tag: "p",
+                                            className: "text-lg italic text-white",
+                                            style: {
+                                                lineHeight: '1.6',
+                                                color: '#ffffff'
+                                            },
+                                            placeholder: "Enter quote text..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 496,
+                                            columnNumber: 17
+                                        }, this),
+                                        content.author !== undefined && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: String(content.author || ''),
+                                            onChange: (v)=>updateField('author', v),
+                                            tag: "span",
+                                            className: "text-sm text-gray-200 mt-2 block",
+                                            style: {
+                                                color: '#e5e7eb'
+                                            },
+                                            placeholder: "Attribution...",
+                                            multiline: false
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 505,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 495,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 494,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 477,
+                        columnNumber: 11
+                    }, this),
+                    showPicker && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                        currentUrl: String(content.quoteImage || ''),
+                        onSelect: (url)=>{
+                            onDataChange({
+                                ...content,
+                                quoteImage: url
+                            });
+                            setShowPicker(false);
+                        },
+                        onClose: ()=>setShowPicker(false)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 519,
+                        columnNumber: 13
+                    }, this)
+                ]
+            }, void 0, true);
+        default:
+            // Fallback for any unknown quote variant
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-full p-6 border-l-4 border-gray-400 bg-gray-50 rounded-r-lg cursor-text",
+                children: quoteFields
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 531,
+                columnNumber: 9
+            }, this);
+    }
+}
+// ─── Highlight Variant Editor ───────────────────────────────────────
+function HighlightVariantEditor({ componentName, content, updateField }) {
+    const blockStyle = content.blockStyle || 'A';
+    const highlightColors = {
+        A: {
+            bg: 'bg-yellow-100',
+            border: 'border-yellow-500',
+            color: '#713f12'
+        },
+        B: {
+            bg: 'bg-blue-100',
+            border: 'border-blue-500',
+            color: '#1e40af'
+        },
+        C: {
+            bg: 'bg-purple-100',
+            border: 'border-purple-500',
+            color: '#581c87'
+        }
+    };
+    const hc = highlightColors[blockStyle] || highlightColors.A;
+    const highlightField = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+        value: String(content.highlight || ''),
+        onChange: (v)=>updateField('highlight', v),
+        tag: "p",
+        className: "text-lg font-medium",
+        style: {
+            lineHeight: '1.6',
+            color: hc.color,
+            fontSize: '18px'
+        },
+        placeholder: "Enter highlight text..."
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 550,
+        columnNumber: 5
+    }, this);
+    switch(componentName){
+        case 'HighlightBlock':
+        case 'HighlightNoteBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `${hc.bg} border-l-4 ${hc.border} p-6 rounded-r-lg my-4 cursor-text`,
+                children: highlightField
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 564,
+                columnNumber: 9
+            }, this);
+        case 'HighlightColumnBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `${hc.bg} max-w-lg mx-auto text-center p-6 rounded-lg my-4 cursor-text`,
+                children: highlightField
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 571,
+                columnNumber: 9
+            }, this);
+        case 'HighlightCenterLineBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `border-t-4 ${hc.border} pt-4 text-center my-4 cursor-text`,
+                children: highlightField
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 578,
+                columnNumber: 9
+            }, this);
+        case 'HighlightLeftLineBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `border-t-4 ${hc.border} pt-4 text-left my-4 cursor-text`,
+                children: highlightField
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 585,
+                columnNumber: 9
+            }, this);
+        case 'HighlightBackgroundBlock':
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "bg-gray-100 rounded-lg p-6 my-4 cursor-text",
+                children: highlightField
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 592,
+                columnNumber: 9
+            }, this);
+        default:
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `${hc.bg} border-l-4 ${hc.border} p-6 rounded-r-lg my-4 cursor-text`,
+                children: highlightField
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 599,
+                columnNumber: 9
+            }, this);
+    }
+}
+// ─── List Block: real component + add input ────────────────────────
+function EditableListBlock({ component, componentName, content, onDataChange }) {
+    const [newItemText, setNewItemText] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const rawItems = content.items || [];
+    const isCheckbox = componentName === 'CheckboxBlock';
+    const listStyle = content.listStyle || 'default';
+    const accentColor = content.accentColor || '#9F80DA';
+    const addItem = ()=>{
+        const text = newItemText.trim();
+        if (!text) return;
+        if (isCheckbox) {
+            onDataChange({
+                ...content,
+                items: [
+                    ...rawItems,
+                    {
+                        id: `cb-${Date.now()}`,
+                        text,
+                        checked: false
+                    }
+                ]
+            });
+        } else {
+            onDataChange({
+                ...content,
+                items: [
+                    ...rawItems,
+                    text
+                ]
+            });
+        }
+        setNewItemText('');
+    };
+    const renderBullet = ()=>{
+        if (isCheckbox) {
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-6 h-6 flex items-center justify-center border-2 border-gray-300 rounded flex-shrink-0"
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 642,
+                columnNumber: 9
+            }, this);
+        }
+        switch(listStyle){
+            case 'check':
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                    className: "w-5 h-5 flex-shrink-0",
+                    style: {
+                        color: accentColor
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 647,
+                    columnNumber: 16
+                }, this);
+            case 'circle':
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
+                    className: "w-3 h-3 fill-current flex-shrink-0",
+                    style: {
+                        color: accentColor
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 649,
+                    columnNumber: 16
+                }, this);
+            case 'arrow':
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
+                    className: "w-4 h-4 flex-shrink-0",
+                    style: {
+                        color: accentColor
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 651,
+                    columnNumber: 16
+                }, this);
+            case 'chevron':
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
+                    className: "w-5 h-5 flex-shrink-0",
+                    style: {
+                        color: accentColor
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 653,
+                    columnNumber: 16
+                }, this);
+            case 'star':
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"], {
+                    className: "w-4 h-4 fill-current flex-shrink-0",
+                    style: {
+                        color: accentColor
+                    }
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 655,
+                    columnNumber: 16
+                }, this);
+            case 'numbered':
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-semibold flex-shrink-0",
+                    style: {
+                        backgroundColor: accentColor
+                    },
+                    children: rawItems.length + 1
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 658,
+                    columnNumber: 11
+                }, this);
+            default:
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "w-1.5 h-1.5 rounded-full flex-shrink-0 bg-gray-800"
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 667,
+                    columnNumber: 11
+                }, this);
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CourseComponent"], {
+                component: component
+            }, `${componentName}-${rawItems.length}`, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 674,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "px-4 pb-4 -mt-1",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center gap-3",
+                    children: [
+                        renderBullet(),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            type: "text",
+                            value: newItemText,
+                            onChange: (e)=>setNewItemText(e.target.value),
+                            onKeyDown: (e)=>{
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    addItem();
+                                }
+                            },
+                            onBlur: addItem,
+                            className: "flex-1 py-1 text-base text-gray-400 bg-transparent border-none focus:outline-none placeholder-gray-400",
+                            placeholder: "Add a new item..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 678,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 676,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 675,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 673,
+        columnNumber: 5
+    }, this);
+}
+// ─── Editable Tabs: real tab UI with editing controls ──────────────
+function EditableTabsBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(items[0]?.id || '');
+    const [editingTabId, setEditingTabId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [editingTabValue, setEditingTabValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [deleteConfirmId, setDeleteConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [placeholderEditing, setPlaceholderEditing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [placeholderName, setPlaceholderName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const editInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const placeholderInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const activeItem = items.find((item)=>item.id === activeTab) || items[0];
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (editingTabId && editInputRef.current) {
+            editInputRef.current.focus();
+            editInputRef.current.select();
+        }
+    }, [
+        editingTabId
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (placeholderEditing && placeholderInputRef.current) {
+            placeholderInputRef.current.focus();
+            placeholderInputRef.current.select();
+        }
+    }, [
+        placeholderEditing
+    ]);
+    const updateItem = (id, field, value)=>{
+        const newItems = items.map((item)=>item.id === id ? {
+                ...item,
+                [field]: value
+            } : item);
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    };
+    const confirmPlaceholder = ()=>{
+        const name = placeholderName.trim();
+        if (name) {
+            const newId = `tab-${Date.now()}`;
+            const newItems = [
+                ...items,
+                {
+                    id: newId,
+                    title: name,
+                    content: ''
+                }
+            ];
+            onDataChange({
+                ...content,
+                items: newItems
+            });
+            setActiveTab(newId);
+        }
+        setPlaceholderEditing(false);
+        setPlaceholderName('');
+    };
+    const removeTab = (id)=>{
+        const newItems = items.filter((item)=>item.id !== id);
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+        setDeleteConfirmId(null);
+        if (activeTab === id && newItems.length > 0) {
+            setActiveTab(newItems[0].id);
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex flex-wrap border-b border-gray-200",
+                children: [
+                    items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "relative group/tab flex items-center -mb-px",
+                            children: [
+                                editingTabId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                    ref: editInputRef,
+                                    type: "text",
+                                    value: editingTabValue,
+                                    onChange: (e)=>setEditingTabValue(e.target.value),
+                                    onKeyDown: (e)=>{
+                                        if (e.key === 'Enter') {
+                                            const v = editingTabValue.trim();
+                                            if (v) updateItem(item.id, 'title', v);
+                                            setEditingTabId(null);
+                                        }
+                                        if (e.key === 'Escape') setEditingTabId(null);
+                                    },
+                                    onBlur: ()=>{
+                                        const v = editingTabValue.trim();
+                                        if (v) updateItem(item.id, 'title', v);
+                                        setEditingTabId(null);
+                                    },
+                                    className: "px-3 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium border-b-2 border-primary text-primary bg-primary/5 focus:outline-none min-w-[80px]"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 768,
+                                    columnNumber: 15
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>{
+                                        if (activeTab === item.id) {
+                                            setEditingTabId(item.id);
+                                            setEditingTabValue(item.title);
+                                        } else {
+                                            setActiveTab(item.id);
+                                        }
+                                    },
+                                    className: `px-3 sm:px-6 py-2.5 sm:py-3 font-medium transition-colors border-b-2 text-sm sm:text-base ${activeTab === item.id ? 'border-primary text-primary bg-primary/5' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'}`,
+                                    children: item.title
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 789,
+                                    columnNumber: 15
+                                }, this),
+                                deleteConfirmId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute -top-10 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[100] whitespace-nowrap",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-sm text-red-600 font-medium",
+                                            children: "Delete?"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 811,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>removeTab(item.id),
+                                            className: "px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-md transition-colors",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 812,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmId(null),
+                                            className: "px-3 py-1 text-sm font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 818,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 810,
+                                    columnNumber: 15
+                                }, this) : items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteConfirmId(item.id),
+                                    className: "absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-gray-200 hover:bg-red-500 text-gray-500 hover:text-white rounded-full z-[100] opacity-0 group-hover/tab:opacity-100 transition-opacity",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-3 h-3"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 831,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 827,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, item.id, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 766,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center -mb-px",
+                        children: placeholderEditing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            ref: placeholderInputRef,
+                            type: "text",
+                            value: placeholderName,
+                            onChange: (e)=>setPlaceholderName(e.target.value),
+                            onKeyDown: (e)=>{
+                                if (e.key === 'Enter') confirmPlaceholder();
+                                if (e.key === 'Escape') {
+                                    setPlaceholderEditing(false);
+                                    setPlaceholderName('');
+                                }
+                            },
+                            onBlur: confirmPlaceholder,
+                            className: "px-3 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base font-medium border-b-2 border-primary text-primary bg-primary/5 focus:outline-none min-w-[80px]",
+                            placeholder: "Tab name..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 841,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setPlaceholderEditing(true),
+                            className: "px-3 sm:px-6 py-2.5 sm:py-3 font-medium text-sm sm:text-base text-gray-400 hover:text-gray-500 border-b-2 border-transparent border-dashed transition-colors",
+                            children: "New tab"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 858,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 839,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 764,
+                columnNumber: 7
+            }, this),
+            activeItem && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-3 sm:p-6",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    contentEditable: true,
+                    suppressContentEditableWarning: true,
+                    onBlur: (e)=>updateItem(activeItem.id, 'content', e.currentTarget.textContent || ''),
+                    className: "text-base text-gray-700 leading-relaxed focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/20 rounded-lg p-1 -m-1 min-h-[2em]",
+                    style: {
+                        lineHeight: '1.6'
+                    },
+                    children: activeItem.content
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 871,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 870,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 762,
+        columnNumber: 5
+    }, this);
+}
+// ─── Editable Accordion: Notion-style inline editing ────────────────
+function EditableAccordionBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const [openItems, setOpenItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [deleteConfirmId, setDeleteConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [pendingItem, setPendingItem] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [pendingTitle, setPendingTitle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const pendingInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (pendingItem && pendingInputRef.current) {
+            pendingInputRef.current.focus();
+        }
+    }, [
+        pendingItem
+    ]);
+    const toggleItem = (id)=>{
+        setOpenItems((prev)=>prev.includes(id) ? prev.filter((i)=>i !== id) : [
+                ...prev,
+                id
+            ]);
+    };
+    const isOpen = (id)=>openItems.includes(id);
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        const newItems = items.map((item)=>item.id === id ? {
+                ...item,
+                [field]: value
+            } : item);
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const confirmPendingItem = ()=>{
+        const title = pendingTitle.trim();
+        if (title) {
+            const newId = `acc-${Date.now()}`;
+            const newItems = [
+                ...items,
+                {
+                    id: newId,
+                    title,
+                    content: ''
+                }
+            ];
+            onDataChange({
+                ...content,
+                items: newItems
+            });
+            setOpenItems((prev)=>[
+                    ...prev,
+                    newId
+                ]);
+        }
+        setPendingItem(false);
+        setPendingTitle('');
+    };
+    const removeItem = (id)=>{
+        onDataChange({
+            ...content,
+            items: items.filter((item)=>item.id !== id)
+        });
+        setDeleteConfirmId(null);
+        setOpenItems((prev)=>prev.filter((i)=>i !== id));
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "space-y-2",
+            children: [
+                items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "border border-gray-200 rounded-lg overflow-hidden group/acc",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: `flex items-center transition-colors ${isOpen(item.id) ? 'bg-primary/10' : 'bg-white hover:bg-gray-50'}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>toggleItem(item.id),
+                                        className: "flex-shrink-0 p-4 pr-0",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
+                                            className: `w-5 h-5 text-gray-500 transition-transform ${isOpen(item.id) ? 'rotate-180' : ''}`
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 956,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 952,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex-1 py-4 px-3 cursor-text",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: item.title,
+                                            onChange: (v)=>updateItem(item.id, 'title', v),
+                                            tag: "span",
+                                            className: "font-medium text-left",
+                                            placeholder: "Item title...",
+                                            multiline: false
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 964,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 963,
+                                        columnNumber: 15
+                                    }, this),
+                                    deleteConfirmId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-2 px-3 py-2 mr-2 bg-white border border-gray-200 rounded-lg shadow-lg z-[100] whitespace-nowrap",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-sm text-red-600 font-medium",
+                                                children: "Delete?"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 977,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>removeItem(item.id),
+                                                className: "px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-md transition-colors",
+                                                children: "Yes"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 978,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setDeleteConfirmId(null),
+                                                className: "px-3 py-1 text-sm font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors",
+                                                children: "No"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 984,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 976,
+                                        columnNumber: 17
+                                    }, this) : items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmId(item.id),
+                                        className: "px-3 text-gray-300 hover:text-red-500 transition-colors",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                            className: "w-4 h-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 997,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 993,
+                                        columnNumber: 19
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 947,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: `overflow-hidden transition-all duration-300 ${isOpen(item.id) ? 'max-h-[500px]' : 'max-h-0'}`,
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "bg-white p-4 border-t border-gray-100 cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.content,
+                                        onChange: (v)=>updateItem(item.id, 'content', v),
+                                        tag: "p",
+                                        className: "text-gray-600 leading-relaxed min-h-[1.5em]",
+                                        style: {
+                                            lineHeight: '1.5',
+                                            color: '#4B5563'
+                                        },
+                                        placeholder: "Enter content..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1010,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1009,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1004,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, item.id, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 945,
+                        columnNumber: 11
+                    }, this)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "border border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-[#9F80DA] transition-colors",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center bg-white",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-shrink-0 p-4 pr-0",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
+                                    className: "w-5 h-5 text-gray-300"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1027,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1026,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-1 py-4 px-3",
+                                children: pendingItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                    ref: pendingInputRef,
+                                    type: "text",
+                                    value: pendingTitle,
+                                    onChange: (e)=>setPendingTitle(e.target.value),
+                                    onKeyDown: (e)=>{
+                                        if (e.key === 'Enter') confirmPendingItem();
+                                        if (e.key === 'Escape') {
+                                            setPendingItem(false);
+                                            setPendingTitle('');
+                                        }
+                                    },
+                                    onBlur: confirmPendingItem,
+                                    className: "w-full font-medium text-left bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 rounded-sm",
+                                    placeholder: "Item title..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1031,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setPendingItem(true),
+                                    className: "font-medium text-gray-400 hover:text-gray-500 text-left transition-colors",
+                                    children: "New item"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1048,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1029,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1025,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1024,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 943,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 942,
+        columnNumber: 5
+    }, this);
+}
+// ─── SortingSteps: Notion-style inline editing ──────────────────────
+function EditableSortingStepsBlock({ content, onDataChange }) {
+    const rawItems = content.items || [];
+    const sortedFromProps = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>[
+            ...rawItems
+        ].sort((a, b)=>a.correctOrder - b.correctOrder), [
+        rawItems
+    ]);
+    const [localItems, setLocalItems] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(sortedFromProps);
+    const localItemsRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(localItems);
+    const [draggedIndex, setDraggedIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const draggedIndexRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const [deleteConfirmId, setDeleteConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [pendingItem, setPendingItem] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [pendingTitle, setPendingTitle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [pendingDescription, setPendingDescription] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const pendingInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const pendingContainerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    // Sync from props when not dragging
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (draggedIndexRef.current === null) {
+            setLocalItems(sortedFromProps);
+            localItemsRef.current = sortedFromProps;
+        }
+    }, [
+        sortedFromProps
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        localItemsRef.current = localItems;
+    }, [
+        localItems
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (pendingItem && pendingInputRef.current) {
+            pendingInputRef.current.focus();
+        }
+    }, [
+        pendingItem
+    ]);
+    const items = localItems;
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        const newItems = rawItems.map((item)=>item.id === id ? {
+                ...item,
+                [field]: value
+            } : item);
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    }, [
+        rawItems,
+        content,
+        onDataChange
+    ]);
+    const confirmPendingItem = ()=>{
+        const title = pendingTitle.trim();
+        if (title) {
+            const newId = `sort-${Date.now()}`;
+            const maxOrder = rawItems.length > 0 ? Math.max(...rawItems.map((i)=>i.correctOrder)) : 0;
+            const newItems = [
+                ...rawItems,
+                {
+                    id: newId,
+                    title,
+                    content: pendingDescription.trim(),
+                    correctOrder: maxOrder + 1
+                }
+            ];
+            onDataChange({
+                ...content,
+                items: newItems
+            });
+        }
+        setPendingItem(false);
+        setPendingTitle('');
+        setPendingDescription('');
+    };
+    const handlePendingBlur = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((e)=>{
+        // Only confirm when focus leaves the entire pending container
+        if (pendingContainerRef.current && !pendingContainerRef.current.contains(e.relatedTarget)) {
+            confirmPendingItem();
+        }
+    }, [
+        pendingTitle,
+        pendingDescription,
+        rawItems,
+        content,
+        onDataChange
+    ]);
+    const removeItem = (id)=>{
+        const filtered = rawItems.filter((item)=>item.id !== id);
+        const sorted = [
+            ...filtered
+        ].sort((a, b)=>a.correctOrder - b.correctOrder);
+        const reindexed = sorted.map((item, idx)=>({
+                ...item,
+                correctOrder: idx + 1
+            }));
+        onDataChange({
+            ...content,
+            items: reindexed
+        });
+        setDeleteConfirmId(null);
+    };
+    const handleDragStart = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((index)=>{
+        draggedIndexRef.current = index;
+        setDraggedIndex(index);
+    }, []);
+    const handleDragOver = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((e, targetIndex)=>{
+        e.preventDefault();
+        const dIdx = draggedIndexRef.current;
+        if (dIdx === null || dIdx === targetIndex) return;
+        const rect = e.currentTarget.getBoundingClientRect();
+        const mouseY = e.clientY;
+        // 10% threshold to prevent oscillation
+        if (dIdx < targetIndex && mouseY < rect.top + rect.height * 0.1) return;
+        if (dIdx > targetIndex && mouseY > rect.top + rect.height * 0.9) return;
+        setLocalItems((prev)=>{
+            const newItems = [
+                ...prev
+            ];
+            const [removed] = newItems.splice(dIdx, 1);
+            newItems.splice(targetIndex, 0, removed);
+            localItemsRef.current = newItems;
+            return newItems;
+        });
+        draggedIndexRef.current = targetIndex;
+        setDraggedIndex(targetIndex);
+    }, []);
+    const handleDragEnd = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if (draggedIndexRef.current !== null) {
+            const current = localItemsRef.current;
+            const reindexed = current.map((item, idx)=>({
+                    ...item,
+                    correctOrder: idx + 1
+                }));
+            onDataChange({
+                ...content,
+                items: reindexed
+            });
+        }
+        draggedIndexRef.current = null;
+        setDraggedIndex(null);
+    }, [
+        content,
+        onDataChange
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "space-y-2",
+            children: [
+                items.map((item, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        draggable: true,
+                        onDragStart: ()=>handleDragStart(index),
+                        onDragOver: (e)=>handleDragOver(e, index),
+                        onDragEnd: handleDragEnd,
+                        className: `flex items-start gap-3 p-4 border-2 rounded-lg transition-all group/step ${draggedIndex === index ? 'opacity-50 scale-[1.02] border-[#9F80DA] bg-[#9F80DA]/5' : 'border-gray-200 hover:border-gray-300 bg-white'}`,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-shrink-0 cursor-grab active:cursor-grabbing pt-1 text-gray-400 hover:text-gray-600",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$grip$2d$vertical$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GripVertical$3e$__["GripVertical"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1201,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1200,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "flex-shrink-0 w-7 h-7 rounded-full bg-[#9F80DA] text-white text-sm font-semibold flex items-center justify-center",
+                                children: index + 1
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1205,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-1 min-w-0 cursor-text",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.title,
+                                        onChange: (v)=>updateItem(item.id, 'title', v),
+                                        tag: "p",
+                                        className: "font-medium text-gray-900",
+                                        placeholder: "Step title...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1211,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.content || '',
+                                        onChange: (v)=>updateItem(item.id, 'content', v),
+                                        tag: "p",
+                                        className: "text-sm text-gray-600 mt-1",
+                                        style: {
+                                            lineHeight: '1.5'
+                                        },
+                                        placeholder: "Description (optional)..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1219,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1210,
+                                columnNumber: 13
+                            }, this),
+                            deleteConfirmId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-2 flex-shrink-0",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-sm text-red-600 font-medium",
+                                        children: "Delete?"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1232,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>removeItem(item.id),
+                                        className: "px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-md transition-colors",
+                                        children: "Yes"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1233,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmId(null),
+                                        className: "px-3 py-1 text-sm font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors",
+                                        children: "No"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1239,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1231,
+                                columnNumber: 15
+                            }, this) : items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setDeleteConfirmId(item.id),
+                                className: "flex-shrink-0 text-gray-300 hover:text-red-500 transition-colors pt-1",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                    className: "w-4 h-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1252,
+                                    columnNumber: 19
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1248,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, item.id, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1187,
+                        columnNumber: 11
+                    }, this)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "border-2 border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-[#9F80DA] transition-colors",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        ref: pendingContainerRef,
+                        className: "flex items-start gap-3 p-4",
+                        onBlur: pendingItem ? handlePendingBlur : undefined,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-shrink-0 text-gray-300 pt-1",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$grip$2d$vertical$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GripVertical$3e$__["GripVertical"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1267,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1266,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "flex-shrink-0 w-7 h-7 rounded-full bg-gray-200 text-gray-400 text-sm font-semibold flex items-center justify-center",
+                                children: items.length + 1
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1269,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-1",
+                                children: pendingItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            ref: pendingInputRef,
+                                            type: "text",
+                                            value: pendingTitle,
+                                            onChange: (e)=>setPendingTitle(e.target.value),
+                                            onKeyDown: (e)=>{
+                                                if (e.key === 'Escape') {
+                                                    setPendingItem(false);
+                                                    setPendingTitle('');
+                                                    setPendingDescription('');
+                                                }
+                                            },
+                                            className: "w-full font-medium text-left bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 rounded-sm",
+                                            placeholder: "Step title..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1275,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "text",
+                                            value: pendingDescription,
+                                            onChange: (e)=>setPendingDescription(e.target.value),
+                                            onKeyDown: (e)=>{
+                                                if (e.key === 'Enter') confirmPendingItem();
+                                                if (e.key === 'Escape') {
+                                                    setPendingItem(false);
+                                                    setPendingTitle('');
+                                                    setPendingDescription('');
+                                                }
+                                            },
+                                            className: "w-full text-sm text-left bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 rounded-sm mt-1",
+                                            placeholder: "Description (optional)..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1290,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1274,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    onClick: ()=>setPendingItem(true),
+                                    className: "cursor-pointer",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "font-medium text-gray-400 hover:text-gray-500 transition-colors",
+                                            children: "New step"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1308,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "text-sm text-gray-300 mt-1",
+                                            children: "Description (optional)..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1311,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1307,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1272,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1261,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1260,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 1185,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1184,
+        columnNumber: 5
+    }, this);
+}
+// ─── MultipleResponse: Notion-style inline editing ──────────────────
+function EditableMultipleResponseBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const [deleteConfirmId, setDeleteConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [pendingItem, setPendingItem] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [pendingText, setPendingText] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const pendingInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const pendingContainerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (pendingItem && pendingInputRef.current) {
+            pendingInputRef.current.focus();
+        }
+    }, [
+        pendingItem
+    ]);
+    const updateQuestion = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((value)=>{
+        onDataChange({
+            ...content,
+            question: value
+        });
+    }, [
+        content,
+        onDataChange
+    ]);
+    const updateItemText = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, value)=>{
+        const newItems = items.map((item)=>item.id === id ? {
+                ...item,
+                text: value
+            } : item);
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const toggleCorrect = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id)=>{
+        const newItems = items.map((item)=>item.id === id ? {
+                ...item,
+                isCorrect: !item.isCorrect
+            } : item);
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const confirmPendingItem = ()=>{
+        const text = pendingText.trim();
+        if (text) {
+            const newId = `mr-${Date.now()}`;
+            const newItems = [
+                ...items,
+                {
+                    id: newId,
+                    text,
+                    isCorrect: false
+                }
+            ];
+            onDataChange({
+                ...content,
+                items: newItems
+            });
+        }
+        setPendingItem(false);
+        setPendingText('');
+    };
+    const handlePendingBlur = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((e)=>{
+        if (pendingContainerRef.current && !pendingContainerRef.current.contains(e.relatedTarget)) {
+            confirmPendingItem();
+        }
+    }, [
+        pendingText,
+        items,
+        content,
+        onDataChange
+    ]);
+    const removeItem = (id)=>{
+        onDataChange({
+            ...content,
+            items: items.filter((item)=>item.id !== id)
+        });
+        setDeleteConfirmId(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-4 cursor-text",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.question || ''),
+                    onChange: updateQuestion,
+                    tag: "h3",
+                    className: "text-lg font-semibold",
+                    placeholder: "Enter question...",
+                    multiline: false
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1388,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1387,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-sm text-gray-500 mb-3",
+                children: "Select all that apply"
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1398,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "space-y-2",
+                children: [
+                    items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-3 p-4 border-2 rounded-lg transition-all group/opt border-gray-200 hover:border-gray-300 bg-white",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>toggleCorrect(item.id),
+                                    className: `flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${item.isCorrect ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300 hover:border-[#9F80DA]'}`,
+                                    title: item.isCorrect ? 'Marked as correct' : 'Mark as correct',
+                                    children: item.isCorrect && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                        className: "w-3 h-3"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1417,
+                                        columnNumber: 34
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1408,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1 min-w-0 cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.text,
+                                        onChange: (v)=>updateItemText(item.id, v),
+                                        tag: "span",
+                                        className: "text-gray-900",
+                                        placeholder: "Option text...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1422,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1421,
+                                    columnNumber: 13
+                                }, this),
+                                deleteConfirmId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-2 flex-shrink-0",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-sm text-red-600 font-medium",
+                                            children: "Delete?"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1435,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>removeItem(item.id),
+                                            className: "px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 rounded-md transition-colors",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1436,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmId(null),
+                                            className: "px-3 py-1 text-sm font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 rounded-md transition-colors",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1442,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1434,
+                                    columnNumber: 15
+                                }, this) : items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteConfirmId(item.id),
+                                    className: "flex-shrink-0 text-gray-300 hover:text-red-500 transition-colors",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1455,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1451,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, item.id, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1403,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "border-2 border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-[#9F80DA] transition-colors",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            ref: pendingContainerRef,
+                            className: "flex items-center gap-3 p-4",
+                            onBlur: pendingItem ? handlePendingBlur : undefined,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-shrink-0 w-5 h-5 rounded border-2 border-gray-200"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1469,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1",
+                                    children: pendingItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        ref: pendingInputRef,
+                                        type: "text",
+                                        value: pendingText,
+                                        onChange: (e)=>setPendingText(e.target.value),
+                                        onKeyDown: (e)=>{
+                                            if (e.key === 'Enter') confirmPendingItem();
+                                            if (e.key === 'Escape') {
+                                                setPendingItem(false);
+                                                setPendingText('');
+                                            }
+                                        },
+                                        className: "w-full text-left bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 rounded-sm",
+                                        placeholder: "Option text..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1472,
+                                        columnNumber: 17
+                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setPendingItem(true),
+                                        className: "text-gray-400 hover:text-gray-500 text-left transition-colors",
+                                        children: "New option"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1488,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1470,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1464,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1463,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1401,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1385,
+        columnNumber: 5
+    }, this);
+}
+// ─── CauseEffect: Notion-style inline editing ──────────────────────
+function EditableCauseEffectBlock({ content, onDataChange }) {
+    const updateField = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((field, value)=>{
+        onDataChange({
+            ...content,
+            [field]: value
+        });
+    }, [
+        content,
+        onDataChange
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-6 rounded-lg border border-gray-200 bg-white",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                className: "text-lg font-semibold mb-4 text-gray-900",
+                children: "Cause and Effect"
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1521,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 p-4 rounded-lg bg-gray-100 cursor-text",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: String(content.cause || ''),
+                            onChange: (v)=>updateField('cause', v),
+                            tag: "p",
+                            className: "text-sm text-gray-700",
+                            style: {
+                                lineHeight: '1.5'
+                            },
+                            placeholder: "Enter cause..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1525,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1524,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-shrink-0 self-center",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
+                                className: "w-5 h-5 text-white rotate-90 sm:rotate-0"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1538,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1537,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1536,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 p-4 rounded-lg bg-orange-500 cursor-text",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: String(content.effect || ''),
+                            onChange: (v)=>updateField('effect', v),
+                            tag: "p",
+                            className: "text-sm text-white",
+                            style: {
+                                lineHeight: '1.5',
+                                color: '#ffffff'
+                            },
+                            placeholder: "Enter effect..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1544,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1543,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1522,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1520,
+        columnNumber: 5
+    }, this);
+}
+// ─── Image Block: real component + click to change ─────────────────
+function EditableImageBlock({ component, content, onDataChange }) {
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative group cursor-pointer",
+                onClick: ()=>setShowPicker(true),
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CourseComponent"], {
+                        component: component
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1577,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute inset-0 bg-transparent group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "px-3 py-1.5 bg-white/90 text-sm text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1.5",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                    className: "w-4 h-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1580,
+                                    columnNumber: 13
+                                }, this),
+                                "Change image"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1579,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1578,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1573,
+                columnNumber: 7
+            }, this),
+            showPicker && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: String(content.image || ''),
+                onSelect: (url)=>onDataChange({
+                        ...content,
+                        image: url
+                    }),
+                onClose: ()=>setShowPicker(false)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1587,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true);
+}
+// ─── Image+Text Block: clickable image + Notion-style text ──────────
+function ImageOverlay({ image, alt, onChangeImage, className }) {
+    const src = !image ? '' : image === '/sample.jpeg' || image.includes('sample') ? 'https://placehold.co/800x600/e2e8f0/64748b?text=Sample+Image' : image;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: `relative group/img cursor-pointer h-full ${className || ''}`,
+        onClick: onChangeImage,
+        children: [
+            src ? // eslint-disable-next-line @next/next/no-img-element
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                src: src,
+                alt: alt,
+                className: "w-full h-full object-cover rounded-lg"
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1622,
+                columnNumber: 9
+            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "w-full h-full bg-gray-200 flex items-center justify-center rounded-lg",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "text-gray-400",
+                    children: "Image not available"
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1625,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1624,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 bg-transparent group-hover/img:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover/img:opacity-100 pointer-events-none rounded-lg",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: "px-3 py-1.5 bg-white/90 text-sm text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1.5",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                            className: "w-4 h-4"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1630,
+                            columnNumber: 11
+                        }, this),
+                        "Change image"
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1629,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1628,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1616,
+        columnNumber: 5
+    }, this);
+}
+function EditableImageWithTextBlock({ componentName, content, onDataChange }) {
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const image = String(content.image || '');
+    const alt = String(content.alt || 'Image');
+    const updateText = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((value)=>onDataChange({
+            ...content,
+            text: value
+        }), [
+        content,
+        onDataChange
+    ]);
+    const textEditor = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+        value: String(content.text || ''),
+        onChange: updateText,
+        tag: "p",
+        className: "text-base leading-relaxed",
+        style: {
+            lineHeight: '1.75'
+        },
+        placeholder: "Enter text..."
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1657,
+        columnNumber: 5
+    }, this);
+    const imageOverlay = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ImageOverlay, {
+        image: image,
+        alt: alt,
+        onChangeImage: ()=>setShowPicker(true)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1668,
+        columnNumber: 5
+    }, this);
+    let layout;
+    if (componentName === 'ImageWithTextCenterBlock') {
+        // Image with text below, dark overlay on image for visual effect
+        layout = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 space-y-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "relative w-full h-48 rounded-lg overflow-hidden",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ImageOverlay, {
+                            image: image,
+                            alt: alt,
+                            onChangeImage: ()=>setShowPicker(true),
+                            className: "w-full h-full"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1682,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "absolute inset-0 bg-black/30 pointer-events-none rounded-lg"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1688,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1681,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "p-4 rounded-lg cursor-text text-center",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                        value: String(content.text || ''),
+                        onChange: updateText,
+                        tag: "p",
+                        className: "text-base leading-relaxed",
+                        style: {
+                            lineHeight: '1.75'
+                        },
+                        placeholder: "Enter text..."
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1691,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1690,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 1680,
+            columnNumber: 7
+        }, this);
+    } else if (componentName === 'ImageWithTextTopBlock') {
+        // Text on top, image below
+        layout = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 flex flex-col-reverse gap-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "relative w-full h-64",
+                    children: imageOverlay
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1706,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "p-4 rounded-lg cursor-text",
+                    children: textEditor
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1709,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 1705,
+            columnNumber: 7
+        }, this);
+    } else if (componentName === 'ImageWithTextBottomBlock') {
+        // Image on top, text below
+        layout = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 flex flex-col gap-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "relative w-full h-64",
+                    children: imageOverlay
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1718,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "p-4 rounded-lg cursor-text",
+                    children: textEditor
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1721,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 1717,
+            columnNumber: 7
+        }, this);
+    } else if (componentName === 'ImageWithTextLeftBlock') {
+        // Text left, image right
+        layout = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 flex flex-col md:flex-row-reverse gap-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "relative w-full md:w-1/2 h-48 md:h-64",
+                    children: imageOverlay
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1730,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "w-full md:w-1/2 flex items-center p-4 rounded-lg cursor-text",
+                    children: textEditor
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1733,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 1729,
+            columnNumber: 7
+        }, this);
+    } else {
+        // ImageWithTextBlock — image left, text right
+        layout = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "w-full p-4 flex flex-col md:flex-row gap-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "relative w-full md:w-1/2 h-48 md:h-64",
+                    children: imageOverlay
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1742,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "w-full md:w-1/2 flex items-center p-4 rounded-lg cursor-text",
+                    children: textEditor
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1745,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 1741,
+            columnNumber: 7
+        }, this);
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+        children: [
+            layout,
+            showPicker && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: image,
+                onSelect: (url)=>onDataChange({
+                        ...content,
+                        image: url
+                    }),
+                onClose: ()=>setShowPicker(false)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1756,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true);
+}
+// ─── MultipleChoice: Notion-style inline editing ────────────────────
+function EditableMultipleChoiceBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const [deleteConfirmId, setDeleteConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [pendingItem, setPendingItem] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [pendingText, setPendingText] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const pendingInputRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const pendingContainerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (pendingItem && pendingInputRef.current) pendingInputRef.current.focus();
+    }, [
+        pendingItem
+    ]);
+    const updateItemField = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        let newItems = items.map((item)=>item.id === id ? {
+                ...item,
+                [field]: value
+            } : item);
+        if (field === 'isCorrect' && value === true) {
+            newItems = newItems.map((item)=>item.id === id ? item : {
+                    ...item,
+                    isCorrect: false
+                });
+        }
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const confirmPendingItem = ()=>{
+        const text = pendingText.trim();
+        if (text) onDataChange({
+            ...content,
+            items: [
+                ...items,
+                {
+                    id: `mc-${Date.now()}`,
+                    text,
+                    isCorrect: false
+                }
+            ]
+        });
+        setPendingItem(false);
+        setPendingText('');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const handlePendingBlur = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((e)=>{
+        if (pendingContainerRef.current && !pendingContainerRef.current.contains(e.relatedTarget)) confirmPendingItem();
+    }, [
+        pendingText,
+        items,
+        content,
+        onDataChange
+    ]);
+    const removeItem = (id)=>{
+        onDataChange({
+            ...content,
+            items: items.filter((item)=>item.id !== id)
+        });
+        setDeleteConfirmId(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-4 cursor-text",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.question || ''),
+                    onChange: (v)=>onDataChange({
+                            ...content,
+                            question: v
+                        }),
+                    tag: "h3",
+                    className: "text-lg font-semibold",
+                    placeholder: "Enter question...",
+                    multiline: false
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1803,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1802,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: "text-sm text-gray-500 mb-3",
+                children: "Select one correct answer"
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1805,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "space-y-2",
+                children: [
+                    items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-3 p-4 border-2 rounded-lg transition-all group/opt border-gray-200 hover:border-gray-300 bg-white",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>updateItemField(item.id, 'isCorrect', !item.isCorrect),
+                                    className: `flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${item.isCorrect ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300 hover:border-[#9F80DA]'}`,
+                                    children: item.isCorrect && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Circle$3e$__["Circle"], {
+                                        className: "w-2 h-2 fill-white"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1810,
+                                        columnNumber: 34
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1809,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1 min-w-0 cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.text,
+                                        onChange: (v)=>updateItemField(item.id, 'text', v),
+                                        tag: "span",
+                                        className: "text-gray-900",
+                                        placeholder: "Option text...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1813,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1812,
+                                    columnNumber: 13
+                                }, this),
+                                deleteConfirmId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-2 flex-shrink-0",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>removeItem(item.id),
+                                            className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1817,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmId(null),
+                                            className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1818,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1816,
+                                    columnNumber: 15
+                                }, this) : items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteConfirmId(item.id),
+                                    className: "flex-shrink-0 text-gray-300 hover:text-red-500",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1821,
+                                        columnNumber: 126
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1821,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, item.id, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1808,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            ref: pendingContainerRef,
+                            className: "flex items-center gap-3 p-4",
+                            onBlur: pendingItem ? handlePendingBlur : undefined,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-shrink-0 w-5 h-5 rounded-full border-2 border-gray-200"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1827,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1",
+                                    children: pendingItem ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                        ref: pendingInputRef,
+                                        type: "text",
+                                        value: pendingText,
+                                        onChange: (e)=>setPendingText(e.target.value),
+                                        onKeyDown: (e)=>{
+                                            if (e.key === 'Enter') confirmPendingItem();
+                                            if (e.key === 'Escape') {
+                                                setPendingItem(false);
+                                                setPendingText('');
+                                            }
+                                        },
+                                        className: "w-full bg-transparent border-none focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 rounded-sm",
+                                        placeholder: "Option text..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1830,
+                                        columnNumber: 17
+                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setPendingItem(true),
+                                        className: "text-gray-400 hover:text-gray-500 transition-colors",
+                                        children: "New option"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1832,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1828,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1826,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1825,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1806,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1801,
+        columnNumber: 5
+    }, this);
+}
+// ─── FillInTheBlank: Notion-style inline editing ────────────────────
+function EditableFillInBlankBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const [deleteItemConfirmId, setDeleteItemConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [deleteAnswerKey, setDeleteAnswerKey] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        onDataChange({
+            ...content,
+            items: items.map((item)=>item.id === id ? {
+                    ...item,
+                    [field]: value
+                } : item)
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const updateAnswer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((itemId, ansIdx, value)=>{
+        const newItems = items.map((item)=>{
+            if (item.id !== itemId) return item;
+            const newAnswers = [
+                ...item.answers
+            ];
+            newAnswers[ansIdx] = value;
+            return {
+                ...item,
+                answers: newAnswers
+            };
+        });
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>{
+        onDataChange({
+            ...content,
+            items: [
+                ...items,
+                {
+                    id: `fib-${Date.now()}`,
+                    text: '',
+                    answers: [
+                        ''
+                    ]
+                }
+            ]
+        });
+    };
+    const addAnswer = (itemId)=>{
+        onDataChange({
+            ...content,
+            items: items.map((item)=>item.id === itemId ? {
+                    ...item,
+                    answers: [
+                        ...item.answers,
+                        ''
+                    ]
+                } : item)
+        });
+    };
+    const removeItem = (id)=>{
+        onDataChange({
+            ...content,
+            items: items.filter((item)=>item.id !== id)
+        });
+        setDeleteItemConfirmId(null);
+    };
+    const removeAnswer = (itemId, ansIdx)=>{
+        onDataChange({
+            ...content,
+            items: items.map((item)=>item.id === itemId ? {
+                    ...item,
+                    answers: item.answers.filter((_, i)=>i !== ansIdx)
+                } : item)
+        });
+        setDeleteAnswerKey(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-4",
+        children: [
+            items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "p-4 border-2 border-gray-200 rounded-lg group/fib hover:border-gray-300",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-start gap-2",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-sm font-medium text-gray-400 pt-1",
+                                    children: [
+                                        idx + 1,
+                                        "."
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1872,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1 cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.text,
+                                        onChange: (v)=>updateItem(item.id, 'text', v),
+                                        tag: "p",
+                                        className: "text-gray-900",
+                                        placeholder: "Text with ___ for blanks..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1874,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1873,
+                                    columnNumber: 13
+                                }, this),
+                                deleteItemConfirmId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-1 flex-shrink-0",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>removeItem(item.id),
+                                            className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1878,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteItemConfirmId(null),
+                                            className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 1879,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1877,
+                                    columnNumber: 15
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteItemConfirmId(item.id),
+                                    className: "text-gray-300 hover:text-red-500",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1882,
+                                        columnNumber: 116
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1882,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1871,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mt-3 pl-6 space-y-1",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-xs font-medium text-gray-500 mb-1",
+                                    children: "Correct answers:"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1886,
+                                    columnNumber: 13
+                                }, this),
+                                item.answers.map((ans, ansIdx)=>{
+                                    const ansKey = `${item.id}-${ansIdx}`;
+                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                                className: "w-3 h-3 text-green-500 flex-shrink-0"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 1891,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BlurInput, {
+                                                value: ans,
+                                                onSave: (v)=>updateAnswer(item.id, ansIdx, v),
+                                                className: "flex-1 px-2 py-1 text-sm border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30",
+                                                placeholder: "Answer..."
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 1892,
+                                                columnNumber: 19
+                                            }, this),
+                                            item.answers.length > 1 && (deleteAnswerKey === ansKey ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex items-center gap-1 flex-shrink-0",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>removeAnswer(item.id, ansIdx),
+                                                        className: "px-1.5 py-0.5 text-xs text-white bg-red-500 rounded",
+                                                        children: "Yes"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                        lineNumber: 1896,
+                                                        columnNumber: 25
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>setDeleteAnswerKey(null),
+                                                        className: "px-1.5 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                                        children: "No"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                        lineNumber: 1897,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 1895,
+                                                columnNumber: 23
+                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setDeleteAnswerKey(ansKey),
+                                                className: "text-gray-300 hover:text-red-500",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                    className: "w-3 h-3"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 1900,
+                                                    columnNumber: 119
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 1900,
+                                                columnNumber: 23
+                                            }, this))
+                                        ]
+                                    }, ansIdx, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 1890,
+                                        columnNumber: 17
+                                    }, this);
+                                }),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    onClick: ()=>addAnswer(item.id),
+                                    className: "px-3 py-1.5 border border-dashed border-gray-300 rounded hover:border-[#9F80DA] transition-colors cursor-pointer text-xs text-gray-400 hover:text-[#9F80DA]",
+                                    children: "New answer..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 1906,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1885,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, item.id, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1870,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addItem,
+                className: "p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: "New blank item..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1910,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1868,
+        columnNumber: 5
+    }, this);
+}
+// ─── MatchingPairs: Notion-style inline editing ─────────────────────
+function EditableMatchingPairsBlock({ content, onDataChange }) {
+    const itemsA = content.itemsA || [];
+    const itemsB = content.itemsB || [];
+    const [pendingActive, setPendingActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [pendingLeft, setPendingLeft] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [pendingRight, setPendingRight] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const pendingLeftRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const pendingContainerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (pendingActive && pendingLeftRef.current) pendingLeftRef.current.focus();
+    }, [
+        pendingActive
+    ]);
+    const updateA = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, value)=>{
+        onDataChange({
+            ...content,
+            itemsA: itemsA.map((i)=>i.id === id ? {
+                    ...i,
+                    text: value
+                } : i)
+        });
+    }, [
+        itemsA,
+        content,
+        onDataChange
+    ]);
+    const updateB = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, value)=>{
+        onDataChange({
+            ...content,
+            itemsB: itemsB.map((i)=>i.id === id ? {
+                    ...i,
+                    text: value
+                } : i)
+        });
+    }, [
+        itemsB,
+        content,
+        onDataChange
+    ]);
+    const confirmPending = ()=>{
+        const left = pendingLeft.trim();
+        const right = pendingRight.trim();
+        if (left || right) {
+            const num = Math.max(0, ...itemsA.map((i)=>i.matchingNumber), ...itemsB.map((i)=>i.matchingNumber)) + 1;
+            const ts = Date.now();
+            onDataChange({
+                ...content,
+                itemsA: [
+                    ...itemsA,
+                    {
+                        id: `a-${ts}`,
+                        text: left,
+                        matchingNumber: num
+                    }
+                ],
+                itemsB: [
+                    ...itemsB,
+                    {
+                        id: `b-${ts}`,
+                        text: right,
+                        matchingNumber: num
+                    }
+                ]
+            });
+        }
+        setPendingActive(false);
+        setPendingLeft('');
+        setPendingRight('');
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const handlePendingBlur = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((e)=>{
+        if (pendingContainerRef.current && !pendingContainerRef.current.contains(e.relatedTarget)) confirmPending();
+    }, [
+        pendingLeft,
+        pendingRight,
+        itemsA,
+        itemsB,
+        content,
+        onDataChange
+    ]);
+    const removePair = (matchNum)=>{
+        onDataChange({
+            ...content,
+            itemsA: itemsA.filter((i)=>i.matchingNumber !== matchNum),
+            itemsB: itemsB.filter((i)=>i.matchingNumber !== matchNum)
+        });
+    };
+    const pairs = itemsA.map((a)=>({
+            a,
+            b: itemsB.find((b)=>b.matchingNumber === a.matchingNumber)
+        }));
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-2",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex gap-4 text-sm font-medium text-gray-500 px-2",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "flex-1",
+                        children: "Column A"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1963,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "w-6"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1963,
+                        columnNumber: 49
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "flex-1",
+                        children: "Column B"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1963,
+                        columnNumber: 73
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "w-6"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1963,
+                        columnNumber: 113
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1962,
+                columnNumber: 7
+            }, this),
+            pairs.map(({ a, b })=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center gap-4 group/pair",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1 cursor-text",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                value: a.text,
+                                onChange: (v)=>updateA(a.id, v),
+                                tag: "div",
+                                className: "p-3 border-2 border-gray-200 rounded-lg text-sm hover:border-gray-300",
+                                placeholder: "Left item...",
+                                multiline: false
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1968,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1967,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-gray-400 flex-shrink-0",
+                            children: "↔"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1970,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1 cursor-text",
+                            children: b && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                value: b.text,
+                                onChange: (v)=>updateB(b.id, v),
+                                tag: "div",
+                                className: "p-3 border-2 border-gray-200 rounded-lg text-sm hover:border-gray-300",
+                                placeholder: "Right item...",
+                                multiline: false
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1972,
+                                columnNumber: 19
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1971,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>removePair(a.matchingNumber),
+                            className: "text-gray-300 hover:text-red-500",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                className: "w-4 h-4"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 1974,
+                                columnNumber: 109
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1974,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, a.id, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 1966,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                ref: pendingContainerRef,
+                className: "flex items-center gap-4",
+                onBlur: pendingActive ? handlePendingBlur : undefined,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1",
+                        children: pendingActive ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            ref: pendingLeftRef,
+                            type: "text",
+                            value: pendingLeft,
+                            onChange: (e)=>setPendingLeft(e.target.value),
+                            onKeyDown: (e)=>{
+                                if (e.key === 'Escape') {
+                                    setPendingActive(false);
+                                    setPendingLeft('');
+                                    setPendingRight('');
+                                }
+                            },
+                            className: "w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 focus:border-[#9F80DA]",
+                            placeholder: "Left item..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1981,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            onClick: ()=>setPendingActive(true),
+                            className: "p-3 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-400 cursor-pointer hover:border-[#9F80DA] transition-colors",
+                            children: "Left item..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1983,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1979,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-gray-300 flex-shrink-0",
+                        children: "↔"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1986,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1",
+                        children: pendingActive ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            type: "text",
+                            value: pendingRight,
+                            onChange: (e)=>setPendingRight(e.target.value),
+                            onKeyDown: (e)=>{
+                                if (e.key === 'Enter') confirmPending();
+                                if (e.key === 'Escape') {
+                                    setPendingActive(false);
+                                    setPendingLeft('');
+                                    setPendingRight('');
+                                }
+                            },
+                            className: "w-full p-3 border-2 border-dashed border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 focus:border-[#9F80DA]",
+                            placeholder: "Right item..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1989,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            onClick: ()=>setPendingActive(true),
+                            className: "p-3 border-2 border-dashed border-gray-300 rounded-lg text-sm text-gray-400 cursor-pointer hover:border-[#9F80DA] transition-colors",
+                            children: "Right item..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 1991,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1987,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-6"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 1994,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 1978,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 1961,
+        columnNumber: 5
+    }, this);
+}
+// ─── SortingCategories: Notion-style inline editing ─────────────────
+function EditableSortingCategoriesBlock({ content, onDataChange }) {
+    const categories = content.categories || [];
+    const cards = content.cards || [];
+    const [deleteCatConfirmId, setDeleteCatConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [deleteCardConfirmId, setDeleteCardConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateCategory = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, value)=>{
+        onDataChange({
+            ...content,
+            categories: categories.map((c)=>c.id === id ? {
+                    ...c,
+                    title: value
+                } : c)
+        });
+    }, [
+        categories,
+        content,
+        onDataChange
+    ]);
+    const updateCard = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        onDataChange({
+            ...content,
+            cards: cards.map((c)=>c.id === id ? {
+                    ...c,
+                    [field]: value
+                } : c)
+        });
+    }, [
+        cards,
+        content,
+        onDataChange
+    ]);
+    const addCategory = ()=>{
+        onDataChange({
+            ...content,
+            categories: [
+                ...categories,
+                {
+                    id: `cat-${Date.now()}`,
+                    title: ''
+                }
+            ]
+        });
+    };
+    const addCard = (categoryId)=>{
+        onDataChange({
+            ...content,
+            cards: [
+                ...cards,
+                {
+                    id: `card-${Date.now()}`,
+                    title: '',
+                    correctCategory: categoryId
+                }
+            ]
+        });
+    };
+    const removeCategory = (id)=>{
+        onDataChange({
+            ...content,
+            categories: categories.filter((c)=>c.id !== id),
+            cards: cards.filter((c)=>c.correctCategory !== id)
+        });
+        setDeleteCatConfirmId(null);
+    };
+    const removeCard = (id)=>{
+        onDataChange({
+            ...content,
+            cards: cards.filter((c)=>c.id !== id)
+        });
+        setDeleteCardConfirmId(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-4",
+        children: [
+            categories.map((cat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "border-2 border-gray-200 rounded-lg p-4 group/cat hover:border-gray-300",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-2 mb-3",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1 cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: cat.title,
+                                        onChange: (v)=>updateCategory(cat.id, v),
+                                        tag: "h3",
+                                        className: "font-semibold text-gray-900",
+                                        placeholder: "Category name...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2027,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2026,
+                                    columnNumber: 13
+                                }, this),
+                                categories.length > 1 && (deleteCatConfirmId === cat.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-xs text-red-600",
+                                            children: "Delete?"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2032,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>removeCategory(cat.id),
+                                            className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2033,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteCatConfirmId(null),
+                                            className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2034,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2031,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteCatConfirmId(cat.id),
+                                    className: "text-gray-300 hover:text-red-500",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2037,
+                                        columnNumber: 116
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2037,
+                                    columnNumber: 17
+                                }, this))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2025,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "space-y-2 pl-4",
+                            children: [
+                                cards.filter((c)=>c.correctCategory === cat.id).map((card)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-start gap-2 p-2 bg-white border border-gray-200 rounded-lg shadow-sm",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex-1 cursor-text",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                    value: card.title,
+                                                    onChange: (v)=>updateCard(card.id, 'title', v),
+                                                    tag: "p",
+                                                    className: "text-sm text-gray-900",
+                                                    placeholder: "Card title...",
+                                                    multiline: false
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2045,
+                                                    columnNumber: 19
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2044,
+                                                columnNumber: 17
+                                            }, this),
+                                            deleteCardConfirmId === card.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex items-center gap-1 flex-shrink-0",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>removeCard(card.id),
+                                                        className: "px-1.5 py-0.5 text-xs text-white bg-red-500 rounded",
+                                                        children: "Yes"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                        lineNumber: 2049,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>setDeleteCardConfirmId(null),
+                                                        className: "px-1.5 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                                        children: "No"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                        lineNumber: 2050,
+                                                        columnNumber: 21
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2048,
+                                                columnNumber: 19
+                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setDeleteCardConfirmId(card.id),
+                                                className: "text-gray-300 hover:text-red-500 pt-0.5",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                    className: "w-3 h-3"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2053,
+                                                    columnNumber: 127
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2053,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, card.id, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2043,
+                                        columnNumber: 15
+                                    }, this)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    onClick: ()=>addCard(cat.id),
+                                    className: "p-2 border border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-xs text-gray-400 hover:text-[#9F80DA]",
+                                    children: "New card..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2057,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2041,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, cat.id, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2024,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addCategory,
+                className: "p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: "New category..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2061,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2022,
+        columnNumber: 5
+    }, this);
+}
+// ─── TwoField: Generic two-field comparison ─────────────────────────
+function EditableTwoFieldBlock({ content, onDataChange, fieldA, fieldB, labelA, labelB, colorA, colorB }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-6 rounded-lg border border-gray-200 bg-white",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex flex-col sm:flex-row gap-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `flex-1 p-4 rounded-lg ${colorA} cursor-text`,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: String(content.labelA || labelA),
+                            onChange: (v)=>onDataChange({
+                                    ...content,
+                                    labelA: v
+                                }),
+                            tag: "h3",
+                            className: "text-xs font-semibold text-gray-500 mb-2",
+                            placeholder: labelA,
+                            multiline: false
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2073,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: String(content[fieldA] || ''),
+                            onChange: (v)=>onDataChange({
+                                    ...content,
+                                    [fieldA]: v
+                                }),
+                            tag: "p",
+                            className: "text-sm text-gray-700",
+                            placeholder: `Enter ${labelA.toLowerCase()}...`
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2074,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2072,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `flex-1 p-4 rounded-lg ${colorB} cursor-text`,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: String(content.labelB || labelB),
+                            onChange: (v)=>onDataChange({
+                                    ...content,
+                                    labelB: v
+                                }),
+                            tag: "h3",
+                            className: "text-xs font-semibold text-gray-500 mb-2",
+                            placeholder: labelB,
+                            multiline: false
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2077,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: String(content[fieldB] || ''),
+                            onChange: (v)=>onDataChange({
+                                    ...content,
+                                    [fieldB]: v
+                                }),
+                            tag: "p",
+                            className: "text-sm text-gray-700",
+                            placeholder: `Enter ${labelB.toLowerCase()}...`
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2078,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2076,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 2071,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2070,
+        columnNumber: 5
+    }, this);
+}
+// ─── TwoList: Generic two-list comparison ───────────────────────────
+function TwoListColumnEditor({ items, colConfig, content, onDataChange, variant }) {
+    const [pendingActive, setPendingActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [pendingText, setPendingText] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const pendingRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const { field, label, icon: Icon, iconBg, iconColor, labelColor, bg, borderColor, bulletColor, headerBar, headerBarBg } = colConfig;
+    const customLabelKey = `customLabel_${field}`;
+    const displayLabel = String(content[customLabelKey] || label);
+    const updateLabel = (v)=>onDataChange({
+            ...content,
+            [customLabelKey]: v
+        });
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (pendingActive && pendingRef.current) pendingRef.current.focus();
+    }, [
+        pendingActive
+    ]);
+    const update = (idx, value)=>{
+        const n = [
+            ...items
+        ];
+        n[idx] = value;
+        onDataChange({
+            ...content,
+            [field]: n
+        });
+    };
+    const remove = (idx)=>onDataChange({
+            ...content,
+            [field]: items.filter((_, i)=>i !== idx)
+        });
+    const confirmPending = ()=>{
+        const text = pendingText.trim();
+        if (text) onDataChange({
+            ...content,
+            [field]: [
+                ...items,
+                text
+            ]
+        });
+        setPendingActive(false);
+        setPendingText('');
+    };
+    // Header-bar variant (BeforeAfter)
+    if (variant === 'header-bar') {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "flex-1 overflow-hidden rounded-lg",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `${headerBarBg} text-white text-center py-2 font-semibold`,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                        value: displayLabel,
+                        onChange: updateLabel,
+                        tag: "span",
+                        className: "text-white font-semibold",
+                        placeholder: label,
+                        multiline: false
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2113,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2112,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `p-4 ${bg}`,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                            className: "space-y-3",
+                            children: items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    className: "relative flex items-start gap-2 group/li",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex-1 cursor-text",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                value: item,
+                                                onChange: (v)=>update(idx, v),
+                                                tag: "p",
+                                                className: "text-sm text-gray-600",
+                                                placeholder: "New item...",
+                                                multiline: false
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2120,
+                                                columnNumber: 19
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2119,
+                                            columnNumber: 17
+                                        }, this),
+                                        deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "absolute right-0 top-0 flex items-center gap-1.5 px-2.5 py-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 whitespace-nowrap",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-xs text-red-600 font-medium",
+                                                    children: "Delete?"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2124,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>{
+                                                        remove(idx);
+                                                        setDeleteConfirmIdx(null);
+                                                    },
+                                                    className: "px-2 py-0.5 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded transition-colors",
+                                                    children: "Yes"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2125,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>setDeleteConfirmIdx(null),
+                                                    className: "px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors",
+                                                    children: "No"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2126,
+                                                    columnNumber: 21
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2123,
+                                            columnNumber: 19
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmIdx(idx),
+                                            className: "text-gray-400 hover:text-red-500 mt-0.5",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                className: "w-3 h-3"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2129,
+                                                columnNumber: 120
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2129,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, idx, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2118,
+                                    columnNumber: 15
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2116,
+                            columnNumber: 11
+                        }, this),
+                        pendingActive ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                            ref: pendingRef,
+                            type: "text",
+                            value: pendingText,
+                            onChange: (e)=>setPendingText(e.target.value),
+                            onKeyDown: (e)=>{
+                                if (e.key === 'Enter') confirmPending();
+                                if (e.key === 'Escape') {
+                                    setPendingActive(false);
+                                    setPendingText('');
+                                }
+                            },
+                            onBlur: confirmPending,
+                            className: "w-full mt-3 px-3 py-1.5 text-sm bg-white/50 border border-dashed border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 focus:border-[#9F80DA]",
+                            placeholder: "New item..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2135,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            onClick: ()=>setPendingActive(true),
+                            className: "mt-3 px-3 py-1.5 text-sm text-gray-400 border border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-[#9F80DA] transition-colors",
+                            children: "New item..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2137,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2115,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 2111,
+            columnNumber: 7
+        }, this);
+    }
+    // Bordered variant (DosDonts) or filled variant (ProsCons)
+    const wrapperClass = variant === 'bordered' ? `flex-1 p-4 rounded-lg border-2 ${borderColor} ${bg}` : `flex-1 p-4 rounded-lg ${bg}`;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: wrapperClass,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-2 mb-3",
+                children: [
+                    Icon && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: `w-6 h-6 ${variant === 'filled' ? 'w-8 h-8 rounded-full' : 'rounded'} ${iconBg} flex items-center justify-center`,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                            className: `w-4 h-4 ${iconColor}`
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2154,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2153,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                        value: displayLabel,
+                        onChange: updateLabel,
+                        tag: "span",
+                        className: `font-semibold ${labelColor || 'text-gray-700'}`,
+                        placeholder: label,
+                        multiline: false
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2157,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2151,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                className: "space-y-2",
+                children: items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                        className: "relative flex items-start gap-2 group/li",
+                        children: [
+                            bulletColor && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: `${bulletColor} mt-0.5`,
+                                children: "•"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2162,
+                                columnNumber: 29
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-1 cursor-text",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: item,
+                                    onChange: (v)=>update(idx, v),
+                                    tag: "p",
+                                    className: "text-sm text-gray-600",
+                                    placeholder: "New item...",
+                                    multiline: false
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2164,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2163,
+                                columnNumber: 13
+                            }, this),
+                            deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute right-0 top-0 flex items-center gap-1.5 px-2.5 py-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 whitespace-nowrap",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-xs text-red-600 font-medium",
+                                        children: "Delete?"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2168,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            remove(idx);
+                                            setDeleteConfirmIdx(null);
+                                        },
+                                        className: "px-2 py-0.5 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded transition-colors",
+                                        children: "Yes"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2169,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmIdx(null),
+                                        className: "px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors",
+                                        children: "No"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2170,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2167,
+                                columnNumber: 15
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setDeleteConfirmIdx(idx),
+                                className: "text-gray-400 hover:text-red-500 mt-0.5",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                    className: "w-3 h-3"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2173,
+                                    columnNumber: 116
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2173,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, idx, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2161,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2159,
+                columnNumber: 7
+            }, this),
+            pendingActive ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                ref: pendingRef,
+                type: "text",
+                value: pendingText,
+                onChange: (e)=>setPendingText(e.target.value),
+                onKeyDown: (e)=>{
+                    if (e.key === 'Enter') confirmPending();
+                    if (e.key === 'Escape') {
+                        setPendingActive(false);
+                        setPendingText('');
+                    }
+                },
+                onBlur: confirmPending,
+                className: "w-full mt-2 px-3 py-1.5 text-sm bg-white/50 border border-dashed border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 focus:border-[#9F80DA]",
+                placeholder: "New item..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2179,
+                columnNumber: 9
+            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: ()=>setPendingActive(true),
+                className: "mt-2 px-3 py-1.5 text-sm text-gray-400 border border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-[#9F80DA] transition-colors",
+                children: "New item..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2181,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2150,
+        columnNumber: 5
+    }, this);
+}
+function EditableTwoListBlock({ content, onDataChange, config }) {
+    const leftItems = content[config.left.field] || [];
+    const rightItems = content[config.right.field] || [];
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-6 rounded-lg border border-gray-200 bg-white",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "grid grid-cols-1 sm:grid-cols-2 gap-4",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(TwoListColumnEditor, {
+                    items: leftItems,
+                    colConfig: config.left,
+                    content: content,
+                    onDataChange: onDataChange,
+                    variant: config.variant
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2194,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(TwoListColumnEditor, {
+                    items: rightItems,
+                    colConfig: config.right,
+                    content: content,
+                    onDataChange: onDataChange,
+                    variant: config.variant
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2195,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 2193,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2192,
+        columnNumber: 5
+    }, this);
+}
+// ─── ComparisonItems: items with title/content ──────────────────────
+function EditableComparisonItemsBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const headerColors = [
+        'bg-blue-500',
+        'bg-green-500',
+        'bg-orange-500',
+        'bg-purple-500',
+        'bg-pink-500',
+        'bg-teal-500'
+    ];
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const newItems = [
+            ...items
+        ];
+        newItems[idx] = {
+            ...newItems[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            items: newItems
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>onDataChange({
+            ...content,
+            items: [
+                ...items,
+                {
+                    title: '',
+                    content: ''
+                }
+            ]
+        });
+    const removeItem = (idx)=>{
+        onDataChange({
+            ...content,
+            items: items.filter((_, i)=>i !== idx)
+        });
+        setDeleteConfirmIdx(null);
+    };
+    const getGridCols = ()=>{
+        const count = items.length + 1; // +1 for the placeholder card
+        if (count <= 2) return 'grid-cols-2';
+        if (count === 3) return 'grid-cols-2 lg:grid-cols-3';
+        return 'grid-cols-2 lg:grid-cols-4';
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: `grid ${getGridCols()} gap-4`,
+            children: [
+                items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "border border-gray-200 rounded-lg overflow-hidden group/ci hover:border-gray-300",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: `${headerColors[idx % headerColors.length]} px-4 py-3 flex items-center gap-2`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex-1 cursor-text",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: item.title,
+                                            onChange: (v)=>updateItem(idx, 'title', v),
+                                            tag: "h3",
+                                            className: "font-semibold text-white",
+                                            style: {
+                                                color: '#ffffff'
+                                            },
+                                            placeholder: "Title...",
+                                            multiline: false
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2231,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2230,
+                                        columnNumber: 15
+                                    }, this),
+                                    items.length > 1 && (deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-1 flex-shrink-0",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>removeItem(idx),
+                                                className: "px-2 py-0.5 text-xs text-white bg-red-700 rounded",
+                                                children: "Yes"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2236,
+                                                columnNumber: 21
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setDeleteConfirmIdx(null),
+                                                className: "px-2 py-0.5 text-xs text-white bg-white/30 rounded",
+                                                children: "No"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2237,
+                                                columnNumber: 21
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2235,
+                                        columnNumber: 19
+                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmIdx(idx),
+                                        className: "text-white/60 hover:text-white flex-shrink-0",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                            className: "w-4 h-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2240,
+                                            columnNumber: 125
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2240,
+                                        columnNumber: 19
+                                    }, this))
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2229,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "p-4 cursor-text",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: item.content,
+                                    onChange: (v)=>updateItem(idx, 'content', v),
+                                    tag: "p",
+                                    className: "text-sm text-gray-600",
+                                    placeholder: "Content..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2246,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2245,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, idx, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2227,
+                        columnNumber: 11
+                    }, this)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    onClick: addItem,
+                    className: "border-2 border-dashed border-gray-300 rounded-lg overflow-hidden hover:border-[#9F80DA] transition-colors cursor-pointer flex items-center justify-center min-h-[120px]",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "text-center text-gray-400",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                className: "w-5 h-5 mx-auto mb-1"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2253,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-sm",
+                                children: "New item"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2254,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2252,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2251,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 2225,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2224,
+        columnNumber: 5
+    }, this);
+}
+// ─── Chat: messages with sender/receiver ────────────────────────────
+function EditableChatBlock({ content, onDataChange, componentName }) {
+    const messages = content.messages || [];
+    const sender = content.sender || {
+        name: ''
+    };
+    const receiver = content.receiver || {
+        name: ''
+    };
+    const isQAVariant = componentName === 'ChatQABlock';
+    const variantLabel = componentName === 'ChatQABlock' ? 'Q&A Chat (no avatars, names only)' : componentName === 'ChatFeedbackBlock' ? 'Feedback Chat (avatars, names, timestamps)' : 'Chat (avatars, names, timestamps)';
+    const updateMessage = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...messages
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            messages: n
+        });
+    }, [
+        messages,
+        content,
+        onDataChange
+    ]);
+    const toggleParticipant = (idx)=>{
+        const n = [
+            ...messages
+        ];
+        n[idx] = {
+            ...n[idx],
+            participantId: messages[idx].participantId === 'sender' ? 'receiver' : 'sender'
+        };
+        onDataChange({
+            ...content,
+            messages: n
+        });
+    };
+    const addMessage = ()=>{
+        const last = messages.length > 0 ? messages[messages.length - 1].participantId : 'sender';
+        onDataChange({
+            ...content,
+            messages: [
+                ...messages,
+                {
+                    participantId: last === 'sender' ? 'receiver' : 'sender',
+                    text: ''
+                }
+            ]
+        });
+    };
+    const removeMessage = (idx)=>{
+        onDataChange({
+            ...content,
+            messages: messages.filter((_, i)=>i !== idx)
+        });
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "mb-3 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-lg flex items-center gap-2",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-xs font-medium text-gray-400",
+                        children: "Variant:"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2291,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-xs font-semibold text-[#9F80DA]",
+                        children: variantLabel
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2292,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2290,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex gap-4 mb-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                className: "text-xs font-medium text-gray-500",
+                                children: "Sender"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2296,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "px-3 py-1.5 text-sm border border-gray-200 rounded-lg",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: sender.name,
+                                    onChange: (v)=>onDataChange({
+                                            ...content,
+                                            sender: {
+                                                ...sender,
+                                                name: v
+                                            }
+                                        }),
+                                    tag: "span",
+                                    className: "text-sm",
+                                    placeholder: "Sender name...",
+                                    multiline: false
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2298,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2297,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2295,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                className: "text-xs font-medium text-gray-500",
+                                children: "Receiver"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2302,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "px-3 py-1.5 text-sm border border-gray-200 rounded-lg",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: receiver.name,
+                                    onChange: (v)=>onDataChange({
+                                            ...content,
+                                            receiver: {
+                                                ...receiver,
+                                                name: v
+                                            }
+                                        }),
+                                    tag: "span",
+                                    className: "text-sm",
+                                    placeholder: "Receiver name...",
+                                    multiline: false
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2304,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2303,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2301,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2294,
+                columnNumber: 7
+            }, this),
+            messages.map((msg, idx)=>{
+                const isSender = msg.participantId === 'sender';
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `flex ${isSender ? 'justify-start' : 'justify-end'} group/msg`,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-start gap-2 max-w-[80%]",
+                        children: [
+                            !isQAVariant && isSender && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-blue-300 flex items-center justify-center text-xs text-white font-bold shrink-0 mt-1",
+                                children: (sender.name || 'S')[0].toUpperCase()
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2314,
+                                columnNumber: 17
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: `flex-1 p-3 rounded-lg ${isSender ? 'bg-blue-100' : 'bg-green-100'}`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>toggleParticipant(idx),
+                                        className: "text-xs font-medium text-gray-500 mb-1 hover:text-[#9F80DA]",
+                                        children: [
+                                            isSender ? sender.name || 'Sender' : receiver.name || 'Receiver',
+                                            " ↔"
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2317,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "cursor-text",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: msg.text,
+                                            onChange: (v)=>updateMessage(idx, 'text', v),
+                                            tag: "p",
+                                            className: "text-sm text-gray-900",
+                                            placeholder: "Message text..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2319,
+                                            columnNumber: 19
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2318,
+                                        columnNumber: 17
+                                    }, this),
+                                    !isQAVariant && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-[10px] text-gray-400 mt-1 block",
+                                        children: "timestamp shown in preview"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2321,
+                                        columnNumber: 34
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>removeMessage(idx),
+                                        className: "text-xs text-gray-400 hover:text-red-500 mt-1",
+                                        children: "Remove"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2322,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2316,
+                                columnNumber: 15
+                            }, this),
+                            !isQAVariant && !isSender && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 rounded-full bg-green-300 flex items-center justify-center text-xs text-white font-bold shrink-0 mt-1",
+                                children: (receiver.name || 'R')[0].toUpperCase()
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2325,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2312,
+                        columnNumber: 13
+                    }, this)
+                }, idx, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2311,
+                    columnNumber: 11
+                }, this);
+            }),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addMessage,
+                className: "max-w-[80%] p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: "New message..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2331,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2289,
+        columnNumber: 5
+    }, this);
+}
+// ─── ChatQA: question/answer pairs (ChatQuestionWallBlock) ──────────
+function EditableChatQABlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...items
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            items: n
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>onDataChange({
+            ...content,
+            items: [
+                ...items,
+                {
+                    question: '',
+                    answer: ''
+                }
+            ]
+        });
+    const removeItem = (idx)=>onDataChange({
+            ...content,
+            items: items.filter((_, i)=>i !== idx)
+        });
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "space-y-2 group/qa",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-start",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "max-w-[80%] p-3 rounded-lg bg-purple-100 cursor-text",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-xs font-medium text-purple-600 mb-1",
+                                        children: "Question"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2355,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.question,
+                                        onChange: (v)=>updateItem(idx, 'question', v),
+                                        tag: "p",
+                                        className: "text-sm text-gray-900",
+                                        placeholder: "Question..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2356,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2354,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2353,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-end",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "max-w-[80%] p-3 rounded-lg bg-green-100 cursor-text",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: "text-xs font-medium text-green-600 mb-1",
+                                        children: "Answer"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2361,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.answer,
+                                        onChange: (v)=>updateItem(idx, 'answer', v),
+                                        tag: "p",
+                                        className: "text-sm text-gray-900",
+                                        placeholder: "Answer..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2362,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2360,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2359,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-center",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>removeItem(idx),
+                                className: "text-xs text-gray-400 hover:text-red-500",
+                                children: "Remove pair"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2366,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2365,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, idx, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2352,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addItem,
+                className: "p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: "New Q&A pair..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2370,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2350,
+        columnNumber: 5
+    }, this);
+}
+// ─── ChatDialog: left/right messages ────────────────────────────────
+function EditableChatDialogBlock({ content, onDataChange }) {
+    const messages = content.messages || [];
+    const updateMessage = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, value)=>{
+        const n = [
+            ...messages
+        ];
+        n[idx] = {
+            ...n[idx],
+            text: value
+        };
+        onDataChange({
+            ...content,
+            messages: n
+        });
+    }, [
+        messages,
+        content,
+        onDataChange
+    ]);
+    const toggleSide = (idx)=>{
+        const n = [
+            ...messages
+        ];
+        n[idx] = {
+            ...n[idx],
+            isLeft: !n[idx].isLeft
+        };
+        onDataChange({
+            ...content,
+            messages: n
+        });
+    };
+    const addMessage = ()=>{
+        const lastIsLeft = messages.length > 0 ? messages[messages.length - 1].isLeft : true;
+        onDataChange({
+            ...content,
+            messages: [
+                ...messages,
+                {
+                    text: '',
+                    isLeft: !lastIsLeft
+                }
+            ]
+        });
+    };
+    const removeMessage = (idx)=>{
+        onDataChange({
+            ...content,
+            messages: messages.filter((_, i)=>i !== idx)
+        });
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            messages.map((msg, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: `flex ${msg.isLeft ? 'justify-start' : 'justify-end'} group/dlg`,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: `max-w-[80%] p-3 rounded-lg ${msg.isLeft ? 'bg-gray-100' : 'bg-blue-100'}`,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>toggleSide(idx),
+                                className: "text-xs text-gray-500 hover:text-[#9F80DA] mb-1",
+                                children: [
+                                    msg.isLeft ? 'Left' : 'Right',
+                                    " ↔"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2402,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "cursor-text",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: msg.text,
+                                    onChange: (v)=>updateMessage(idx, v),
+                                    tag: "p",
+                                    className: "text-sm text-gray-900",
+                                    placeholder: "Message..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2404,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2403,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>removeMessage(idx),
+                                className: "text-xs text-gray-400 hover:text-red-500 mt-1",
+                                children: "Remove"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2406,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2401,
+                        columnNumber: 11
+                    }, this)
+                }, idx, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2400,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addMessage,
+                className: "max-w-[80%] p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: "New message..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2410,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2398,
+        columnNumber: 5
+    }, this);
+}
+// ─── Timeline: vertical timeline with line + dots ───────────────────
+function EditableTimelineBlock({ content, onDataChange }) {
+    const events = content.events || [];
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateEvent = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...events
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            events: n
+        });
+    }, [
+        events,
+        content,
+        onDataChange
+    ]);
+    const addEvent = ()=>{
+        onDataChange({
+            ...content,
+            events: [
+                ...events,
+                {
+                    id: `ev-${Date.now()}`,
+                    title: '',
+                    description: '',
+                    date: ''
+                }
+            ]
+        });
+    };
+    const removeEvent = (idx)=>{
+        onDataChange({
+            ...content,
+            events: events.filter((_, i)=>i !== idx)
+        });
+        setDeleteConfirmIdx(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "relative ml-4 pl-6 border-l-2 border-gray-300 space-y-6",
+            children: [
+                events.map((event, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "relative group/ev",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-[#9F80DA] border-2 border-white"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2435,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-start gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex-1 cursor-text space-y-1",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                value: String(event.date || ''),
+                                                onChange: (v)=>updateEvent(idx, 'date', v),
+                                                tag: "span",
+                                                className: "text-xs text-gray-500",
+                                                placeholder: "Date...",
+                                                multiline: false
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2438,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                value: String(event.title || ''),
+                                                onChange: (v)=>updateEvent(idx, 'title', v),
+                                                tag: "p",
+                                                className: "font-medium text-gray-900",
+                                                placeholder: "Event title...",
+                                                multiline: false
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2439,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                value: String(event.description || ''),
+                                                onChange: (v)=>updateEvent(idx, 'description', v),
+                                                tag: "p",
+                                                className: "text-sm text-gray-600",
+                                                placeholder: "Description..."
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2440,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2437,
+                                        columnNumber: 15
+                                    }, this),
+                                    deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-1 flex-shrink-0",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>removeEvent(idx),
+                                                className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                                children: "Yes"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2444,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setDeleteConfirmIdx(null),
+                                                className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                                children: "No"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2445,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2443,
+                                        columnNumber: 17
+                                    }, this) : events.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmIdx(idx),
+                                        className: "text-gray-300 hover:text-red-500 flex-shrink-0",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                            className: "w-4 h-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2448,
+                                            columnNumber: 125
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2448,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2436,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, String(event.id || idx), true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2433,
+                        columnNumber: 11
+                    }, this)),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "relative cursor-pointer",
+                    onClick: addEvent,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-gray-300 border-2 border-white"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2455,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm text-gray-400",
+                                children: "New event..."
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2457,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2456,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2454,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+            lineNumber: 2431,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2430,
+        columnNumber: 5
+    }, this);
+}
+// ─── FlashCard: card-like UI ────────────────────────────────────────
+function EditableFlashCardBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...items
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            items: n
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>{
+        onDataChange({
+            ...content,
+            items: [
+                ...items,
+                {
+                    id: `fc-${Date.now()}`,
+                    question: '',
+                    answer: ''
+                }
+            ]
+        });
+    };
+    const removeItem = (idx)=>{
+        onDataChange({
+            ...content,
+            items: items.filter((_, i)=>i !== idx)
+        });
+        setDeleteConfirmIdx(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "border-2 border-gray-200 rounded-lg overflow-hidden group/fc hover:border-gray-300",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "p-4 bg-white cursor-text",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-xs font-medium text-[#9F80DA] mb-1",
+                                    children: "Front"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2485,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: String(item.question || ''),
+                                    onChange: (v)=>updateItem(idx, 'question', v),
+                                    tag: "p",
+                                    className: "font-medium text-gray-900",
+                                    placeholder: "Question..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2486,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2484,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "p-4 bg-gray-50 border-t border-gray-200 cursor-text",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-xs font-medium text-gray-400 mb-1",
+                                    children: "Back"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2490,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: String(item.answer || ''),
+                                    onChange: (v)=>updateItem(idx, 'answer', v),
+                                    tag: "p",
+                                    className: "text-sm text-gray-600",
+                                    placeholder: "Answer..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2491,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2489,
+                            columnNumber: 11
+                        }, this),
+                        items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex justify-end px-3 py-1.5 bg-gray-50 border-t border-gray-100",
+                            children: deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-1",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-xs text-red-600",
+                                        children: "Delete?"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2498,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>removeItem(idx),
+                                        className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                        children: "Yes"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2499,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmIdx(null),
+                                        className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                        children: "No"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2500,
+                                        columnNumber: 19
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2497,
+                                columnNumber: 17
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setDeleteConfirmIdx(idx),
+                                className: "text-gray-300 hover:text-red-500",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                    className: "w-4 h-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2503,
+                                    columnNumber: 111
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2503,
+                                columnNumber: 17
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2495,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, String(item.id || idx), true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2482,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:border-[#9F80DA] transition-colors",
+                onClick: addItem,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-sm text-gray-400 text-center",
+                    children: "New card..."
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2511,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2510,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2480,
+        columnNumber: 5
+    }, this);
+}
+// ─── Testimonial: card grid ─────────────────────────────────────────
+function EditableTestimonialBlock({ content, onDataChange }) {
+    const testimonials = content.testimonials || [];
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...testimonials
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            testimonials: n
+        });
+    }, [
+        testimonials,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>{
+        onDataChange({
+            ...content,
+            testimonials: [
+                ...testimonials,
+                {
+                    id: `test-${Date.now()}`,
+                    content: '',
+                    name: '',
+                    role: '',
+                    avatar: ''
+                }
+            ]
+        });
+    };
+    const removeItem = (idx)=>{
+        onDataChange({
+            ...content,
+            testimonials: testimonials.filter((_, i)=>i !== idx)
+        });
+        setDeleteConfirmIdx(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "grid grid-cols-1 sm:grid-cols-2 gap-4",
+                children: [
+                    testimonials.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "relative border border-gray-200 rounded-lg p-4 group/test hover:border-gray-300",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-2xl text-gray-200 block mb-2",
+                                    children: "“"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2537,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "cursor-text mb-3",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: String(item.content || ''),
+                                        onChange: (v)=>updateItem(idx, 'content', v),
+                                        tag: "p",
+                                        className: "text-sm text-gray-700 italic",
+                                        placeholder: "Testimonial text..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2539,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2538,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-3",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "w-10 h-10 rounded-full bg-gray-100 overflow-hidden cursor-pointer flex-shrink-0",
+                                            onClick: ()=>setShowPicker(idx),
+                                            children: item.avatar ? // eslint-disable-next-line @next/next/no-img-element
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                src: String(item.avatar),
+                                                alt: "",
+                                                className: "w-full h-full object-cover"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2545,
+                                                columnNumber: 19
+                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "w-full h-full flex items-center justify-center text-gray-400 text-xs",
+                                                children: "Av"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2547,
+                                                columnNumber: 19
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2542,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex-1 cursor-text",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                    value: String(item.name || ''),
+                                                    onChange: (v)=>updateItem(idx, 'name', v),
+                                                    tag: "p",
+                                                    className: "text-sm font-medium text-gray-900",
+                                                    placeholder: "Name...",
+                                                    multiline: false
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2551,
+                                                    columnNumber: 17
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                    value: String(item.role || ''),
+                                                    onChange: (v)=>updateItem(idx, 'role', v),
+                                                    tag: "p",
+                                                    className: "text-xs text-gray-500",
+                                                    placeholder: "Role...",
+                                                    multiline: false
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2552,
+                                                    columnNumber: 17
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2550,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2541,
+                                    columnNumber: 13
+                                }, this),
+                                testimonials.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute top-2 right-2",
+                                    children: deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex items-center gap-1 px-2 py-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>removeItem(idx),
+                                                className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                                children: "Yes"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2560,
+                                                columnNumber: 21
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>setDeleteConfirmIdx(null),
+                                                className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                                children: "No"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2561,
+                                                columnNumber: 21
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2559,
+                                        columnNumber: 19
+                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmIdx(idx),
+                                        className: "text-gray-300 hover:text-red-500",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                            className: "w-4 h-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2564,
+                                            columnNumber: 113
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2564,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2557,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, String(item.id || idx), true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2536,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:border-[#9F80DA] transition-colors flex items-center justify-center min-h-[120px]",
+                        onClick: addItem,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-sm text-gray-400",
+                            children: "New testimonial..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2572,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2571,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2534,
+                columnNumber: 7
+            }, this),
+            showPicker !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: String(testimonials[showPicker]?.avatar || ''),
+                onSelect: (url)=>{
+                    updateItem(showPicker, 'avatar', url);
+                    setShowPicker(null);
+                },
+                onClose: ()=>setShowPicker(null)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2576,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2533,
+        columnNumber: 5
+    }, this);
+}
+// ─── ItemsBlock: Generic configurable items ─────────────────────────
+function EditableItemsBlock({ content, onDataChange, field, fieldA, fieldB, fieldC, labelA, labelB, labelC, title, placeholderLabel }) {
+    const items = content[field] || [];
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, key, value)=>{
+        const n = [
+            ...items
+        ];
+        n[idx] = {
+            ...n[idx],
+            [key]: value
+        };
+        onDataChange({
+            ...content,
+            [field]: n
+        });
+    }, [
+        items,
+        content,
+        onDataChange,
+        field
+    ]);
+    const addItem = ()=>{
+        const newItem = {
+            id: `item-${Date.now()}`,
+            [fieldA]: '',
+            [fieldB]: ''
+        };
+        if (fieldC) newItem[fieldC] = '';
+        onDataChange({
+            ...content,
+            [field]: [
+                ...items,
+                newItem
+            ]
+        });
+    };
+    const removeItem = (idx)=>{
+        onDataChange({
+            ...content,
+            [field]: items.filter((_, i)=>i !== idx)
+        });
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                className: "text-sm font-semibold text-gray-500 mb-3",
+                children: title
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2602,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "space-y-3",
+                children: items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "p-4 border-2 border-gray-200 rounded-lg group/gi hover:border-gray-300",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-start gap-2",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1 cursor-text space-y-1",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: String(item[fieldA] || ''),
+                                            onChange: (v)=>updateItem(idx, fieldA, v),
+                                            tag: "p",
+                                            className: "font-medium text-gray-900",
+                                            placeholder: labelA,
+                                            multiline: false
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2608,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: String(item[fieldB] || ''),
+                                            onChange: (v)=>updateItem(idx, fieldB, v),
+                                            tag: "p",
+                                            className: "text-sm text-gray-600",
+                                            placeholder: labelB
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2609,
+                                            columnNumber: 17
+                                        }, this),
+                                        fieldC && labelC && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: String(item[fieldC] || ''),
+                                            onChange: (v)=>updateItem(idx, fieldC, v),
+                                            tag: "p",
+                                            className: "text-xs text-gray-500",
+                                            placeholder: labelC,
+                                            multiline: false
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2610,
+                                            columnNumber: 38
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2607,
+                                    columnNumber: 15
+                                }, this),
+                                items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>removeItem(idx),
+                                    className: "text-gray-300 hover:text-red-500",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2612,
+                                        columnNumber: 121
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2612,
+                                    columnNumber: 36
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2606,
+                            columnNumber: 13
+                        }, this)
+                    }, String(item.id || idx), false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2605,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2603,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: addItem,
+                className: "flex items-center gap-1 text-sm text-[#9F80DA] hover:text-[#8A6BC5] font-medium mt-3",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                        className: "w-4 h-4"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2617,
+                        columnNumber: 130
+                    }, this),
+                    " ",
+                    placeholderLabel
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2617,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2601,
+        columnNumber: 5
+    }, this);
+}
+// ─── Reviews: star-rated reviews ────────────────────────────────────
+function EditableReviewsBlock({ content, onDataChange }) {
+    const reviews = content.reviews || [];
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateReview = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...reviews
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            reviews: n
+        });
+    }, [
+        reviews,
+        content,
+        onDataChange
+    ]);
+    const addReview = ()=>{
+        onDataChange({
+            ...content,
+            reviews: [
+                ...reviews,
+                {
+                    name: '',
+                    rating: 5,
+                    comment: '',
+                    avatar: ''
+                }
+            ]
+        });
+    };
+    const removeReview = (idx)=>{
+        onDataChange({
+            ...content,
+            reviews: reviews.filter((_, i)=>i !== idx)
+        });
+        setDeleteConfirmIdx(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            reviews.map((review, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "p-4 border-2 border-gray-200 rounded-lg group/rev hover:border-gray-300",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-start gap-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-12 h-12 rounded-full bg-gray-100 overflow-hidden cursor-pointer flex-shrink-0",
+                                onClick: ()=>setShowPicker(idx),
+                                children: review.avatar ? // eslint-disable-next-line @next/next/no-img-element
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                    src: review.avatar,
+                                    alt: "",
+                                    className: "w-full h-full object-cover"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2646,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "w-full h-full flex items-center justify-center text-gray-400 text-xs",
+                                    children: "Av"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2648,
+                                    columnNumber: 17
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2643,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-1 cursor-text space-y-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: review.name,
+                                        onChange: (v)=>updateReview(idx, 'name', v),
+                                        tag: "p",
+                                        className: "font-medium text-gray-900",
+                                        placeholder: "Reviewer name...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2652,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex gap-1",
+                                        children: [
+                                            1,
+                                            2,
+                                            3,
+                                            4,
+                                            5
+                                        ].map((n)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                onClick: ()=>updateReview(idx, 'rating', n),
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$star$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Star$3e$__["Star"], {
+                                                    className: `w-4 h-4 ${n <= review.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2656,
+                                                    columnNumber: 21
+                                                }, this)
+                                            }, n, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2655,
+                                                columnNumber: 19
+                                            }, this))
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2653,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: review.comment,
+                                        onChange: (v)=>updateReview(idx, 'comment', v),
+                                        tag: "p",
+                                        className: "text-sm text-gray-600",
+                                        placeholder: "Review text..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2660,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2651,
+                                columnNumber: 13
+                            }, this),
+                            reviews.length > 1 && (deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-1 flex-shrink-0",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>removeReview(idx),
+                                        className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                        children: "Yes"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2665,
+                                        columnNumber: 19
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setDeleteConfirmIdx(null),
+                                        className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                        children: "No"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2666,
+                                        columnNumber: 19
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2664,
+                                columnNumber: 17
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setDeleteConfirmIdx(idx),
+                                className: "text-gray-300 hover:text-red-500 flex-shrink-0",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                    className: "w-4 h-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2669,
+                                    columnNumber: 125
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2669,
+                                columnNumber: 17
+                            }, this))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2641,
+                        columnNumber: 11
+                    }, this)
+                }, idx, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2640,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-4 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-[#9F80DA] transition-colors",
+                onClick: addReview,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                    className: "text-sm text-gray-400 text-center",
+                    children: "New review..."
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2677,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2676,
+                columnNumber: 7
+            }, this),
+            showPicker !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: reviews[showPicker]?.avatar || '',
+                onSelect: (url)=>{
+                    updateReview(showPicker, 'avatar', url);
+                    setShowPicker(null);
+                },
+                onClose: ()=>setShowPicker(null)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2680,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2638,
+        columnNumber: 5
+    }, this);
+}
+// ─── Table: editable grid ───────────────────────────────────────────
+function EditableTableBlock({ content, onDataChange }) {
+    const rows = content.rows || 2;
+    const columns = content.columns || 2;
+    const tableContent = content.content || Array.from({
+        length: rows
+    }, ()=>Array(columns).fill(''));
+    const [deleteConfirmRow, setDeleteConfirmRow] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateCell = (r, c, value)=>{
+        const n = tableContent.map((row, ri)=>ri === r ? row.map((cell, ci)=>ci === c ? value : cell) : [
+                ...row
+            ]);
+        onDataChange({
+            ...content,
+            content: n
+        });
+    };
+    const addRow = ()=>{
+        onDataChange({
+            ...content,
+            content: [
+                ...tableContent,
+                Array(columns).fill('')
+            ],
+            rows: rows + 1
+        });
+    };
+    const addColumn = ()=>{
+        onDataChange({
+            ...content,
+            content: tableContent.map((row)=>[
+                    ...row,
+                    ''
+                ]),
+            columns: columns + 1
+        });
+    };
+    const removeRow = (r)=>{
+        if (rows <= 1) return;
+        onDataChange({
+            ...content,
+            content: tableContent.filter((_, i)=>i !== r),
+            rows: rows - 1
+        });
+        setDeleteConfirmRow(null);
+    };
+    const removeColumn = (c)=>{
+        if (columns <= 1) return;
+        onDataChange({
+            ...content,
+            content: tableContent.map((row)=>row.filter((_, i)=>i !== c)),
+            columns: columns - 1
+        });
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg overflow-x-auto",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                className: "w-full border-collapse",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                    children: [
+                        tableContent.map((row, ri)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                children: [
+                                    row.map((cell, ci)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                            className: `border border-gray-200 px-3 py-2 cursor-text ${ri === 0 ? 'font-semibold bg-gray-50' : 'bg-white'}`,
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                value: cell,
+                                                onChange: (v)=>updateCell(ri, ci, v),
+                                                tag: "span",
+                                                className: `text-sm ${ri === 0 ? 'font-semibold' : ''}`,
+                                                placeholder: ri === 0 ? 'Header...' : 'Cell...',
+                                                multiline: false
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2712,
+                                                columnNumber: 19
+                                            }, this)
+                                        }, ci, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2711,
+                                            columnNumber: 17
+                                        }, this)),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                        className: "border-0 w-8",
+                                        children: rows > 1 && (deleteConfirmRow === ri ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-1 whitespace-nowrap",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>removeRow(ri),
+                                                    className: "px-1.5 py-0.5 text-xs text-white bg-red-500 rounded",
+                                                    children: "Yes"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2719,
+                                                    columnNumber: 23
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>setDeleteConfirmRow(null),
+                                                    className: "px-1.5 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                                    children: "No"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 2720,
+                                                    columnNumber: 23
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2718,
+                                            columnNumber: 21
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmRow(ri),
+                                            className: "text-gray-300 hover:text-red-500 px-1",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                                className: "w-3 h-3"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 2723,
+                                                columnNumber: 119
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2723,
+                                            columnNumber: 21
+                                        }, this))
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2715,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, ri, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2709,
+                                columnNumber: 13
+                            }, this)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                            children: [
+                                Array.from({
+                                    length: columns
+                                }).map((_, ci)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                        className: "border border-dashed border-gray-300 px-3 py-2 text-sm text-gray-400 cursor-pointer hover:bg-gray-50",
+                                        onClick: addRow,
+                                        children: ci === 0 ? 'New row...' : ''
+                                    }, ci, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2732,
+                                        columnNumber: 15
+                                    }, this)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                    className: "border-0 w-8"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2736,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2730,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2707,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2706,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex gap-3 mt-2",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: addColumn,
+                        className: "text-xs text-[#9F80DA] hover:text-[#8A6BC5] font-medium flex items-center gap-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                className: "w-3 h-3"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2741,
+                                columnNumber: 129
+                            }, this),
+                            " Column"
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2741,
+                        columnNumber: 9
+                    }, this),
+                    columns > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>removeColumn(columns - 1),
+                        className: "text-xs text-gray-400 hover:text-red-500 font-medium flex items-center gap-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                className: "w-3 h-3"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2742,
+                                columnNumber: 164
+                            }, this),
+                            " Last column"
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2742,
+                        columnNumber: 25
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2740,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2705,
+        columnNumber: 5
+    }, this);
+}
+// ─── Buttons ────────────────────────────────────────────────────────
+function EditableButtonBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        onDataChange({
+            ...content,
+            items: items.map((i)=>i.id === id ? {
+                    ...i,
+                    [field]: value
+                } : i)
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>onDataChange({
+            ...content,
+            items: [
+                ...items,
+                {
+                    id: `btn-${Date.now()}`,
+                    text: '',
+                    url: ''
+                }
+            ]
+        });
+    const removeItem = (id)=>onDataChange({
+            ...content,
+            items: items.filter((i)=>i.id !== id)
+        });
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-2",
+        children: [
+            items.map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center gap-3 group/btn",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1 space-y-2",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "inline-block px-6 py-2.5 bg-[#9F80DA] text-white rounded-full cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: item.text,
+                                        onChange: (v)=>updateItem(item.id, 'text', v),
+                                        tag: "span",
+                                        className: "text-sm font-medium text-white",
+                                        style: {
+                                            color: '#ffffff'
+                                        },
+                                        placeholder: "Button text...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2766,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2765,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BlurInput, {
+                                    value: item.url,
+                                    onSave: (v)=>updateItem(item.id, 'url', v),
+                                    placeholder: "URL..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2768,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2764,
+                            columnNumber: 11
+                        }, this),
+                        items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>removeItem(item.id),
+                            className: "text-gray-300 hover:text-red-500",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                className: "w-4 h-4"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2770,
+                                columnNumber: 121
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2770,
+                            columnNumber: 32
+                        }, this)
+                    ]
+                }, item.id, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2763,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addItem,
+                className: "inline-block px-6 py-2.5 border-2 border-dashed border-gray-300 rounded-full hover:border-[#9F80DA] transition-colors cursor-pointer text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: "New button..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2773,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2761,
+        columnNumber: 5
+    }, this);
+}
+function EditableButtonStackBlock({ content, onDataChange }) {
+    const items = content.items || [];
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...items
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            items: n
+        });
+    }, [
+        items,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>onDataChange({
+            ...content,
+            items: [
+                ...items,
+                {
+                    text: '',
+                    description: '',
+                    url: ''
+                }
+            ]
+        });
+    const removeItem = (idx)=>onDataChange({
+            ...content,
+            items: items.filter((_, i)=>i !== idx)
+        });
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "cursor-text mb-2",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.title || ''),
+                    onChange: (v)=>onDataChange({
+                            ...content,
+                            title: v
+                        }),
+                    tag: "h3",
+                    className: "font-semibold text-gray-900",
+                    placeholder: "Stack title...",
+                    multiline: false
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2792,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2791,
+                columnNumber: 7
+            }, this),
+            items.map((item, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "p-3 border-2 border-gray-200 rounded-lg group/bs hover:border-gray-300",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-start gap-3",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex-1 space-y-1",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "px-3 py-1.5 border border-gray-200 rounded cursor-text",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: item.text,
+                                            onChange: (v)=>updateItem(idx, 'text', v),
+                                            tag: "span",
+                                            className: "text-sm font-medium",
+                                            placeholder: "Button text...",
+                                            multiline: false
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2799,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2798,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "px-3 py-1 border border-gray-200 rounded cursor-text",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: item.description || '',
+                                            onChange: (v)=>updateItem(idx, 'description', v),
+                                            tag: "span",
+                                            className: "text-xs text-gray-500",
+                                            placeholder: "Description...",
+                                            multiline: false
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2802,
+                                            columnNumber: 17
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2801,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BlurInput, {
+                                        value: item.url,
+                                        onSave: (v)=>updateItem(idx, 'url', v),
+                                        className: "w-full px-3 py-1 text-xs text-gray-400 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30",
+                                        placeholder: "URL..."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2804,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2797,
+                                columnNumber: 13
+                            }, this),
+                            items.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>removeItem(idx),
+                                className: "text-gray-300 hover:text-red-500",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                    className: "w-4 h-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2806,
+                                    columnNumber: 119
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2806,
+                                columnNumber: 34
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2796,
+                        columnNumber: 11
+                    }, this)
+                }, idx, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2795,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addItem,
+                className: "p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: "New button..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2810,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2790,
+        columnNumber: 5
+    }, this);
+}
+// ─── Media ──────────────────────────────────────────────────────────
+function EditableMediaUrlBlock({ content, onDataChange, label }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                className: "text-sm font-semibold text-gray-500",
+                children: label
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2820,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "px-3 py-2 border border-gray-200 rounded-lg cursor-text",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.title || ''),
+                    onChange: (v)=>onDataChange({
+                            ...content,
+                            title: v
+                        }),
+                    tag: "span",
+                    className: "text-sm",
+                    placeholder: "Title...",
+                    multiline: false
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2822,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2821,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BlurInput, {
+                value: String(content.url || ''),
+                onSave: (v)=>onDataChange({
+                        ...content,
+                        url: v
+                    }),
+                className: "w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30",
+                placeholder: `${label} URL...`
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2824,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2819,
+        columnNumber: 5
+    }, this);
+}
+function EditableEmbedBlock({ content, onDataChange }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                className: "text-sm font-semibold text-gray-500",
+                children: "Embed"
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2832,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "px-3 py-2 border border-gray-200 rounded-lg cursor-text",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                    value: String(content.title || ''),
+                    onChange: (v)=>onDataChange({
+                            ...content,
+                            title: v
+                        }),
+                    tag: "span",
+                    className: "text-sm",
+                    placeholder: "Title...",
+                    multiline: false
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2834,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2833,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BlurInput, {
+                value: String(content.url || ''),
+                onSave: (v)=>onDataChange({
+                        ...content,
+                        url: v
+                    }),
+                className: "w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30",
+                placeholder: "URL..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2836,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                value: String(content.html || ''),
+                onChange: (e)=>onDataChange({
+                        ...content,
+                        html: e.target.value
+                    }),
+                className: "w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30 font-mono",
+                rows: 4,
+                placeholder: "Embed HTML..."
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2837,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2831,
+        columnNumber: 5
+    }, this);
+}
+function EditableAttachmentBlock({ content, onDataChange }) {
+    const attachments = content.attachments || [];
+    const updateItem = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        onDataChange({
+            ...content,
+            attachments: attachments.map((a)=>a.id === id ? {
+                    ...a,
+                    [field]: value
+                } : a)
+        });
+    }, [
+        attachments,
+        content,
+        onDataChange
+    ]);
+    const addItem = ()=>onDataChange({
+            ...content,
+            attachments: [
+                ...attachments,
+                {
+                    id: `att-${Date.now()}`,
+                    name: '',
+                    url: ''
+                }
+            ]
+        });
+    const removeItem = (id)=>onDataChange({
+            ...content,
+            attachments: attachments.filter((a)=>a.id !== id)
+        });
+    const getFileIcon = (name)=>{
+        const ext = name.split('.').pop()?.toLowerCase() || '';
+        const colors = {
+            pdf: 'text-red-500',
+            doc: 'text-blue-500',
+            docx: 'text-blue-500',
+            xls: 'text-green-600',
+            xlsx: 'text-green-600',
+            ppt: 'text-orange-500',
+            pptx: 'text-orange-500'
+        };
+        return colors[ext] || 'text-gray-400';
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-2",
+        children: [
+            attachments.map((att)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center gap-3 p-3 border-2 border-gray-200 rounded-lg group/att hover:border-gray-300",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: `w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 ${getFileIcon(att.name)}`,
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-xs font-bold uppercase",
+                                children: att.name.split('.').pop() || '?'
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2863,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2862,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1 space-y-1",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "px-3 py-1.5 border border-gray-200 rounded cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: att.name,
+                                        onChange: (v)=>updateItem(att.id, 'name', v),
+                                        tag: "span",
+                                        className: "text-sm",
+                                        placeholder: "File name...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2867,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2866,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(BlurInput, {
+                                    value: att.url,
+                                    onSave: (v)=>updateItem(att.id, 'url', v),
+                                    className: "w-full px-3 py-1 text-xs text-gray-500 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-[#9F80DA]/30",
+                                    placeholder: "File URL..."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2869,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2865,
+                            columnNumber: 11
+                        }, this),
+                        attachments.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>removeItem(att.id),
+                            className: "text-gray-300 hover:text-red-500",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                className: "w-4 h-4"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2871,
+                                columnNumber: 126
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2871,
+                            columnNumber: 38
+                        }, this)
+                    ]
+                }, att.id, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 2861,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onClick: addItem,
+                className: "flex items-center gap-3 p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-sm text-gray-400 hover:text-[#9F80DA]",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-10 h-10 rounded-lg border border-dashed border-gray-300 flex items-center justify-center",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                            className: "w-4 h-4"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2875,
+                            columnNumber: 117
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2875,
+                        columnNumber: 9
+                    }, this),
+                    "New attachment..."
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2874,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2859,
+        columnNumber: 5
+    }, this);
+}
+// ─── Carousel / Gallery ─────────────────────────────────────────────
+function EditableCarouselBlock({ content, onDataChange }) {
+    const images = content.images || [];
+    const [currentSlide, setCurrentSlide] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateImage = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...images
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            images: n
+        });
+    }, [
+        images,
+        content,
+        onDataChange
+    ]);
+    const addImage = ()=>{
+        onDataChange({
+            ...content,
+            images: [
+                ...images,
+                {
+                    src: '',
+                    alt: '',
+                    caption: ''
+                }
+            ]
+        });
+        setCurrentSlide(images.length);
+    };
+    const removeImage = (idx)=>{
+        onDataChange({
+            ...content,
+            images: images.filter((_, i)=>i !== idx)
+        });
+        setDeleteConfirmIdx(null);
+        if (currentSlide >= images.length - 1) setCurrentSlide(Math.max(0, images.length - 2));
+    };
+    const current = images[currentSlide];
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            current && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-full h-full group/img cursor-pointer relative",
+                        onClick: ()=>setShowPicker(true),
+                        children: [
+                            current.src ? // eslint-disable-next-line @next/next/no-img-element
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                src: current.src,
+                                alt: current.alt || '',
+                                className: "w-full h-full object-cover"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2915,
+                                columnNumber: 15
+                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-full h-full flex items-center justify-center text-gray-400",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                    className: "w-8 h-8"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2917,
+                                    columnNumber: 93
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2917,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute inset-0 bg-transparent group-hover/img:bg-black/20 transition-colors flex items-end justify-center pb-3 opacity-0 group-hover/img:opacity-100 pointer-events-none rounded-lg z-10",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "px-3 py-1.5 bg-white/90 text-sm text-gray-600 rounded-lg shadow-sm border border-gray-200 flex items-center gap-1.5",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                            className: "w-4 h-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2921,
+                                            columnNumber: 17
+                                        }, this),
+                                        "Change image"
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2920,
+                                    columnNumber: 15
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2919,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2912,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: `absolute bottom-0 inset-x-0 p-3 cursor-text transition-colors ${current.caption ? 'bg-black/40' : 'bg-transparent'}`,
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: current.caption || '',
+                            onChange: (v)=>updateImage(currentSlide, 'caption', v),
+                            tag: "span",
+                            className: "text-sm text-white",
+                            style: {
+                                color: '#ffffff'
+                            },
+                            placeholder: "Caption...",
+                            multiline: false
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2928,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2927,
+                        columnNumber: 11
+                    }, this),
+                    images.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute top-2 right-2",
+                        children: deleteConfirmIdx === currentSlide ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-1 px-2 py-1 bg-white border border-gray-200 rounded-lg shadow-lg",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>removeImage(currentSlide),
+                                    className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                    children: "Yes"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2935,
+                                    columnNumber: 19
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteConfirmIdx(null),
+                                    className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                    children: "No"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2936,
+                                    columnNumber: 19
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2934,
+                            columnNumber: 17
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setDeleteConfirmIdx(currentSlide),
+                            className: "w-6 h-6 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 shadow-sm",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                className: "w-3 h-3"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 2939,
+                                columnNumber: 196
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2939,
+                            columnNumber: 17
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2932,
+                        columnNumber: 13
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2911,
+                columnNumber: 9
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center justify-center gap-2",
+                children: [
+                    images.map((_, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setCurrentSlide(idx),
+                            className: `w-2.5 h-2.5 rounded-full transition-colors ${idx === currentSlide ? 'bg-[#9F80DA]' : 'bg-gray-300 hover:bg-gray-400'}`
+                        }, idx, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2948,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: addImage,
+                        className: "w-6 h-6 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400 hover:border-[#9F80DA] hover:text-[#9F80DA] transition-colors",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                            className: "w-3 h-3"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2951,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2950,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2946,
+                columnNumber: 7
+            }, this),
+            showPicker && current && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: current.src || '',
+                onSelect: (url)=>{
+                    updateImage(currentSlide, 'src', url);
+                    setShowPicker(false);
+                },
+                onClose: ()=>setShowPicker(false)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2955,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2908,
+        columnNumber: 5
+    }, this);
+}
+function EditableGalleryBlock({ content, onDataChange }) {
+    const images = content.images || [];
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [deleteConfirmIdx, setDeleteConfirmIdx] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateImage = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((idx, field, value)=>{
+        const n = [
+            ...images
+        ];
+        n[idx] = {
+            ...n[idx],
+            [field]: value
+        };
+        onDataChange({
+            ...content,
+            images: n
+        });
+    }, [
+        images,
+        content,
+        onDataChange
+    ]);
+    const addImage = ()=>onDataChange({
+            ...content,
+            images: [
+                ...images,
+                {
+                    src: '',
+                    alt: ''
+                }
+            ]
+        });
+    const removeImage = (idx)=>{
+        onDataChange({
+            ...content,
+            images: images.filter((_, i)=>i !== idx)
+        });
+        setDeleteConfirmIdx(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "grid grid-cols-2 sm:grid-cols-3 gap-3",
+                children: [
+                    images.map((img, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "relative group/gimg",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "w-full h-32 bg-gray-100 rounded-lg overflow-hidden cursor-pointer",
+                                    onClick: ()=>setShowPicker(idx),
+                                    children: img.src ? // eslint-disable-next-line @next/next/no-img-element
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                        src: img.src,
+                                        alt: img.alt || '',
+                                        className: "w-full h-full object-cover"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2982,
+                                        columnNumber: 17
+                                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "w-full h-full flex items-center justify-center text-gray-400",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                            className: "w-8 h-8"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2984,
+                                            columnNumber: 95
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2984,
+                                        columnNumber: 17
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2979,
+                                    columnNumber: 13
+                                }, this),
+                                images.length > 1 && (deleteConfirmIdx === idx ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute top-1 right-1 flex items-center gap-1 px-2 py-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>removeImage(idx),
+                                            className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2990,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmIdx(null),
+                                            className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 2991,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2989,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteConfirmIdx(idx),
+                                    className: "absolute top-1 right-1 w-5 h-5 bg-white/90 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 shadow-sm",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-3 h-3"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 2994,
+                                        columnNumber: 210
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 2994,
+                                    columnNumber: 17
+                                }, this))
+                            ]
+                        }, idx, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 2978,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: addImage,
+                        className: "w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 hover:border-[#9F80DA] hover:text-[#9F80DA] transition-colors",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                            className: "w-6 h-6"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3000,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 2999,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 2976,
+                columnNumber: 7
+            }, this),
+            showPicker !== null && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: images[showPicker]?.src || '',
+                onSelect: (url)=>{
+                    updateImage(showPicker, 'src', url);
+                    setShowPicker(null);
+                },
+                onClose: ()=>setShowPicker(null)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3004,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 2975,
+        columnNumber: 5
+    }, this);
+}
+// ─── StoryTelling ───────────────────────────────────────────────────
+function EditableStoryBlock({ content, onDataChange }) {
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-start gap-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-16 h-16 rounded-full bg-gray-100 overflow-hidden cursor-pointer flex-shrink-0",
+                        onClick: ()=>setShowPicker(true),
+                        children: content.avatarImage ? // eslint-disable-next-line @next/next/no-img-element
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                            src: String(content.avatarImage),
+                            alt: String(content.avatarName || ''),
+                            className: "w-full h-full object-cover"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3021,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "w-full h-full flex items-center justify-center text-gray-400",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                className: "w-6 h-6"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3023,
+                                columnNumber: 91
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3023,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3018,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex-1 space-y-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "cursor-text",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                    value: String(content.avatarName || ''),
+                                    onChange: (v)=>onDataChange({
+                                            ...content,
+                                            avatarName: v
+                                        }),
+                                    tag: "p",
+                                    className: "font-medium text-sm text-gray-700",
+                                    placeholder: "Character name...",
+                                    multiline: false
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3028,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3027,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "relative",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "absolute left-0 top-3 -ml-2 w-0 h-0 border-t-[6px] border-t-transparent border-r-[8px] border-r-gray-200 border-b-[6px] border-b-transparent"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 3032,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "p-4 bg-gray-50 rounded-lg border border-gray-200 cursor-text ml-1",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                            value: String(content.text || ''),
+                                            onChange: (v)=>onDataChange({
+                                                    ...content,
+                                                    text: v
+                                                }),
+                                            tag: "p",
+                                            className: "text-sm text-gray-900",
+                                            placeholder: "Story text..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 3034,
+                                            columnNumber: 15
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 3033,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3031,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3026,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3017,
+                columnNumber: 7
+            }, this),
+            showPicker && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: String(content.avatarImage || ''),
+                onSelect: (url)=>{
+                    onDataChange({
+                        ...content,
+                        avatarImage: url
+                    });
+                    setShowPicker(false);
+                },
+                onClose: ()=>setShowPicker(false)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3040,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 3016,
+        columnNumber: 5
+    }, this);
+}
+// ─── Columns ────────────────────────────────────────────────────────
+function EditableColumnsBlock({ content, onDataChange }) {
+    const colCount = content.columns || 2;
+    // Migration: if content.content is a string (old format), split into array
+    const columnContent = Array.isArray(content.columnContent) ? content.columnContent : typeof content.content === 'string' ? Array.from({
+        length: colCount
+    }, (_, i)=>i === 0 ? content.content : '') : Array.from({
+        length: colCount
+    }, ()=>'');
+    // Ensure array length matches column count
+    const normalizedContent = Array.from({
+        length: colCount
+    }, (_, i)=>columnContent[i] || '');
+    const updateColumn = (idx, value)=>{
+        const n = [
+            ...normalizedContent
+        ];
+        n[idx] = value;
+        onDataChange({
+            ...content,
+            columnContent: n,
+            content: n.join('\n\n')
+        });
+    };
+    const changeColumnCount = (n)=>{
+        const newContent = Array.from({
+            length: n
+        }, (_, i)=>normalizedContent[i] || '');
+        onDataChange({
+            ...content,
+            columns: n,
+            columnContent: newContent,
+            content: newContent.join('\n\n')
+        });
+    };
+    const gridClass = colCount === 1 ? 'grid-cols-1' : colCount === 2 ? 'grid-cols-2' : colCount === 3 ? 'grid-cols-3' : 'grid-cols-4';
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-3",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-3",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-sm text-gray-500",
+                        children: "Columns:"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3076,
+                        columnNumber: 9
+                    }, this),
+                    [
+                        1,
+                        2,
+                        3,
+                        4
+                    ].map((n)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>changeColumnCount(n),
+                            className: `w-8 h-8 rounded-lg text-sm font-medium transition-colors ${colCount === n ? 'bg-[#9F80DA] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`,
+                            children: n
+                        }, n, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3078,
+                            columnNumber: 11
+                        }, this))
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3075,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `grid ${gridClass} gap-4`,
+                children: normalizedContent.map((col, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "p-3 border border-gray-200 rounded-lg cursor-text min-h-[4em]",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: col,
+                            onChange: (v)=>updateColumn(idx, v),
+                            tag: "div",
+                            className: "text-sm text-gray-900 leading-relaxed",
+                            style: {
+                                lineHeight: '1.6'
+                            },
+                            placeholder: `Column ${idx + 1}...`
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3084,
+                            columnNumber: 13
+                        }, this)
+                    }, idx, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3083,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3081,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 3074,
+        columnNumber: 5
+    }, this);
+}
+// ─── Scenario ───────────────────────────────────────────────────────
+function EditableScenarioBlock({ content, onDataChange }) {
+    const answers = content.answers || [];
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [deleteConfirmId, setDeleteConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const updateAnswer = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        let n = answers.map((a)=>a.id === id ? {
+                ...a,
+                [field]: value
+            } : a);
+        if (field === 'isCorrect' && value === true) {
+            n = n.map((a)=>a.id === id ? a : {
+                    ...a,
+                    isCorrect: false
+                });
+        }
+        onDataChange({
+            ...content,
+            answers: n
+        });
+    }, [
+        answers,
+        content,
+        onDataChange
+    ]);
+    const addAnswer = ()=>{
+        const maxOrder = answers.length > 0 ? Math.max(...answers.map((a)=>a.order)) : 0;
+        onDataChange({
+            ...content,
+            answers: [
+                ...answers,
+                {
+                    id: `sa-${Date.now()}`,
+                    text: '',
+                    order: maxOrder + 1,
+                    isCorrect: false
+                }
+            ]
+        });
+    };
+    const removeAnswer = (id)=>{
+        onDataChange({
+            ...content,
+            answers: answers.filter((a)=>a.id !== id)
+        });
+        setDeleteConfirmId(null);
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-4",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-full h-full cursor-pointer",
+                        onClick: ()=>setShowPicker(true),
+                        children: content.image ? // eslint-disable-next-line @next/next/no-img-element
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                            src: String(content.image),
+                            alt: "Scenario",
+                            className: "w-full h-full object-cover"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3121,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "w-full h-full flex items-center justify-center text-gray-400 gap-2",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                    className: "w-8 h-8"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3123,
+                                    columnNumber: 97
+                                }, this),
+                                " Click to set image"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3123,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3118,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute bottom-0 inset-x-0 bg-black/50 p-4 cursor-text",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                            value: String(content.question || ''),
+                            onChange: (v)=>onDataChange({
+                                    ...content,
+                                    question: v
+                                }),
+                            tag: "h3",
+                            className: "text-lg font-semibold text-white",
+                            style: {
+                                color: '#ffffff'
+                            },
+                            placeholder: "Scenario question..."
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3128,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3127,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3117,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "space-y-2",
+                children: [
+                    answers.map((ans)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-3 p-3 border-2 border-gray-200 rounded-lg hover:border-gray-300",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>updateAnswer(ans.id, 'isCorrect', !ans.isCorrect),
+                                    className: `flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${ans.isCorrect ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300'}`,
+                                    children: ans.isCorrect && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
+                                        className: "w-3 h-3"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 3135,
+                                        columnNumber: 33
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3134,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex-1 cursor-text",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                        value: ans.text,
+                                        onChange: (v)=>updateAnswer(ans.id, 'text', v),
+                                        tag: "span",
+                                        className: "text-sm text-gray-900",
+                                        placeholder: "Answer text...",
+                                        multiline: false
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 3138,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3137,
+                                    columnNumber: 13
+                                }, this),
+                                answers.length > 1 && (deleteConfirmId === ans.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-1 flex-shrink-0",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>removeAnswer(ans.id),
+                                            className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 3143,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmId(null),
+                                            className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 3144,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3142,
+                                    columnNumber: 17
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setDeleteConfirmId(ans.id),
+                                    className: "text-gray-300 hover:text-red-500",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 3147,
+                                        columnNumber: 113
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3147,
+                                    columnNumber: 17
+                                }, this))
+                            ]
+                        }, ans.id, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3133,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        onClick: addAnswer,
+                        className: "p-3 border-2 border-dashed border-gray-300 rounded-lg hover:border-[#9F80DA] transition-colors cursor-pointer text-center text-sm text-gray-400 hover:text-[#9F80DA]",
+                        children: "New answer..."
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3152,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3131,
+                columnNumber: 7
+            }, this),
+            showPicker && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: String(content.image || ''),
+                onSelect: (url)=>{
+                    onDataChange({
+                        ...content,
+                        image: url
+                    });
+                    setShowPicker(false);
+                },
+                onClose: ()=>setShowPicker(false)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3155,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 3115,
+        columnNumber: 5
+    }, this);
+}
+// ─── LabeledImage: image with positioned pin labels ─────────────────
+function EditableLabeledImageBlock({ content, onDataChange }) {
+    const labels = content.labels || [];
+    const [showPicker, setShowPicker] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [editingPinId, setEditingPinId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [deleteConfirmId, setDeleteConfirmId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const imageRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const updateLabel = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, field, value)=>{
+        onDataChange({
+            ...content,
+            labels: labels.map((l)=>l.id === id ? {
+                    ...l,
+                    [field]: value
+                } : l)
+        });
+    }, [
+        labels,
+        content,
+        onDataChange
+    ]);
+    const addPin = (e)=>{
+        if (!imageRef.current) return;
+        const rect = imageRef.current.getBoundingClientRect();
+        const x = Math.round((e.clientX - rect.left) / rect.width * 100);
+        const y = Math.round((e.clientY - rect.top) / rect.height * 100);
+        const newId = `pin-${Date.now()}`;
+        onDataChange({
+            ...content,
+            labels: [
+                ...labels,
+                {
+                    id: newId,
+                    text: '',
+                    description: '',
+                    x,
+                    y
+                }
+            ]
+        });
+        setEditingPinId(newId);
+    };
+    const removeLabel = (id)=>{
+        onDataChange({
+            ...content,
+            labels: labels.filter((l)=>l.id !== id)
+        });
+        setDeleteConfirmId(null);
+        if (editingPinId === id) setEditingPinId(null);
+    };
+    const image = String(content.image || '');
+    const src = !image ? '' : image === '/sample.jpeg' || image.includes('sample') ? 'https://placehold.co/800x600/e2e8f0/64748b?text=Sample+Image' : image;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-2",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                ref: imageRef,
+                className: "relative w-full h-64 bg-gray-100 rounded-lg overflow-hidden cursor-crosshair",
+                onClick: addPin,
+                children: [
+                    src ? // eslint-disable-next-line @next/next/no-img-element
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                        src: src,
+                        alt: "Labeled",
+                        className: "w-full h-full object-cover pointer-events-none"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3201,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "w-full h-full flex items-center justify-center text-gray-400 pointer-events-none",
+                        children: "Click to add pins"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3203,
+                        columnNumber: 11
+                    }, this),
+                    labels.map((label)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "absolute transform -translate-x-1/2 -translate-y-1/2 z-10",
+                            style: {
+                                left: `${label.x}%`,
+                                top: `${label.y}%`
+                            },
+                            onClick: (e)=>{
+                                e.stopPropagation();
+                                setEditingPinId(editingPinId === label.id ? null : label.id);
+                            },
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "w-6 h-6 rounded-full bg-[#9F80DA] border-2 border-white shadow-md flex items-center justify-center cursor-pointer",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "text-[10px] text-white font-bold",
+                                        children: labels.indexOf(label) + 1
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                        lineNumber: 3214,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3213,
+                                    columnNumber: 13
+                                }, this),
+                                editingPinId === label.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "absolute top-8 left-1/2 -translate-x-1/2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg p-3 z-50",
+                                    onClick: (e)=>e.stopPropagation(),
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "cursor-text mb-1",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                value: label.text,
+                                                onChange: (v)=>updateLabel(label.id, 'text', v),
+                                                tag: "p",
+                                                className: "text-sm text-gray-900",
+                                                placeholder: "Label text..."
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 3220,
+                                                columnNumber: 19
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 3219,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "cursor-text mb-2",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableText"], {
+                                                value: label.description || '',
+                                                onChange: (v)=>updateLabel(label.id, 'description', v),
+                                                tag: "p",
+                                                className: "text-xs text-gray-500 mt-1",
+                                                placeholder: "Description..."
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                lineNumber: 3223,
+                                                columnNumber: 19
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 3222,
+                                            columnNumber: 17
+                                        }, this),
+                                        deleteConfirmId === label.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex items-center gap-1",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-xs text-red-600",
+                                                    children: "Delete?"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 3227,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>removeLabel(label.id),
+                                                    className: "px-2 py-0.5 text-xs text-white bg-red-500 rounded",
+                                                    children: "Yes"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 3228,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                    onClick: ()=>setDeleteConfirmId(null),
+                                                    className: "px-2 py-0.5 text-xs text-gray-600 bg-gray-200 rounded",
+                                                    children: "No"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                                    lineNumber: 3229,
+                                                    columnNumber: 21
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 3226,
+                                            columnNumber: 19
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setDeleteConfirmId(label.id),
+                                            className: "text-xs text-gray-400 hover:text-red-500",
+                                            children: "Remove pin"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                            lineNumber: 3232,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3218,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, label.id, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3207,
+                            columnNumber: 11
+                        }, this))
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3198,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-2",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>setShowPicker(true),
+                        className: "text-xs text-[#9F80DA] hover:text-[#8A6BC5] font-medium flex items-center gap-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Image$3e$__["Image"], {
+                                className: "w-3 h-3"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3240,
+                                columnNumber: 145
+                            }, this),
+                            " Change image"
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3240,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-xs text-gray-400",
+                        children: "Click on image to add pins"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3241,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3239,
+                columnNumber: 7
+            }, this),
+            showPicker && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["ImagePickerModal"], {
+                currentUrl: image,
+                onSelect: (url)=>{
+                    onDataChange({
+                        ...content,
+                        image: url
+                    });
+                    setShowPicker(false);
+                },
+                onClose: ()=>setShowPicker(false)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3244,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 3197,
+        columnNumber: 5
+    }, this);
+}
+// ─── Separator: editable separator controls ─────────────────────────
+function EditableSeparatorBlock({ content, onDataChange }) {
+    const showLine = content.showLine !== false;
+    const showNumber = content.showNumber === true;
+    const lineColor = content.lineColor || '#d1d5db';
+    const thickness = content.thickness || 'thin';
+    const colorPresets = [
+        {
+            label: 'Gray',
+            value: '#d1d5db'
+        },
+        {
+            label: 'Purple',
+            value: '#9F80DA'
+        },
+        {
+            label: 'Blue',
+            value: '#3b82f6'
+        },
+        {
+            label: 'Green',
+            value: '#22c55e'
+        },
+        {
+            label: 'Orange',
+            value: '#f97316'
+        }
+    ];
+    const thicknessMap = {
+        thin: '1px',
+        medium: '2px',
+        thick: '4px'
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "w-full p-4 rounded-lg space-y-4",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "py-4",
+                children: showLine ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center gap-3",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1",
+                            style: {
+                                borderTop: `${thicknessMap[thickness]} solid ${lineColor}`
+                            }
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3274,
+                            columnNumber: 13
+                        }, this),
+                        showNumber && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold text-white",
+                            style: {
+                                backgroundColor: lineColor
+                            },
+                            children: "1"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3276,
+                            columnNumber: 15
+                        }, this),
+                        showNumber && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex-1",
+                            style: {
+                                borderTop: `${thicknessMap[thickness]} solid ${lineColor}`
+                            }
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                            lineNumber: 3278,
+                            columnNumber: 28
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 3273,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "h-8"
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                    lineNumber: 3281,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3271,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex flex-wrap items-center gap-4 text-sm",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        className: "flex items-center gap-2",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "checkbox",
+                                checked: showLine,
+                                onChange: (e)=>onDataChange({
+                                        ...content,
+                                        showLine: e.target.checked
+                                    }),
+                                className: "accent-[#9F80DA]"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3287,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-gray-600",
+                                children: "Show line"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3288,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3286,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                        className: "flex items-center gap-2",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "checkbox",
+                                checked: showNumber,
+                                onChange: (e)=>onDataChange({
+                                        ...content,
+                                        showNumber: e.target.checked
+                                    }),
+                                className: "accent-[#9F80DA]"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3291,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-gray-600",
+                                children: "Show number"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3292,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3290,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-2",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-gray-500",
+                                children: "Height:"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3295,
+                                columnNumber: 11
+                            }, this),
+                            [
+                                'thin',
+                                'medium',
+                                'thick'
+                            ].map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>onDataChange({
+                                            ...content,
+                                            thickness: t
+                                        }),
+                                    className: `px-2 py-0.5 text-xs rounded transition-colors ${thickness === t ? 'bg-[#9F80DA] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`,
+                                    children: t
+                                }, t, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3297,
+                                    columnNumber: 13
+                                }, this))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3294,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-1",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: "text-gray-500",
+                                children: "Color:"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                lineNumber: 3301,
+                                columnNumber: 11
+                            }, this),
+                            colorPresets.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>onDataChange({
+                                            ...content,
+                                            lineColor: c.value
+                                        }),
+                                    className: `w-5 h-5 rounded-full border-2 transition-all ${lineColor === c.value ? 'border-gray-800 scale-110' : 'border-gray-200'}`,
+                                    style: {
+                                        backgroundColor: c.value
+                                    },
+                                    title: c.label
+                                }, c.value, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                                    lineNumber: 3303,
+                                    columnNumber: 13
+                                }, this))
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                        lineNumber: 3300,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+                lineNumber: 3285,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx",
+        lineNumber: 3269,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "PropertiesPopup",
+    ()=>PropertiesPopup
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$minus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Minus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/minus.js [app-ssr] (ecmascript) <export default as Minus>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
+'use client';
+;
+;
+;
+function getComponentProperties(componentName) {
+    const properties = [];
+    // Image blocks
+    if (componentName === 'ImageBlock' || componentName.startsWith('ImageWithText')) {
+        properties.push({
+            key: 'zoomable',
+            label: 'Zoomable',
+            type: 'toggle'
+        });
+    }
+    // GalleryBlock
+    if (componentName === 'GalleryBlock') {
+        properties.push({
+            key: 'zoomable',
+            label: 'Zoomable',
+            type: 'toggle'
+        });
+    }
+    // CarouselBlock
+    if (componentName === 'CarouselBlock') {
+        properties.push({
+            key: 'autoPlay',
+            label: 'Auto Play',
+            type: 'toggle'
+        });
+        properties.push({
+            key: 'autoPlayInterval',
+            label: 'Interval (seconds)',
+            type: 'number',
+            min: 3,
+            max: 10,
+            step: 1
+        });
+    }
+    // TableBlock
+    if (componentName === 'TableBlock') {
+        properties.push({
+            key: 'headerRow',
+            label: 'Header Row',
+            type: 'toggle'
+        });
+        properties.push({
+            key: 'stripedRows',
+            label: 'Striped Rows',
+            type: 'toggle'
+        });
+    }
+    // AccordionBlock
+    if (componentName === 'AccordionBlock') {
+        properties.push({
+            key: 'openFirst',
+            label: 'Open First Item',
+            type: 'toggle'
+        });
+    }
+    // TabsBlock
+    if (componentName === 'TabsBlock') {
+        properties.push({
+            key: 'openFirst',
+            label: 'Open First Tab',
+            type: 'toggle'
+        });
+    }
+    return properties;
+}
+const DEFAULTS = {
+    zoomable: false,
+    autoPlay: false,
+    autoPlayInterval: 5,
+    headerRow: true,
+    stripedRows: false,
+    openFirst: true
+};
+function PropertiesPopup({ componentName, content, onDataChange, onClose }) {
+    const popupRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const properties = getComponentProperties(componentName);
+    // Close on click outside
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const handleClick = (e)=>{
+            if (popupRef.current && !popupRef.current.contains(e.target)) {
+                onClose();
+            }
+        };
+        document.addEventListener('mousedown', handleClick);
+        return ()=>document.removeEventListener('mousedown', handleClick);
+    }, [
+        onClose
+    ]);
+    function getValue(key) {
+        return content[key] !== undefined ? content[key] : DEFAULTS[key];
+    }
+    function handleChange(key, value) {
+        onDataChange({
+            ...content,
+            [key]: value
+        });
+    }
+    if (properties.length === 0) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            ref: popupRef,
+            className: "absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-white rounded-lg shadow-xl border border-gray-200 z-50",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between px-4 py-3 border-b border-gray-100",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "text-sm font-semibold text-gray-800",
+                            children: "Properties"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                            lineNumber: 127,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: onClose,
+                            className: "p-0.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                className: "w-4 h-4"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                                lineNumber: 134,
+                                columnNumber: 13
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                            lineNumber: 130,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                    lineNumber: 126,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "px-4 py-6 text-center text-sm text-gray-400",
+                    children: "No properties available for this block."
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                    lineNumber: 137,
+                    columnNumber: 9
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+            lineNumber: 122,
+            columnNumber: 7
+        }, this);
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        ref: popupRef,
+        className: "absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 bg-white rounded-lg shadow-xl border border-gray-200 z-50",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center justify-between px-4 py-3 border-b border-gray-100",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "text-sm font-semibold text-gray-800",
+                        children: "Properties"
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                        lineNumber: 151,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: onClose,
+                        className: "p-0.5 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                            className: "w-4 h-4"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                            lineNumber: 156,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                        lineNumber: 152,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 150,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-3 space-y-3",
+                children: properties.map((prop)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            prop.type === 'toggle' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ToggleProperty, {
+                                label: prop.label,
+                                value: getValue(prop.key),
+                                onChange: (val)=>handleChange(prop.key, val)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                                lineNumber: 165,
+                                columnNumber: 15
+                            }, this),
+                            prop.type === 'select' && prop.options && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SelectProperty, {
+                                label: prop.label,
+                                value: getValue(prop.key),
+                                options: prop.options,
+                                onChange: (val)=>handleChange(prop.key, val)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                                lineNumber: 172,
+                                columnNumber: 15
+                            }, this),
+                            prop.type === 'number' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(NumberProperty, {
+                                label: prop.label,
+                                value: getValue(prop.key),
+                                min: prop.min ?? 0,
+                                max: prop.max ?? 100,
+                                step: prop.step ?? 1,
+                                onChange: (val)=>handleChange(prop.key, val)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                                lineNumber: 180,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, prop.key, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                        lineNumber: 163,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 161,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+        lineNumber: 145,
+        columnNumber: 5
+    }, this);
+}
+function ToggleProperty({ label, value, onChange }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex items-center justify-between",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                className: "text-sm text-gray-700",
+                children: label
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 207,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: ()=>onChange(!value),
+                className: `relative w-9 h-5 rounded-full transition-colors ${value ? 'bg-[#9F80DA]' : 'bg-gray-300'}`,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                    className: `absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${value ? 'translate-x-4' : 'translate-x-0'}`
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                    lineNumber: 214,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 208,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+        lineNumber: 206,
+        columnNumber: 5
+    }, this);
+}
+function SelectProperty({ label, value, options, onChange }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "space-y-1",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                className: "text-sm text-gray-700",
+                children: label
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 237,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                value: value,
+                onChange: (e)=>onChange(e.target.value),
+                className: "w-full text-sm border border-gray-300 rounded-md px-2 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-1 focus:ring-[#9F80DA] focus:border-[#9F80DA]",
+                children: options.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                        value: opt.value,
+                        children: opt.label
+                    }, opt.value, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                        lineNumber: 244,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 238,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+        lineNumber: 236,
+        columnNumber: 5
+    }, this);
+}
+function NumberProperty({ label, value, min, max, step, onChange }) {
+    function decrement() {
+        const next = value - step;
+        if (next >= min) onChange(next);
+    }
+    function increment() {
+        const next = value + step;
+        if (next <= max) onChange(next);
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex items-center justify-between",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                className: "text-sm text-gray-700",
+                children: label
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 280,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-1",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: decrement,
+                        disabled: value <= min,
+                        className: "w-6 h-6 flex items-center justify-center rounded bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$minus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Minus$3e$__["Minus"], {
+                            className: "w-3 h-3"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                            lineNumber: 287,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                        lineNumber: 282,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "w-8 text-center text-sm font-medium text-gray-700",
+                        children: value
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                        lineNumber: 289,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: increment,
+                        disabled: value >= max,
+                        className: "w-6 h-6 flex items-center justify-center rounded bg-gray-100 text-gray-600 hover:bg-gray-200 disabled:opacity-40 disabled:cursor-not-allowed transition-colors",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                            className: "w-3 h-3"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                            lineNumber: 297,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                        lineNumber: 292,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+                lineNumber: 281,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx",
+        lineNumber: 279,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/EditorBlock.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "EditorBlock",
+    ()=>EditorBlock
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$grip$2d$vertical$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GripVertical$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/grip-vertical.js [app-ssr] (ecmascript) <export default as GripVertical>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sparkles.js [app-ssr] (ecmascript) <export default as Sparkles>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/eye.js [app-ssr] (ecmascript) <export default as Eye>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$copy$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Copy$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/copy.js [app-ssr] (ecmascript) <export default as Copy>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trash-2.js [app-ssr] (ecmascript) <export default as Trash2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/chevron-down.js [app-ssr] (ecmascript) <export default as ChevronDown>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/settings.js [app-ssr] (ecmascript) <export default as Settings>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$block$2d$metadata$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/block-metadata.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableCourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$PropertiesPopup$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/PropertiesPopup.tsx [app-ssr] (ecmascript)");
+'use client';
+;
+;
+;
+;
+;
+;
+function EditorBlock({ component, componentId, componentDbId, groupKey, name, onDelete, onDuplicate, onPreview, onAIPrompt, onSwitchStyle, onDragStart, onDragOver, onDragEnd, isDragging, onDataChange, availableVariants }) {
+    const [showDeleteConfirm, setShowDeleteConfirm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [showStyleDropdown, setShowStyleDropdown] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [showProperties, setShowProperties] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const styleDropdownRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const propertiesRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const blockRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const meta = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$block$2d$metadata$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getBlockMeta"])(component.componentName);
+    const Icon = meta.icon;
+    const hasVariants = groupKey && availableVariants && availableVariants.length > 1;
+    // Close style dropdown on click outside
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (!showStyleDropdown) return;
+        const handleClick = (e)=>{
+            if (styleDropdownRef.current && !styleDropdownRef.current.contains(e.target)) {
+                setShowStyleDropdown(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClick);
+        return ()=>document.removeEventListener('mousedown', handleClick);
+    }, [
+        showStyleDropdown
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        ref: blockRef,
+        className: `relative bg-white rounded-xl border-2 transition-all duration-200 ${isDragging ? 'opacity-50 scale-[1.02] shadow-xl border-[#9F80DA] ring-2 ring-[#9F80DA]/20' : 'border-gray-200 hover:border-[#9F80DA]'}`,
+        onDragOver: (e)=>onDragOver(e, componentId),
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative flex items-center justify-between px-3 py-2 bg-gray-50 border-b border-gray-200 rounded-t-xl",
+                children: [
+                    hasVariants ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "relative z-10",
+                        ref: styleDropdownRef,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setShowStyleDropdown(!showStyleDropdown),
+                                className: `flex items-center gap-1.5 px-2 py-1 rounded-md transition-colors ${meta.color} hover:opacity-80`,
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                                        className: `w-3.5 h-3.5 ${meta.textColor}`
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 98,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: `text-xs font-medium ${meta.textColor}`,
+                                        children: meta.label
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 99,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$down$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronDown$3e$__["ChevronDown"], {
+                                        className: `w-3 h-3 ${meta.textColor} transition-transform ${showStyleDropdown ? 'rotate-180' : ''}`
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 100,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                lineNumber: 94,
+                                columnNumber: 13
+                            }, this),
+                            showStyleDropdown && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "absolute top-full left-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg py-1 z-50 w-max",
+                                children: availableVariants.map((variant)=>{
+                                    const variantMeta = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$block$2d$metadata$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getBlockMeta"])(variant.componentName);
+                                    const VIcon = variantMeta.icon;
+                                    const isActive = variant.componentId === componentDbId;
+                                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>{
+                                            if (!isActive) {
+                                                onSwitchStyle(componentId, variant.componentId);
+                                            }
+                                            setShowStyleDropdown(false);
+                                        },
+                                        className: `w-full flex items-center gap-2 px-4 py-2 text-sm transition-colors whitespace-nowrap ${isActive ? 'bg-[#9F80DA]/10 text-[#9F80DA] font-medium' : 'text-gray-700 hover:bg-gray-50'}`,
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(VIcon, {
+                                                className: "w-4 h-4"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                                lineNumber: 123,
+                                                columnNumber: 23
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                children: variant.name
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                                lineNumber: 124,
+                                                columnNumber: 23
+                                            }, this),
+                                            isActive && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "ml-auto text-xs text-[#9F80DA]",
+                                                children: "Current"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                                lineNumber: 126,
+                                                columnNumber: 25
+                                            }, this)
+                                        ]
+                                    }, variant.componentId, true, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 109,
+                                        columnNumber: 21
+                                    }, this);
+                                })
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                lineNumber: 103,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                        lineNumber: 93,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: `relative z-10 flex items-center gap-1.5 px-2 py-1 rounded-md ${meta.color}`,
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(Icon, {
+                                className: `w-3.5 h-3.5 ${meta.textColor}`
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                lineNumber: 136,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                className: `text-xs font-medium ${meta.textColor}`,
+                                children: meta.label
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                lineNumber: 137,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                        lineNumber: 135,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "absolute inset-x-0 flex items-center justify-center gap-1 pointer-events-none",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center gap-1 pointer-events-auto",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ToolbarButton, {
+                                    icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
+                                        className: "w-3.5 h-3.5"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 145,
+                                        columnNumber: 19
+                                    }, void 0),
+                                    tooltip: "AI",
+                                    onClick: onAIPrompt
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                    lineNumber: 144,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "relative",
+                                    ref: propertiesRef,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ToolbarButton, {
+                                            icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$settings$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Settings$3e$__["Settings"], {
+                                                className: "w-3.5 h-3.5"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                                lineNumber: 151,
+                                                columnNumber: 21
+                                            }, void 0),
+                                            tooltip: "Properties",
+                                            onClick: ()=>setShowProperties(!showProperties),
+                                            active: showProperties
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                            lineNumber: 150,
+                                            columnNumber: 13
+                                        }, this),
+                                        showProperties && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$PropertiesPopup$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PropertiesPopup"], {
+                                            componentName: component.componentName,
+                                            content: component.content,
+                                            onDataChange: onDataChange,
+                                            onClose: ()=>setShowProperties(false)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                            lineNumber: 157,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                    lineNumber: 149,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ToolbarButton, {
+                                    icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
+                                        className: "w-3.5 h-3.5"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 166,
+                                        columnNumber: 19
+                                    }, void 0),
+                                    tooltip: "Preview",
+                                    onClick: onPreview
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                    lineNumber: 165,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ToolbarButton, {
+                                    icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$copy$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Copy$3e$__["Copy"], {
+                                        className: "w-3.5 h-3.5"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 171,
+                                        columnNumber: 19
+                                    }, void 0),
+                                    tooltip: "Duplicate",
+                                    onClick: ()=>onDuplicate(componentId)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                    lineNumber: 170,
+                                    columnNumber: 11
+                                }, this),
+                                showDeleteConfirm ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "flex items-center gap-1 px-2 py-1 bg-red-50 rounded-md",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "text-xs text-red-600 font-medium",
+                                            children: "Delete?"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                            lineNumber: 177,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>{
+                                                onDelete(componentId);
+                                                setShowDeleteConfirm(false);
+                                            },
+                                            className: "px-2 py-0.5 text-xs font-medium text-white bg-red-500 hover:bg-red-600 rounded transition-colors",
+                                            children: "Yes"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                            lineNumber: 178,
+                                            columnNumber: 15
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>setShowDeleteConfirm(false),
+                                            className: "px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-200 hover:bg-gray-300 rounded transition-colors",
+                                            children: "No"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                            lineNumber: 187,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                    lineNumber: 176,
+                                    columnNumber: 13
+                                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(ToolbarButton, {
+                                    icon: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
+                                        className: "w-3.5 h-3.5"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                        lineNumber: 196,
+                                        columnNumber: 21
+                                    }, void 0),
+                                    tooltip: "Delete",
+                                    onClick: ()=>setShowDeleteConfirm(true),
+                                    variant: "danger"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                                    lineNumber: 195,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                            lineNumber: 143,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                        lineNumber: 142,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        draggable: true,
+                        onDragStart: (e)=>{
+                            if (blockRef.current) {
+                                const rect = blockRef.current.getBoundingClientRect();
+                                e.dataTransfer.setDragImage(blockRef.current, e.clientX - rect.left, e.clientY - rect.top);
+                            }
+                            onDragStart(componentId);
+                        },
+                        onDragEnd: onDragEnd,
+                        className: "relative z-10 cursor-grab active:cursor-grabbing p-1 rounded hover:bg-gray-200 transition-colors text-gray-400 hover:text-gray-600 select-none",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$grip$2d$vertical$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__GripVertical$3e$__["GripVertical"], {
+                            className: "w-4 h-4"
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                            lineNumber: 222,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                        lineNumber: 206,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                lineNumber: 90,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableCourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditableCourseComponent"], {
+                    component: component,
+                    onDataChange: onDataChange
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                    lineNumber: 228,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                lineNumber: 227,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+        lineNumber: 80,
+        columnNumber: 5
+    }, this);
+}
+function ToolbarButton({ icon, tooltip, onClick, variant = 'default', active = false }) {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "relative group/tooltip",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: onClick,
+                className: `w-7 h-7 flex items-center justify-center rounded-md transition-all ${active ? 'bg-[#9F80DA] text-white' : variant === 'danger' ? 'text-gray-500 hover:bg-red-50 hover:text-red-500' : 'text-gray-500 hover:bg-gray-200 hover:text-gray-700'}`,
+                children: icon
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                lineNumber: 249,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                className: "absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 px-2 py-0.5 text-xs text-white bg-gray-800 rounded opacity-0 group-hover/tooltip:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-50",
+                children: tooltip
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+                lineNumber: 261,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/EditorBlock.tsx",
+        lineNumber: 248,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/PreviewModal.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "PreviewModal",
+    ()=>PreviewModal
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/CourseComponent.tsx [app-ssr] (ecmascript)");
+'use client';
+;
+;
+;
+;
+function PreviewModal({ component, onClose }) {
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const handleKeyDown = (e)=>{
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return ()=>document.removeEventListener('keydown', handleKeyDown);
+    }, [
+        onClose
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "fixed inset-0 z-50 flex items-center justify-center",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 bg-black/50 backdrop-blur-sm",
+                onClick: onClose
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                lineNumber: 25,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative w-full max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden mx-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center justify-between px-6 py-4 border-b border-gray-200",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                className: "text-lg font-semibold text-gray-900",
+                                children: "Preview"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                                lineNumber: 34,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: onClose,
+                                className: "p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-700",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                                    lineNumber: 39,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                                lineNumber: 35,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                        lineNumber: 33,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "overflow-y-auto max-h-[calc(90vh-80px)] p-6",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CourseComponent"], {
+                            component: component
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                            lineNumber: 45,
+                            columnNumber: 11
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                        lineNumber: 44,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+                lineNumber: 31,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/PreviewModal.tsx",
+        lineNumber: 23,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/AIPromptModal.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "AIPromptModal",
+    ()=>AIPromptModal
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/x.js [app-ssr] (ecmascript) <export default as X>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/sparkles.js [app-ssr] (ecmascript) <export default as Sparkles>");
+'use client';
+;
+;
+;
+function AIPromptModal({ componentName, onClose, onGenerate }) {
+    const [prompt, setPrompt] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const handleKeyDown = (e)=>{
+            if (e.key === 'Escape') onClose();
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return ()=>document.removeEventListener('keydown', handleKeyDown);
+    }, [
+        onClose
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "fixed inset-0 z-50 flex items-center justify-center",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 bg-black/50 backdrop-blur-sm",
+                onClick: onClose
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                lineNumber: 26,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden mx-4",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center justify-between px-6 py-4 border-b border-gray-200",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex items-center gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
+                                        className: "w-5 h-5 text-[#9F80DA]"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                        lineNumber: 36,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                        className: "text-lg font-semibold text-gray-900",
+                                        children: "AI Assistant"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                        lineNumber: 37,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                lineNumber: 35,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: onClose,
+                                className: "p-1.5 rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-700",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
+                                    className: "w-5 h-5"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                    lineNumber: 43,
+                                    columnNumber: 13
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                lineNumber: 39,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "p-6 space-y-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm text-gray-600",
+                                children: [
+                                    "Describe what you want AI to generate or modify for this ",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "font-medium",
+                                        children: componentName
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                        lineNumber: 50,
+                                        columnNumber: 70
+                                    }, this),
+                                    " block."
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                lineNumber: 49,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                value: prompt,
+                                onChange: (e)=>setPrompt(e.target.value),
+                                placeholder: "e.g., Rewrite this paragraph to be more engaging and concise...",
+                                rows: 4,
+                                className: "w-full px-4 py-3 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#9F80DA] focus:border-transparent resize-none",
+                                autoFocus: true
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                lineNumber: 52,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                        lineNumber: 48,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-200 bg-gray-50",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: onClose,
+                                className: "px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 rounded-lg transition-colors",
+                                children: "Cancel"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                lineNumber: 64,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>onGenerate(prompt),
+                                disabled: !prompt.trim(),
+                                className: "flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#9F80DA] hover:bg-[#8A6BC5] rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                        lineNumber: 75,
+                                        columnNumber: 13
+                                    }, this),
+                                    "Generate"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                                lineNumber: 70,
+                                columnNumber: 11
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                        lineNumber: 63,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+                lineNumber: 32,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/project/[courseKey]/_components/AIPromptModal.tsx",
+        lineNumber: 24,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/project/[courseKey]/_components/EditorContent.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "EditorContent",
+    ()=>EditorContent
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plus.js [app-ssr] (ecmascript) <export default as Plus>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/index.ts [app-ssr] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HeadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HeadingBlock$3e$__ = __turbopack_context__.i("[project]/app/components/blocks/HeadingBlock.tsx [app-ssr] (ecmascript) <export default as HeadingBlock>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$CustomScrollbar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/CustomScrollbar.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditorBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EditorBlock.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$PreviewModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/PreviewModal.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$AIPromptModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/AIPromptModal.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$block$2d$metadata$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/block-metadata.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2d$editor$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/hooks/use-course-editor.ts [app-ssr] (ecmascript)");
+'use client';
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+function EditorContent({ courseKey, proposedIndex, components, onSaveStatusChange }) {
+    // Drag state — SortingSteps-style live reorder
+    const [draggedId, setDraggedId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [localComponents, setLocalComponents] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(components);
+    const draggedIdRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const localComponentsRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(localComponents);
+    // Modal state
+    const [previewComponent, setPreviewComponent] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [aiPromptComponent, setAiPromptComponent] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    // Save status
+    const [saveStatus, setSaveStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('idle');
+    const saveTimerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(undefined);
+    const fadeTimerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(undefined);
+    // Sync local components from props when not dragging
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (draggedIdRef.current === null) {
+            const sorted = [
+                ...components
+            ].sort((a, b)=>{
+                if (a.module !== b.module) return a.module - b.module;
+                if (a.unit !== b.unit) return a.unit - b.unit;
+                return a.sequence - b.sequence;
+            });
+            setLocalComponents(sorted);
+            localComponentsRef.current = sorted;
+        }
+    }, [
+        components
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        localComponentsRef.current = localComponents;
+    }, [
+        localComponents
+    ]);
+    // Mutations
+    const deleteComponent = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2d$editor$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useDeleteComponent"])(courseKey);
+    const duplicateComponent = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2d$editor$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useDuplicateComponent"])(courseKey);
+    const reorderComponents = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2d$editor$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useReorderComponents"])(courseKey);
+    const updateComponentData = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2d$editor$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useUpdateComponentData"])(courseKey);
+    const switchComponentStyle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2d$editor$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useSwitchComponentStyle"])(courseKey);
+    // Notify parent of save status changes
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        onSaveStatusChange?.(saveStatus);
+    }, [
+        saveStatus,
+        onSaveStatusChange
+    ]);
+    const updateSaveStatus = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((status)=>{
+        setSaveStatus(status);
+        if (fadeTimerRef.current) clearTimeout(fadeTimerRef.current);
+        if (status === 'saved') {
+            fadeTimerRef.current = setTimeout(()=>setSaveStatus('idle'), 5000);
+        }
+    }, []);
+    // Build variants lookup (group → available component variants)
+    const variantsMap = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
+        const map = new Map();
+        for (const comp of components){
+            if (comp.groupKey && comp.componentId) {
+                if (!map.has(comp.groupKey)) {
+                    const groupNames = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$block$2d$metadata$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getGroupVariants"])(comp.groupKey);
+                    map.set(comp.groupKey, []);
+                }
+            }
+        }
+        for (const comp of components){
+            if (comp.groupKey && comp.componentId) {
+                const variants = map.get(comp.groupKey);
+                if (variants && !variants.find((v)=>v.componentId === comp.componentId)) {
+                    variants.push({
+                        componentName: comp.componentName,
+                        componentId: comp.componentId,
+                        name: comp.name || (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$block$2d$metadata$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getBlockMeta"])(comp.componentName).label
+                    });
+                }
+            }
+        }
+        return map;
+    }, [
+        components
+    ]);
+    // Handlers
+    const handleDelete = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id)=>{
+        updateSaveStatus('saving');
+        deleteComponent.mutate({
+            id
+        }, {
+            onSuccess: ()=>updateSaveStatus('saved'),
+            onError: ()=>updateSaveStatus('error')
+        });
+    }, [
+        deleteComponent,
+        updateSaveStatus
+    ]);
+    const handleDuplicate = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id)=>{
+        updateSaveStatus('saving');
+        duplicateComponent.mutate({
+            id
+        }, {
+            onSuccess: ()=>updateSaveStatus('saved'),
+            onError: ()=>updateSaveStatus('error')
+        });
+    }, [
+        duplicateComponent,
+        updateSaveStatus
+    ]);
+    const handleSwitchStyle = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id, newComponentId)=>{
+        updateSaveStatus('saving');
+        switchComponentStyle.mutate({
+            id,
+            newComponentId
+        }, {
+            onSuccess: ()=>updateSaveStatus('saved'),
+            onError: ()=>updateSaveStatus('error')
+        });
+    }, [
+        switchComponentStyle,
+        updateSaveStatus
+    ]);
+    const handleDataChange = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((compId, newData)=>{
+        updateSaveStatus('saving');
+        updateComponentData.mutate({
+            id: compId,
+            data: newData
+        }, {
+            onSuccess: ()=>updateSaveStatus('saved'),
+            onError: ()=>updateSaveStatus('error')
+        });
+    }, [
+        updateComponentData,
+        updateSaveStatus
+    ]);
+    const handlePreview = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((comp)=>{
+        const unitComponent = {
+            componentName: comp.componentName,
+            order: comp.sequence,
+            content: comp.data || {},
+            styles: undefined
+        };
+        setPreviewComponent(unitComponent);
+    }, []);
+    const handleAIPrompt = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((comp)=>{
+        setAiPromptComponent({
+            id: comp.id,
+            name: comp.name || comp.componentName
+        });
+    }, []);
+    const handleAIGenerate = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((_prompt)=>{
+        setAiPromptComponent(null);
+        updateSaveStatus('saved');
+    }, [
+        updateSaveStatus
+    ]);
+    // Drag and drop — SortingSteps-style live reorder
+    const handleDragStart = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id)=>{
+        draggedIdRef.current = id;
+        setDraggedId(id);
+    }, []);
+    const handleDragOver = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((e, targetId)=>{
+        e.preventDefault();
+        const dId = draggedIdRef.current;
+        if (dId === null || dId === targetId) return;
+        // Only swap when mouse crosses past the target's vertical midpoint
+        const targetEl = e.currentTarget;
+        const rect = targetEl.getBoundingClientRect();
+        const mouseY = e.clientY;
+        setLocalComponents((prev)=>{
+            const draggedIdx = prev.findIndex((c)=>c.id === dId);
+            const targetIdx = prev.findIndex((c)=>c.id === targetId);
+            if (draggedIdx === -1 || targetIdx === -1 || draggedIdx === targetIdx) return prev;
+            // Require mouse to go 10% into the target before swapping
+            if (draggedIdx < targetIdx && mouseY < rect.top + rect.height * 0.1) return prev;
+            if (draggedIdx > targetIdx && mouseY > rect.top + rect.height * 0.9) return prev;
+            const draggedComp = prev[draggedIdx];
+            const targetComp = prev[targetIdx];
+            if (draggedComp.module !== targetComp.module || draggedComp.unit !== targetComp.unit) return prev;
+            const newComps = [
+                ...prev
+            ];
+            const [removed] = newComps.splice(draggedIdx, 1);
+            newComps.splice(targetIdx, 0, removed);
+            localComponentsRef.current = newComps;
+            return newComps;
+        });
+    }, []);
+    const handleDragEnd = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        const dId = draggedIdRef.current;
+        if (dId !== null) {
+            const current = localComponentsRef.current;
+            const draggedComp = current.find((c)=>c.id === dId);
+            if (draggedComp) {
+                const unitComps = current.filter((c)=>c.module === draggedComp.module && c.unit === draggedComp.unit);
+                const originalUnitComps = components.filter((c)=>c.module === draggedComp.module && c.unit === draggedComp.unit).sort((a, b)=>a.sequence - b.sequence);
+                const orderChanged = unitComps.some((c, idx)=>originalUnitComps[idx]?.id !== c.id);
+                if (orderChanged) {
+                    const reorderItems = unitComps.map((c, idx)=>({
+                            id: c.id,
+                            sequence: idx + 1
+                        }));
+                    updateSaveStatus('saving');
+                    reorderComponents.mutate({
+                        courseKey,
+                        components: reorderItems
+                    }, {
+                        onSuccess: ()=>updateSaveStatus('saved'),
+                        onError: ()=>updateSaveStatus('error')
+                    });
+                }
+            }
+        }
+        draggedIdRef.current = null;
+        setDraggedId(null);
+    }, [
+        components,
+        courseKey,
+        reorderComponents,
+        updateSaveStatus
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$CustomScrollbar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["CustomScrollbar"], {
+                children: localComponents.length > 0 && proposedIndex ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "max-w-4xl mx-auto py-8 px-4",
+                    children: [
+                        proposedIndex.title && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$blocks$2f$HeadingBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__HeadingBlock$3e$__["HeadingBlock"], {
+                            heading: proposedIndex.title,
+                            level: 1
+                        }, void 0, false, {
+                            fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                            lineNumber: 308,
+                            columnNumber: 15
+                        }, this),
+                        proposedIndex.modules.map((module)=>{
+                            const moduleComponents = localComponents.filter((c)=>c.module === module.number);
+                            const unitNumbers = [
+                                ...new Set(moduleComponents.map((c)=>c.unit))
+                            ].sort((a, b)=>a - b);
+                            const allUnits = unitNumbers.map((unitNum)=>{
+                                if (unitNum === 0) {
+                                    return {
+                                        code: `${module.number}.0`,
+                                        title: 'Introduction',
+                                        unitNum
+                                    };
+                                }
+                                if (unitNum === 99) {
+                                    return {
+                                        code: `eval-m${module.number}`,
+                                        title: 'Evaluation',
+                                        unitNum
+                                    };
+                                }
+                                const indexUnit = module.units.find((u)=>u.code === `${module.number}.${unitNum}`);
+                                return {
+                                    code: `${module.number}.${unitNum}`,
+                                    title: indexUnit?.title || `Unit ${unitNum}`,
+                                    unitNum
+                                };
+                            });
+                            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "mb-12",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "mb-6",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                            className: "text-2xl font-bold text-[#1a1a1a]",
+                                            children: [
+                                                "Module ",
+                                                module.number,
+                                                ": ",
+                                                module.title
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                            lineNumber: 348,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                        lineNumber: 347,
+                                        columnNumber: 19
+                                    }, this),
+                                    allUnits.map((unit)=>{
+                                        const unitComponents = moduleComponents.filter((c)=>c.unit === unit.unitNum);
+                                        if (unitComponents.length === 0) return null;
+                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            id: `unit-${unit.code}`,
+                                            className: "mb-10",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "mb-6 flex items-center gap-3",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "px-3 py-1 bg-[#9F80DA] text-white text-sm font-medium rounded-full",
+                                                            children: unit.code
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                            lineNumber: 368,
+                                                            columnNumber: 27
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                            className: "text-xl font-semibold text-[#1a1a1a]",
+                                                            children: unit.title
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                            lineNumber: 371,
+                                                            columnNumber: 27
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                    lineNumber: 367,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "space-y-3",
+                                                    children: unitComponents.map((comp)=>{
+                                                        const unitComponent = {
+                                                            componentName: comp.componentName,
+                                                            order: comp.sequence,
+                                                            content: comp.data || {},
+                                                            styles: undefined
+                                                        };
+                                                        const variants = comp.groupKey ? variantsMap.get(comp.groupKey) : undefined;
+                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditorBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EditorBlock"], {
+                                                                    component: unitComponent,
+                                                                    componentId: comp.id,
+                                                                    componentDbId: comp.componentId || 0,
+                                                                    groupKey: comp.groupKey || null,
+                                                                    name: comp.name || comp.componentName,
+                                                                    onDelete: handleDelete,
+                                                                    onDuplicate: handleDuplicate,
+                                                                    onPreview: ()=>handlePreview(comp),
+                                                                    onAIPrompt: ()=>handleAIPrompt(comp),
+                                                                    onSwitchStyle: handleSwitchStyle,
+                                                                    onDragStart: handleDragStart,
+                                                                    onDragOver: handleDragOver,
+                                                                    onDragEnd: handleDragEnd,
+                                                                    isDragging: draggedId === comp.id,
+                                                                    onDataChange: (data)=>handleDataChange(comp.id, data),
+                                                                    availableVariants: variants
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                                    lineNumber: 393,
+                                                                    columnNumber: 33
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex justify-center py-2",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                        className: "flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-white bg-gray-100 hover:bg-[#9F80DA] border border-gray-300 hover:border-[#9F80DA] rounded-lg transition-all shadow-sm",
+                                                                        children: [
+                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
+                                                                                className: "w-3.5 h-3.5"
+                                                                            }, void 0, false, {
+                                                                                fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                                                lineNumber: 415,
+                                                                                columnNumber: 37
+                                                                            }, this),
+                                                                            "Add component"
+                                                                        ]
+                                                                    }, void 0, true, {
+                                                                        fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                                        lineNumber: 414,
+                                                                        columnNumber: 35
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                                    lineNumber: 413,
+                                                                    columnNumber: 33
+                                                                }, this)
+                                                            ]
+                                                        }, comp.id, true, {
+                                                            fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                            lineNumber: 392,
+                                                            columnNumber: 31
+                                                        }, this);
+                                                    })
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                                    lineNumber: 377,
+                                                    columnNumber: 25
+                                                }, this)
+                                            ]
+                                        }, unit.code, true, {
+                                            fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                            lineNumber: 361,
+                                            columnNumber: 23
+                                        }, this);
+                                    })
+                                ]
+                            }, module.number, true, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                lineNumber: 345,
+                                columnNumber: 17
+                            }, this);
+                        })
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                    lineNumber: 305,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex-1 flex items-center justify-center h-full",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "text-center text-gray-400",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "w-8 h-8 border-2 border-[#9F80DA] border-t-transparent rounded-full animate-spin mx-auto mb-4"
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                lineNumber: 433,
+                                columnNumber: 15
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-lg",
+                                children: "Loading course content..."
+                            }, void 0, false, {
+                                fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                                lineNumber: 434,
+                                columnNumber: 15
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                        lineNumber: 432,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                    lineNumber: 431,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                lineNumber: 303,
+                columnNumber: 7
+            }, this),
+            previewComponent && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$PreviewModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["PreviewModal"], {
+                component: previewComponent,
+                onClose: ()=>setPreviewComponent(null)
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                lineNumber: 442,
+                columnNumber: 9
+            }, this),
+            aiPromptComponent && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$AIPromptModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AIPromptModal"], {
+                componentName: aiPromptComponent.name,
+                onClose: ()=>setAiPromptComponent(null),
+                onGenerate: handleAIGenerate
+            }, void 0, false, {
+                fileName: "[project]/app/project/[courseKey]/_components/EditorContent.tsx",
+                lineNumber: 450,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true);
+}
+}),
+"[project]/app/project/[courseKey]/_components/index.ts [app-ssr] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/types.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseIndexView$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/CourseIndexView.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EvaluationDetailsView$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EvaluationDetailsView.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ObjectivesView$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/ObjectivesView.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ExerciseTypesView$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/ExerciseTypesView.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$BrandingView$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/BrandingView.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/CourseComponent.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$CompletionPopup$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/CompletionPopup.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditorContent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EditorContent.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditorBlock$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EditorBlock.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$PreviewModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/PreviewModal.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$AIPromptModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/AIPromptModal.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$block$2d$metadata$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/block-metadata.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableText$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EditableText.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$EditableCourseComponent$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/EditableCourseComponent.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$project$2f5b$courseKey$5d2f$_components$2f$ImagePickerModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/project/[courseKey]/_components/ImagePickerModal.tsx [app-ssr] (ecmascript)");
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+}),
+];
+
+//# sourceMappingURL=app_project_%5BcourseKey%5D__components_e284adea._.js.map

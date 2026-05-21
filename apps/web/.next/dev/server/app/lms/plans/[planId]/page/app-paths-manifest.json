@@ -1,0 +1,3 @@
+{
+  "/lms/plans/[planId]/page": "app/lms/plans/[planId]/page.js"
+}

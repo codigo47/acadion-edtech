@@ -1,0 +1,2 @@
+[     821ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8001/api/v1/lms/courses/aa3de7c9-c796-4b7c-a678-1d31ed473cef:0
+[    1828ms] [ERROR] Failed to load resource: the server responded with a status of 401 (Unauthorized) @ http://localhost:8001/api/v1/lms/courses/aa3de7c9-c796-4b7c-a678-1d31ed473cef:0

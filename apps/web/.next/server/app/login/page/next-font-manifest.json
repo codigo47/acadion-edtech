@@ -1,0 +1,10 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/app/login/page": [
+      "static/media/8800dfc60902df36-s.p.e22d03ab.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

@@ -1,0 +1,96 @@
+/* [project]/app/components/blocks/StoryTellingBlock.module.css [app-client] (css) */
+.StoryTellingBlock-module__qgpi3q__bubble {
+  background: var(--bubble-bg, #fff);
+  border-radius: var(--bubble-radius, 15px);
+  border: var(--bubble-border-width, 2px) solid var(--bubble-border, #d1d5db);
+  margin-top: 8px;
+  padding: 16px 20px;
+  position: relative;
+  box-shadow: 0 2px 8px #0000001a;
+}
+
+.StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__left:before, .StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__left:after {
+  content: "";
+  border-style: solid;
+  position: absolute;
+  top: 20px;
+}
+
+.StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__left:before {
+  border-width: 10px 16px 10px 0;
+  border-color: transparent var(--bubble-border, #d1d5db) transparent transparent;
+  left: -16px;
+}
+
+.StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__left:after {
+  left: calc(-14px + var(--bubble-border-width, 2px));
+  border-width: 8px 14px 8px 0;
+  border-color: transparent var(--bubble-bg, #fff) transparent transparent;
+  top: 22px;
+}
+
+.StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__right:before, .StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__right:after {
+  content: "";
+  border-style: solid;
+  position: absolute;
+  top: 20px;
+}
+
+.StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__right:before {
+  border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent var(--bubble-border, #d1d5db);
+  right: -16px;
+}
+
+.StoryTellingBlock-module__qgpi3q__speech.StoryTellingBlock-module__qgpi3q__right:after {
+  right: calc(-14px + var(--bubble-border-width, 2px));
+  border-width: 8px 0 8px 14px;
+  border-color: transparent transparent transparent var(--bubble-bg, #fff);
+  top: 22px;
+}
+
+.StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__left:before, .StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__left:after {
+  content: "";
+  background: var(--bubble-bg, #fff);
+  border: var(--bubble-border-width, 2px) solid var(--bubble-border, #d1d5db);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__left:before {
+  width: 16px;
+  height: 16px;
+  top: 16px;
+  left: -24px;
+}
+
+.StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__left:after {
+  width: 10px;
+  height: 10px;
+  top: 24px;
+  left: -36px;
+}
+
+.StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__right:before, .StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__right:after {
+  content: "";
+  background: var(--bubble-bg, #fff);
+  border: var(--bubble-border-width, 2px) solid var(--bubble-border, #d1d5db);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__right:before {
+  width: 16px;
+  height: 16px;
+  top: 16px;
+  right: -24px;
+}
+
+.StoryTellingBlock-module__qgpi3q__thought.StoryTellingBlock-module__qgpi3q__right:after {
+  width: 10px;
+  height: 10px;
+  top: 24px;
+  right: -36px;
+}
+
+/*# sourceMappingURL=app_components_blocks_StoryTellingBlock_module_cbcc6c3c.css.map*/

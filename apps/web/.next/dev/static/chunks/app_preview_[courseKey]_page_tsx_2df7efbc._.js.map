@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///home/codigo47/sistemas/course/source/web/app/preview/%5BcourseKey%5D/page.tsx"],"sourcesContent":["'use client';\n\nimport { useParams, useSearchParams } from 'next/navigation';\nimport CoursePlayer from '../../components/CoursePlayer';\n\nexport default function CoursePreviewPage() {\n  const params = useParams();\n  const searchParams = useSearchParams();\n  const courseKey = params.courseKey as string;\n  const from = searchParams.get('from');\n\n  const backUrl = from === 'dashboard' ? '/dashboard' : `/project/${courseKey}`;\n  const backLabel = from === 'dashboard' ? 'Back to Dashboard' : 'Back to Editor';\n\n  return (\n    <CoursePlayer\n      courseKey={courseKey}\n      backUrl={backUrl}\n      backLabel={backLabel}\n    />\n  );\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;;;AAHA;;;AAKe,SAAS;;IACtB,MAAM,SAAS,IAAA,kJAAS;IACxB,MAAM,eAAe,IAAA,wJAAe;IACpC,MAAM,YAAY,OAAO,SAAS;IAClC,MAAM,OAAO,aAAa,GAAG,CAAC;IAE9B,MAAM,UAAU,SAAS,cAAc,eAAe,CAAC,SAAS,EAAE,WAAW;IAC7E,MAAM,YAAY,SAAS,cAAc,sBAAsB;IAE/D,qBACE,6LAAC,gJAAY;QACX,WAAW;QACX,SAAS;QACT,WAAW;;;;;;AAGjB;GAhBwB;;QACP,kJAAS;QACH,wJAAe;;;KAFd"}}]
+}

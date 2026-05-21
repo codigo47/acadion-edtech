@@ -1,0 +1,1341 @@
+module.exports = [
+"[project]/lib/enums/task-name.enum.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "TaskName",
+    ()=>TaskName
+]);
+var TaskName = /*#__PURE__*/ function(TaskName) {
+    TaskName["CREATE_COURSE"] = "CREATE_COURSE";
+    TaskName["GENERATE_TITLE"] = "GENERATE_TITLE";
+    TaskName["SET_AUDIENCE"] = "SET_AUDIENCE";
+    TaskName["SET_OBJECTIVE"] = "SET_OBJECTIVE";
+    TaskName["SET_BUILDING_METHOD"] = "SET_BUILDING_METHOD";
+    TaskName["SET_MODULES"] = "SET_MODULES";
+    TaskName["SET_UNITS"] = "SET_UNITS";
+    TaskName["GET_EXERCISE_TYPES"] = "GET_EXERCISE_TYPES";
+    TaskName["SET_EVALUATION"] = "SET_EVALUATION";
+    TaskName["SET_EVALUATION_DETAILS"] = "SET_EVALUATION_DETAILS";
+    TaskName["SET_BRANDING"] = "SET_BRANDING";
+    TaskName["GENERATE_COURSE"] = "GENERATE_COURSE";
+    return TaskName;
+}({});
+}),
+"[project]/lib/hooks/use-course.ts [app-ssr] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "useCourse",
+    ()=>useCourse,
+    "useCourseComponents",
+    ()=>useCourseComponents,
+    "useCourses",
+    ()=>useCourses,
+    "useCreateCourse",
+    ()=>useCreateCourse,
+    "useGenerateCourse",
+    ()=>useGenerateCourse,
+    "useGenerateTitle",
+    ()=>useGenerateTitle,
+    "useGetExerciseTypes",
+    ()=>useGetExerciseTypes,
+    "useSetAudience",
+    ()=>useSetAudience,
+    "useSetBranding",
+    ()=>useSetBranding,
+    "useSetBuildingMethod",
+    ()=>useSetBuildingMethod,
+    "useSetEvaluation",
+    ()=>useSetEvaluation,
+    "useSetEvaluationDetails",
+    ()=>useSetEvaluationDetails,
+    "useSetModules",
+    ()=>useSetModules,
+    "useSetObjective",
+    ()=>useSetObjective,
+    "useSetUnits",
+    ()=>useSetUnits
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/useMutation.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/useQuery.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/api-client.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/auth.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/enums/task-name.enum.ts [app-ssr] (ecmascript)");
+;
+;
+;
+;
+;
+function useCreateCourse() {
+    const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQueryClient"])();
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].CREATE_COURSE,
+                userId: params.userId
+            }),
+        onSuccess: ()=>{
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'courses'
+                ]
+            });
+        }
+    });
+}
+function useGenerateTitle() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].GENERATE_TITLE,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                topic: params.topic
+            })
+    });
+}
+function useSetAudience() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_AUDIENCE,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                audience: params.audience
+            })
+    });
+}
+function useSetObjective() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_OBJECTIVE,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                objective: params.objective
+            })
+    });
+}
+function useSetBuildingMethod() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_BUILDING_METHOD,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                buildingMethod: params.buildingMethod
+            })
+    });
+}
+function useSetModules() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_MODULES,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                modulesCount: params.modulesCount
+            })
+    });
+}
+function useSetUnits() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_UNITS,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                modules: params.modules
+            })
+    });
+}
+function useGetExerciseTypes() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].GET_EXERCISE_TYPES,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey
+            })
+    });
+}
+function useSetEvaluation() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_EVALUATION,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                selectedComponents: params.selectedComponents
+            })
+    });
+}
+function useSetEvaluationDetails() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_EVALUATION_DETAILS,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                knowledgeCheckEndUnit: params.knowledgeCheckEndUnit,
+                knowledgeCheckEndModule: params.knowledgeCheckEndModule,
+                finalExercise: params.finalExercise,
+                restrictions: params.restrictions
+            })
+    });
+}
+function useCourses(page, limit) {
+    const isPaginated = page != null && limit != null;
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: isPaginated ? [
+            'courses',
+            page,
+            limit
+        ] : [
+            'courses'
+        ],
+        queryFn: ()=>isPaginated ? __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get(`/v1/course?page=${page}&limit=${limit}`) : __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get('/v1/course'),
+        enabled: !!(0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$auth$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["getToken"])()
+    });
+}
+function useCourse(key) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: [
+            'course',
+            key
+        ],
+        queryFn: ()=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get(`/v1/course/${key}`),
+        enabled: !!key
+    });
+}
+function useSetBranding() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (params)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].SET_BRANDING,
+                courseKey: params.courseKey,
+                conversationKey: params.conversationKey,
+                primaryColor: params.primaryColor,
+                secondaryColor: params.secondaryColor,
+                typo1: params.typo1,
+                typo2: params.typo2,
+                logo: params.logo,
+                guidelines: params.guidelines
+            })
+    });
+}
+function useGenerateCourse() {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (courseKey)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post('/v1/course/tasks', {
+                taskName: __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$enums$2f$task$2d$name$2e$enum$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TaskName"].GENERATE_COURSE,
+                courseKey
+            })
+    });
+}
+function useCourseComponents(courseKey, enabled = true) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: [
+            'course-components',
+            courseKey
+        ],
+        queryFn: ()=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get(`/v1/course/${courseKey}/components`),
+        enabled: !!courseKey && enabled
+    });
+}
+}),
+"[project]/lib/hooks/use-badges.ts [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "useAllBadges",
+    ()=>useAllBadges,
+    "useAwardBadge",
+    ()=>useAwardBadge,
+    "useBadgeDetail",
+    ()=>useBadgeDetail,
+    "useCreateBadge",
+    ()=>useCreateBadge,
+    "useDeleteBadge",
+    ()=>useDeleteBadge,
+    "useDuplicateBadge",
+    ()=>useDuplicateBadge,
+    "useMyBadges",
+    ()=>useMyBadges,
+    "useOrgBadges",
+    ()=>useOrgBadges,
+    "useUpdateBadge",
+    ()=>useUpdateBadge
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/useMutation.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/useQuery.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/api-client.ts [app-ssr] (ecmascript)");
+'use client';
+;
+;
+function useMyBadges(page, limit) {
+    const isPaginated = page != null && limit != null;
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: isPaginated ? [
+            'badges',
+            'me',
+            page,
+            limit
+        ] : [
+            'badges',
+            'me'
+        ],
+        queryFn: ()=>isPaginated ? __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get(`/v1/badges/me?page=${page}&limit=${limit}`) : __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get('/v1/badges/me')
+    });
+}
+function useAllBadges(page, limit) {
+    const isPaginated = page != null && limit != null;
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: isPaginated ? [
+            'badges',
+            'my',
+            page,
+            limit
+        ] : [
+            'badges',
+            'my'
+        ],
+        queryFn: ()=>isPaginated ? __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get(`/v1/badges/my?page=${page}&limit=${limit}`) : __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get('/v1/badges/my')
+    });
+}
+function useBadgeDetail(id) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: [
+            'badges',
+            'detail',
+            id
+        ],
+        queryFn: ()=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get(`/v1/badges/${id}`),
+        enabled: !!id
+    });
+}
+function useOrgBadges(orgKey) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useQuery$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQuery"])({
+        queryKey: [
+            'badges',
+            'org',
+            orgKey
+        ],
+        queryFn: ()=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].get(`/v1/badges/org/${orgKey}`),
+        enabled: !!orgKey
+    });
+}
+function useCreateBadge(orgKey) {
+    const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQueryClient"])();
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (data)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post(`/v1/badges/org/${orgKey}`, data),
+        onSuccess: ()=>{
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'badges'
+                ]
+            });
+        }
+    });
+}
+function useUpdateBadge() {
+    const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQueryClient"])();
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: ({ id, ...data })=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].patch(`/v1/badges/${id}`, data),
+        onSuccess: ()=>{
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'badges'
+                ]
+            });
+        }
+    });
+}
+function useDeleteBadge() {
+    const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQueryClient"])();
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (id)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].delete(`/v1/badges/${id}`),
+        onSuccess: ()=>{
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'badges'
+                ]
+            });
+        }
+    });
+}
+function useDuplicateBadge() {
+    const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQueryClient"])();
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: (id)=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post(`/v1/badges/${id}/duplicate`, {}),
+        onSuccess: ()=>{
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'badges'
+                ]
+            });
+        }
+    });
+}
+function useAwardBadge() {
+    const queryClient = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$QueryClientProvider$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useQueryClient"])();
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$tanstack$2f$react$2d$query$2f$build$2f$modern$2f$useMutation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMutation"])({
+        mutationFn: ({ badgeId, userId })=>__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$api$2d$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["api"].post(`/v1/badges/${badgeId}/award`, {
+                userId
+            }),
+        onSuccess: ()=>{
+            queryClient.invalidateQueries({
+                queryKey: [
+                    'badges'
+                ]
+            });
+        }
+    });
+}
+}),
+"[project]/app/components/loaders/StarLoader.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>StarLoader
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/styled-jsx/style.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs [app-ssr] (ecmascript)");
+'use client';
+;
+;
+;
+;
+const defaultTexts = [
+    'Processing...',
+    'Loading...',
+    'Please wait...'
+];
+// Acadion brand color
+const ACADION_PURPLE = '#9f80da';
+function StarLoader({ dark = false, texts = defaultTexts, rotationInterval = 2000, size = 1, textPosition = 'right' }) {
+    const [currentIndex, setCurrentIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (texts.length <= 1) return;
+        const interval = setInterval(()=>{
+            setCurrentIndex((prev)=>(prev + 1) % texts.length);
+        }, rotationInterval);
+        return ()=>clearInterval(interval);
+    }, [
+        texts.length,
+        rotationInterval
+    ]);
+    const baseSize = 45 * size;
+    const smallSize = 10 * size;
+    const mediumSize = 15 * size;
+    const largeSize = 18 * size;
+    const isBottom = textPosition === 'bottom';
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "jsx-d885bd19adcf5fce" + " " + `flex ${isBottom ? 'flex-col items-center' : 'items-center justify-start'} gap-1`,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                style: {
+                    width: `${baseSize}px`,
+                    height: `${baseSize}px`,
+                    position: 'relative'
+                },
+                className: "jsx-d885bd19adcf5fce" + " " + "star-container",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            position: 'absolute',
+                            width: `${smallSize}px`,
+                            height: `${smallSize}px`
+                        },
+                        className: "jsx-d885bd19adcf5fce" + " " + "star s1"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/loaders/StarLoader.tsx",
+                        lineNumber: 59,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            position: 'absolute',
+                            width: `${mediumSize}px`,
+                            height: `${mediumSize}px`
+                        },
+                        className: "jsx-d885bd19adcf5fce" + " " + "star s2"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/loaders/StarLoader.tsx",
+                        lineNumber: 67,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            position: 'absolute',
+                            width: `${largeSize}px`,
+                            height: `${largeSize}px`
+                        },
+                        className: "jsx-d885bd19adcf5fce" + " " + "star s3"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/loaders/StarLoader.tsx",
+                        lineNumber: 75,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/components/loaders/StarLoader.tsx",
+                lineNumber: 51,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimatePresence"], {
+                mode: "wait",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].span, {
+                    initial: {
+                        opacity: 0,
+                        y: 10
+                    },
+                    animate: {
+                        opacity: 1,
+                        y: 0
+                    },
+                    exit: {
+                        opacity: 0,
+                        y: -10
+                    },
+                    transition: {
+                        duration: 0.3
+                    },
+                    className: `text-sm font-medium ${isBottom ? 'text-center' : ''} ${dark ? 'text-gray-300' : 'text-gray-600'}`,
+                    children: texts[currentIndex]
+                }, currentIndex, false, {
+                    fileName: "[project]/app/components/loaders/StarLoader.tsx",
+                    lineNumber: 86,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/components/loaders/StarLoader.tsx",
+                lineNumber: 85,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                id: "d885bd19adcf5fce",
+                children: `.star.jsx-d885bd19adcf5fce{background:${ACADION_PURPLE};clip-path:polygon(50% 0%,61% 35%,100% 50%,61% 65%,50% 100%,39% 65%,0% 50%,39% 35%);top:50%;left:50%}.s1.jsx-d885bd19adcf5fce{animation:1.8s ease-in-out infinite star1}.s2.jsx-d885bd19adcf5fce{animation:1.8s ease-in-out infinite star2}.s3.jsx-d885bd19adcf5fce{animation:1.8s ease-in-out infinite star3}@keyframes star1{0%{opacity:1;transform:translate(-50%,-50%)translate(-8px,9px)scale(1)rotate(0)}40%{opacity:0;transform:translate(-50%,-50%)translate(0)scale(1)rotate(90deg)}60%{opacity:0;transform:translate(-50%,-50%)translate(0)scale(1)rotate(270deg)}to{opacity:1;transform:translate(-50%,-50%)translate(-8px,9px)scale(1)rotate(360deg)}}@keyframes star2{0%{transform:translate(-50%,-50%)translate(-7px,-10px)scale(1)rotate(0)}40%{transform:translate(-50%,-50%)translate(0)scale(1.3)rotate(90deg)}60%{transform:translate(-50%,-50%)translate(0)scale(1.3)rotate(270deg)}to{transform:translate(-50%,-50%)translate(-7px,-10px)scale(1)rotate(360deg)}}@keyframes star3{0%{opacity:1;transform:translate(-50%,-50%)translate(11px)scale(1)rotate(0)}40%{opacity:0;transform:translate(-50%,-50%)translate(0)scale(1)rotate(90deg)}60%{opacity:0;transform:translate(-50%,-50%)translate(0)scale(1)rotate(270deg)}to{opacity:1;transform:translate(-50%,-50%)translate(11px)scale(1)rotate(360deg)}}`
+            }, void 0, false, void 0, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/components/loaders/StarLoader.tsx",
+        lineNumber: 50,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/components/Pagination.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Pagination
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+'use client';
+;
+function Pagination({ page, limit, total, onPageChange }) {
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+    const start = Math.min((page - 1) * limit + 1, total);
+    const end = Math.min(page * limit, total);
+    function getPageNumbers() {
+        if (totalPages <= 7) {
+            return Array.from({
+                length: totalPages
+            }, (_, i)=>i + 1);
+        }
+        const pages = [
+            1
+        ];
+        if (page > 3) pages.push('...');
+        const rangeStart = Math.max(2, page - 1);
+        const rangeEnd = Math.min(totalPages - 1, page + 1);
+        for(let i = rangeStart; i <= rangeEnd; i++){
+            pages.push(i);
+        }
+        if (page < totalPages - 2) pages.push('...');
+        pages.push(totalPages);
+        return pages;
+    }
+    if (total === 0) return null;
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex items-center justify-between pt-4",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                className: "text-sm text-gray-500",
+                children: [
+                    "Showing ",
+                    start,
+                    "-",
+                    end,
+                    " of ",
+                    total
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/components/Pagination.tsx",
+                lineNumber: 41,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-1",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>onPageChange(page - 1),
+                        disabled: page <= 1,
+                        className: "px-3 py-1.5 text-sm rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed",
+                        children: "Prev"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/Pagination.tsx",
+                        lineNumber: 45,
+                        columnNumber: 9
+                    }, this),
+                    getPageNumbers().map((p, i)=>p === '...' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                            className: "px-2 py-1.5 text-sm text-gray-400",
+                            children: "..."
+                        }, `ellipsis-${i}`, false, {
+                            fileName: "[project]/app/components/Pagination.tsx",
+                            lineNumber: 54,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>onPageChange(p),
+                            className: `px-3 py-1.5 text-sm rounded-lg transition-colors ${p === page ? 'bg-[#9F80DA]/10 text-[#9F80DA] font-medium' : 'text-gray-600 hover:bg-gray-50'}`,
+                            children: p
+                        }, p, false, {
+                            fileName: "[project]/app/components/Pagination.tsx",
+                            lineNumber: 58,
+                            columnNumber: 13
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>onPageChange(page + 1),
+                        disabled: page >= totalPages,
+                        className: "px-3 py-1.5 text-sm rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed",
+                        children: "Next"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/Pagination.tsx",
+                        lineNumber: 71,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/components/Pagination.tsx",
+                lineNumber: 44,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/components/Pagination.tsx",
+        lineNumber: 40,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/dashboard/page.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Dashboard
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/lib/hooks/use-course.ts [app-ssr] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$badges$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/hooks/use-badges.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$loaders$2f$StarLoader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/loaders/StarLoader.tsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$Pagination$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/Pagination.tsx [app-ssr] (ecmascript)");
+'use client';
+;
+;
+;
+;
+;
+;
+;
+const conditionHints = {
+    course_completed: 'Complete the required course to unlock',
+    score_above: 'Score above the required threshold to unlock',
+    plan_completed: 'Complete the learning plan to unlock',
+    completed_in_time: 'Complete within the time limit to unlock',
+    first_in_org: 'Be the first to complete in your org to unlock',
+    manual: 'Awarded by an administrator'
+};
+function getConditionHint(badge) {
+    if (badge.conditionType === 'score_above' && badge.conditionValue?.score) {
+        return `Score above ${badge.conditionValue.score}% to unlock`;
+    }
+    return conditionHints[badge.conditionType] || 'Complete the requirements to unlock';
+}
+function Dashboard() {
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [searchQuery, setSearchQuery] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [hoveredBadgeId, setHoveredBadgeId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const [page, setPage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(1);
+    const limit = 12;
+    const { data: coursesResponse, isLoading, error } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$course$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["useCourses"])(page, limit);
+    const courses = coursesResponse?.data;
+    const { data: myBadgesResponse } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$badges$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMyBadges"])();
+    const myBadges = myBadgesResponse?.data;
+    const { data: allBadgesResponse } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$hooks$2f$use$2d$badges$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAllBadges"])();
+    const allBadges = allBadgesResponse?.data;
+    const filteredCourses = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
+        if (!courses) return [];
+        if (!searchQuery.trim()) return courses;
+        const query = searchQuery.toLowerCase();
+        return courses.filter((course)=>course.title?.toLowerCase().includes(query));
+    }, [
+        courses,
+        searchQuery
+    ]);
+    const earnedBadgeIds = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>new Set(myBadges?.map((ub)=>ub.badgeId) ?? []), [
+        myBadges
+    ]);
+    const lockedBadges = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>allBadges?.filter((b)=>!earnedBadgeIds.has(b.id)) ?? [], [
+        allBadges,
+        earnedBadgeIds
+    ]);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "p-6",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "max-w-5xl mx-auto px-6 py-10",
+            children: [
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex items-center justify-between mb-8",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                    className: "text-2xl font-bold text-[#1a1a1a]",
+                                    children: "My Courses"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 66,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-gray-500 text-sm mt-1",
+                                    children: "View and manage your course projects."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 67,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/dashboard/page.tsx",
+                            lineNumber: 65,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "flex items-center bg-gray-50 rounded-lg px-3 py-2 gap-2 border border-gray-200",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                    className: "w-4 h-4 text-gray-400",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    viewBox: "0 0 24 24",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        strokeWidth: 2,
+                                        d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/dashboard/page.tsx",
+                                        lineNumber: 71,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 70,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                    type: "text",
+                                    placeholder: "Search courses...",
+                                    value: searchQuery,
+                                    onChange: (e)=>setSearchQuery(e.target.value),
+                                    className: "bg-transparent outline-none text-sm w-64 text-gray-600"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 73,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/dashboard/page.tsx",
+                            lineNumber: 69,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/dashboard/page.tsx",
+                    lineNumber: 64,
+                    columnNumber: 9
+                }, this),
+                isLoading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "flex justify-center items-center py-20",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$loaders$2f$StarLoader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                        texts: [
+                            'Loading your courses...'
+                        ],
+                        textPosition: "bottom",
+                        size: 1.5
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboard/page.tsx",
+                        lineNumber: 85,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/dashboard/page.tsx",
+                    lineNumber: 84,
+                    columnNumber: 11
+                }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "text-center py-20",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-red-500",
+                        children: "Failed to load courses. Please try again."
+                    }, void 0, false, {
+                        fileName: "[project]/app/dashboard/page.tsx",
+                        lineNumber: 93,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/dashboard/page.tsx",
+                    lineNumber: 92,
+                    columnNumber: 11
+                }, this) : filteredCourses.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "text-center py-20",
+                    children: searchQuery ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-gray-500",
+                        children: [
+                            'No courses found matching "',
+                            searchQuery,
+                            '"'
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/dashboard/page.tsx",
+                        lineNumber: 98,
+                        columnNumber: 15
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-gray-500 mb-4",
+                                children: "You don't have any courses yet."
+                            }, void 0, false, {
+                                fileName: "[project]/app/dashboard/page.tsx",
+                                lineNumber: 101,
+                                columnNumber: 17
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>router.push('/project'),
+                                className: "px-4 py-2 bg-gradient-to-r from-[#9F80DA] to-[#8A6BC5] text-white rounded-lg hover:from-[#8A6BC5] hover:to-[#7B5BB5] transition-all",
+                                children: "Create your first course"
+                            }, void 0, false, {
+                                fileName: "[project]/app/dashboard/page.tsx",
+                                lineNumber: 102,
+                                columnNumber: 17
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/dashboard/page.tsx",
+                        lineNumber: 100,
+                        columnNumber: 15
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/dashboard/page.tsx",
+                    lineNumber: 96,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+                            children: filteredCourses.map((course)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    onClick: ()=>router.push(`/project/${course.key}?from=dashboard`),
+                                    className: "bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer overflow-hidden",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "aspect-video w-full overflow-hidden bg-gradient-to-br from-[#9F80DA]/20 to-[#8A6BC5]/20 flex items-center justify-center",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                className: "w-16 h-16 text-[#9F80DA]/50",
+                                                fill: "none",
+                                                stroke: "currentColor",
+                                                viewBox: "0 0 24 24",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                    strokeLinecap: "round",
+                                                    strokeLinejoin: "round",
+                                                    strokeWidth: 1.5,
+                                                    d: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                    lineNumber: 122,
+                                                    columnNumber: 23
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/dashboard/page.tsx",
+                                                lineNumber: 121,
+                                                columnNumber: 21
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/dashboard/page.tsx",
+                                            lineNumber: 120,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "p-4",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                                    className: "text-lg font-semibold text-[#1a1a1a] truncate",
+                                                    children: course.title || 'Untitled Course'
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                    lineNumber: 126,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex items-center justify-between mt-2",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: `text-xs px-2 py-1 rounded-full ${course.status === 'completed' ? 'bg-green-100 text-green-700' : course.status === 'generating' ? 'bg-yellow-100 text-yellow-700' : course.status === 'failed' ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-600'}`,
+                                                            children: course.status.charAt(0).toUpperCase() + course.status.slice(1)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 130,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-xs text-gray-500",
+                                                            children: new Date(course.createdAt).toLocaleDateString('es-AR', {
+                                                                day: '2-digit',
+                                                                month: '2-digit',
+                                                                year: 'numeric'
+                                                            })
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 138,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                    lineNumber: 129,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex gap-2 mt-3 pt-3 border-t border-gray-100",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            onClick: (e)=>{
+                                                                e.stopPropagation();
+                                                                router.push(`/project/${course.key}?from=dashboard`);
+                                                            },
+                                                            className: "flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-[#9F80DA] hover:bg-[#9F80DA]/5 rounded-lg transition-colors",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                                    className: "w-3.5 h-3.5",
+                                                                    fill: "none",
+                                                                    stroke: "currentColor",
+                                                                    viewBox: "0 0 24 24",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                        strokeLinecap: "round",
+                                                                        strokeLinejoin: "round",
+                                                                        strokeWidth: 2,
+                                                                        d: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/dashboard/page.tsx",
+                                                                        lineNumber: 148,
+                                                                        columnNumber: 27
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                                    lineNumber: 147,
+                                                                    columnNumber: 25
+                                                                }, this),
+                                                                "Edit"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 143,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                            onClick: (e)=>{
+                                                                e.stopPropagation();
+                                                                router.push(`/preview/${course.key}?from=dashboard`);
+                                                            },
+                                                            className: "flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-[#9F80DA] hover:bg-[#9F80DA]/5 rounded-lg transition-colors",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                                    className: "w-3.5 h-3.5",
+                                                                    fill: "none",
+                                                                    stroke: "currentColor",
+                                                                    viewBox: "0 0 24 24",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                            strokeLinecap: "round",
+                                                                            strokeLinejoin: "round",
+                                                                            strokeWidth: 2,
+                                                                            d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                                            lineNumber: 157,
+                                                                            columnNumber: 27
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                            strokeLinecap: "round",
+                                                                            strokeLinejoin: "round",
+                                                                            strokeWidth: 2,
+                                                                            d: "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                                            lineNumber: 158,
+                                                                            columnNumber: 27
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                                    lineNumber: 156,
+                                                                    columnNumber: 25
+                                                                }, this),
+                                                                "Preview"
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 152,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                    lineNumber: 142,
+                                                    columnNumber: 21
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/dashboard/page.tsx",
+                                            lineNumber: 125,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, course.id, true, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 115,
+                                    columnNumber: 17
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/app/dashboard/page.tsx",
+                            lineNumber: 113,
+                            columnNumber: 13
+                        }, this),
+                        coursesResponse && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$Pagination$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                            page: coursesResponse.page,
+                            limit: coursesResponse.limit,
+                            total: coursesResponse.total,
+                            onPageChange: setPage
+                        }, void 0, false, {
+                            fileName: "[project]/app/dashboard/page.tsx",
+                            lineNumber: 168,
+                            columnNumber: 15
+                        }, this)
+                    ]
+                }, void 0, true),
+                (myBadges || allBadges) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "mt-16",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mb-8",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "text-2xl font-bold text-[#1a1a1a]",
+                                    children: "Achievements"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 182,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-gray-500 text-sm mt-1",
+                                    children: "Badges you've earned and goals to unlock."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 183,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/dashboard/page.tsx",
+                            lineNumber: 181,
+                            columnNumber: 13
+                        }, this),
+                        (!myBadges || myBadges.length === 0) && lockedBadges.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-center py-16",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                        className: "w-8 h-8 text-amber-400",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        viewBox: "0 0 24 24",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            strokeWidth: 1.5,
+                                            d: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/dashboard/page.tsx",
+                                            lineNumber: 190,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/dashboard/page.tsx",
+                                        lineNumber: 189,
+                                        columnNumber: 19
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 188,
+                                    columnNumber: 17
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-gray-500",
+                                    children: "No badges available yet."
+                                }, void 0, false, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 193,
+                                    columnNumber: 17
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/dashboard/page.tsx",
+                            lineNumber: 187,
+                            columnNumber: 15
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
+                            children: [
+                                myBadges && myBadges.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "mb-10",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4",
+                                            children: [
+                                                "Earned (",
+                                                myBadges.length,
+                                                ")"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/dashboard/page.tsx",
+                                            lineNumber: 200,
+                                            columnNumber: 21
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4",
+                                            children: myBadges.map((ub)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "bg-white rounded-xl border border-gray-200 p-4 text-center hover:shadow-md transition-shadow",
+                                                    children: [
+                                                        ub.badge.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                            src: ub.badge.image,
+                                                            alt: ub.badge.name,
+                                                            className: "w-14 h-14 rounded-xl object-cover mx-auto mb-3"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 210,
+                                                            columnNumber: 29
+                                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "w-14 h-14 rounded-xl bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center mx-auto mb-3",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                                className: "w-7 h-7 text-amber-600",
+                                                                fill: "none",
+                                                                stroke: "currentColor",
+                                                                viewBox: "0 0 24 24",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                    strokeLinecap: "round",
+                                                                    strokeLinejoin: "round",
+                                                                    strokeWidth: 1.5,
+                                                                    d: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                                    lineNumber: 218,
+                                                                    columnNumber: 33
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/dashboard/page.tsx",
+                                                                lineNumber: 217,
+                                                                columnNumber: 31
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 216,
+                                                            columnNumber: 29
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm font-medium text-[#1a1a1a] truncate",
+                                                            children: ub.badge.name
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 222,
+                                                            columnNumber: 27
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full capitalize mt-1 inline-block",
+                                                            children: ub.badge.type
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 223,
+                                                            columnNumber: 27
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-xs text-gray-400 mt-2",
+                                                            children: [
+                                                                "Earned on ",
+                                                                new Date(ub.earnedAt).toLocaleDateString('en-US', {
+                                                                    month: 'short',
+                                                                    day: 'numeric',
+                                                                    year: 'numeric'
+                                                                })
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 226,
+                                                            columnNumber: 27
+                                                        }, this)
+                                                    ]
+                                                }, ub.id, true, {
+                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                    lineNumber: 205,
+                                                    columnNumber: 25
+                                                }, this))
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/dashboard/page.tsx",
+                                            lineNumber: 203,
+                                            columnNumber: 21
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 199,
+                                    columnNumber: 19
+                                }, this),
+                                lockedBadges.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                            className: "text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4",
+                                            children: [
+                                                "Locked (",
+                                                lockedBadges.length,
+                                                ")"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/dashboard/page.tsx",
+                                            lineNumber: 238,
+                                            columnNumber: 21
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4",
+                                            children: lockedBadges.map((badge)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "relative bg-white rounded-xl border border-gray-200 p-4 text-center opacity-40 grayscale hover:opacity-70 hover:grayscale-0 transition-all cursor-default",
+                                                    onMouseEnter: ()=>setHoveredBadgeId(badge.id),
+                                                    onMouseLeave: ()=>setHoveredBadgeId(null),
+                                                    children: [
+                                                        badge.image ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                            src: badge.image,
+                                                            alt: badge.name,
+                                                            className: "w-14 h-14 rounded-xl object-cover mx-auto mb-3"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 250,
+                                                            columnNumber: 29
+                                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "w-14 h-14 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-3",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                                                className: "w-7 h-7 text-gray-400",
+                                                                fill: "none",
+                                                                stroke: "currentColor",
+                                                                viewBox: "0 0 24 24",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                                                    strokeLinecap: "round",
+                                                                    strokeLinejoin: "round",
+                                                                    strokeWidth: 1.5,
+                                                                    d: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                                    lineNumber: 258,
+                                                                    columnNumber: 33
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/dashboard/page.tsx",
+                                                                lineNumber: 257,
+                                                                columnNumber: 31
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 256,
+                                                            columnNumber: 29
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                            className: "text-sm font-medium text-[#1a1a1a] truncate",
+                                                            children: badge.name
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 262,
+                                                            columnNumber: 27
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full capitalize mt-1 inline-block",
+                                                            children: badge.type
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 263,
+                                                            columnNumber: 27
+                                                        }, this),
+                                                        hoveredBadgeId === badge.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "absolute -top-12 left-1/2 -translate-x-1/2 bg-[#1a1a1a] text-white text-xs rounded-lg px-3 py-2 whitespace-nowrap z-10 shadow-lg",
+                                                            children: [
+                                                                getConditionHint(badge),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1a1a1a]"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                                    lineNumber: 271,
+                                                                    columnNumber: 31
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/dashboard/page.tsx",
+                                                            lineNumber: 269,
+                                                            columnNumber: 29
+                                                        }, this)
+                                                    ]
+                                                }, badge.id, true, {
+                                                    fileName: "[project]/app/dashboard/page.tsx",
+                                                    lineNumber: 243,
+                                                    columnNumber: 25
+                                                }, this))
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/dashboard/page.tsx",
+                                            lineNumber: 241,
+                                            columnNumber: 21
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/dashboard/page.tsx",
+                                    lineNumber: 237,
+                                    columnNumber: 19
+                                }, this)
+                            ]
+                        }, void 0, true)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/dashboard/page.tsx",
+                    lineNumber: 180,
+                    columnNumber: 11
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/dashboard/page.tsx",
+            lineNumber: 63,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/dashboard/page.tsx",
+        lineNumber: 62,
+        columnNumber: 5
+    }, this);
+}
+}),
+];
+
+//# sourceMappingURL=_161138aa._.js.map

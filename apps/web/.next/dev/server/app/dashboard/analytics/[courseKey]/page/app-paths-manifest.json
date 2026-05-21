@@ -1,0 +1,3 @@
+{
+  "/dashboard/analytics/[courseKey]/page": "app/dashboard/analytics/[courseKey]/page.js"
+}
