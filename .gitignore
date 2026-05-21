@@ -40,3 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 k8s/overlays/*/secrets.yaml
+
+node_modules/
+**/node_modules/
+.next/
+**/.next/
+.swc/
+**/.swc/
+dist/
+**/dist/
