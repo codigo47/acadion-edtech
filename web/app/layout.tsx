@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Onest } from "next/font/google";
 import "./globals.css";
-import GoogleAnalytics from "./components/GoogleAnalytics";
+import { PostHogProvider } from "./components/providers/posthog-provider";
 
 const onest = Onest({
   variable: "--font-onest",
@@ -10,8 +10,8 @@ const onest = Onest({
 });
 
 export const metadata: Metadata = {
-  title: "Course Scribe - Create educational content in the AI era",
-  description: "Forget all the manual tasks of instructional design and focus on creating better courses.",
+  title: "Acadion.ai - Create educational content in the AI era",
+  description: "Forget all the manual tasks of instructional design and focus on creating better courses. Acadion.ai is a platform that helps you create educational content in the AI era.",
 };
 
 export default function RootLayout({
@@ -24,8 +24,9 @@ export default function RootLayout({
       <body
         className={`${onest.variable} antialiased`}
       >
-        <GoogleAnalytics />
-        {children}
+        <PostHogProvider>
+          {children}
+        </PostHogProvider>
       </body>
     </html>
   );

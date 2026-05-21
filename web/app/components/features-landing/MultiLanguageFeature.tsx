@@ -32,8 +32,11 @@ export default function MultiLanguageFeature() {
             <button className="w-full px-2 py-1.5 md:px-3 md:py-2 text-left hover:bg-gray-50 transition-colors border-b border-gray-100">
               <div className="text-xs md:text-sm font-medium text-gray-800">French</div>
             </button>
-            <button className="w-full px-2 py-1.5 md:px-3 md:py-2 text-left hover:bg-gray-50 transition-colors">
+            <button className="w-full px-2 py-1.5 md:px-3 md:py-2 text-left hover:bg-gray-50 transition-colors border-b border-gray-100">
               <div className="text-xs md:text-sm font-medium text-gray-800">German</div>
+            </button>
+            <button className="w-full px-2 py-1.5 md:px-3 md:py-2 text-left hover:bg-gray-50 transition-colors">
+              <div className="text-xs md:text-sm font-medium text-gray-800">Other</div>
             </button>
           </div>
           )}

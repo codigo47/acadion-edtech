@@ -30,10 +30,7 @@ export default function AIImageGenerationFeature() {
                 className="w-full text-[10px] md:text-xs text-gray-700 bg-gray-50 px-2 py-1.5 md:px-3 md:py-2 rounded border border-gray-300 outline-none cursor-default resize-none"
               />
               <button className="w-full px-2 py-1.5 md:px-3 md:py-2 bg-[#9F80DA] hover:bg-[#8A6BC5] text-white text-[10px] md:text-xs rounded font-medium transition-colors flex items-center justify-center gap-1">
-                <svg className="w-3 h-3 md:w-3.5 md:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-                Apply
+                Generate
               </button>
             </div>
           </div>
