@@ -1,0 +1,38 @@
+f4307f4ae5cb75f9a0a36dcfa4190f6a
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LocalStrategy = void 0;
+const passport_local_1 = require("passport-local");
+const passport_1 = require("@nestjs/passport");
+const common_1 = require("@nestjs/common");
+const users_service_1 = require("../../users/users.service");
+let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
+    usersService;
+    constructor(usersService) {
+        super({ usernameField: 'email' });
+        this.usersService = usersService;
+    }
+    async validate(email, password) {
+        const user = await this.usersService.validatePassword(email, password);
+        if (!user) {
+            throw new common_1.UnauthorizedException('Invalid credentials');
+        }
+        return user;
+    }
+};
+exports.LocalStrategy = LocalStrategy;
+exports.LocalStrategy = LocalStrategy = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _a : Object])
+], LocalStrategy);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvYXV0aC9zdHJhdGVnaWVzL2xvY2FsLnN0cmF0ZWd5LnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7QUFBQSxtREFBMEM7QUFDMUMsK0NBQW9EO0FBQ3BELDJDQUFtRTtBQUNuRSw2REFBeUQ7QUFHbEQsSUFBTSxhQUFhLEdBQW5CLE1BQU0sYUFBYyxTQUFRLElBQUEsMkJBQWdCLEVBQUMseUJBQVEsQ0FBQztJQUN2QztJQUFwQixZQUFvQixZQUEwQjtRQUM1QyxLQUFLLENBQUMsRUFBRSxhQUFhLEVBQUUsT0FBTyxFQUFFLENBQUMsQ0FBQztRQURoQixpQkFBWSxHQUFaLFlBQVksQ0FBYztJQUU5QyxDQUFDO0lBRUQsS0FBSyxDQUFDLFFBQVEsQ0FBQyxLQUFhLEVBQUUsUUFBZ0I7UUFDNUMsTUFBTSxJQUFJLEdBQUcsTUFBTSxJQUFJLENBQUMsWUFBWSxDQUFDLGdCQUFnQixDQUFDLEtBQUssRUFBRSxRQUFRLENBQUMsQ0FBQztRQUN2RSxJQUFJLENBQUMsSUFBSSxFQUFFLENBQUM7WUFDVixNQUFNLElBQUksOEJBQXFCLENBQUMscUJBQXFCLENBQUMsQ0FBQztRQUN6RCxDQUFDO1FBQ0QsT0FBTyxJQUFJLENBQUM7SUFDZCxDQUFDO0NBQ0YsQ0FBQTtBQVpZLHNDQUFhO3dCQUFiLGFBQWE7SUFEekIsSUFBQSxtQkFBVSxHQUFFO3lEQUV1Qiw0QkFBWSxvQkFBWiw0QkFBWTtHQURuQyxhQUFhLENBWXpCIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL2F1dGgvc3RyYXRlZ2llcy9sb2NhbC5zdHJhdGVneS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBTdHJhdGVneSB9IGZyb20gJ3Bhc3Nwb3J0LWxvY2FsJztcbmltcG9ydCB7IFBhc3Nwb3J0U3RyYXRlZ3kgfSBmcm9tICdAbmVzdGpzL3Bhc3Nwb3J0JztcbmltcG9ydCB7IEluamVjdGFibGUsIFVuYXV0aG9yaXplZEV4Y2VwdGlvbiB9IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbmltcG9ydCB7IFVzZXJzU2VydmljZSB9IGZyb20gJy4uLy4uL3VzZXJzL3VzZXJzLnNlcnZpY2UnO1xuXG5ASW5qZWN0YWJsZSgpXG5leHBvcnQgY2xhc3MgTG9jYWxTdHJhdGVneSBleHRlbmRzIFBhc3Nwb3J0U3RyYXRlZ3koU3RyYXRlZ3kpIHtcbiAgY29uc3RydWN0b3IocHJpdmF0ZSB1c2Vyc1NlcnZpY2U6IFVzZXJzU2VydmljZSkge1xuICAgIHN1cGVyKHsgdXNlcm5hbWVGaWVsZDogJ2VtYWlsJyB9KTtcbiAgfVxuXG4gIGFzeW5jIHZhbGlkYXRlKGVtYWlsOiBzdHJpbmcsIHBhc3N3b3JkOiBzdHJpbmcpOiBQcm9taXNlPGFueT4ge1xuICAgIGNvbnN0IHVzZXIgPSBhd2FpdCB0aGlzLnVzZXJzU2VydmljZS52YWxpZGF0ZVBhc3N3b3JkKGVtYWlsLCBwYXNzd29yZCk7XG4gICAgaWYgKCF1c2VyKSB7XG4gICAgICB0aHJvdyBuZXcgVW5hdXRob3JpemVkRXhjZXB0aW9uKCdJbnZhbGlkIGNyZWRlbnRpYWxzJyk7XG4gICAgfVxuICAgIHJldHVybiB1c2VyO1xuICB9XG59XG4iXSwidmVyc2lvbiI6M30=

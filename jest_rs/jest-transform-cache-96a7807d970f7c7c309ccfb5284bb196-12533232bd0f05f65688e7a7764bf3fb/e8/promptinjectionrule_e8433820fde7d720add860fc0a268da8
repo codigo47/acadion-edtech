@@ -1,0 +1,54 @@
+3e25acb8d037c260d669fbe828eb0f49
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PromptInjectionRule = void 0;
+const types_1 = require("../types");
+/**
+ * Catches the well-known, cheap-to-match prompt-injection phrasings.
+ *
+ * This is deliberately a coarse first line of defence: it stops the obvious
+ * attempts for free, in microseconds, without a model call. Anything subtler
+ * (role-play framings, obfuscated instructions, encoded payloads) is left to
+ * the LLM judge — see `DeepseekJudgeService`. Treating regex as the whole
+ * answer would be security theatre; treating it as a cheap prefilter is not.
+ */
+const INJECTION_PATTERNS = [
+    {
+        id: 'override_instructions',
+        pattern: /\b(ignore|disregard|forget|override)\b[^.]{0,40}\b(previous|prior|above|earlier|all)\b[^.]{0,20}\b(instruction|prompt|rule|direction)/i,
+    },
+    {
+        id: 'system_prompt_probe',
+        pattern: /\b(system prompt|initial prompt|your instructions|reveal|print|repeat)\b[^.]{0,30}\b(prompt|instructions|rules)\b/i,
+    },
+    {
+        id: 'role_reassignment',
+        pattern: /\b(you are now|act as|pretend to be|from now on you)\b[^.]{0,40}\b(dan|admin|developer mode|unrestricted|no restrictions)\b/i,
+    },
+    {
+        id: 'delimiter_injection',
+        pattern: /(<\/?(system|assistant|user)>|\[\/?INST\]|###\s*system)/i,
+    },
+];
+class PromptInjectionRule {
+    name = 'prompt_injection';
+    run(input) {
+        const hit = INJECTION_PATTERNS.find((p) => p.pattern.test(input));
+        if (!hit) {
+            return (0, types_1.allow)(input);
+        }
+        return {
+            decision: 'block',
+            output: input,
+            findings: [
+                {
+                    rule: `${this.name}.${hit.id}`,
+                    severity: 'high',
+                    message: 'Input looks like an attempt to override the assistant instructions.',
+                },
+            ],
+        };
+    }
+}
+exports.PromptInjectionRule = PromptInjectionRule;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvZ3VhcmRyYWlscy9ydWxlcy9wcm9tcHQtaW5qZWN0aW9uLnJ1bGUudHMiLCJtYXBwaW5ncyI6Ijs7O0FBQUEsb0NBQWlFO0FBRWpFOzs7Ozs7OztHQVFHO0FBQ0gsTUFBTSxrQkFBa0IsR0FBMkM7SUFDakU7UUFDRSxFQUFFLEVBQUUsdUJBQXVCO1FBQzNCLE9BQU8sRUFDTCx3SUFBd0k7S0FDM0k7SUFDRDtRQUNFLEVBQUUsRUFBRSxxQkFBcUI7UUFDekIsT0FBTyxFQUNMLG9IQUFvSDtLQUN2SDtJQUNEO1FBQ0UsRUFBRSxFQUFFLG1CQUFtQjtRQUN2QixPQUFPLEVBQ0wsOEhBQThIO0tBQ2pJO0lBQ0Q7UUFDRSxFQUFFLEVBQUUscUJBQXFCO1FBQ3pCLE9BQU8sRUFBRSwwREFBMEQ7S0FDcEU7Q0FDRixDQUFDO0FBRUYsTUFBYSxtQkFBbUI7SUFDckIsSUFBSSxHQUFHLGtCQUFrQixDQUFDO0lBRW5DLEdBQUcsQ0FBQyxLQUFhO1FBQ2YsTUFBTSxHQUFHLEdBQUcsa0JBQWtCLENBQUMsSUFBSSxDQUFDLENBQUMsQ0FBQyxFQUFFLEVBQUUsQ0FBQyxDQUFDLENBQUMsT0FBTyxDQUFDLElBQUksQ0FBQyxLQUFLLENBQUMsQ0FBQyxDQUFDO1FBRWxFLElBQUksQ0FBQyxHQUFHLEVBQUUsQ0FBQztZQUNULE9BQU8sSUFBQSxhQUFLLEVBQUMsS0FBSyxDQUFDLENBQUM7UUFDdEIsQ0FBQztRQUVELE9BQU87WUFDTCxRQUFRLEVBQUUsT0FBTztZQUNqQixNQUFNLEVBQUUsS0FBSztZQUNiLFFBQVEsRUFBRTtnQkFDUjtvQkFDRSxJQUFJLEVBQUUsR0FBRyxJQUFJLENBQUMsSUFBSSxJQUFJLEdBQUcsQ0FBQyxFQUFFLEVBQUU7b0JBQzlCLFFBQVEsRUFBRSxNQUFNO29CQUNoQixPQUFPLEVBQ0wscUVBQXFFO2lCQUN4RTthQUNGO1NBQ0YsQ0FBQztJQUNKLENBQUM7Q0FDRjtBQXZCRCxrREF1QkMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvZ3VhcmRyYWlscy9ydWxlcy9wcm9tcHQtaW5qZWN0aW9uLnJ1bGUudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgRGV0ZXJtaW5pc3RpY1J1bGUsIFJ1bGVPdXRjb21lLCBhbGxvdyB9IGZyb20gJy4uL3R5cGVzJztcblxuLyoqXG4gKiBDYXRjaGVzIHRoZSB3ZWxsLWtub3duLCBjaGVhcC10by1tYXRjaCBwcm9tcHQtaW5qZWN0aW9uIHBocmFzaW5ncy5cbiAqXG4gKiBUaGlzIGlzIGRlbGliZXJhdGVseSBhIGNvYXJzZSBmaXJzdCBsaW5lIG9mIGRlZmVuY2U6IGl0IHN0b3BzIHRoZSBvYnZpb3VzXG4gKiBhdHRlbXB0cyBmb3IgZnJlZSwgaW4gbWljcm9zZWNvbmRzLCB3aXRob3V0IGEgbW9kZWwgY2FsbC4gQW55dGhpbmcgc3VidGxlclxuICogKHJvbGUtcGxheSBmcmFtaW5ncywgb2JmdXNjYXRlZCBpbnN0cnVjdGlvbnMsIGVuY29kZWQgcGF5bG9hZHMpIGlzIGxlZnQgdG9cbiAqIHRoZSBMTE0ganVkZ2Ug4oCUIHNlZSBgRGVlcHNlZWtKdWRnZVNlcnZpY2VgLiBUcmVhdGluZyByZWdleCBhcyB0aGUgd2hvbGVcbiAqIGFuc3dlciB3b3VsZCBiZSBzZWN1cml0eSB0aGVhdHJlOyB0cmVhdGluZyBpdCBhcyBhIGNoZWFwIHByZWZpbHRlciBpcyBub3QuXG4gKi9cbmNvbnN0IElOSkVDVElPTl9QQVRURVJOUzogQXJyYXk8eyBpZDogc3RyaW5nOyBwYXR0ZXJuOiBSZWdFeHAgfT4gPSBbXG4gIHtcbiAgICBpZDogJ292ZXJyaWRlX2luc3RydWN0aW9ucycsXG4gICAgcGF0dGVybjpcbiAgICAgIC9cXGIoaWdub3JlfGRpc3JlZ2FyZHxmb3JnZXR8b3ZlcnJpZGUpXFxiW14uXXswLDQwfVxcYihwcmV2aW91c3xwcmlvcnxhYm92ZXxlYXJsaWVyfGFsbClcXGJbXi5dezAsMjB9XFxiKGluc3RydWN0aW9ufHByb21wdHxydWxlfGRpcmVjdGlvbikvaSxcbiAgfSxcbiAge1xuICAgIGlkOiAnc3lzdGVtX3Byb21wdF9wcm9iZScsXG4gICAgcGF0dGVybjpcbiAgICAgIC9cXGIoc3lzdGVtIHByb21wdHxpbml0aWFsIHByb21wdHx5b3VyIGluc3RydWN0aW9uc3xyZXZlYWx8cHJpbnR8cmVwZWF0KVxcYlteLl17MCwzMH1cXGIocHJvbXB0fGluc3RydWN0aW9uc3xydWxlcylcXGIvaSxcbiAgfSxcbiAge1xuICAgIGlkOiAncm9sZV9yZWFzc2lnbm1lbnQnLFxuICAgIHBhdHRlcm46XG4gICAgICAvXFxiKHlvdSBhcmUgbm93fGFjdCBhc3xwcmV0ZW5kIHRvIGJlfGZyb20gbm93IG9uIHlvdSlcXGJbXi5dezAsNDB9XFxiKGRhbnxhZG1pbnxkZXZlbG9wZXIgbW9kZXx1bnJlc3RyaWN0ZWR8bm8gcmVzdHJpY3Rpb25zKVxcYi9pLFxuICB9LFxuICB7XG4gICAgaWQ6ICdkZWxpbWl0ZXJfaW5qZWN0aW9uJyxcbiAgICBwYXR0ZXJuOiAvKDxcXC8/KHN5c3RlbXxhc3Npc3RhbnR8dXNlcik+fFxcW1xcLz9JTlNUXFxdfCMjI1xccypzeXN0ZW0pL2ksXG4gIH0sXG5dO1xuXG5leHBvcnQgY2xhc3MgUHJvbXB0SW5qZWN0aW9uUnVsZSBpbXBsZW1lbnRzIERldGVybWluaXN0aWNSdWxlIHtcbiAgcmVhZG9ubHkgbmFtZSA9ICdwcm9tcHRfaW5qZWN0aW9uJztcblxuICBydW4oaW5wdXQ6IHN0cmluZyk6IFJ1bGVPdXRjb21lIHtcbiAgICBjb25zdCBoaXQgPSBJTkpFQ1RJT05fUEFUVEVSTlMuZmluZCgocCkgPT4gcC5wYXR0ZXJuLnRlc3QoaW5wdXQpKTtcblxuICAgIGlmICghaGl0KSB7XG4gICAgICByZXR1cm4gYWxsb3coaW5wdXQpO1xuICAgIH1cblxuICAgIHJldHVybiB7XG4gICAgICBkZWNpc2lvbjogJ2Jsb2NrJyxcbiAgICAgIG91dHB1dDogaW5wdXQsXG4gICAgICBmaW5kaW5nczogW1xuICAgICAgICB7XG4gICAgICAgICAgcnVsZTogYCR7dGhpcy5uYW1lfS4ke2hpdC5pZH1gLFxuICAgICAgICAgIHNldmVyaXR5OiAnaGlnaCcsXG4gICAgICAgICAgbWVzc2FnZTpcbiAgICAgICAgICAgICdJbnB1dCBsb29rcyBsaWtlIGFuIGF0dGVtcHQgdG8gb3ZlcnJpZGUgdGhlIGFzc2lzdGFudCBpbnN0cnVjdGlvbnMuJyxcbiAgICAgICAgfSxcbiAgICAgIF0sXG4gICAgfTtcbiAgfVxufVxuIl0sInZlcnNpb24iOjN9

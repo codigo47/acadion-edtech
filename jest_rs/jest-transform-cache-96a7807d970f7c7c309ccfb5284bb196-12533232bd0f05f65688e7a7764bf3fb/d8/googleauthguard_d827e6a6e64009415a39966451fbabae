@@ -1,0 +1,19 @@
+f428f0bf89d46be0ca44aca9fb7d8967
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GoogleAuthGuard = void 0;
+const common_1 = require("@nestjs/common");
+const passport_1 = require("@nestjs/passport");
+let GoogleAuthGuard = class GoogleAuthGuard extends (0, passport_1.AuthGuard)('google') {
+};
+exports.GoogleAuthGuard = GoogleAuthGuard;
+exports.GoogleAuthGuard = GoogleAuthGuard = __decorate([
+    (0, common_1.Injectable)()
+], GoogleAuthGuard);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvYXV0aC9ndWFyZHMvZ29vZ2xlLWF1dGguZ3VhcmQudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7O0FBQUEsMkNBQTRDO0FBQzVDLCtDQUE2QztBQUd0QyxJQUFNLGVBQWUsR0FBckIsTUFBTSxlQUFnQixTQUFRLElBQUEsb0JBQVMsRUFBQyxRQUFRLENBQUM7Q0FBRyxDQUFBO0FBQTlDLDBDQUFlOzBCQUFmLGVBQWU7SUFEM0IsSUFBQSxtQkFBVSxHQUFFO0dBQ0EsZUFBZSxDQUErQiIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvaG9tZS9jb2RpZ280Ny9zaXN0ZW1hcy9jb3Vyc2Uvc291cmNlL2FwcHMvYXBpL3NyYy9hdXRoL2d1YXJkcy9nb29nbGUtYXV0aC5ndWFyZC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBJbmplY3RhYmxlIH0gZnJvbSAnQG5lc3Rqcy9jb21tb24nO1xuaW1wb3J0IHsgQXV0aEd1YXJkIH0gZnJvbSAnQG5lc3Rqcy9wYXNzcG9ydCc7XG5cbkBJbmplY3RhYmxlKClcbmV4cG9ydCBjbGFzcyBHb29nbGVBdXRoR3VhcmQgZXh0ZW5kcyBBdXRoR3VhcmQoJ2dvb2dsZScpIHt9XG4iXSwidmVyc2lvbiI6M30=

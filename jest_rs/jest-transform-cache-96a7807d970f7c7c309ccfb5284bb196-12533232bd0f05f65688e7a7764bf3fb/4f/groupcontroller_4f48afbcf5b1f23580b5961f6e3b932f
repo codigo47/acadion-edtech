@@ -1,0 +1,108 @@
+54f3adc514bd22c0e860cc14bf2bad0a
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GroupController = void 0;
+const common_1 = require("@nestjs/common");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const group_service_1 = require("./group.service");
+const group_dto_1 = require("./dto/group.dto");
+let GroupController = class GroupController {
+    groupService;
+    constructor(groupService) {
+        this.groupService = groupService;
+    }
+    getOrgGroups(orgKey) {
+        return this.groupService.getOrgGroups(orgKey);
+    }
+    getGroupDetail(id) {
+        return this.groupService.getGroupDetail(id);
+    }
+    createGroup(orgKey, dto) {
+        return this.groupService.createGroup(orgKey, dto);
+    }
+    updateGroup(id, dto) {
+        return this.groupService.updateGroup(id, dto);
+    }
+    deleteGroup(id) {
+        return this.groupService.deleteGroup(id);
+    }
+    addMember(id, dto) {
+        return this.groupService.addMember(id, dto);
+    }
+    removeMember(id, userId) {
+        return this.groupService.removeMember(id, userId);
+    }
+};
+exports.GroupController = GroupController;
+__decorate([
+    (0, common_1.Get)('org/:orgKey'),
+    __param(0, (0, common_1.Param)('orgKey')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], GroupController.prototype, "getOrgGroups", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], GroupController.prototype, "getGroupDetail", null);
+__decorate([
+    (0, common_1.Post)('org/:orgKey'),
+    __param(0, (0, common_1.Param)('orgKey')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_b = typeof group_dto_1.CreateGroupDto !== "undefined" && group_dto_1.CreateGroupDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], GroupController.prototype, "createGroup", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, typeof (_c = typeof group_dto_1.UpdateGroupDto !== "undefined" && group_dto_1.UpdateGroupDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], GroupController.prototype, "updateGroup", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], GroupController.prototype, "deleteGroup", null);
+__decorate([
+    (0, common_1.Post)(':id/members'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, typeof (_d = typeof group_dto_1.AddGroupMemberDto !== "undefined" && group_dto_1.AddGroupMemberDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], GroupController.prototype, "addMember", null);
+__decorate([
+    (0, common_1.Delete)(':id/members/:userId'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, String]),
+    __metadata("design:returntype", void 0)
+], GroupController.prototype, "removeMember", null);
+exports.GroupController = GroupController = __decorate([
+    (0, common_1.Controller)('groups'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __metadata("design:paramtypes", [typeof (_a = typeof group_service_1.GroupService !== "undefined" && group_service_1.GroupService) === "function" ? _a : Object])
+], GroupController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvZ3JvdXAvZ3JvdXAuY29udHJvbGxlci50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsMkNBVXdCO0FBQ3hCLGtFQUE2RDtBQUM3RCxtREFBK0M7QUFDL0MsK0NBSXlCO0FBSWxCLElBQU0sZUFBZSxHQUFyQixNQUFNLGVBQWU7SUFDRztJQUE3QixZQUE2QixZQUEwQjtRQUExQixpQkFBWSxHQUFaLFlBQVksQ0FBYztJQUFHLENBQUM7SUFHM0QsWUFBWSxDQUFrQixNQUFjO1FBQzFDLE9BQU8sSUFBSSxDQUFDLFlBQVksQ0FBQyxZQUFZLENBQUMsTUFBTSxDQUFDLENBQUM7SUFDaEQsQ0FBQztJQUdELGNBQWMsQ0FBNEIsRUFBVTtRQUNsRCxPQUFPLElBQUksQ0FBQyxZQUFZLENBQUMsY0FBYyxDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBQzlDLENBQUM7SUFHRCxXQUFXLENBQ1EsTUFBYyxFQUN2QixHQUFtQjtRQUUzQixPQUFPLElBQUksQ0FBQyxZQUFZLENBQUMsV0FBVyxDQUFDLE1BQU0sRUFBRSxHQUFHLENBQUMsQ0FBQztJQUNwRCxDQUFDO0lBR0QsV0FBVyxDQUNrQixFQUFVLEVBQzdCLEdBQW1CO1FBRTNCLE9BQU8sSUFBSSxDQUFDLFlBQVksQ0FBQyxXQUFXLENBQUMsRUFBRSxFQUFFLEdBQUcsQ0FBQyxDQUFDO0lBQ2hELENBQUM7SUFHRCxXQUFXLENBQTRCLEVBQVU7UUFDL0MsT0FBTyxJQUFJLENBQUMsWUFBWSxDQUFDLFdBQVcsQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUMzQyxDQUFDO0lBR0QsU0FBUyxDQUNvQixFQUFVLEVBQzdCLEdBQXNCO1FBRTlCLE9BQU8sSUFBSSxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsRUFBRSxFQUFFLEdBQUcsQ0FBQyxDQUFDO0lBQzlDLENBQUM7SUFHRCxZQUFZLENBQ2lCLEVBQVUsRUFDcEIsTUFBYztRQUUvQixPQUFPLElBQUksQ0FBQyxZQUFZLENBQUMsWUFBWSxDQUFDLEVBQUUsRUFBRSxNQUFNLENBQUMsQ0FBQztJQUNwRCxDQUFDO0NBQ0YsQ0FBQTtBQWpEWSwwQ0FBZTtBQUkxQjtJQURDLElBQUEsWUFBRyxFQUFDLGFBQWEsQ0FBQztJQUNMLFdBQUEsSUFBQSxjQUFLLEVBQUMsUUFBUSxDQUFDLENBQUE7Ozs7bURBRTVCO0FBR0Q7SUFEQyxJQUFBLFlBQUcsRUFBQyxLQUFLLENBQUM7SUFDSyxXQUFBLElBQUEsY0FBSyxFQUFDLElBQUksRUFBRSxxQkFBWSxDQUFDLENBQUE7Ozs7cURBRXhDO0FBR0Q7SUFEQyxJQUFBLGFBQUksRUFBQyxhQUFhLENBQUM7SUFFakIsV0FBQSxJQUFBLGNBQUssRUFBQyxRQUFRLENBQUMsQ0FBQTtJQUNmLFdBQUEsSUFBQSxhQUFJLEdBQUUsQ0FBQTs7aUVBQU0sMEJBQWMsb0JBQWQsMEJBQWM7O2tEQUc1QjtBQUdEO0lBREMsSUFBQSxjQUFLLEVBQUMsS0FBSyxDQUFDO0lBRVYsV0FBQSxJQUFBLGNBQUssRUFBQyxJQUFJLEVBQUUscUJBQVksQ0FBQyxDQUFBO0lBQ3pCLFdBQUEsSUFBQSxhQUFJLEdBQUUsQ0FBQTs7aUVBQU0sMEJBQWMsb0JBQWQsMEJBQWM7O2tEQUc1QjtBQUdEO0lBREMsSUFBQSxlQUFNLEVBQUMsS0FBSyxDQUFDO0lBQ0QsV0FBQSxJQUFBLGNBQUssRUFBQyxJQUFJLEVBQUUscUJBQVksQ0FBQyxDQUFBOzs7O2tEQUVyQztBQUdEO0lBREMsSUFBQSxhQUFJLEVBQUMsYUFBYSxDQUFDO0lBRWpCLFdBQUEsSUFBQSxjQUFLLEVBQUMsSUFBSSxFQUFFLHFCQUFZLENBQUMsQ0FBQTtJQUN6QixXQUFBLElBQUEsYUFBSSxHQUFFLENBQUE7O2lFQUFNLDZCQUFpQixvQkFBakIsNkJBQWlCOztnREFHL0I7QUFHRDtJQURDLElBQUEsZUFBTSxFQUFDLHFCQUFxQixDQUFDO0lBRTNCLFdBQUEsSUFBQSxjQUFLLEVBQUMsSUFBSSxFQUFFLHFCQUFZLENBQUMsQ0FBQTtJQUN6QixXQUFBLElBQUEsY0FBSyxFQUFDLFFBQVEsQ0FBQyxDQUFBOzs7O21EQUdqQjswQkFoRFUsZUFBZTtJQUYzQixJQUFBLG1CQUFVLEVBQUMsUUFBUSxDQUFDO0lBQ3BCLElBQUEsa0JBQVMsRUFBQyw2QkFBWSxDQUFDO3lEQUVxQiw0QkFBWSxvQkFBWiw0QkFBWTtHQUQ1QyxlQUFlLENBaUQzQiIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvaG9tZS9jb2RpZ280Ny9zaXN0ZW1hcy9jb3Vyc2Uvc291cmNlL2FwcHMvYXBpL3NyYy9ncm91cC9ncm91cC5jb250cm9sbGVyLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7XG4gIENvbnRyb2xsZXIsXG4gIEdldCxcbiAgUG9zdCxcbiAgUGF0Y2gsXG4gIERlbGV0ZSxcbiAgQm9keSxcbiAgUGFyYW0sXG4gIFBhcnNlSW50UGlwZSxcbiAgVXNlR3VhcmRzLFxufSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgeyBKd3RBdXRoR3VhcmQgfSBmcm9tICcuLi9hdXRoL2d1YXJkcy9qd3QtYXV0aC5ndWFyZCc7XG5pbXBvcnQgeyBHcm91cFNlcnZpY2UgfSBmcm9tICcuL2dyb3VwLnNlcnZpY2UnO1xuaW1wb3J0IHtcbiAgQ3JlYXRlR3JvdXBEdG8sXG4gIFVwZGF0ZUdyb3VwRHRvLFxuICBBZGRHcm91cE1lbWJlckR0byxcbn0gZnJvbSAnLi9kdG8vZ3JvdXAuZHRvJztcblxuQENvbnRyb2xsZXIoJ2dyb3VwcycpXG5AVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbmV4cG9ydCBjbGFzcyBHcm91cENvbnRyb2xsZXIge1xuICBjb25zdHJ1Y3Rvcihwcml2YXRlIHJlYWRvbmx5IGdyb3VwU2VydmljZTogR3JvdXBTZXJ2aWNlKSB7fVxuXG4gIEBHZXQoJ29yZy86b3JnS2V5JylcbiAgZ2V0T3JnR3JvdXBzKEBQYXJhbSgnb3JnS2V5Jykgb3JnS2V5OiBzdHJpbmcpIHtcbiAgICByZXR1cm4gdGhpcy5ncm91cFNlcnZpY2UuZ2V0T3JnR3JvdXBzKG9yZ0tleSk7XG4gIH1cblxuICBAR2V0KCc6aWQnKVxuICBnZXRHcm91cERldGFpbChAUGFyYW0oJ2lkJywgUGFyc2VJbnRQaXBlKSBpZDogbnVtYmVyKSB7XG4gICAgcmV0dXJuIHRoaXMuZ3JvdXBTZXJ2aWNlLmdldEdyb3VwRGV0YWlsKGlkKTtcbiAgfVxuXG4gIEBQb3N0KCdvcmcvOm9yZ0tleScpXG4gIGNyZWF0ZUdyb3VwKFxuICAgIEBQYXJhbSgnb3JnS2V5Jykgb3JnS2V5OiBzdHJpbmcsXG4gICAgQEJvZHkoKSBkdG86IENyZWF0ZUdyb3VwRHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5ncm91cFNlcnZpY2UuY3JlYXRlR3JvdXAob3JnS2V5LCBkdG8pO1xuICB9XG5cbiAgQFBhdGNoKCc6aWQnKVxuICB1cGRhdGVHcm91cChcbiAgICBAUGFyYW0oJ2lkJywgUGFyc2VJbnRQaXBlKSBpZDogbnVtYmVyLFxuICAgIEBCb2R5KCkgZHRvOiBVcGRhdGVHcm91cER0byxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMuZ3JvdXBTZXJ2aWNlLnVwZGF0ZUdyb3VwKGlkLCBkdG8pO1xuICB9XG5cbiAgQERlbGV0ZSgnOmlkJylcbiAgZGVsZXRlR3JvdXAoQFBhcmFtKCdpZCcsIFBhcnNlSW50UGlwZSkgaWQ6IG51bWJlcikge1xuICAgIHJldHVybiB0aGlzLmdyb3VwU2VydmljZS5kZWxldGVHcm91cChpZCk7XG4gIH1cblxuICBAUG9zdCgnOmlkL21lbWJlcnMnKVxuICBhZGRNZW1iZXIoXG4gICAgQFBhcmFtKCdpZCcsIFBhcnNlSW50UGlwZSkgaWQ6IG51bWJlcixcbiAgICBAQm9keSgpIGR0bzogQWRkR3JvdXBNZW1iZXJEdG8sXG4gICkge1xuICAgIHJldHVybiB0aGlzLmdyb3VwU2VydmljZS5hZGRNZW1iZXIoaWQsIGR0byk7XG4gIH1cblxuICBARGVsZXRlKCc6aWQvbWVtYmVycy86dXNlcklkJylcbiAgcmVtb3ZlTWVtYmVyKFxuICAgIEBQYXJhbSgnaWQnLCBQYXJzZUludFBpcGUpIGlkOiBudW1iZXIsXG4gICAgQFBhcmFtKCd1c2VySWQnKSB1c2VySWQ6IHN0cmluZyxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMuZ3JvdXBTZXJ2aWNlLnJlbW92ZU1lbWJlcihpZCwgdXNlcklkKTtcbiAgfVxufVxuIl0sInZlcnNpb24iOjN9

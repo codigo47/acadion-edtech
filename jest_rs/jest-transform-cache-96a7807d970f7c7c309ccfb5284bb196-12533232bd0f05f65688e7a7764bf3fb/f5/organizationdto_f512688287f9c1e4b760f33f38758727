@@ -1,0 +1,86 @@
+9bf76886ce94a85c8fcf0d5774843e54
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BulkInviteMembersDto = exports.AcceptInvitationDto = exports.UpdateMemberRoleDto = exports.InviteMemberDto = exports.CreateOrganizationDto = void 0;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+class CreateOrganizationDto {
+    name;
+    logo;
+}
+exports.CreateOrganizationDto = CreateOrganizationDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateOrganizationDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateOrganizationDto.prototype, "logo", void 0);
+class InviteMemberDto {
+    email;
+    role;
+}
+exports.InviteMemberDto = InviteMemberDto;
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], InviteMemberDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(['super_admin', 'org_admin', 'editor', 'viewer', 'commenter', 'student']),
+    __metadata("design:type", String)
+], InviteMemberDto.prototype, "role", void 0);
+class UpdateMemberRoleDto {
+    role;
+}
+exports.UpdateMemberRoleDto = UpdateMemberRoleDto;
+__decorate([
+    (0, class_validator_1.IsEnum)(['super_admin', 'org_admin', 'editor', 'viewer', 'commenter', 'student']),
+    __metadata("design:type", String)
+], UpdateMemberRoleDto.prototype, "role", void 0);
+class AcceptInvitationDto {
+    token;
+}
+exports.AcceptInvitationDto = AcceptInvitationDto;
+__decorate([
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
+], AcceptInvitationDto.prototype, "token", void 0);
+class BulkMemberItemDto {
+    email;
+    name;
+    role;
+}
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], BulkMemberItemDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], BulkMemberItemDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(['super_admin', 'org_admin', 'editor', 'viewer', 'commenter', 'student']),
+    __metadata("design:type", String)
+], BulkMemberItemDto.prototype, "role", void 0);
+class BulkInviteMembersDto {
+    members;
+}
+exports.BulkInviteMembersDto = BulkInviteMembersDto;
+__decorate([
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => BulkMemberItemDto),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], BulkInviteMembersDto.prototype, "members", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvb3JnYW5pemF0aW9uL2R0by9vcmdhbml6YXRpb24uZHRvLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7OztBQUFBLHFEQUF5RztBQUN6Ryx5REFBeUM7QUFFekMsTUFBYSxxQkFBcUI7SUFFaEMsSUFBSSxDQUFTO0lBSWIsSUFBSSxDQUFVO0NBQ2Y7QUFQRCxzREFPQztBQUxDO0lBREMsSUFBQSwwQkFBUSxHQUFFOzttREFDRTtBQUliO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzttREFDQztBQUdoQixNQUFhLGVBQWU7SUFFMUIsS0FBSyxDQUFTO0lBR2QsSUFBSSxDQUFTO0NBQ2Q7QUFORCwwQ0FNQztBQUpDO0lBREMsSUFBQSx5QkFBTyxHQUFFOzs4Q0FDSTtBQUdkO0lBREMsSUFBQSx3QkFBTSxFQUFDLENBQUMsYUFBYSxFQUFFLFdBQVcsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLFdBQVcsRUFBRSxTQUFTLENBQUMsQ0FBQzs7NkNBQ3BFO0FBR2YsTUFBYSxtQkFBbUI7SUFFOUIsSUFBSSxDQUFTO0NBQ2Q7QUFIRCxrREFHQztBQURDO0lBREMsSUFBQSx3QkFBTSxFQUFDLENBQUMsYUFBYSxFQUFFLFdBQVcsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLFdBQVcsRUFBRSxTQUFTLENBQUMsQ0FBQzs7aURBQ3BFO0FBR2YsTUFBYSxtQkFBbUI7SUFFOUIsS0FBSyxDQUFTO0NBQ2Y7QUFIRCxrREFHQztBQURDO0lBREMsSUFBQSx3QkFBTSxHQUFFOztrREFDSztBQUdoQixNQUFNLGlCQUFpQjtJQUVyQixLQUFLLENBQVM7SUFHZCxJQUFJLENBQVM7SUFHYixJQUFJLENBQVM7Q0FDZDtBQVBDO0lBREMsSUFBQSx5QkFBTyxHQUFFOztnREFDSTtBQUdkO0lBREMsSUFBQSwwQkFBUSxHQUFFOzsrQ0FDRTtBQUdiO0lBREMsSUFBQSx3QkFBTSxFQUFDLENBQUMsYUFBYSxFQUFFLFdBQVcsRUFBRSxRQUFRLEVBQUUsUUFBUSxFQUFFLFdBQVcsRUFBRSxTQUFTLENBQUMsQ0FBQzs7K0NBQ3BFO0FBR2YsTUFBYSxvQkFBb0I7SUFJL0IsT0FBTyxDQUFzQjtDQUM5QjtBQUxELG9EQUtDO0FBREM7SUFIQyxJQUFBLGdDQUFjLEVBQUMsRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDOUIsSUFBQSx3QkFBSSxFQUFDLEdBQUcsRUFBRSxDQUFDLGlCQUFpQixDQUFDO0lBQzdCLElBQUEseUJBQU8sR0FBRTs7cURBQ21CIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL29yZ2FuaXphdGlvbi9kdG8vb3JnYW5pemF0aW9uLmR0by50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBJc1N0cmluZywgSXNPcHRpb25hbCwgSXNFbWFpbCwgSXNFbnVtLCBJc1VVSUQsIElzQXJyYXksIFZhbGlkYXRlTmVzdGVkIH0gZnJvbSAnY2xhc3MtdmFsaWRhdG9yJztcbmltcG9ydCB7IFR5cGUgfSBmcm9tICdjbGFzcy10cmFuc2Zvcm1lcic7XG5cbmV4cG9ydCBjbGFzcyBDcmVhdGVPcmdhbml6YXRpb25EdG8ge1xuICBASXNTdHJpbmcoKVxuICBuYW1lOiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBsb2dvPzogc3RyaW5nO1xufVxuXG5leHBvcnQgY2xhc3MgSW52aXRlTWVtYmVyRHRvIHtcbiAgQElzRW1haWwoKVxuICBlbWFpbDogc3RyaW5nO1xuXG4gIEBJc0VudW0oWydzdXBlcl9hZG1pbicsICdvcmdfYWRtaW4nLCAnZWRpdG9yJywgJ3ZpZXdlcicsICdjb21tZW50ZXInLCAnc3R1ZGVudCddKVxuICByb2xlOiBzdHJpbmc7XG59XG5cbmV4cG9ydCBjbGFzcyBVcGRhdGVNZW1iZXJSb2xlRHRvIHtcbiAgQElzRW51bShbJ3N1cGVyX2FkbWluJywgJ29yZ19hZG1pbicsICdlZGl0b3InLCAndmlld2VyJywgJ2NvbW1lbnRlcicsICdzdHVkZW50J10pXG4gIHJvbGU6IHN0cmluZztcbn1cblxuZXhwb3J0IGNsYXNzIEFjY2VwdEludml0YXRpb25EdG8ge1xuICBASXNVVUlEKClcbiAgdG9rZW46IHN0cmluZztcbn1cblxuY2xhc3MgQnVsa01lbWJlckl0ZW1EdG8ge1xuICBASXNFbWFpbCgpXG4gIGVtYWlsOiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgbmFtZTogc3RyaW5nO1xuXG4gIEBJc0VudW0oWydzdXBlcl9hZG1pbicsICdvcmdfYWRtaW4nLCAnZWRpdG9yJywgJ3ZpZXdlcicsICdjb21tZW50ZXInLCAnc3R1ZGVudCddKVxuICByb2xlOiBzdHJpbmc7XG59XG5cbmV4cG9ydCBjbGFzcyBCdWxrSW52aXRlTWVtYmVyc0R0byB7XG4gIEBWYWxpZGF0ZU5lc3RlZCh7IGVhY2g6IHRydWUgfSlcbiAgQFR5cGUoKCkgPT4gQnVsa01lbWJlckl0ZW1EdG8pXG4gIEBJc0FycmF5KClcbiAgbWVtYmVyczogQnVsa01lbWJlckl0ZW1EdG9bXTtcbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

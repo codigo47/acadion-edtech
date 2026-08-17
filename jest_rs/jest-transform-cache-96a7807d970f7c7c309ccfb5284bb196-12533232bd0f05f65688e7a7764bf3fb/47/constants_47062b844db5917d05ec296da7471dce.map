@@ -1,0 +1,1 @@
+{"file":"/home/codigo47/sistemas/course/source/apps/api/src/queue/constants.ts","mappings":";;;AAAa,QAAA,aAAa,GAAG,eAAe,CAAC","names":[],"sources":["/home/codigo47/sistemas/course/source/apps/api/src/queue/constants.ts"],"sourcesContent":["export const TESTING_QUEUE = 'testing_queue';\n"],"version":3}

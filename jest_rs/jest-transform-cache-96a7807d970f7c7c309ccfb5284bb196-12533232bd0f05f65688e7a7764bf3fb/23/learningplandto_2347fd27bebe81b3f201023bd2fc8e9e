@@ -1,0 +1,224 @@
+bdf884e31473493f2870b777dd039ab5
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BulkAssignPlanDto = exports.AssignPlanToGroupDto = exports.AssignPlanDto = exports.ReorderPlanCoursesDto = exports.AddPlanCourseDto = exports.UpdateLearningPlanDto = exports.CreateLearningPlanDto = void 0;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+class CreateLearningPlanDto {
+    name;
+    description;
+    image;
+    badgeImage;
+    badgeName;
+    estimatedDays;
+    isCorrelative;
+    isOptional;
+    parentId;
+}
+exports.CreateLearningPlanDto = CreateLearningPlanDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateLearningPlanDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateLearningPlanDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateLearningPlanDto.prototype, "image", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateLearningPlanDto.prototype, "badgeImage", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateLearningPlanDto.prototype, "badgeName", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], CreateLearningPlanDto.prototype, "estimatedDays", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], CreateLearningPlanDto.prototype, "isCorrelative", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], CreateLearningPlanDto.prototype, "isOptional", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], CreateLearningPlanDto.prototype, "parentId", void 0);
+class UpdateLearningPlanDto {
+    name;
+    description;
+    image;
+    badgeImage;
+    badgeName;
+    estimatedDays;
+    isCorrelative;
+    isOptional;
+    parentId;
+}
+exports.UpdateLearningPlanDto = UpdateLearningPlanDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateLearningPlanDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateLearningPlanDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateLearningPlanDto.prototype, "image", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateLearningPlanDto.prototype, "badgeImage", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateLearningPlanDto.prototype, "badgeName", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateLearningPlanDto.prototype, "estimatedDays", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], UpdateLearningPlanDto.prototype, "isCorrelative", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], UpdateLearningPlanDto.prototype, "isOptional", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], UpdateLearningPlanDto.prototype, "parentId", void 0);
+class AddPlanCourseDto {
+    courseId;
+    order;
+    required;
+}
+exports.AddPlanCourseDto = AddPlanCourseDto;
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], AddPlanCourseDto.prototype, "courseId", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], AddPlanCourseDto.prototype, "order", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], AddPlanCourseDto.prototype, "required", void 0);
+class CourseOrderItem {
+    courseId;
+    order;
+}
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CourseOrderItem.prototype, "courseId", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], CourseOrderItem.prototype, "order", void 0);
+class ReorderPlanCoursesDto {
+    courses;
+}
+exports.ReorderPlanCoursesDto = ReorderPlanCoursesDto;
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => CourseOrderItem),
+    __metadata("design:type", Array)
+], ReorderPlanCoursesDto.prototype, "courses", void 0);
+class AssignPlanDto {
+    userId;
+    deadline;
+}
+exports.AssignPlanDto = AssignPlanDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AssignPlanDto.prototype, "userId", void 0);
+__decorate([
+    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], AssignPlanDto.prototype, "deadline", void 0);
+class AssignPlanToGroupDto {
+    groupId;
+    deadline;
+}
+exports.AssignPlanToGroupDto = AssignPlanToGroupDto;
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], AssignPlanToGroupDto.prototype, "groupId", void 0);
+__decorate([
+    (0, class_validator_1.IsDateString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], AssignPlanToGroupDto.prototype, "deadline", void 0);
+class BulkAssignUserDto {
+    email;
+}
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], BulkAssignUserDto.prototype, "email", void 0);
+class BulkAssignPlanDto {
+    users;
+    deadline;
+}
+exports.BulkAssignPlanDto = BulkAssignPlanDto;
+__decorate([
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => BulkAssignUserDto),
+    (0, class_validator_1.IsArray)(),
+    __metadata("design:type", Array)
+], BulkAssignPlanDto.prototype, "users", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsDateString)(),
+    __metadata("design:type", String)
+], BulkAssignPlanDto.prototype, "deadline", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvbGVhcm5pbmctcGxhbi9kdG8vbGVhcm5pbmctcGxhbi5kdG8udHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEscURBV3lCO0FBQ3pCLHlEQUF5QztBQUV6QyxNQUFhLHFCQUFxQjtJQUVoQyxJQUFJLENBQVM7SUFJYixXQUFXLENBQVU7SUFJckIsS0FBSyxDQUFVO0lBSWYsVUFBVSxDQUFVO0lBSXBCLFNBQVMsQ0FBVTtJQUluQixhQUFhLENBQVU7SUFJdkIsYUFBYSxDQUFXO0lBSXhCLFVBQVUsQ0FBVztJQUlyQixRQUFRLENBQVU7Q0FDbkI7QUFuQ0Qsc0RBbUNDO0FBakNDO0lBREMsSUFBQSwwQkFBUSxHQUFFOzttREFDRTtBQUliO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzswREFDUTtBQUlyQjtJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7b0RBQ0U7QUFJZjtJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7eURBQ087QUFJcEI7SUFGQyxJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDRCQUFVLEdBQUU7O3dEQUNNO0FBSW5CO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzs0REFDVTtBQUl2QjtJQUZDLElBQUEsMkJBQVMsR0FBRTtJQUNYLElBQUEsNEJBQVUsR0FBRTs7NERBQ1c7QUFJeEI7SUFGQyxJQUFBLDJCQUFTLEdBQUU7SUFDWCxJQUFBLDRCQUFVLEdBQUU7O3lEQUNRO0FBSXJCO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzt1REFDSztBQUdwQixNQUFhLHFCQUFxQjtJQUdoQyxJQUFJLENBQVU7SUFJZCxXQUFXLENBQVU7SUFJckIsS0FBSyxDQUFVO0lBSWYsVUFBVSxDQUFVO0lBSXBCLFNBQVMsQ0FBVTtJQUlu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YW1lcyI6W10sInNvdXJjZXMiOlsiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvbGVhcm5pbmctcGxhbi9kdG8vbGVhcm5pbmctcGxhbi5kdG8udHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHtcbiAgSXNTdHJpbmcsXG4gIElzT3B0aW9uYWwsXG4gIElzTnVtYmVyLFxuICBJc0Jvb2xlYW4sXG4gIElzQXJyYXksXG4gIElzSW50LFxuICBJc0VtYWlsLFxuICBNaW4sXG4gIFZhbGlkYXRlTmVzdGVkLFxuICBJc0RhdGVTdHJpbmcsXG59IGZyb20gJ2NsYXNzLXZhbGlkYXRvcic7XG5pbXBvcnQgeyBUeXBlIH0gZnJvbSAnY2xhc3MtdHJhbnNmb3JtZXInO1xuXG5leHBvcnQgY2xhc3MgQ3JlYXRlTGVhcm5pbmdQbGFuRHRvIHtcbiAgQElzU3RyaW5nKClcbiAgbmFtZTogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgZGVzY3JpcHRpb24/OiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBpbWFnZT86IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIGJhZGdlSW1hZ2U/OiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBiYWRnZU5hbWU/OiBzdHJpbmc7XG5cbiAgQElzTnVtYmVyKClcbiAgQElzT3B0aW9uYWwoKVxuICBlc3RpbWF0ZWREYXlzPzogbnVtYmVyO1xuXG4gIEBJc0Jvb2xlYW4oKVxuICBASXNPcHRpb25hbCgpXG4gIGlzQ29ycmVsYXRpdmU/OiBib29sZWFuO1xuXG4gIEBJc0Jvb2xlYW4oKVxuICBASXNPcHRpb25hbCgpXG4gIGlzT3B0aW9uYWw/OiBib29sZWFuO1xuXG4gIEBJc051bWJlcigpXG4gIEBJc09wdGlvbmFsKClcbiAgcGFyZW50SWQ/OiBudW1iZXI7XG59XG5cbmV4cG9ydCBjbGFzcyBVcGRhdGVMZWFybmluZ1BsYW5EdG8ge1xuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIG5hbWU/OiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBkZXNjcmlwdGlvbj86IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIGltYWdlPzogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgYmFkZ2VJbWFnZT86IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIGJhZGdlTmFtZT86IHN0cmluZztcblxuICBASXNOdW1iZXIoKVxuICBASXNPcHRpb25hbCgpXG4gIGVzdGltYXRlZERheXM/OiBudW1iZXI7XG5cbiAgQElzQm9vbGVhbigpXG4gIEBJc09wdGlvbmFsKClcbiAgaXNDb3JyZWxhdGl2ZT86IGJvb2xlYW47XG5cbiAgQElzQm9vbGVhbigpXG4gIEBJc09wdGlvbmFsKClcbiAgaXNPcHRpb25hbD86IGJvb2xlYW47XG5cbiAgQElzTnVtYmVyKClcbiAgQElzT3B0aW9uYWwoKVxuICBwYXJlbnRJZD86IG51bWJlcjtcbn1cblxuZXhwb3J0IGNsYXNzIEFkZFBsYW5Db3Vyc2VEdG8ge1xuICBASXNJbnQoKVxuICBjb3Vyc2VJZDogbnVtYmVyO1xuXG4gIEBJc0ludCgpXG4gIEBJc09wdGlvbmFsKClcbiAgQE1pbigwKVxuICBvcmRlcj86IG51bWJlcjtcblxuICBASXNCb29sZWFuKClcbiAgQElzT3B0aW9uYWwoKVxuICByZXF1aXJlZD86IGJvb2xlYW47XG59XG5cbmNsYXNzIENvdXJzZU9yZGVySXRlbSB7XG4gIEBJc0ludCgpXG4gIGNvdXJzZUlkOiBudW1iZXI7XG5cbiAgQElzSW50KClcbiAgQE1pbigwKVxuICBvcmRlcjogbnVtYmVyO1xufVxuXG5leHBvcnQgY2xhc3MgUmVvcmRlclBsYW5Db3Vyc2VzRHRvIHtcbiAgQElzQXJyYXkoKVxuICBAVmFsaWRhdGVOZXN0ZWQoeyBlYWNoOiB0cnVlIH0pXG4gIEBUeXBlKCgpID0+IENvdXJzZU9yZGVySXRlbSlcbiAgY291cnNlczogQ291cnNlT3JkZXJJdGVtW107XG59XG5cbmV4cG9ydCBjbGFzcyBBc3NpZ25QbGFuRHRvIHtcbiAgQElzU3RyaW5nKClcbiAgdXNlcklkOiBzdHJpbmc7XG5cbiAgQElzRGF0ZVN0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgZGVhZGxpbmU/OiBzdHJpbmc7XG59XG5cbmV4cG9ydCBjbGFzcyBBc3NpZ25QbGFuVG9Hcm91cER0byB7XG4gIEBJc0ludCgpXG4gIGdyb3VwSWQ6IG51bWJlcjtcblxuICBASXNEYXRlU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBkZWFkbGluZT86IHN0cmluZztcbn1cblxuY2xhc3MgQnVsa0Fzc2lnblVzZXJEdG8ge1xuICBASXNFbWFpbCgpXG4gIGVtYWlsOiBzdHJpbmc7XG59XG5cbmV4cG9ydCBjbGFzcyBCdWxrQXNzaWduUGxhbkR0byB7XG4gIEBWYWxpZGF0ZU5lc3RlZCh7IGVhY2g6IHRydWUgfSlcbiAgQFR5cGUoKCkgPT4gQnVsa0Fzc2lnblVzZXJEdG8pXG4gIEBJc0FycmF5KClcbiAgdXNlcnM6IEJ1bGtBc3NpZ25Vc2VyRHRvW107XG5cbiAgQElzT3B0aW9uYWwoKVxuICBASXNEYXRlU3RyaW5nKClcbiAgZGVhZGxpbmU/OiBzdHJpbmc7XG59XG4iXSwidmVyc2lvbiI6M30=

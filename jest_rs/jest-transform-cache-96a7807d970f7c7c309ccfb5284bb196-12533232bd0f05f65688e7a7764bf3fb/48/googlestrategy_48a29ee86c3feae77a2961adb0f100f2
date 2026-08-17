@@ -1,0 +1,48 @@
+4e71ca4a77da18b63d5bf6b59c2c0356
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GoogleStrategy = void 0;
+const passport_1 = require("@nestjs/passport");
+const passport_google_oauth20_1 = require("passport-google-oauth20");
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
+let GoogleStrategy = class GoogleStrategy extends (0, passport_1.PassportStrategy)(passport_google_oauth20_1.Strategy, 'google') {
+    configService;
+    constructor(configService) {
+        super({
+            clientID: configService.get('GOOGLE_CLIENT_ID'),
+            clientSecret: configService.get('GOOGLE_CLIENT_SECRET'),
+            callbackURL: configService.get('GOOGLE_CALLBACK_URL'),
+            scope: ['email', 'profile'],
+        });
+        this.configService = configService;
+    }
+    validate(accessToken, refreshToken, profile, done) {
+        const { name, emails, photos, id } = profile;
+        const user = {
+            email: emails?.[0]?.value ?? '',
+            name: `${name?.givenName ?? ''} ${name?.familyName ?? ''}`.trim(),
+            image: photos?.[0]?.value,
+            accessToken,
+            refreshToken,
+            providerAccountId: id,
+        };
+        done(null, user);
+    }
+};
+exports.GoogleStrategy = GoogleStrategy;
+exports.GoogleStrategy = GoogleStrategy = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof config_1.ConfigService !== "undefined" && config_1.ConfigService) === "function" ? _a : Object])
+], GoogleStrategy);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvYXV0aC9zdHJhdGVnaWVzL2dvb2dsZS5zdHJhdGVneS50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBQUEsK0NBQW9EO0FBQ3BELHFFQUE0RTtBQUM1RSwyQ0FBNEM7QUFDNUMsMkNBQStDO0FBR3hDLElBQU0sY0FBYyxHQUFwQixNQUFNLGNBQWUsU0FBUSxJQUFBLDJCQUFnQixFQUFDLGtDQUFRLEVBQUUsUUFBUSxDQUFDO0lBQ2xEO0lBQXBCLFlBQW9CLGFBQTRCO1FBQzlDLEtBQUssQ0FBQztZQUNKLFFBQVEsRUFBRSxhQUFhLENBQUMsR0FBRyxDQUFTLGtCQUFrQixDQUFFO1lBQ3hELFlBQVksRUFBRSxhQUFhLENBQUMsR0FBRyxDQUFTLHNCQUFzQixDQUFFO1lBQ2hFLFdBQVcsRUFBRSxhQUFhLENBQUMsR0FBRyxDQUFTLHFCQUFxQixDQUFFO1lBQzlELEtBQUssRUFBRSxDQUFDLE9BQU8sRUFBRSxTQUFTLENBQUM7U0FDNUIsQ0FBQyxDQUFDO1FBTmUsa0JBQWEsR0FBYixhQUFhLENBQWU7SUFPaEQsQ0FBQztJQUVELFFBQVEsQ0FDTixXQUFtQixFQUNuQixZQUFvQixFQUNwQixPQUFnQixFQUNoQixJQUFvQjtRQUVwQixNQUFNLEVBQUUsSUFBSSxFQUFFLE1BQU0sRUFBRSxNQUFNLEVBQUUsRUFBRSxFQUFFLEdBQUcsT0FBTyxDQUFDO1FBQzdDLE1BQU0sSUFBSSxHQUFHO1lBQ1gsS0FBSyxFQUFFLE1BQU0sRUFBRSxDQUFDLENBQUMsQ0FBQyxFQUFFLEtBQUssSUFBSSxFQUFFO1lBQy9CLElBQUksRUFBRSxHQUFHLElBQUksRUFBRSxTQUFTLElBQUksRUFBRSxJQUFJLElBQUksRUFBRSxVQUFVLElBQUksRUFBRSxFQUFFLENBQUMsSUFBSSxFQUFFO1lBQ2pFLEtBQUssRUFBRSxNQUFNLEVBQUUsQ0FBQyxDQUFDLENBQUMsRUFBRSxLQUFLO1lBQ3pCLFdBQVc7WUFDWCxZQUFZO1lBQ1osaUJBQWlCLEVBQUUsRUFBRTtTQUN0QixDQUFDO1FBQ0YsSUFBSSxDQUFDLElBQUksRUFBRSxJQUFJLENBQUMsQ0FBQztJQUNuQixDQUFDO0NBQ0YsQ0FBQTtBQTNCWSx3Q0FBYzt5QkFBZCxjQUFjO0lBRDFCLElBQUEsbUJBQVUsR0FBRTt5REFFd0Isc0JBQWEsb0JBQWIsc0JBQWE7R0FEckMsY0FBYyxDQTJCMUIiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvYXV0aC9zdHJhdGVnaWVzL2dvb2dsZS5zdHJhdGVneS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQYXNzcG9ydFN0cmF0ZWd5IH0gZnJvbSAnQG5lc3Rqcy9wYXNzcG9ydCc7XG5pbXBvcnQgeyBTdHJhdGVneSwgVmVyaWZ5Q2FsbGJhY2ssIFByb2ZpbGUgfSBmcm9tICdwYXNzcG9ydC1nb29nbGUtb2F1dGgyMCc7XG5pbXBvcnQgeyBJbmplY3RhYmxlIH0gZnJvbSAnQG5lc3Rqcy9jb21tb24nO1xuaW1wb3J0IHsgQ29uZmlnU2VydmljZSB9IGZyb20gJ0BuZXN0anMvY29uZmlnJztcblxuQEluamVjdGFibGUoKVxuZXhwb3J0IGNsYXNzIEdvb2dsZVN0cmF0ZWd5IGV4dGVuZHMgUGFzc3BvcnRTdHJhdGVneShTdHJhdGVneSwgJ2dvb2dsZScpIHtcbiAgY29uc3RydWN0b3IocHJpdmF0ZSBjb25maWdTZXJ2aWNlOiBDb25maWdTZXJ2aWNlKSB7XG4gICAgc3VwZXIoe1xuICAgICAgY2xpZW50SUQ6IGNvbmZpZ1NlcnZpY2UuZ2V0PHN0cmluZz4oJ0dPT0dMRV9DTElFTlRfSUQnKSEsXG4gICAgICBjbGllbnRTZWNyZXQ6IGNvbmZpZ1NlcnZpY2UuZ2V0PHN0cmluZz4oJ0dPT0dMRV9DTElFTlRfU0VDUkVUJykhLFxuICAgICAgY2FsbGJhY2tVUkw6IGNvbmZpZ1NlcnZpY2UuZ2V0PHN0cmluZz4oJ0dPT0dMRV9DQUxMQkFDS19VUkwnKSEsXG4gICAgICBzY29wZTogWydlbWFpbCcsICdwcm9maWxlJ10sXG4gICAgfSk7XG4gIH1cblxuICB2YWxpZGF0ZShcbiAgICBhY2Nlc3NUb2tlbjogc3RyaW5nLFxuICAgIHJlZnJlc2hUb2tlbjogc3RyaW5nLFxuICAgIHByb2ZpbGU6IFByb2ZpbGUsXG4gICAgZG9uZTogVmVyaWZ5Q2FsbGJhY2ssXG4gICkge1xuICAgIGNvbnN0IHsgbmFtZSwgZW1haWxzLCBwaG90b3MsIGlkIH0gPSBwcm9maWxlO1xuICAgIGNvbnN0IHVzZXIgPSB7XG4gICAgICBlbWFpbDogZW1haWxzPy5bMF0/LnZhbHVlID8/ICcnLFxuICAgICAgbmFtZTogYCR7bmFtZT8uZ2l2ZW5OYW1lID8/ICcnfSAke25hbWU/LmZhbWlseU5hbWUgPz8gJyd9YC50cmltKCksXG4gICAgICBpbWFnZTogcGhvdG9zPy5bMF0/LnZhbHVlLFxuICAgICAgYWNjZXNzVG9rZW4sXG4gICAgICByZWZyZXNoVG9rZW4sXG4gICAgICBwcm92aWRlckFjY291bnRJZDogaWQsXG4gICAgfTtcbiAgICBkb25lKG51bGwsIHVzZXIpO1xuICB9XG59XG4iXSwidmVyc2lvbiI6M30=

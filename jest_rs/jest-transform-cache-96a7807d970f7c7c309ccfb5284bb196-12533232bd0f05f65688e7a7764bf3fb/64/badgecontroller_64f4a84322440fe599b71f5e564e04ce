@@ -1,0 +1,138 @@
+0c4bc84ffd56d89e110ecd65a5c89fdd
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BadgeController = void 0;
+const common_1 = require("@nestjs/common");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const badge_service_1 = require("./badge.service");
+const badge_dto_1 = require("./dto/badge.dto");
+const prisma_service_1 = require("../prisma/prisma.service");
+const pagination_dto_1 = require("../common/dto/pagination.dto");
+let BadgeController = class BadgeController {
+    badgeService;
+    prisma;
+    constructor(badgeService, prisma) {
+        this.badgeService = badgeService;
+        this.prisma = prisma;
+    }
+    getMyBadges(req) {
+        return this.badgeService.getMyBadges(req.user.id);
+    }
+    getAllBadges(req, pagination) {
+        return this.badgeService.getAllBadges(req.user.id, pagination);
+    }
+    getOrgBadges(orgKey) {
+        return this.badgeService.getOrgBadges(orgKey);
+    }
+    getBadgeDetail(id) {
+        return this.badgeService.getBadgeDetail(id);
+    }
+    async createBadge(orgKey, dto) {
+        const org = await this.prisma.organization.findFirst({
+            where: { key: orgKey },
+        });
+        if (!org)
+            throw new common_1.NotFoundException('Organization not found');
+        dto.orgId = org.id;
+        return this.badgeService.createBadge(dto);
+    }
+    updateBadge(id, dto) {
+        return this.badgeService.updateBadge(id, dto);
+    }
+    deleteBadge(id) {
+        return this.badgeService.deleteBadge(id);
+    }
+    duplicateBadge(id) {
+        return this.badgeService.duplicateBadge(id);
+    }
+    awardBadge(id, dto) {
+        return this.badgeService.awardBadge(id, dto.userId);
+    }
+};
+exports.BadgeController = BadgeController;
+__decorate([
+    (0, common_1.Get)('me'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "getMyBadges", null);
+__decorate([
+    (0, common_1.Get)('my'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_c = typeof pagination_dto_1.PaginationDto !== "undefined" && pagination_dto_1.PaginationDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "getAllBadges", null);
+__decorate([
+    (0, common_1.Get)('org/:orgKey'),
+    __param(0, (0, common_1.Param)('orgKey')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "getOrgBadges", null);
+__decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "getBadgeDetail", null);
+__decorate([
+    (0, common_1.Post)('org/:orgKey'),
+    __param(0, (0, common_1.Param)('orgKey')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_d = typeof badge_dto_1.CreateBadgeDto !== "undefined" && badge_dto_1.CreateBadgeDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", Promise)
+], BadgeController.prototype, "createBadge", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, typeof (_e = typeof badge_dto_1.UpdateBadgeDto !== "undefined" && badge_dto_1.UpdateBadgeDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "updateBadge", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "deleteBadge", null);
+__decorate([
+    (0, common_1.Post)(':id/duplicate'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "duplicateBadge", null);
+__decorate([
+    (0, common_1.Post)(':id/award'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, typeof (_f = typeof badge_dto_1.AwardBadgeDto !== "undefined" && badge_dto_1.AwardBadgeDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", void 0)
+], BadgeController.prototype, "awardBadge", null);
+exports.BadgeController = BadgeController = __decorate([
+    (0, common_1.Controller)('badges'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __metadata("design:paramtypes", [typeof (_a = typeof badge_service_1.BadgeService !== "undefined" && badge_service_1.BadgeService) === "function" ? _a : Object, typeof (_b = typeof prisma_service_1.PrismaService !== "undefined" && prisma_service_1.PrismaService) === "function" ? _b : Object])
+], BadgeController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvYmFkZ2UvYmFkZ2UuY29udHJvbGxlci50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7O0FBQUEsMkNBYXdCO0FBRXhCLGtFQUE2RDtBQUM3RCxtREFBK0M7QUFDL0MsK0NBQWdGO0FBQ2hGLDZEQUF5RDtBQUN6RCxpRUFBNkQ7QUFRdEQsSUFBTSxlQUFlLEdBQXJCLE1BQU0sZUFBZTtJQUVQO0lBQ0E7SUFGbkIsWUFDbUIsWUFBMEIsRUFDMUIsTUFBcUI7UUFEckIsaUJBQVksR0FBWixZQUFZLENBQWM7UUFDMUIsV0FBTSxHQUFOLE1BQU0sQ0FBZTtJQUNyQyxDQUFDO0lBR0osV0FBVyxDQUFZLEdBQW9CO1FBQ3pDLE9BQU8sSUFBSSxDQUFDLFlBQVksQ0FBQyxXQUFXLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUNwRCxDQUFDO0lBR0QsWUFBWSxDQUNDLEdBQW9CLEVBQ3RCLFVBQXlCO1FBRWxDLE9BQU8sSUFBSSxDQUFDLFlBQVksQ0FBQyxZQUFZLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLEVBQUUsVUFBVSxDQUFDLENBQUM7SUFDakUsQ0FBQztJQUdELFlBQVksQ0FBa0IsTUFBYztRQUMxQyxPQUFPLElBQUksQ0FBQyxZQUFZLENBQUMsWUFBWSxDQUFDLE1BQU0sQ0FBQyxDQUFDO0lBQ2hELENBQUM7SUFHRCxjQUFjLENBQTRCLEVBQVU7UUFDbEQsT0FBTyxJQUFJLENBQUMsWUFBWSxDQUFDLGNBQWMsQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUM5QyxDQUFDO0lBR0ssQUFBTixLQUFLLENBQUMsV0FBVyxDQUNFLE1BQWMsRUFDdkIsR0FBbUI7UUFFM0IsTUFBTSxHQUFHLEdBQUcsTUFBTSxJQUFJLENBQUMsTUFBTSxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUM7WUFDbkQsS0FBSyxFQUFFLEVBQUUsR0FBRyxFQUFFLE1BQU0sRUFBRTtTQUN2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OlsiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvYmFkZ2UvYmFkZ2UuY29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBDb250cm9sbGVyLFxuICBHZXQsXG4gIFBvc3QsXG4gIFBhdGNoLFxuICBEZWxldGUsXG4gIFBhcmFtLFxuICBRdWVyeSxcbiAgQm9keSxcbiAgVXNlR3VhcmRzLFxuICBSZXF1ZXN0LFxuICBQYXJzZUludFBpcGUsXG4gIE5vdEZvdW5kRXhjZXB0aW9uLFxufSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgdHlwZSB7IFJlcXVlc3QgYXMgRXhwcmVzc1JlcXVlc3QgfSBmcm9tICdleHByZXNzJztcbmltcG9ydCB7IEp3dEF1dGhHdWFyZCB9IGZyb20gJy4uL2F1dGgvZ3VhcmRzL2p3dC1hdXRoLmd1YXJkJztcbmltcG9ydCB7IEJhZGdlU2VydmljZSB9IGZyb20gJy4vYmFkZ2Uuc2VydmljZSc7XG5pbXBvcnQgeyBDcmVhdGVCYWRnZUR0bywgVXBkYXRlQmFkZ2VEdG8sIEF3YXJkQmFkZ2VEdG8gfSBmcm9tICcuL2R0by9iYWRnZS5kdG8nO1xuaW1wb3J0IHsgUHJpc21hU2VydmljZSB9IGZyb20gJy4uL3ByaXNtYS9wcmlzbWEuc2VydmljZSc7XG5pbXBvcnQgeyBQYWdpbmF0aW9uRHRvIH0gZnJvbSAnLi4vY29tbW9uL2R0by9wYWdpbmF0aW9uLmR0byc7XG5cbmludGVyZmFjZSBSZXF1ZXN0V2l0aFVzZXIgZXh0ZW5kcyBFeHByZXNzUmVxdWVzdCB7XG4gIHVzZXI6IHsgaWQ6IHN0cmluZyB9O1xufVxuXG5AQ29udHJvbGxlcignYmFkZ2VzJylcbkBVc2VHdWFyZHMoSnd0QXV0aEd1YXJkKVxuZXhwb3J0IGNsYXNzIEJhZGdlQ29udHJvbGxlciB7XG4gIGNvbnN0cnVjdG9yKFxuICAgIHByaXZhdGUgcmVhZG9ubHkgYmFkZ2VTZXJ2aWNlOiBCYWRnZVNlcnZpY2UsXG4gICAgcHJpdmF0ZSByZWFkb25seSBwcmlzbWE6IFByaXNtYVNlcnZpY2UsXG4gICkge31cblxuICBAR2V0KCdtZScpXG4gIGdldE15QmFkZ2VzKEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIpIHtcbiAgICByZXR1cm4gdGhpcy5iYWRnZVNlcnZpY2UuZ2V0TXlCYWRnZXMocmVxLnVzZXIuaWQpO1xuICB9XG5cbiAgQEdldCgnbXknKVxuICBnZXRBbGxCYWRnZXMoXG4gICAgQFJlcXVlc3QoKSByZXE6IFJlcXVlc3RXaXRoVXNlcixcbiAgICBAUXVlcnkoKSBwYWdpbmF0aW9uOiBQYWdpbmF0aW9uRHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5iYWRnZVNlcnZpY2UuZ2V0QWxsQmFkZ2VzKHJlcS51c2VyLmlkLCBwYWdpbmF0aW9uKTtcbiAgfVxuXG4gIEBHZXQoJ29yZy86b3JnS2V5JylcbiAgZ2V0T3JnQmFkZ2VzKEBQYXJhbSgnb3JnS2V5Jykgb3JnS2V5OiBzdHJpbmcpIHtcbiAgICByZXR1cm4gdGhpcy5iYWRnZVNlcnZpY2UuZ2V0T3JnQmFkZ2VzKG9yZ0tleSk7XG4gIH1cblxuICBAR2V0KCc6aWQnKVxuICBnZXRCYWRnZURldGFpbChAUGFyYW0oJ2lkJywgUGFyc2VJbnRQaXBlKSBpZDogbnVtYmVyKSB7XG4gICAgcmV0dXJuIHRoaXMuYmFkZ2VTZXJ2aWNlLmdldEJhZGdlRGV0YWlsKGlkKTtcbiAgfVxuXG4gIEBQb3N0KCdvcmcvOm9yZ0tleScpXG4gIGFzeW5jIGNyZWF0ZUJhZGdlKFxuICAgIEBQYXJhbSgnb3JnS2V5Jykgb3JnS2V5OiBzdHJpbmcsXG4gICAgQEJvZHkoKSBkdG86IENyZWF0ZUJhZGdlRHRvLFxuICApIHtcbiAgICBjb25zdCBvcmcgPSBhd2FpdCB0aGlzLnByaXNtYS5vcmdhbml6YXRpb24uZmluZEZpcnN0KHtcbiAgICAgIHdoZXJlOiB7IGtleTogb3JnS2V5IH0sXG4gICAgfSk7XG4gICAgaWYgKCFvcmcpIHRocm93IG5ldyBOb3RGb3VuZEV4Y2VwdGlvbignT3JnYW5pemF0aW9uIG5vdCBmb3VuZCcpO1xuICAgIGR0by5vcmdJZCA9IG9yZy5pZDtcbiAgICByZXR1cm4gdGhpcy5iYWRnZVNlcnZpY2UuY3JlYXRlQmFkZ2UoZHRvKTtcbiAgfVxuXG4gIEBQYXRjaCgnOmlkJylcbiAgdXBkYXRlQmFkZ2UoXG4gICAgQFBhcmFtKCdpZCcsIFBhcnNlSW50UGlwZSkgaWQ6IG51bWJlcixcbiAgICBAQm9keSgpIGR0bzogVXBkYXRlQmFkZ2VEdG8sXG4gICkge1xuICAgIHJldHVybiB0aGlzLmJhZGdlU2VydmljZS51cGRhdGVCYWRnZShpZCwgZHRvKTtcbiAgfVxuXG4gIEBEZWxldGUoJzppZCcpXG4gIGRlbGV0ZUJhZGdlKEBQYXJhbSgnaWQnLCBQYXJzZUludFBpcGUpIGlkOiBudW1iZXIpIHtcbiAgICByZXR1cm4gdGhpcy5iYWRnZVNlcnZpY2UuZGVsZXRlQmFkZ2UoaWQpO1xuICB9XG5cbiAgQFBvc3QoJzppZC9kdXBsaWNhdGUnKVxuICBkdXBsaWNhdGVCYWRnZShAUGFyYW0oJ2lkJywgUGFyc2VJbnRQaXBlKSBpZDogbnVtYmVyKSB7XG4gICAgcmV0dXJuIHRoaXMuYmFkZ2VTZXJ2aWNlLmR1cGxpY2F0ZUJhZGdlKGlkKTtcbiAgfVxuXG4gIEBQb3N0KCc6aWQvYXdhcmQnKVxuICBhd2FyZEJhZGdlKFxuICAgIEBQYXJhbSgnaWQnLCBQYXJzZUludFBpcGUpIGlkOiBudW1iZXIsXG4gICAgQEJvZHkoKSBkdG86IEF3YXJkQmFkZ2VEdG8sXG4gICkge1xuICAgIHJldHVybiB0aGlzLmJhZGdlU2VydmljZS5hd2FyZEJhZGdlKGlkLCBkdG8udXNlcklkKTtcbiAgfVxufVxuIl0sInZlcnNpb24iOjN9

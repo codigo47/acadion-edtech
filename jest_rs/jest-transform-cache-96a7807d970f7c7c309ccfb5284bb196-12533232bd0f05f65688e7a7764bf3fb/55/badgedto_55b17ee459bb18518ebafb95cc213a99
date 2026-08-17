@@ -1,0 +1,142 @@
+95745519106d5c7be4e5264c44d60a1d
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AwardBadgeDto = exports.UpdateBadgeDto = exports.CreateBadgeDto = exports.BadgeTypeEnum = void 0;
+const class_validator_1 = require("class-validator");
+var BadgeTypeEnum;
+(function (BadgeTypeEnum) {
+    BadgeTypeEnum["progress"] = "progress";
+    BadgeTypeEnum["level"] = "level";
+    BadgeTypeEnum["excellence"] = "excellence";
+    BadgeTypeEnum["role"] = "role";
+})(BadgeTypeEnum || (exports.BadgeTypeEnum = BadgeTypeEnum = {}));
+class CreateBadgeDto {
+    name;
+    description;
+    image;
+    type;
+    conditionType;
+    conditionValue;
+    targetId;
+    isPublic;
+    orgId;
+}
+exports.CreateBadgeDto = CreateBadgeDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBadgeDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBadgeDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBadgeDto.prototype, "image", void 0);
+__decorate([
+    (0, class_validator_1.IsEnum)(BadgeTypeEnum),
+    __metadata("design:type", String)
+], CreateBadgeDto.prototype, "type", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBadgeDto.prototype, "conditionType", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", typeof (_a = typeof Record !== "undefined" && Record) === "function" ? _a : Object)
+], CreateBadgeDto.prototype, "conditionValue", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CreateBadgeDto.prototype, "targetId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateBadgeDto.prototype, "isPublic", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CreateBadgeDto.prototype, "orgId", void 0);
+class UpdateBadgeDto {
+    name;
+    description;
+    image;
+    type;
+    conditionType;
+    conditionValue;
+    targetId;
+    isPublic;
+    isActive;
+}
+exports.UpdateBadgeDto = UpdateBadgeDto;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateBadgeDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateBadgeDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateBadgeDto.prototype, "image", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEnum)(BadgeTypeEnum),
+    __metadata("design:type", String)
+], UpdateBadgeDto.prototype, "type", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateBadgeDto.prototype, "conditionType", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", typeof (_b = typeof Record !== "undefined" && Record) === "function" ? _b : Object)
+], UpdateBadgeDto.prototype, "conditionValue", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], UpdateBadgeDto.prototype, "targetId", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], UpdateBadgeDto.prototype, "isPublic", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], UpdateBadgeDto.prototype, "isActive", void 0);
+class AwardBadgeDto {
+    userId;
+}
+exports.AwardBadgeDto = AwardBadgeDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AwardBadgeDto.prototype, "userId", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvYmFkZ2UvZHRvL2JhZGdlLmR0by50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBQUEscURBT3lCO0FBRXpCLElBQVksYUFLWDtBQUxELFdBQVksYUFBYTtJQUN2QixzQ0FBcUIsQ0FBQTtJQUNyQixnQ0FBZSxDQUFBO0lBQ2YsMENBQXlCLENBQUE7SUFDekIsOEJBQWEsQ0FBQTtBQUNmLENBQUMsRUFMVyxhQUFhLDZCQUFiLGFBQWEsUUFLeEI7QUFFRCxNQUFhLGNBQWM7SUFFekIsSUFBSSxDQUFTO0lBSWIsV0FBVyxDQUFVO0lBSXJCLEtBQUssQ0FBVTtJQUdmLElBQUksQ0FBZ0I7SUFHcEIsYUFBYSxDQUFTO0lBSXRCLGNBQWMsQ0FBdUI7SUFJckMsUUFBUSxDQUFVO0lBSWxCLFFBQVEsQ0FBVztJQUluQixLQUFLLENBQVU7Q0FDaEI7QUFqQ0Qsd0NBaUNDO0FBL0JDO0lBREMsSUFBQSwwQkFBUSxHQUFFOzs0Q0FDRTtBQUliO0lBRkMsSUFBQSw0QkFBVSxHQUFFO0lBQ1osSUFBQSwwQkFBUSxHQUFFOzttREFDVTtBQUlyQjtJQUZDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTs7NkNBQ0k7QUFHZjtJQURDLElBQUEsd0JBQU0sRUFBQyxhQUFhLENBQUM7OzRDQUNGO0FBR3BCO0lBREMsSUFBQSwwQkFBUSxHQUFFOztxREFDVztBQUl0QjtJQUZDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTtrREFDTSxNQUFNLG9CQUFOLE1BQU07c0RBQWM7QUFJckM7SUFGQyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLHVCQUFLLEdBQUU7O2dEQUNVO0FBSWxCO0lBRkMsSUFBQSw0QkFBVSxHQUFFO0lBQ1osSUFBQSwyQkFBUyxHQUFFOztnREFDTztBQUluQjtJQUZDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsdUJBQUssR0FBRTs7NkNBQ087QUFHakIsTUFBYSxjQUFjO0lBR3pCLElBQUksQ0FBVTtJQUlkLFdBQVcsQ0FBVTtJQUlyQixLQUFLLENBQVU7SUFJZixJQUFJLENBQWlCO0lBSXJCLGFBQWEsQ0FBVTtJQUl2QixjQUFjLENBQXVCO0lBSXJDLFFBQVEsQ0FBVTtJQUlsQixRQUFRLENBQVc7SUFJbkIsUUFBUSxDQUFXO0NBQ3BCO0FBcENELHdDQW9DQztBQWpDQztJQUZDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTs7NENBQ0c7QUFJZDtJQUZDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTs7bURBQ1U7QUFJckI7SUFGQyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDBCQUFRLEdBQUU7OzZDQUNJO0FBSWY7SUFGQyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLHdCQUFNLEVBQUMsYUFBYSxDQUFDOzs0Q0FDRDtBQUlyQjtJQUZDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTs7cURBQ1k7QUFJdkI7SUFGQyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDBCQUFRLEdBQUU7a0RBQ00sTUFBTSxvQkFBTixNQUFNO3NEQUFjO0FBSXJDO0lBRkMsSUFBQSw0QkFBVSxHQUFFO0lBQ1osSUFBQSx1QkFBSyxHQUFFOztnREFDVTtBQUlsQjtJQUZDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMkJBQVMsR0FBRTs7Z0RBQ087QUFJbkI7SUFGQyxJQUFBLDRCQUFVLEdBQUU7SUFDWixJQUFBLDJCQUFTLEdBQUU7O2dEQUNPO0FBR3JCLE1BQWEsYUFBYTtJQUV4QixNQUFNLENBQVM7Q0FDaEI7QUFIRCxzQ0FHQztBQURDO0lBREMsSUFBQSwwQkFBUSxHQUFFOzs2Q0FDSSIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvaG9tZS9jb2RpZ280Ny9zaXN0ZW1hcy9jb3Vyc2Uvc291cmNlL2FwcHMvYXBpL3NyYy9iYWRnZS9kdG8vYmFkZ2UuZHRvLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7XG4gIElzU3RyaW5nLFxuICBJc09wdGlvbmFsLFxuICBJc0VudW0sXG4gIElzSW50LFxuICBJc09iamVjdCxcbiAgSXNCb29sZWFuLFxufSBmcm9tICdjbGFzcy12YWxpZGF0b3InO1xuXG5leHBvcnQgZW51bSBCYWRnZVR5cGVFbnVtIHtcbiAgcHJvZ3Jlc3MgPSAncHJvZ3Jlc3MnLFxuICBsZXZlbCA9ICdsZXZlbCcsXG4gIGV4Y2VsbGVuY2UgPSAnZXhjZWxsZW5jZScsXG4gIHJvbGUgPSAncm9sZScsXG59XG5cbmV4cG9ydCBjbGFzcyBDcmVhdGVCYWRnZUR0byB7XG4gIEBJc1N0cmluZygpXG4gIG5hbWU6IHN0cmluZztcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc1N0cmluZygpXG4gIGRlc2NyaXB0aW9uPzogc3RyaW5nO1xuXG4gIEBJc09wdGlvbmFsKClcbiAgQElzU3RyaW5nKClcbiAgaW1hZ2U/OiBzdHJpbmc7XG5cbiAgQElzRW51bShCYWRnZVR5cGVFbnVtKVxuICB0eXBlOiBCYWRnZVR5cGVFbnVtO1xuXG4gIEBJc1N0cmluZygpXG4gIGNvbmRpdGlvblR5cGU6IHN0cmluZztcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc09iamVjdCgpXG4gIGNvbmRpdGlvblZhbHVlPzogUmVjb3JkPHN0cmluZywgYW55PjtcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc0ludCgpXG4gIHRhcmdldElkPzogbnVtYmVyO1xuXG4gIEBJc09wdGlvbmFsKClcbiAgQElzQm9vbGVhbigpXG4gIGlzUHVibGljPzogYm9vbGVhbjtcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc0ludCgpXG4gIG9yZ0lkPzogbnVtYmVyO1xufVxuXG5leHBvcnQgY2xhc3MgVXBkYXRlQmFkZ2VEdG8ge1xuICBASXNPcHRpb25hbCgpXG4gIEBJc1N0cmluZygpXG4gIG5hbWU/OiBzdHJpbmc7XG5cbiAgQElzT3B0aW9uYWwoKVxuICBASXNTdHJpbmcoKVxuICBkZXNjcmlwdGlvbj86IHN0cmluZztcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc1N0cmluZygpXG4gIGltYWdlPzogc3RyaW5nO1xuXG4gIEBJc09wdGlvbmFsKClcbiAgQElzRW51bShCYWRnZVR5cGVFbnVtKVxuICB0eXBlPzogQmFkZ2VUeXBlRW51bTtcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc1N0cmluZygpXG4gIGNvbmRpdGlvblR5cGU/OiBzdHJpbmc7XG5cbiAgQElzT3B0aW9uYWwoKVxuICBASXNPYmplY3QoKVxuICBjb25kaXRpb25WYWx1ZT86IFJlY29yZDxzdHJpbmcsIGFueT47XG5cbiAgQElzT3B0aW9uYWwoKVxuICBASXNJbnQoKVxuICB0YXJnZXRJZD86IG51bWJlcjtcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc0Jvb2xlYW4oKVxuICBpc1B1YmxpYz86IGJvb2xlYW47XG5cbiAgQElzT3B0aW9uYWwoKVxuICBASXNCb29sZWFuKClcbiAgaXNBY3RpdmU/OiBib29sZWFuO1xufVxuXG5leHBvcnQgY2xhc3MgQXdhcmRCYWRnZUR0byB7XG4gIEBJc1N0cmluZygpXG4gIHVzZXJJZDogc3RyaW5nO1xufVxuIl0sInZlcnNpb24iOjN9

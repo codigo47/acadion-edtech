@@ -1,0 +1,30 @@
+da028bd40295e31ac8fd8e9758c186df
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TrackVisitDto = void 0;
+const class_validator_1 = require("class-validator");
+class TrackVisitDto {
+    country;
+    courseId;
+}
+exports.TrackVisitDto = TrackVisitDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], TrackVisitDto.prototype, "country", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], TrackVisitDto.prototype, "courseId", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvcG9ydGZvbGlvL2R0by90cmFjay12aXNpdC5kdG8udHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEscURBQThEO0FBRTlELE1BQWEsYUFBYTtJQUd4QixPQUFPLENBQVU7SUFJakIsUUFBUSxDQUFVO0NBQ25CO0FBUkQsc0NBUUM7QUFMQztJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7OENBQ0k7QUFJakI7SUFGQyxJQUFBLHVCQUFLLEdBQUU7SUFDUCxJQUFBLDRCQUFVLEdBQUU7OytDQUNLIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL3BvcnRmb2xpby9kdG8vdHJhY2stdmlzaXQuZHRvLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IElzU3RyaW5nLCBJc09wdGlvbmFsLCBJc0ludCB9IGZyb20gJ2NsYXNzLXZhbGlkYXRvcic7XG5cbmV4cG9ydCBjbGFzcyBUcmFja1Zpc2l0RHRvIHtcbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBjb3VudHJ5Pzogc3RyaW5nO1xuXG4gIEBJc0ludCgpXG4gIEBJc09wdGlvbmFsKClcbiAgY291cnNlSWQ/OiBudW1iZXI7XG59XG4iXSwidmVyc2lvbiI6M30=

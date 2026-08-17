@@ -1,0 +1,44 @@
+a2bb49fa4711bb473186ae399311e16a
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.StorageService = void 0;
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
+const local_storage_provider_1 = require("./providers/local-storage.provider");
+let StorageService = class StorageService {
+    configService;
+    localProvider;
+    provider;
+    constructor(configService, localProvider) {
+        this.configService = configService;
+        this.localProvider = localProvider;
+        const providerName = this.configService.get('STORAGE_PROVIDER', 'local');
+        switch (providerName) {
+            case 'local':
+            default:
+                this.provider = this.localProvider;
+        }
+    }
+    async upload(file, filename, mimetype) {
+        return this.provider.upload(file, filename, mimetype);
+    }
+    async delete(fileUrl) {
+        return this.provider.delete(fileUrl);
+    }
+};
+exports.StorageService = StorageService;
+exports.StorageService = StorageService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof config_1.ConfigService !== "undefined" && config_1.ConfigService) === "function" ? _a : Object, typeof (_b = typeof local_storage_provider_1.LocalStorageProvider !== "undefined" && local_storage_provider_1.LocalStorageProvider) === "function" ? _b : Object])
+], StorageService);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvc3RvcmFnZS9zdG9yYWdlLnNlcnZpY2UudHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7OztBQUFBLDJDQUE0QztBQUM1QywyQ0FBK0M7QUFDL0MsK0VBQTBFO0FBSW5FLElBQU0sY0FBYyxHQUFwQixNQUFNLGNBQWM7SUFJZjtJQUNBO0lBSk8sUUFBUSxDQUFrQjtJQUUzQyxZQUNVLGFBQTRCLEVBQzVCLGFBQW1DO1FBRG5DLGtCQUFhLEdBQWIsYUFBYSxDQUFlO1FBQzVCLGtCQUFhLEdBQWIsYUFBYSxDQUFzQjtRQUUzQyxNQUFNLFlBQVksR0FBRyxJQUFJLENBQUMsYUFBYSxDQUFDLEdBQUcsQ0FBUyxrQkFBa0IsRUFBRSxPQUFPLENBQUMsQ0FBQztRQUNqRixRQUFRLFlBQVksRUFBRSxDQUFDO1lBQ3JCLEtBQUssT0FBTyxDQUFDO1lBQ2I7Z0JBQ0UsSUFBSSxDQUFDLFFBQVEsR0FBRyxJQUFJLENBQUMsYUFBYSxDQUFDO1FBQ3ZDLENBQUM7SUFDSCxDQUFDO0lBRUQsS0FBSyxDQUFDLE1BQU0sQ0FBQyxJQUFZLEVBQUUsUUFBZ0IsRUFBRSxRQUFnQjtRQUMzRCxPQUFPLElBQUksQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLElBQUksRUFBRSxRQUFRLEVBQUUsUUFBUSxDQUFDLENBQUM7SUFDeEQsQ0FBQztJQUVELEtBQUssQ0FBQyxNQUFNLENBQUMsT0FBZTtRQUMxQixPQUFPLElBQUksQ0FBQyxRQUFRLENBQUMsTUFBTSxDQUFDLE9BQU8sQ0FBQyxDQUFDO0lBQ3ZDLENBQUM7Q0FDRixDQUFBO0FBdEJZLHdDQUFjO3lCQUFkLGNBQWM7SUFEMUIsSUFBQSxtQkFBVSxHQUFFO3lEQUtjLHNCQUFhLG9CQUFiLHNCQUFhLG9EQUNiLDZDQUFvQixvQkFBcEIsNkNBQW9CO0dBTGxDLGNBQWMsQ0FzQjFCIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL3N0b3JhZ2Uvc3RvcmFnZS5zZXJ2aWNlLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEluamVjdGFibGUgfSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgeyBDb25maWdTZXJ2aWNlIH0gZnJvbSAnQG5lc3Rqcy9jb25maWcnO1xuaW1wb3J0IHsgTG9jYWxTdG9yYWdlUHJvdmlkZXIgfSBmcm9tICcuL3Byb3ZpZGVycy9sb2NhbC1zdG9yYWdlLnByb3ZpZGVyJztcbmltcG9ydCB7IFN0b3JhZ2VQcm92aWRlciB9IGZyb20gJy4vc3RvcmFnZS5pbnRlcmZhY2UnO1xuXG5ASW5qZWN0YWJsZSgpXG5leHBvcnQgY2xhc3MgU3RvcmFnZVNlcnZpY2Uge1xuICBwcml2YXRlIHJlYWRvbmx5IHByb3ZpZGVyOiBTdG9yYWdlUHJvdmlkZXI7XG5cbiAgY29uc3RydWN0b3IoXG4gICAgcHJpdmF0ZSBjb25maWdTZXJ2aWNlOiBDb25maWdTZXJ2aWNlLFxuICAgIHByaXZhdGUgbG9jYWxQcm92aWRlcjogTG9jYWxTdG9yYWdlUHJvdmlkZXIsXG4gICkge1xuICAgIGNvbnN0IHByb3ZpZGVyTmFtZSA9IHRoaXMuY29uZmlnU2VydmljZS5nZXQ8c3RyaW5nPignU1RPUkFHRV9QUk9WSURFUicsICdsb2NhbCcpO1xuICAgIHN3aXRjaCAocHJvdmlkZXJOYW1lKSB7XG4gICAgICBjYXNlICdsb2NhbCc6XG4gICAgICBkZWZhdWx0OlxuICAgICAgICB0aGlzLnByb3ZpZGVyID0gdGhpcy5sb2NhbFByb3ZpZGVyO1xuICAgIH1cbiAgfVxuXG4gIGFzeW5jIHVwbG9hZChmaWxlOiBCdWZmZXIsIGZpbGVuYW1lOiBzdHJpbmcsIG1pbWV0eXBlOiBzdHJpbmcpOiBQcm9taXNlPHN0cmluZz4ge1xuICAgIHJldHVybiB0aGlzLnByb3ZpZGVyLnVwbG9hZChmaWxlLCBmaWxlbmFtZSwgbWltZXR5cGUpO1xuICB9XG5cbiAgYXN5bmMgZGVsZXRlKGZpbGVVcmw6IHN0cmluZyk6IFByb21pc2U8dm9pZD4ge1xuICAgIHJldHVybiB0aGlzLnByb3ZpZGVyLmRlbGV0ZShmaWxlVXJsKTtcbiAgfVxufVxuIl0sInZlcnNpb24iOjN9

@@ -1,0 +1,175 @@
+dbc3bab8a58be36931053d120075c364
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.HealthController = void 0;
+const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
+const bullmq_1 = require("bullmq");
+const health_service_1 = require("./health.service");
+const queue_service_1 = require("../queue/queue.service");
+let HealthController = class HealthController {
+    healthService;
+    queueService;
+    configService;
+    constructor(healthService, queueService, configService) {
+        this.healthService = healthService;
+        this.queueService = queueService;
+        this.configService = configService;
+    }
+    async check() {
+        return this.healthService.check();
+    }
+    async createJob() {
+        const job = await this.queueService.addTestingJob({
+            message: 'Health check test job',
+            timestamp: Date.now(),
+            data: {
+                source: 'health-endpoint',
+                environment: process.env.NODE_ENV || 'development',
+                randomId: Math.random().toString(36).substring(7),
+                testArray: [1, 2, 3, 4, 5],
+                nested: {
+                    foo: 'bar',
+                    count: 42,
+                },
+            },
+        });
+        return {
+            success: true,
+            message: 'Job created successfully',
+            job,
+        };
+    }
+    async readJob(jobId) {
+        if (!jobId) {
+            throw new common_1.NotFoundException('jobId query parameter is required');
+        }
+        const job = await this.queueService.getJob(jobId);
+        if (!job) {
+            throw new common_1.NotFoundException(`Job with id ${jobId} not found`);
+        }
+        return {
+            success: true,
+            job,
+        };
+    }
+    async deleteJob(jobId) {
+        if (!jobId) {
+            throw new common_1.NotFoundException('jobId query parameter is required');
+        }
+        const result = await this.queueService.deleteJob(jobId);
+        if (!result) {
+            throw new common_1.NotFoundException(`Job with id ${jobId} not found`);
+        }
+        return {
+            success: true,
+            message: 'Job deleted successfully',
+            ...result,
+        };
+    }
+    async getActiveJobs(queueName) {
+        const queue = new bullmq_1.Queue(queueName, {
+            connection: {
+                host: this.configService.get('REDIS_HOST', 'localhost'),
+                port: this.configService.get('REDIS_PORT', 6379),
+            },
+        });
+        try {
+            const activeJobs = await queue.getActive();
+            const jobs = activeJobs.map((job) => ({
+                jobId: job.id,
+                name: job.name,
+                data: job.data,
+                progress: job.progress,
+                timestamp: job.timestamp,
+                processedOn: job.processedOn,
+            }));
+            return {
+                queue: queueName,
+                count: jobs.length,
+                jobs,
+            };
+        }
+        finally {
+            await queue.close();
+        }
+    }
+    async emptyQueue(queueName) {
+        const queue = new bullmq_1.Queue(queueName, {
+            connection: {
+                host: this.configService.get('REDIS_HOST', 'localhost'),
+                port: this.configService.get('REDIS_PORT', 6379),
+            },
+        });
+        try {
+            await queue.obliterate({ force: true });
+            return {
+                success: true,
+                queue: queueName,
+                message: 'Queue emptied successfully',
+            };
+        }
+        finally {
+            await queue.close();
+        }
+    }
+};
+exports.HealthController = HealthController;
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], HealthController.prototype, "check", null);
+__decorate([
+    (0, common_1.Get)('create-job'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], HealthController.prototype, "createJob", null);
+__decorate([
+    (0, common_1.Get)('read-job'),
+    __param(0, (0, common_1.Query)('jobId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], HealthController.prototype, "readJob", null);
+__decorate([
+    (0, common_1.Get)('delete-job'),
+    __param(0, (0, common_1.Query)('jobId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], HealthController.prototype, "deleteJob", null);
+__decorate([
+    (0, common_1.Get)('queue/:queueName'),
+    __param(0, (0, common_1.Param)('queueName')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], HealthController.prototype, "getActiveJobs", null);
+__decorate([
+    (0, common_1.Get)('queue/:queueName/empty'),
+    __param(0, (0, common_1.Param)('queueName')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], HealthController.prototype, "emptyQueue", null);
+exports.HealthController = HealthController = __decorate([
+    (0, common_1.Controller)('health'),
+    __metadata("design:paramtypes", [typeof (_a = typeof health_service_1.HealthService !== "undefined" && health_service_1.HealthService) === "function" ? _a : Object, typeof (_b = typeof queue_service_1.QueueService !== "undefined" && queue_service_1.QueueService) === "function" ? _b : Object, typeof (_c = typeof config_1.ConfigService !== "undefined" && config_1.ConfigService) === "function" ? _c : Object])
+], HealthController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvaGVhbHRoL2hlYWx0aC5jb250cm9sbGVyLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSwyQ0FNd0I7QUFDeEIsMkNBQStDO0FBQy9DLG1DQUErQjtBQUMvQixxREFBaUQ7QUFDakQsMERBQXNEO0FBRy9DLElBQU0sZ0JBQWdCLEdBQXRCLE1BQU0sZ0JBQWdCO0lBRVI7SUFDQTtJQUNBO0lBSG5CLFlBQ21CLGFBQTRCLEVBQzVCLFlBQTBCLEVBQzFCLGFBQTRCO1FBRjVCLGtCQUFhLEdBQWIsYUFBYSxDQUFlO1FBQzVCLGlCQUFZLEdBQVosWUFBWSxDQUFjO1FBQzFCLGtCQUFhLEdBQWIsYUFBYSxDQUFlO0lBQzVDLENBQUM7SUFHRSxBQUFOLEtBQUssQ0FBQyxLQUFLO1FBQ1QsT0FBTyxJQUFJLENBQUMsYUFBYSxDQUFDLEtBQUssRUFBRSxDQUFDO0lBQ3BDLENBQUM7SUFHSyxBQUFOLEtBQUssQ0FBQyxTQUFTO1FBQ2IsTUFBTSxHQUFHLEdBQUcsTUFBTSxJQUFJLENBQUMsWUFBWSxDQUFDLGFBQWEsQ0FBQztZQUNoRCxPQUFPLEVBQUUsdUJBQXVCO1lBQ2hDLFNBQVMsRUFBRSxJQUFJLENBQUMsR0FBRyxFQUFFO1lBQ3JCLElBQUksRUFBRTtnQkFDSixNQUFNLEVBQUUsaUJBQWlCO2dCQUN6QixXQUFXLEVBQUUsT0FBTyxDQUFDLEdBQUcsQ0FBQyxRQUFRLElBQUksYUFBYTtnQkFDbEQsUUFBUSxFQUFFLElBQUksQ0FBQyxNQUFNLEVBQUUsQ0FBQyxRQUFRLENBQUMsRUFBRSxDQUFDLENBQUMsU0FBUyxDQUFDLENBQUMsQ0FBQztnQkFDakQsU0FBUyxFQUFFLENBQUMsQ0FBQyxFQUFFLENBQUMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxFQUFFLENBQUMsQ0FBQztnQkFDMUIsTUFBTSxFQUFFO29CQUNOLEdBQUcsRUFBRSxLQUFLO29CQUNWLEtBQUssRUFBRSxFQUFFO2lCQUNW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b21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL2hlYWx0aC9oZWFsdGguY29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBDb250cm9sbGVyLFxuICBHZXQsXG4gIFF1ZXJ5LFxuICBQYXJhbSxcbiAgTm90Rm91bmRFeGNlcHRpb24sXG59IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbmltcG9ydCB7IENvbmZpZ1NlcnZpY2UgfSBmcm9tICdAbmVzdGpzL2NvbmZpZyc7XG5pbXBvcnQgeyBRdWV1ZSB9IGZyb20gJ2J1bGxtcSc7XG5pbXBvcnQgeyBIZWFsdGhTZXJ2aWNlIH0gZnJvbSAnLi9oZWFsdGguc2VydmljZSc7XG5pbXBvcnQgeyBRdWV1ZVNlcnZpY2UgfSBmcm9tICcuLi9xdWV1ZS9xdWV1ZS5zZXJ2aWNlJztcblxuQENvbnRyb2xsZXIoJ2hlYWx0aCcpXG5leHBvcnQgY2xhc3MgSGVhbHRoQ29udHJvbGxlciB7XG4gIGNvbnN0cnVjdG9yKFxuICAgIHByaXZhdGUgcmVhZG9ubHkgaGVhbHRoU2VydmljZTogSGVhbHRoU2VydmljZSxcbiAgICBwcml2YXRlIHJlYWRvbmx5IHF1ZXVlU2VydmljZTogUXVldWVTZXJ2aWNlLFxuICAgIHByaXZhdGUgcmVhZG9ubHkgY29uZmlnU2VydmljZTogQ29uZmlnU2VydmljZSxcbiAgKSB7fVxuXG4gIEBHZXQoKVxuICBhc3luYyBjaGVjaygpIHtcbiAgICByZXR1cm4gdGhpcy5oZWFsdGhTZXJ2aWNlLmNoZWNrKCk7XG4gIH1cblxuICBAR2V0KCdjcmVhdGUtam9iJylcbiAgYXN5bmMgY3JlYXRlSm9iKCkge1xuICAgIGNvbnN0IGpvYiA9IGF3YWl0IHRoaXMucXVldWVTZXJ2aWNlLmFkZFRlc3RpbmdKb2Ioe1xuICAgICAgbWVzc2FnZTogJ0hlYWx0aCBjaGVjayB0ZXN0IGpvYicsXG4gICAgICB0aW1lc3RhbXA6IERhdGUubm93KCksXG4gICAgICBkYXRhOiB7XG4gICAgICAgIHNvdXJjZTogJ2hlYWx0aC1lbmRwb2ludCcsXG4gICAgICAgIGVudmlyb25tZW50OiBwcm9jZXNzLmVudi5OT0RFX0VOViB8fCAnZGV2ZWxvcG1lbnQnLFxuICAgICAgICByYW5kb21JZDogTWF0aC5yYW5kb20oKS50b1N0cmluZygzNikuc3Vic3RyaW5nKDcpLFxuICAgICAgICB0ZXN0QXJyYXk6IFsxLCAyLCAzLCA0LCA1XSxcbiAgICAgICAgbmVzdGVkOiB7XG4gICAgICAgICAgZm9vOiAnYmFyJyxcbiAgICAgICAgICBjb3VudDogNDIsXG4gICAgICAgIH0sXG4gICAgICB9LFxuICAgIH0pO1xuXG4gICAgcmV0dXJuIHtcbiAgICAgIHN1Y2Nlc3M6IHRydWUsXG4gICAgICBtZXNzYWdlOiAnSm9iIGNyZWF0ZWQgc3VjY2Vzc2Z1bGx5JyxcbiAgICAgIGpvYixcbiAgICB9O1xuICB9XG5cbiAgQEdldCgncmVhZC1qb2InKVxuICBhc3luYyByZWFkSm9iKEBRdWVyeSgnam9iSWQnKSBqb2JJZDogc3RyaW5nKSB7XG4gICAgaWYgKCFqb2JJZCkge1xuICAgICAgdGhyb3cgbmV3IE5vdEZvdW5kRXhjZXB0aW9uKCdqb2JJZCBxdWVyeSBwYXJhbWV0ZXIgaXMgcmVxdWlyZWQnKTtcbiAgICB9XG5cbiAgICBjb25zdCBqb2IgPSBhd2FpdCB0aGlzLnF1ZXVlU2VydmljZS5nZXRKb2Ioam9iSWQpO1xuXG4gICAgaWYgKCFqb2IpIHtcbiAgICAgIHRocm93IG5ldyBOb3RGb3VuZEV4Y2VwdGlvbihgSm9iIHdpdGggaWQgJHtqb2JJZH0gbm90IGZvdW5kYCk7XG4gICAgfVxuXG4gICAgcmV0dXJuIHtcbiAgICAgIHN1Y2Nlc3M6IHRydWUsXG4gICAgICBqb2IsXG4gICAgfTtcbiAgfVxuXG4gIEBHZXQoJ2RlbGV0ZS1qb2InKVxuICBhc3luYyBkZWxldGVKb2IoQFF1ZXJ5KCdqb2JJZCcpIGpvYklkOiBzdHJpbmcpIHtcbiAgICBpZiAoIWpvYklkKSB7XG4gICAgICB0aHJvdyBuZXcgTm90Rm91bmRFeGNlcHRpb24oJ2pvYklkIHF1ZXJ5IHBhcmFtZXRlciBpcyByZXF1aXJlZCcpO1xuICAgIH1cblxuICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHRoaXMucXVldWVTZXJ2aWNlLmRlbGV0ZUpvYihqb2JJZCk7XG5cbiAgICBpZiAoIXJlc3VsdCkge1xuICAgICAgdGhyb3cgbmV3IE5vdEZvdW5kRXhjZXB0aW9uKGBKb2Igd2l0aCBpZCAke2pvYklkfSBub3QgZm91bmRgKTtcbiAgICB9XG5cbiAgICByZXR1cm4ge1xuICAgICAgc3VjY2VzczogdHJ1ZSxcbiAgICAgIG1lc3NhZ2U6ICdKb2IgZGVsZXRlZCBzdWNjZXNzZnVsbHknLFxuICAgICAgLi4ucmVzdWx0LFxuICAgIH07XG4gIH1cblxuICBAR2V0KCdxdWV1ZS86cXVldWVOYW1lJylcbiAgYXN5bmMgZ2V0QWN0aXZlSm9icyhAUGFyYW0oJ3F1ZXVlTmFtZScpIHF1ZXVlTmFtZTogc3RyaW5nKSB7XG4gICAgY29uc3QgcXVldWUgPSBuZXcgUXVldWUocXVldWVOYW1lLCB7XG4gICAgICBjb25uZWN0aW9uOiB7XG4gICAgICAgIGhvc3Q6IHRoaXMuY29uZmlnU2VydmljZS5nZXQ8c3RyaW5nPignUkVESVNfSE9TVCcsICdsb2NhbGhvc3QnKSxcbiAgICAgICAgcG9ydDogdGhpcy5jb25maWdTZXJ2aWNlLmdldDxudW1iZXI+KCdSRURJU19QT1JUJywgNjM3OSksXG4gICAgICB9LFxuICAgIH0pO1xuXG4gICAgdHJ5IHtcbiAgICAgIGNvbnN0IGFjdGl2ZUpvYnMgPSBhd2FpdCBxdWV1ZS5nZXRBY3RpdmUoKTtcblxuICAgICAgY29uc3Qgam9icyA9IGFjdGl2ZUpvYnMubWFwKChqb2IpID0+ICh7XG4gICAgICAgIGpvYklkOiBqb2IuaWQsXG4gICAgICAgIG5hbWU6IGpvYi5uYW1lLFxuICAgICAgICBkYXRhOiBqb2IuZGF0YSBhcyBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPixcbiAgICAgICAgcHJvZ3Jlc3M6IGpvYi5wcm9ncmVzcyxcbiAgICAgICAgdGltZXN0YW1wOiBqb2IudGltZXN0YW1wLFxuICAgICAgICBwcm9jZXNzZWRPbjogam9iLnByb2Nlc3NlZE9uLFxuICAgICAgfSkpO1xuXG4gICAgICByZXR1cm4ge1xuICAgICAgICBxdWV1ZTogcXVldWVOYW1lLFxuICAgICAgICBjb3VudDogam9icy5sZW5ndGgsXG4gICAgICAgIGpvYnMsXG4gICAgICB9O1xuICAgIH0gZmluYWxseSB7XG4gICAgICBhd2FpdCBxdWV1ZS5jbG9zZSgpO1xuICAgIH1cbiAgfVxuXG4gIEBHZXQoJ3F1ZXVlLzpxdWV1ZU5hbWUvZW1wdHknKVxuICBhc3luYyBlbXB0eVF1ZXVlKEBQYXJhbSgncXVldWVOYW1lJykgcXVldWVOYW1lOiBzdHJpbmcpIHtcbiAgICBjb25zdCBxdWV1ZSA9IG5ldyBRdWV1ZShxdWV1ZU5hbWUsIHtcbiAgICAgIGNvbm5lY3Rpb246IHtcbiAgICAgICAgaG9zdDogdGhpcy5jb25maWdTZXJ2aWNlLmdldDxzdHJpbmc+KCdSRURJU19IT1NUJywgJ2xvY2FsaG9zdCcpLFxuICAgICAgICBwb3J0OiB0aGlzLmNvbmZpZ1NlcnZpY2UuZ2V0PG51bWJlcj4oJ1JFRElTX1BPUlQnLCA2Mzc5KSxcbiAgICAgIH0sXG4gICAgfSk7XG5cbiAgICB0cnkge1xuICAgICAgYXdhaXQgcXVldWUub2JsaXRlcmF0ZSh7IGZvcmNlOiB0cnVlIH0pO1xuXG4gICAgICByZXR1cm4ge1xuICAgICAgICBzdWNjZXNzOiB0cnVlLFxuICAgICAgICBxdWV1ZTogcXVldWVOYW1lLFxuICAgICAgICBtZXNzYWdlOiAnUXVldWUgZW1wdGllZCBzdWNjZXNzZnVsbHknLFxuICAgICAgfTtcbiAgICB9IGZpbmFsbHkge1xuICAgICAgYXdhaXQgcXVldWUuY2xvc2UoKTtcbiAgICB9XG4gIH1cbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

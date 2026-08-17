@@ -1,0 +1,39 @@
+8388c7109106cca1e56ce2c9b92e59b0
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpdateProfileDto = void 0;
+const class_validator_1 = require("class-validator");
+class UpdateProfileDto {
+    name;
+    image;
+    username;
+}
+exports.UpdateProfileDto = UpdateProfileDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "image", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.Matches)(/^[a-z0-9_-]{3,30}$/, {
+        message: 'Username must be 3-30 characters: lowercase letters, numbers, hyphens and underscores only',
+    }),
+    __metadata("design:type", String)
+], UpdateProfileDto.prototype, "username", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvdXNlcnMvZHRvL3VwZGF0ZS1wcm9maWxlLmR0by50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxREFBZ0U7QUFFaEUsTUFBYSxnQkFBZ0I7SUFHM0IsSUFBSSxDQUFVO0lBSWQsS0FBSyxDQUFVO0lBUWYsUUFBUSxDQUFVO0NBQ25CO0FBaEJELDRDQWdCQztBQWJDO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzs4Q0FDQztBQUlkO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzsrQ0FDRTtBQVFmO0lBTkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFO0lBQ1osSUFBQSx5QkFBTyxFQUFDLG9CQUFvQixFQUFFO1FBQzdCLE9BQU8sRUFDTCw0RkFBNEY7S0FDL0YsQ0FBQzs7a0RBQ2dCIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL3VzZXJzL2R0by91cGRhdGUtcHJvZmlsZS5kdG8udHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSXNTdHJpbmcsIElzT3B0aW9uYWwsIE1hdGNoZXMgfSBmcm9tICdjbGFzcy12YWxpZGF0b3InO1xuXG5leHBvcnQgY2xhc3MgVXBkYXRlUHJvZmlsZUR0byB7XG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgbmFtZT86IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIGltYWdlPzogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgQE1hdGNoZXMoL15bYS16MC05Xy1dezMsMzB9JC8sIHtcbiAgICBtZXNzYWdlOlxuICAgICAgJ1VzZXJuYW1lIG11c3QgYmUgMy0zMCBjaGFyYWN0ZXJzOiBsb3dlcmNhc2UgbGV0dGVycywgbnVtYmVycywgaHlwaGVucyBhbmQgdW5kZXJzY29yZXMgb25seScsXG4gIH0pXG4gIHVzZXJuYW1lPzogc3RyaW5nO1xufVxuIl0sInZlcnNpb24iOjN9

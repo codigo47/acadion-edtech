@@ -1,0 +1,117 @@
+f09e25092f7cedc0952dbbd2f16870ff
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.PortfolioController = void 0;
+const common_1 = require("@nestjs/common");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const portfolio_service_1 = require("./portfolio.service");
+const update_portfolio_dto_1 = require("./dto/update-portfolio.dto");
+const contact_portfolio_dto_1 = require("./dto/contact-portfolio.dto");
+const track_visit_dto_1 = require("./dto/track-visit.dto");
+let PortfolioController = class PortfolioController {
+    portfolioService;
+    constructor(portfolioService) {
+        this.portfolioService = portfolioService;
+    }
+    // --- Authenticated routes (must come before :username) ---
+    getMyPortfolio(req) {
+        return this.portfolioService.getMyPortfolio(req.user.id);
+    }
+    updatePortfolio(req, dto) {
+        return this.portfolioService.upsertPortfolio(req.user.id, dto);
+    }
+    updateCourses(req, dto) {
+        return this.portfolioService.updateCourses(req.user.id, dto);
+    }
+    getAnalytics(req) {
+        return this.portfolioService.getPortfolioAnalytics(req.user.id);
+    }
+    // --- Public routes ---
+    getByUsername(username) {
+        return this.portfolioService.getByUsername(username);
+    }
+    trackVisit(username, dto) {
+        return this.portfolioService.trackVisit(username, dto);
+    }
+    sendContact(username, dto) {
+        return this.portfolioService.sendContactMessage(username, dto);
+    }
+};
+exports.PortfolioController = PortfolioController;
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('me/settings'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], PortfolioController.prototype, "getMyPortfolio", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Put)('me/settings'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_b = typeof update_portfolio_dto_1.UpdatePortfolioDto !== "undefined" && update_portfolio_dto_1.UpdatePortfolioDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], PortfolioController.prototype, "updatePortfolio", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Put)('me/courses'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_c = typeof update_portfolio_dto_1.UpdatePortfolioCoursesDto !== "undefined" && update_portfolio_dto_1.UpdatePortfolioCoursesDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], PortfolioController.prototype, "updateCourses", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('me/analytics'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], PortfolioController.prototype, "getAnalytics", null);
+__decorate([
+    (0, common_1.Get)(':username'),
+    __param(0, (0, common_1.Param)('username')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], PortfolioController.prototype, "getByUsername", null);
+__decorate([
+    (0, common_1.Post)(':username/visit'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
+    __param(0, (0, common_1.Param)('username')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_d = typeof track_visit_dto_1.TrackVisitDto !== "undefined" && track_visit_dto_1.TrackVisitDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], PortfolioController.prototype, "trackVisit", null);
+__decorate([
+    (0, common_1.Post)(':username/contact'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
+    __param(0, (0, common_1.Param)('username')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_e = typeof contact_portfolio_dto_1.ContactPortfolioDto !== "undefined" && contact_portfolio_dto_1.ContactPortfolioDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", void 0)
+], PortfolioController.prototype, "sendContact", null);
+exports.PortfolioController = PortfolioController = __decorate([
+    (0, common_1.Controller)('portfolio'),
+    __metadata("design:paramtypes", [typeof (_a = typeof portfolio_service_1.PortfolioService !== "undefined" && portfolio_service_1.PortfolioService) === "function" ? _a : Object])
+], PortfolioController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvcG9ydGZvbGlvL3BvcnRmb2xpby5jb250cm9sbGVyLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSwyQ0FXd0I7QUFFeEIsa0VBQTZEO0FBQzdELDJEQUF1RDtBQUN2RCxxRUFHb0M7QUFDcEMsdUVBQWtFO0FBQ2xFLDJEQUFzRDtBQU8vQyxJQUFNLG1CQUFtQixHQUF6QixNQUFNLG1CQUFtQjtJQUNEO0lBQTdCLFlBQTZCLGdCQUFrQztRQUFsQyxxQkFBZ0IsR0FBaEIsZ0JBQWdCLENBQWtCO0lBQUcsQ0FBQztJQUVuRSw0REFBNEQ7SUFJNUQsY0FBYyxDQUFZLEdBQW9CO1FBQzVDLE9BQU8sSUFBSSxDQUFDLGdCQUFnQixDQUFDLGNBQWMsQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBQzNELENBQUM7SUFJRCxlQUFlLENBQ0YsR0FBb0IsRUFDdkIsR0FBdUI7UUFFL0IsT0FBTyxJQUFJLENBQUMsZ0JBQWdCLENBQUMsZUFBZSxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxFQUFFLEdBQUcsQ0FBQyxDQUFDO0lBQ2pFLENBQUM7SUFJRCxhQUFhLENBQ0EsR0FBb0IsRUFDdkIsR0FBOEI7UUFFdEMsT0FBTyxJQUFJLENBQUMsZ0JBQWdCLENBQUMsYUFBYSxDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxFQUFFLEdBQUcsQ0FBQyxDQUFDO0lBQy9ELENBQUM7SUFJRCxZQUFZLENBQVksR0FBb0I7UUFDMUMsT0FBTyxJQUFJLENBQUMsZ0JBQWdCLENBQUMscUJBQXFCLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUNsRSxDQUFDO0lBRUQsd0JBQXdCO0lBR3hCLGFBQWEsQ0FBb0IsUUFBZ0I7UUFDL0MsT0FBTyxJQUFJLENBQUMsZ0JBQWdCLENBQUMsYUFBYSxDQUFDLFFBQVEsQ0FBQyxDQUFDO0lBQ3ZELENBQUM7SUFJRCxVQUFVLENBQ1csUUFBZ0IsRUFDM0IsR0FBa0I7UUFFMUIsT0FBTyxJQUFJLENBQUMsZ0JBQWdCLENBQUMsVUFBVSxDQUFDLFFBQVEsRUFBRSxHQUFHLENBQUMsQ0FBQztJQUN6RCxDQUFDO0lBSUQsV0FBVyxDQUNVLFFBQWdCLEVBQzNCLEdBQXdCO1FBRWhDLE9BQU8sSUFBSSxDQUFDLGdCQUFnQixDQUFDLGtCQUFrQixDQUFDLFFBQVEsRUFBRSxHQUFHLENBQUMsQ0FBQztJQUNqRSxDQUFDO0NBQ0YsQ0FBQTtBQTNEWSxrREFBbUI7QUFPOUI7SUFGQyxJQUFBLGtCQUFTLEVBQUMsNkJBQVksQ0FBQztJQUN2QixJQUFBLFlBQUcsRUFBQyxhQUFhLENBQUM7SUFDSCxXQUFBLElBQUEsZ0JBQU8sR0FBRSxDQUFBOzs7O3lEQUV4QjtBQUlEO0lBRkMsSUFBQSxrQkFBUyxFQUFDLDZCQUFZLENBQUM7SUFDdkIsSUFBQSxZQUFHLEVBQUMsYUFBYSxDQUFDO0lBRWhCLFdBQUEsSUFBQSxnQkFBTyxHQUFFLENBQUE7SUFDVCxXQUFBLElBQUEsYUFBSSxHQUFFLENBQUE7O2lFQUFNLHlDQUFrQixvQkFBbEIseUNBQWtCOzswREFHaEM7QUFJRDtJQUZDLElBQUEsa0JBQVMsRUFBQyw2QkFBWSxDQUFDO0lBQ3ZCLElBQUEsWUFBRyxFQUFDLFlBQVksQ0FBQztJQUVmLFdBQUEsSUFBQSxnQkFBTyxHQUFFLENBQUE7SUFDVCxXQUFBLElBQUEsYUFBSSxHQUFFLENBQUE7O2lFQUFNLGdEQUF5QixvQkFBekIsZ0RBQXlCOzt3REFHdkM7QUFJRDtJQUZDLElBQUEsa0JBQVMsRUFBQyw2QkFBWSxDQUFDO0lBQ3ZCLElBQUEsWUFBRyxFQUFDLGNBQWMsQ0FBQztJQUNOLFdBQUEsSUFBQSxnQkFBTyxHQUFFLENBQUE7Ozs7dURBRXRCO0FBS0Q7SUFEQyxJQUFBLFlBQUcsRUFBQyxXQUFXLENBQUM7SUFDRixXQUFBLElBQUEsY0FBSyxFQUFDLFVBQVUsQ0FBQyxDQUFBOzs7O3dEQUUvQjtBQUlEO0lBRkMsSUFBQSxhQUFJLEVBQUMsaUJBQWlCLENBQUM7SUFDdkIsSUFBQSxpQkFBUSxFQUFDLG1CQUFVLENBQUMsT0FBTyxDQUFDO0lBRTFCLFdBQUEsSUFBQSxjQUFLLEVBQUMsVUFBVSxDQUFDLENBQUE7SUFDakIsV0FBQSxJQUFBLGFBQUksR0FBRSxDQUFBOztpRUFBTSwrQkFBYSxvQkFBYiwrQkFBYTs7cURBRzNCO0FBSUQ7SUFGQyxJQUFBLGFBQUksRUFBQyxtQkFBbUIsQ0FBQztJQUN6QixJQUFBLGlCQUFRLEVBQUMsbUJBQVUsQ0FBQyxPQUFPLENBQUM7SUFFMUIsV0FBQSxJQUFBLGNBQUssRUFBQyxVQUFVLENBQUMsQ0FBQTtJQUNqQixXQUFBLElBQUEsYUFBSSxHQUFFLENBQUE7O2lFQUFNLDJDQUFtQixvQkFBbkIsMkNBQW1COztzREFHakM7OEJBMURVLG1CQUFtQjtJQUQvQixJQUFBLG1CQUFVLEVBQUMsV0FBVyxDQUFDO3lEQUV5QixvQ0FBZ0Isb0JBQWhCLG9DQUFnQjtHQURwRCxtQkFBbUIsQ0EyRC9CIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL3BvcnRmb2xpby9wb3J0Zm9saW8uY29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBDb250cm9sbGVyLFxuICBHZXQsXG4gIFB1dCxcbiAgUG9zdCxcbiAgQm9keSxcbiAgUGFyYW0sXG4gIFVzZUd1YXJkcyxcbiAgUmVxdWVzdCxcbiAgSHR0cENvZGUsXG4gIEh0dHBTdGF0dXMsXG59IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbmltcG9ydCB0eXBlIHsgUmVxdWVzdCBhcyBFeHByZXNzUmVxdWVzdCB9IGZyb20gJ2V4cHJlc3MnO1xuaW1wb3J0IHsgSnd0QXV0aEd1YXJkIH0gZnJvbSAnLi4vYXV0aC9ndWFyZHMvand0LWF1dGguZ3VhcmQnO1xuaW1wb3J0IHsgUG9ydGZvbGlvU2VydmljZSB9IGZyb20gJy4vcG9ydGZvbGlvLnNlcnZpY2UnO1xuaW1wb3J0IHtcbiAgVXBkYXRlUG9ydGZvbGlvRHRvLFxuICBVcGRhdGVQb3J0Zm9saW9Db3Vyc2VzRHRvLFxufSBmcm9tICcuL2R0by91cGRhdGUtcG9ydGZvbGlvLmR0byc7XG5pbXBvcnQgeyBDb250YWN0UG9ydGZvbGlvRHRvIH0gZnJvbSAnLi9kdG8vY29udGFjdC1wb3J0Zm9saW8uZHRvJztcbmltcG9ydCB7IFRyYWNrVmlzaXREdG8gfSBmcm9tICcuL2R0by90cmFjay12aXNpdC5kdG8nO1xuXG5pbnRlcmZhY2UgUmVxdWVzdFdpdGhVc2VyIGV4dGVuZHMgRXhwcmVzc1JlcXVlc3Qge1xuICB1c2VyOiB7IGlkOiBzdHJpbmc7IGVtYWlsOiBzdHJpbmcgfTtcbn1cblxuQENvbnRyb2xsZXIoJ3BvcnRmb2xpbycpXG5leHBvcnQgY2xhc3MgUG9ydGZvbGlvQ29udHJvbGxlciB7XG4gIGNvbnN0cnVjdG9yKHByaXZhdGUgcmVhZG9ubHkgcG9ydGZvbGlvU2VydmljZTogUG9ydGZvbGlvU2VydmljZSkge31cblxuICAvLyAtLS0gQXV0aGVudGljYXRlZCByb3V0ZXMgKG11c3QgY29tZSBiZWZvcmUgOnVzZXJuYW1lKSAtLS1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQEdldCgnbWUvc2V0dGluZ3MnKVxuICBnZXRNeVBvcnRmb2xpbyhAUmVxdWVzdCgpIHJlcTogUmVxdWVzdFdpdGhVc2VyKSB7XG4gICAgcmV0dXJuIHRoaXMucG9ydGZvbGlvU2VydmljZS5nZXRNeVBvcnRmb2xpbyhyZXEudXNlci5pZCk7XG4gIH1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQFB1dCgnbWUvc2V0dGluZ3MnKVxuICB1cGRhdGVQb3J0Zm9saW8oXG4gICAgQFJlcXVlc3QoKSByZXE6IFJlcXVlc3RXaXRoVXNlcixcbiAgICBAQm9keSgpIGR0bzogVXBkYXRlUG9ydGZvbGlvRHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5wb3J0Zm9saW9TZXJ2aWNlLnVwc2VydFBvcnRmb2xpbyhyZXEudXNlci5pZCwgZHRvKTtcbiAgfVxuXG4gIEBVc2VHdWFyZHMoSnd0QXV0aEd1YXJkKVxuICBAUHV0KCdtZS9jb3Vyc2VzJylcbiAgdXBkYXRlQ291cnNlcyhcbiAgICBAUmVxdWVzdCgpIHJlcTogUmVxdWVzdFdpdGhVc2VyLFxuICAgIEBCb2R5KCkgZHRvOiBVcGRhdGVQb3J0Zm9saW9Db3Vyc2VzRHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5wb3J0Zm9saW9TZXJ2aWNlLnVwZGF0ZUNvdXJzZXMocmVxLnVzZXIuaWQsIGR0byk7XG4gIH1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQEdldCgnbWUvYW5hbHl0aWNzJylcbiAgZ2V0QW5hbHl0aWNzKEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIpIHtcbiAgICByZXR1cm4gdGhpcy5wb3J0Zm9saW9TZXJ2aWNlLmdldFBvcnRmb2xpb0FuYWx5dGljcyhyZXEudXNlci5pZCk7XG4gIH1cblxuICAvLyAtLS0gUHVibGljIHJvdXRlcyAtLS1cblxuICBAR2V0KCc6dXNlcm5hbWUnKVxuICBnZXRCeVVzZXJuYW1lKEBQYXJhbSgndXNlcm5hbWUnKSB1c2VybmFtZTogc3RyaW5nKSB7XG4gICAgcmV0dXJuIHRoaXMucG9ydGZvbGlvU2VydmljZS5nZXRCeVVzZXJuYW1lKHVzZXJuYW1lKTtcbiAgfVxuXG4gIEBQb3N0KCc6dXNlcm5hbWUvdmlzaXQnKVxuICBASHR0cENvZGUoSHR0cFN0YXR1cy5DUkVBVEVEKVxuICB0cmFja1Zpc2l0KFxuICAgIEBQYXJhbSgndXNlcm5hbWUnKSB1c2VybmFtZTogc3RyaW5nLFxuICAgIEBCb2R5KCkgZHRvOiBUcmFja1Zpc2l0RHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5wb3J0Zm9saW9TZXJ2aWNlLnRyYWNrVmlzaXQodXNlcm5hbWUsIGR0byk7XG4gIH1cblxuICBAUG9zdCgnOnVzZXJuYW1lL2NvbnRhY3QnKVxuICBASHR0cENvZGUoSHR0cFN0YXR1cy5DUkVBVEVEKVxuICBzZW5kQ29udGFjdChcbiAgICBAUGFyYW0oJ3VzZXJuYW1lJykgdXNlcm5hbWU6IHN0cmluZyxcbiAgICBAQm9keSgpIGR0bzogQ29udGFjdFBvcnRmb2xpb0R0byxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMucG9ydGZvbGlvU2VydmljZS5zZW5kQ29udGFjdE1lc3NhZ2UodXNlcm5hbWUsIGR0byk7XG4gIH1cbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

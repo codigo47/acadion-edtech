@@ -1,0 +1,129 @@
+6f58b98d99e7b0fd6d6329e721458fe3
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SubmitPostAssessmentDto = exports.SubmitPreAssessmentDto = exports.AdminEnrollDto = exports.SubmitKnowledgeCheckDto = exports.CompleteCourseDto = exports.UpdateProgressDto = void 0;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+class UpdateProgressDto {
+    unitCode;
+    timeSpentSeconds;
+    completed;
+    focusLossCount;
+}
+exports.UpdateProgressDto = UpdateProgressDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateProgressDto.prototype, "unitCode", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], UpdateProgressDto.prototype, "timeSpentSeconds", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], UpdateProgressDto.prototype, "completed", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], UpdateProgressDto.prototype, "focusLossCount", void 0);
+class CompleteCourseDto {
+    passed;
+    score;
+}
+exports.CompleteCourseDto = CompleteCourseDto;
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CompleteCourseDto.prototype, "passed", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], CompleteCourseDto.prototype, "score", void 0);
+class SubmitKnowledgeCheckDto {
+    unitCode;
+    questionIndex;
+    answer;
+    isCorrect;
+}
+exports.SubmitKnowledgeCheckDto = SubmitKnowledgeCheckDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], SubmitKnowledgeCheckDto.prototype, "unitCode", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], SubmitKnowledgeCheckDto.prototype, "questionIndex", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], SubmitKnowledgeCheckDto.prototype, "isCorrect", void 0);
+class AdminEnrollDto {
+    userId;
+}
+exports.AdminEnrollDto = AdminEnrollDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AdminEnrollDto.prototype, "userId", void 0);
+class ConfidenceAnswerDto {
+    unitCode;
+    confidenceScore;
+}
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ConfidenceAnswerDto.prototype, "unitCode", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    (0, class_validator_1.Min)(1),
+    (0, class_validator_1.Max)(5),
+    __metadata("design:type", Number)
+], ConfidenceAnswerDto.prototype, "confidenceScore", void 0);
+class SubmitPreAssessmentDto {
+    enrollmentId;
+    answers;
+}
+exports.SubmitPreAssessmentDto = SubmitPreAssessmentDto;
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], SubmitPreAssessmentDto.prototype, "enrollmentId", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => ConfidenceAnswerDto),
+    __metadata("design:type", Array)
+], SubmitPreAssessmentDto.prototype, "answers", void 0);
+class SubmitPostAssessmentDto {
+    enrollmentId;
+    answers;
+}
+exports.SubmitPostAssessmentDto = SubmitPostAssessmentDto;
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], SubmitPostAssessmentDto.prototype, "enrollmentId", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => ConfidenceAnswerDto),
+    __metadata("design:type", Array)
+], SubmitPostAssessmentDto.prototype, "answers", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvbG1zL2R0by9sbXMuZHRvLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7OztBQUFBLHFEQVV5QjtBQUN6Qix5REFBeUM7QUFFekMsTUFBYSxpQkFBaUI7SUFFNUIsUUFBUSxDQUFTO0lBSWpCLGdCQUFnQixDQUFTO0lBSXpCLFNBQVMsQ0FBVztJQUtwQixjQUFjLENBQVU7Q0FDekI7QUFoQkQsOENBZ0JDO0FBZEM7SUFEQyxJQUFBLDBCQUFRLEdBQUU7O21EQUNNO0FBSWpCO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSxxQkFBRyxFQUFDLENBQUMsQ0FBQzs7MkRBQ2tCO0FBSXpCO0lBRkMsSUFBQSw0QkFBVSxHQUFFO0lBQ1osSUFBQSwyQkFBUyxHQUFFOztvREFDUTtBQUtwQjtJQUhDLElBQUEsNEJBQVUsR0FBRTtJQUNaLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEscUJBQUcsRUFBQyxDQUFDLENBQUM7O3lEQUNpQjtBQUcxQixNQUFhLGlCQUFpQjtJQUU1QixNQUFNLENBQVU7SUFJaEIsS0FBSyxDQUFTO0NBQ2Y7QUFQRCw4Q0FPQztBQUxDO0lBREMsSUFBQSwyQkFBUyxHQUFFOztpREFDSTtBQUloQjtJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEscUJBQUcsRUFBQyxDQUFDLENBQUM7O2dEQUNPO0FBR2hCLE1BQWEsdUJBQXVCO0lBRWxDLFFBQVEsQ0FBUztJQUlqQixhQUFhLENBQVM7SUFFdEIsTUFBTSxDQUFVO0lBR2hCLFNBQVMsQ0FBVTtDQUNwQjtBQVpELDBEQVlDO0FBVkM7SUFEQyxJQUFBLDBCQUFRLEdBQUU7O3lEQUNNO0FBSWpCO0lBRkMsSUFBQSx1QkFBSyxHQUFFO0lBQ1AsSUFBQSxxQkFBRyxFQUFDLENBQUMsQ0FBQzs7OERBQ2U7QUFLdEI7SUFEQyxJQUFBLDJCQUFTLEdBQUU7OzBEQUNPO0FBR3JCLE1BQWEsY0FBYztJQUV6QixNQUFNLENBQVM7Q0FDaEI7QUFIRCx3Q0FHQztBQURDO0lBREMsSUFBQSwwQkFBUSxHQUFFOzs4Q0FDSTtBQUdqQixNQUFNLG1CQUFtQjtJQUV2QixRQUFRLENBQVM7SUFLakIsZUFBZSxDQUFTO0NBQ3pCO0FBTkM7SUFEQyxJQUFBLDBCQUFRLEdBQUU7O3FEQUNNO0FBS2pCO0lBSEMsSUFBQSx1QkFBSyxHQUFFO0lBQ1AsSUFBQSxxQkFBRyxFQUFDLENBQUMsQ0FBQztJQUNOLElBQUEscUJBQUcsRUFBQyxDQUFDLENBQUM7OzREQUNpQjtBQUcxQixNQUFhLHNCQUFzQjtJQUVqQyxZQUFZLENBQVM7SUFLckIsT0FBTyxDQUF3QjtDQUNoQztBQVJELHdEQVFDO0FBTkM7SUFEQyxJQUFBLHVCQUFLLEdBQUU7OzREQUNhO0FBS3JCO0lBSEMsSUFBQSx5QkFBTyxHQUFFO0lBQ1QsSUFBQSxnQ0FBYyxFQUFDLEVBQUUsSUFBSSxFQUFFLElBQUksRUFBRSxDQUFDO0lBQzlCLElBQUEsd0JBQUksRUFBQyxHQUFHLEVBQUUsQ0FBQyxtQkFBbUIsQ0FBQzs7dURBQ0Q7QUFHakMsTUFBYSx1QkFBdUI7SUFFbEMsWUFBWSxDQUFTO0lBS3JCLE9BQU8sQ0FBd0I7Q0FDaEM7QUFSRCwwREFRQztBQU5DO0lBREMsSUFBQSx1QkFBSyxHQUFFOzs2REFDYTtBQUtyQjtJQUhDLElBQUEseUJBQU8sR0FBRTtJQUNULElBQUEsZ0NBQWMsRUFBQyxFQUFFLElBQUksRUFBRSxJQUFJLEVBQUUsQ0FBQztJQUM5QixJQUFBLHdCQUFJLEVBQUMsR0FBRyxFQUFFLENBQUMsbUJBQW1CLENBQUM7O3dEQUNEIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL2xtcy9kdG8vbG1zLmR0by50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBJc1N0cmluZyxcbiAgSXNOdW1iZXIsXG4gIElzT3B0aW9uYWwsXG4gIElzQm9vbGVhbixcbiAgSXNBcnJheSxcbiAgSXNJbnQsXG4gIE1pbixcbiAgTWF4LFxuICBWYWxpZGF0ZU5lc3RlZCxcbn0gZnJvbSAnY2xhc3MtdmFsaWRhdG9yJztcbmltcG9ydCB7IFR5cGUgfSBmcm9tICdjbGFzcy10cmFuc2Zvcm1lcic7XG5cbmV4cG9ydCBjbGFzcyBVcGRhdGVQcm9ncmVzc0R0byB7XG4gIEBJc1N0cmluZygpXG4gIHVuaXRDb2RlOiBzdHJpbmc7XG5cbiAgQElzTnVtYmVyKClcbiAgQE1pbigwKVxuICB0aW1lU3BlbnRTZWNvbmRzOiBudW1iZXI7XG5cbiAgQElzT3B0aW9uYWwoKVxuICBASXNCb29sZWFuKClcbiAgY29tcGxldGVkPzogYm9vbGVhbjtcblxuICBASXNPcHRpb25hbCgpXG4gIEBJc051bWJlcigpXG4gIEBNaW4oMClcbiAgZm9jdXNMb3NzQ291bnQ/OiBudW1iZXI7XG59XG5cbmV4cG9ydCBjbGFzcyBDb21wbGV0ZUNvdXJzZUR0byB7XG4gIEBJc0Jvb2xlYW4oKVxuICBwYXNzZWQ6IGJvb2xlYW47XG5cbiAgQElzTnVtYmVyKClcbiAgQE1pbigwKVxuICBzY29yZTogbnVtYmVyO1xufVxuXG5leHBvcnQgY2xhc3MgU3VibWl0S25vd2xlZGdlQ2hlY2tEdG8ge1xuICBASXNTdHJpbmcoKVxuICB1bml0Q29kZTogc3RyaW5nO1xuXG4gIEBJc0ludCgpXG4gIEBNaW4oMClcbiAgcXVlc3Rpb25JbmRleDogbnVtYmVyO1xuXG4gIGFuc3dlcjogdW5rbm93bjtcblxuICBASXNCb29sZWFuKClcbiAgaXNDb3JyZWN0OiBib29sZWFuO1xufVxuXG5leHBvcnQgY2xhc3MgQWRtaW5FbnJvbGxEdG8ge1xuICBASXNTdHJpbmcoKVxuICB1c2VySWQ6IHN0cmluZztcbn1cblxuY2xhc3MgQ29uZmlkZW5jZUFuc3dlckR0byB7XG4gIEBJc1N0cmluZygpXG4gIHVuaXRDb2RlOiBzdHJpbmc7XG5cbiAgQElzSW50KClcbiAgQE1pbigxKVxuICBATWF4KDUpXG4gIGNvbmZpZGVuY2VTY29yZTogbnVtYmVyO1xufVxuXG5leHBvcnQgY2xhc3MgU3VibWl0UHJlQXNzZXNzbWVudER0byB7XG4gIEBJc0ludCgpXG4gIGVucm9sbG1lbnRJZDogbnVtYmVyO1xuXG4gIEBJc0FycmF5KClcbiAgQFZhbGlkYXRlTmVzdGVkKHsgZWFjaDogdHJ1ZSB9KVxuICBAVHlwZSgoKSA9PiBDb25maWRlbmNlQW5zd2VyRHRvKVxuICBhbnN3ZXJzOiBDb25maWRlbmNlQW5zd2VyRHRvW107XG59XG5cbmV4cG9ydCBjbGFzcyBTdWJtaXRQb3N0QXNzZXNzbWVudER0byB7XG4gIEBJc0ludCgpXG4gIGVucm9sbG1lbnRJZDogbnVtYmVyO1xuXG4gIEBJc0FycmF5KClcbiAgQFZhbGlkYXRlTmVzdGVkKHsgZWFjaDogdHJ1ZSB9KVxuICBAVHlwZSgoKSA9PiBDb25maWRlbmNlQW5zd2VyRHRvKVxuICBhbnN3ZXJzOiBDb25maWRlbmNlQW5zd2VyRHRvW107XG59XG4iXSwidmVyc2lvbiI6M30=

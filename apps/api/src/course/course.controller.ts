@@ -11,8 +11,10 @@ import {
   Sse,
   MessageEvent,
   UseGuards,
+  UsePipes,
   Request,
 } from '@nestjs/common';
+import { ChatInputGuardrailPipe } from '../guardrails/chat-input-guardrail.pipe';
 import { PaginationDto } from '../common/dto/pagination.dto';
 import type { Request as ExpressRequest } from 'express';
 import { Observable, map } from 'rxjs';
@@ -61,7 +63,14 @@ export class CourseController {
     private readonly sseService: CourseSSEService,
   ) {}
 
+  /**
+   * Every free-text field the user types in the chat box arrives here, so the
+   * guardrail pipe runs once at the edge instead of being repeated per task.
+   * It blocks unsafe input and redacts PII before the payload reaches the
+   * service — and therefore before it reaches any model provider.
+   */
   @Post('tasks')
+  @UsePipes(ChatInputGuardrailPipe)
   async executeTask(@Body() taskDto: TaskDto) {
     this.logger.log(`Executing task: ${taskDto.taskName}`);
 

@@ -1,0 +1,177 @@
+1b637a31a16150b57f79998ebe76db2c
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UpdatePortfolioCoursesDto = exports.UpdatePortfolioDto = exports.PortfolioMediaItemDto = exports.SocialCustomLinkDto = void 0;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+const VALID_THEMES = [
+    'corporate_professional',
+    'minimal_tech',
+    'creative_modern',
+    'elegant_dark',
+    'vibrant_startup',
+    'natural_organic',
+    'casual_creative',
+    'sophisticated_premium',
+    'futuristic_ai',
+    'editorial_blue_white',
+];
+class SocialCustomLinkDto {
+    label;
+    url;
+}
+exports.SocialCustomLinkDto = SocialCustomLinkDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], SocialCustomLinkDto.prototype, "label", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], SocialCustomLinkDto.prototype, "url", void 0);
+class PortfolioMediaItemDto {
+    url;
+    description;
+}
+exports.PortfolioMediaItemDto = PortfolioMediaItemDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], PortfolioMediaItemDto.prototype, "url", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], PortfolioMediaItemDto.prototype, "description", void 0);
+class UpdatePortfolioDto {
+    title;
+    tagline;
+    bio;
+    portraitImage;
+    coverImage;
+    email;
+    phone;
+    theme;
+    skills;
+    languages;
+    socialLinkedin;
+    socialTwitter;
+    socialInstagram;
+    socialCustom;
+    images;
+    videos;
+    isPublic;
+}
+exports.UpdatePortfolioDto = UpdatePortfolioDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "title", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "tagline", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "bio", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "portraitImage", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "coverImage", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "phone", void 0);
+__decorate([
+    (0, class_validator_1.IsIn)(VALID_THEMES),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "theme", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdatePortfolioDto.prototype, "skills", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdatePortfolioDto.prototype, "languages", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "socialLinkedin", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "socialTwitter", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdatePortfolioDto.prototype, "socialInstagram", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => SocialCustomLinkDto),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdatePortfolioDto.prototype, "socialCustom", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => PortfolioMediaItemDto),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdatePortfolioDto.prototype, "images", void 0);
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => PortfolioMediaItemDto),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], UpdatePortfolioDto.prototype, "videos", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], UpdatePortfolioDto.prototype, "isPublic", void 0);
+class UpdatePortfolioCoursesDto {
+    courseIds;
+}
+exports.UpdatePortfolioCoursesDto = UpdatePortfolioCoursesDto;
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsInt)({ each: true }),
+    __metadata("design:type", Array)
+], UpdatePortfolioCoursesDto.prototype, "courseIds", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvcG9ydGZvbGlvL2R0by91cGRhdGUtcG9ydGZvbGlvLmR0by50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxREFTeUI7QUFDekIseURBQXlDO0FBRXpDLE1BQU0sWUFBWSxHQUFHO0lBQ25CLHdCQUF3QjtJQUN4QixjQUFjO0lBQ2QsaUJBQWlCO0lBQ2pCLGNBQWM7SUFDZCxpQkFBaUI7SUFDakIsaUJBQWlCO0lBQ2pCLGlCQUFpQjtJQUNqQix1QkFBdUI7SUFDdkIsZUFBZTtJQUNmLHNCQUFzQjtDQUN2QixDQUFDO0FBRUYsTUFBYSxtQkFBbUI7SUFFOUIsS0FBSyxDQUFTO0lBR2QsR0FBRyxDQUFTO0NBQ2I7QUFORCxrREFNQztBQUpDO0lBREMsSUFBQSwwQkFBUSxHQUFFOztrREFDRztBQUdkO0lBREMsSUFBQSwwQkFBUSxHQUFFOztnREFDQztBQUdkLE1BQWEscUJBQXFCO0lBRWhDLEdBQUcsQ0FBUztJQUlaLFdBQVcsQ0FBVTtDQUN0QjtBQVBELHNEQU9DO0FBTEM7SUFEQyxJQUFBLDBCQUFRLEdBQUU7O2tEQUNDO0FBSVo7SUFGQyxJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDRCQUFVLEdBQUU7OzBEQUNRO0FBR3ZCLE1BQWEsa0JBQWtCO0lBRzdCLEtBQUssQ0FBVTtJQUlmLE9BQU8sQ0FBVTtJQUlqQixHQUFHLENBQVU7SUFJYixhQUFhLENBQVU7SUFJdkIsVUFBVSxDQUFVO0lBSXBCLEtBQUssQ0FBVTtJQUlmLEtBQUssQ0FBVTtJQUlmLEtBQUssQ0FBVTtJQUtmLE1BQU0sQ0FBWTtJQUtsQixTQUFTLENBQVk7SUFJckIsY0FBYyxDQUFVO0lBSXhCLGFBQWEsQ0FBVTtJQUl2QixlQUFlLENBQVU7SUFNekIsWUFBWSxDQUF5QjtJQU1yQyxNQUFNLENBQTJCO0lBTWpDLE1BQU0sQ0FBMkI7SUFJakMsUUFBUSxDQUFXO0NBQ3BCO0FBNUVELGdEQTRFQztBQXpFQztJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7aURBQ0U7QUFJZjtJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7bURBQ0k7QUFJakI7SUFGQyxJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDRCQUFVLEdBQUU7OytDQUNBO0FBSWI7SUFGQyxJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDRCQUFVLEdBQUU7O3lEQUNVO0FBSXZCO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOztzREFDTztBQUlwQjtJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7aURBQ0U7QUFJZjtJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7aURBQ0U7QUFJZjtJQUZDLElBQUEsc0JBQUksRUFBQyxZQUFZLENBQUM7SUFDbEIsSUFBQSw0QkFBVSxHQUFFOztpREFDRTtBQUtmO0lBSEMsSUFBQSx5QkFBTyxHQUFFO0lBQ1QsSUFBQSwwQkFBUSxFQUFDLEVBQUUsSUFBSSxFQUFFLElBQUksRUFBRSxDQUFDO0lBQ3hCLElBQUEsNEJBQVUsR0FBRTs7a0RBQ0s7QUFLbEI7SUFIQyxJQUFBLHlCQUFPLEdBQUU7SUFDVCxJQUFBLDBCQUFRLEVBQUMsRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDeEIsSUFBQSw0QkFBVSxHQUFFOztxREFDUTtBQUlyQjtJQUZDLElBQUEsMEJBQVEsR0FBRTtJQUNWLElBQUEsNEJBQVUsR0FBRTs7MERBQ1c7QUFJeEI7SUFGQyxJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDRCQUFVLEdBQUU7O3lEQUNVO0FBSXZCO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzsyREFDWTtBQU16QjtJQUpDLElBQUEseUJBQU8sR0FBRTtJQUNULElBQUEsZ0NBQWMsRUFBQyxFQUFFLElBQUksRUFBRSxJQUFJLEVBQUUsQ0FBQztJQUM5QixJQUFBLHdCQUFJLEVBQUMsR0FBRyxFQUFFLENBQUMsbUJBQW1CLENBQUM7SUFDL0IsSUFBQSw0QkFBVSxHQUFFOzt3REFDd0I7QUFNckM7SUFKQyxJQUFBLHlCQUFPLEdBQUU7SUFDVCxJQUFBLGdDQUFjLEVBQUMsRUFBRSxJQUFJLEVBQUUsSUFBSSxFQUFFLENBQUM7SUFDOUIsSUFBQSx3QkFBSSxFQUFDLEdBQUcsRUFBRSxDQUFDLHFCQUFxQixDQUFDO0lBQ2pDLElBQUEsNEJBQVUsR0FBRTs7a0RBQ29CO0FBTWpDO0lBSkMsSUFBQSx5QkFBTyxHQUFFO0lBQ1QsSUFBQSxnQ0FBYyxFQUFDLEVBQUUsSUFBSSxFQUFFLElBQUksRUFBRSxDQUFDO0lBQzlCLElBQUEsd0JBQUksRUFBQyxHQUFHLEVBQUUsQ0FBQyxxQkFBcUIsQ0FBQztJQUNqQyxJQUFBLDRCQUFVLEdBQUU7O2tEQUNvQjtBQUlqQztJQUZDLElBQUEsMkJBQVMsR0FBRTtJQUNYLElBQUEsNEJBQVUsR0FBRTs7b0RBQ007QUFHckIsTUFBYSx5QkFBeUI7SUFHcEMsU0FBUyxDQUFXO0NBQ3JCO0FBSkQsOERBSUM7QUFEQztJQUZDLElBQUEseUJBQU8sR0FBRTtJQUNULElBQUEsdUJBQUssRUFBQyxFQUFFLElBQUksRUFBRSxJQUFJLEVBQUUsQ0FBQzs7NERBQ0YiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvcG9ydGZvbGlvL2R0by91cGRhdGUtcG9ydGZvbGlvLmR0by50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBJc1N0cmluZyxcbiAgSXNPcHRpb25hbCxcbiAgSXNCb29sZWFuLFxuICBJc0FycmF5LFxuICBJc0ludCxcbiAgSXNJbixcbiAgVmFsaWRhdGVOZXN0ZWQsXG4gIElzVXJsLFxufSBmcm9tICdjbGFzcy12YWxpZGF0b3InO1xuaW1wb3J0IHsgVHlwZSB9IGZyb20gJ2NsYXNzLXRyYW5zZm9ybWVyJztcblxuY29uc3QgVkFMSURfVEhFTUVTID0gW1xuICAnY29ycG9yYXRlX3Byb2Zlc3Npb25hbCcsXG4gICdtaW5pbWFsX3RlY2gnLFxuICAnY3JlYXRpdmVfbW9kZXJuJyxcbiAgJ2VsZWdhbnRfZGFyaycsXG4gICd2aWJyYW50X3N0YXJ0dXAnLFxuICAnbmF0dXJhbF9vcmdhbmljJyxcbiAgJ2Nhc3VhbF9jcmVhdGl2ZScsXG4gICdzb3BoaXN0aWNhdGVkX3ByZW1pdW0nLFxuICAnZnV0dXJpc3RpY19haScsXG4gICdlZGl0b3JpYWxfYmx1ZV93aGl0ZScsXG5dO1xuXG5leHBvcnQgY2xhc3MgU29jaWFsQ3VzdG9tTGlua0R0byB7XG4gIEBJc1N0cmluZygpXG4gIGxhYmVsOiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgdXJsOiBzdHJpbmc7XG59XG5cbmV4cG9ydCBjbGFzcyBQb3J0Zm9saW9NZWRpYUl0ZW1EdG8ge1xuICBASXNTdHJpbmcoKVxuICB1cmw6IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIGRlc2NyaXB0aW9uPzogc3RyaW5nO1xufVxuXG5leHBvcnQgY2xhc3MgVXBkYXRlUG9ydGZvbGlvRHRvIHtcbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICB0aXRsZT86IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIHRhZ2xpbmU/OiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBiaW8/OiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBwb3J0cmFpdEltYWdlPzogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgY292ZXJJbWFnZT86IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIGVtYWlsPzogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgcGhvbmU/OiBzdHJpbmc7XG5cbiAgQElzSW4oVkFMSURfVEhFTUVTKVxuICBASXNPcHRpb25hbCgpXG4gIHRoZW1lPzogc3RyaW5nO1xuXG4gIEBJc0FycmF5KClcbiAgQElzU3RyaW5nKHsgZWFjaDogdHJ1ZSB9KVxuICBASXNPcHRpb25hbCgpXG4gIHNraWxscz86IHN0cmluZ1tdO1xuXG4gIEBJc0FycmF5KClcbiAgQElzU3RyaW5nKHsgZWFjaDogdHJ1ZSB9KVxuICBASXNPcHRpb25hbCgpXG4gIGxhbmd1YWdlcz86IHN0cmluZ1tdO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgc29jaWFsTGlua2VkaW4/OiBzdHJpbmc7XG5cbiAgQElzU3RyaW5nKClcbiAgQElzT3B0aW9uYWwoKVxuICBzb2NpYWxUd2l0dGVyPzogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgc29jaWFsSW5zdGFncmFtPzogc3RyaW5nO1xuXG4gIEBJc0FycmF5KClcbiAgQFZhbGlkYXRlTmVzdGVkKHsgZWFjaDogdHJ1ZSB9KVxuICBAVHlwZSgoKSA9PiBTb2NpYWxDdXN0b21MaW5rRHRvKVxuICBASXNPcHRpb25hbCgpXG4gIHNvY2lhbEN1c3RvbT86IFNvY2lhbEN1c3RvbUxpbmtEdG9bXTtcblxuICBASXNBcnJheSgpXG4gIEBWYWxpZGF0ZU5lc3RlZCh7IGVhY2g6IHRydWUgfSlcbiAgQFR5cGUoKCkgPT4gUG9ydGZvbGlvTWVkaWFJdGVtRHRvKVxuICBASXNPcHRpb25hbCgpXG4gIGltYWdlcz86IFBvcnRmb2xpb01lZGlhSXRlbUR0b1tdO1xuXG4gIEBJc0FycmF5KClcbiAgQFZhbGlkYXRlTmVzdGVkKHsgZWFjaDogdHJ1ZSB9KVxuICBAVHlwZSgoKSA9PiBQb3J0Zm9saW9NZWRpYUl0ZW1EdG8pXG4gIEBJc09wdGlvbmFsKClcbiAgdmlkZW9zPzogUG9ydGZvbGlvTWVkaWFJdGVtRHRvW107XG5cbiAgQElzQm9vbGVhbigpXG4gIEBJc09wdGlvbmFsKClcbiAgaXNQdWJsaWM/OiBib29sZWFuO1xufVxuXG5leHBvcnQgY2xhc3MgVXBkYXRlUG9ydGZvbGlvQ291cnNlc0R0byB7XG4gIEBJc0FycmF5KClcbiAgQElzSW50KHsgZWFjaDogdHJ1ZSB9KVxuICBjb3Vyc2VJZHM6IG51bWJlcltdO1xufVxuIl0sInZlcnNpb24iOjN9

@@ -1,0 +1,33 @@
+a0e1ab78efe3de73aaeae64033cfb4af
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContactPortfolioDto = void 0;
+const class_validator_1 = require("class-validator");
+class ContactPortfolioDto {
+    name;
+    email;
+    message;
+}
+exports.ContactPortfolioDto = ContactPortfolioDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ContactPortfolioDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], ContactPortfolioDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ContactPortfolioDto.prototype, "message", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvcG9ydGZvbGlvL2R0by9jb250YWN0LXBvcnRmb2xpby5kdG8udHMiLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7O0FBQUEscURBQW9EO0FBRXBELE1BQWEsbUJBQW1CO0lBRTlCLElBQUksQ0FBUztJQUdiLEtBQUssQ0FBUztJQUdkLE9BQU8sQ0FBUztDQUNqQjtBQVRELGtEQVNDO0FBUEM7SUFEQyxJQUFBLDBCQUFRLEdBQUU7O2lEQUNFO0FBR2I7SUFEQyxJQUFBLHlCQUFPLEdBQUU7O2tEQUNJO0FBR2Q7SUFEQyxJQUFBLDBCQUFRLEdBQUU7O29EQUNLIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL3BvcnRmb2xpby9kdG8vY29udGFjdC1wb3J0Zm9saW8uZHRvLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IElzU3RyaW5nLCBJc0VtYWlsIH0gZnJvbSAnY2xhc3MtdmFsaWRhdG9yJztcblxuZXhwb3J0IGNsYXNzIENvbnRhY3RQb3J0Zm9saW9EdG8ge1xuICBASXNTdHJpbmcoKVxuICBuYW1lOiBzdHJpbmc7XG5cbiAgQElzRW1haWwoKVxuICBlbWFpbDogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIG1lc3NhZ2U6IHN0cmluZztcbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

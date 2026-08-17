@@ -1,0 +1,142 @@
+305e9951a0fc231b19f4c41e3d6612fb
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.OrganizationController = void 0;
+const common_1 = require("@nestjs/common");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const organization_service_1 = require("./organization.service");
+const pagination_dto_1 = require("../common/dto/pagination.dto");
+const organization_dto_1 = require("./dto/organization.dto");
+let OrganizationController = class OrganizationController {
+    organizationService;
+    constructor(organizationService) {
+        this.organizationService = organizationService;
+    }
+    create(req, dto) {
+        return this.organizationService.create(req.user.id, dto);
+    }
+    getMyOrganizations(req) {
+        return this.organizationService.getUserOrganizations(req.user.id);
+    }
+    acceptInvitation(req, dto) {
+        return this.organizationService.acceptInvitation(dto.token, req.user.id);
+    }
+    getOrganization(key) {
+        return this.organizationService.getOrganization(key);
+    }
+    getMembers(key, pagination) {
+        return this.organizationService.getMembers(key, pagination);
+    }
+    bulkInviteMembers(key, dto, req) {
+        return this.organizationService.bulkInviteMembers(key, dto.members, req.user.id);
+    }
+    inviteMember(key, dto) {
+        return this.organizationService.inviteMember(key, dto);
+    }
+    updateMemberRole(key, userId, dto) {
+        return this.organizationService.updateMemberRole(key, userId, dto);
+    }
+    removeMember(key, userId) {
+        return this.organizationService.removeMember(key, userId);
+    }
+};
+exports.OrganizationController = OrganizationController;
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_b = typeof organization_dto_1.CreateOrganizationDto !== "undefined" && organization_dto_1.CreateOrganizationDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "create", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "getMyOrganizations", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)('invitations/accept'),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_c = typeof organization_dto_1.AcceptInvitationDto !== "undefined" && organization_dto_1.AcceptInvitationDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "acceptInvitation", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)(':key'),
+    __param(0, (0, common_1.Param)('key')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "getOrganization", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)(':key/members'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_d = typeof pagination_dto_1.PaginationDto !== "undefined" && pagination_dto_1.PaginationDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "getMembers", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)(':key/members/bulk'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_e = typeof organization_dto_1.BulkInviteMembersDto !== "undefined" && organization_dto_1.BulkInviteMembersDto) === "function" ? _e : Object, Object]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "bulkInviteMembers", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Post)(':key/members'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_f = typeof organization_dto_1.InviteMemberDto !== "undefined" && organization_dto_1.InviteMemberDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "inviteMember", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Patch)(':key/members/:userId/role'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Param)('userId')),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String, typeof (_g = typeof organization_dto_1.UpdateMemberRoleDto !== "undefined" && organization_dto_1.UpdateMemberRoleDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "updateMemberRole", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Delete)(':key/members/:userId'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], OrganizationController.prototype, "removeMember", null);
+exports.OrganizationController = OrganizationController = __decorate([
+    (0, common_1.Controller)('organizations'),
+    __metadata("design:paramtypes", [typeof (_a = typeof organization_service_1.OrganizationService !== "undefined" && organization_service_1.OrganizationService) === "function" ? _a : Object])
+], OrganizationController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvb3JnYW5pemF0aW9uL29yZ2FuaXphdGlvbi5jb250cm9sbGVyLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSwyQ0FXd0I7QUFFeEIsa0VBQTZEO0FBQzdELGlFQUE2RDtBQUM3RCxpRUFBNkQ7QUFDN0QsNkRBTWdDO0FBT3pCLElBQU0sc0JBQXNCLEdBQTVCLE1BQU0sc0JBQXNCO0lBQ0o7SUFBN0IsWUFBNkIsbUJBQXdDO1FBQXhDLHdCQUFtQixHQUFuQixtQkFBbUIsQ0FBcUI7SUFBRyxDQUFDO0lBSXpFLE1BQU0sQ0FBWSxHQUFvQixFQUFVLEdBQTBCO1FBQ3hFLE9BQU8sSUFBSSxDQUFDLG1CQUFtQixDQUFDLE1BQU0sQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLEVBQUUsRUFBRSxHQUFHLENBQUMsQ0FBQztJQUMzRCxDQUFDO0lBSUQsa0JBQWtCLENBQVksR0FBb0I7UUFDaEQsT0FBTyxJQUFJLENBQUMsbUJBQW1CLENBQUMsb0JBQW9CLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUNwRSxDQUFDO0lBSUQsZ0JBQWdCLENBQ0gsR0FBb0IsRUFDdkIsR0FBd0I7UUFFaEMsT0FBTyxJQUFJLENBQUMsbUJBQW1CLENBQUMsZ0JBQWdCLENBQUMsR0FBRyxDQUFDLEtBQUssRUFBRSxHQUFHLENBQUMsSUFBSSxDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBQzNFLENBQUM7SUFJRCxlQUFlLENBQWUsR0FBVztRQUN2QyxPQUFPLElBQUksQ0FBQyxtQkFBbUIsQ0FBQyxlQUFlLENBQUMsR0FBRyxDQUFDLENBQUM7SUFDdkQsQ0FBQztJQUlELFVBQVUsQ0FDTSxHQUFXLEVBQ2hCLFVBQXlCO1FBRWxDLE9BQU8sSUFBSSxDQUFDLG1CQUFtQixDQUFDLFVBQVUsQ0FBQyxHQUFHLEVBQUUsVUFBVSxDQUFDLENBQUM7SUFDOUQsQ0FBQztJQUlELGlCQUFpQixD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LENBQUE7O3lFQUFNLHNDQUFtQixvQkFBbkIsc0NBQW1COzs4REFHakM7QUFJRDtJQUZDLElBQUEsa0JBQVMsRUFBQyw2QkFBWSxDQUFDO0lBQ3ZCLElBQUEsZUFBTSxFQUFDLHNCQUFzQixDQUFDO0lBQ2pCLFdBQUEsSUFBQSxjQUFLLEVBQUMsS0FBSyxDQUFDLENBQUE7SUFBZSxXQUFBLElBQUEsY0FBSyxFQUFDLFFBQVEsQ0FBQyxDQUFBOzs7OzBEQUV2RDtpQ0FyRVUsc0JBQXNCO0lBRGxDLElBQUEsbUJBQVUsRUFBQyxlQUFlLENBQUM7eURBRXdCLDBDQUFtQixvQkFBbkIsMENBQW1CO0dBRDFELHNCQUFzQixDQXNFbEMiLCJuYW1lcyI6W10sInNvdXJjZXMiOlsiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvb3JnYW5pemF0aW9uL29yZ2FuaXphdGlvbi5jb250cm9sbGVyLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7XG4gIENvbnRyb2xsZXIsXG4gIEdldCxcbiAgUG9zdCxcbiAgUGF0Y2gsXG4gIERlbGV0ZSxcbiAgQm9keSxcbiAgUGFyYW0sXG4gIFF1ZXJ5LFxuICBVc2VHdWFyZHMsXG4gIFJlcXVlc3QsXG59IGZyb20gJ0BuZXN0anMvY29tbW9uJztcbmltcG9ydCB0eXBlIHsgUmVxdWVzdCBhcyBFeHByZXNzUmVxdWVzdCB9IGZyb20gJ2V4cHJlc3MnO1xuaW1wb3J0IHsgSnd0QXV0aEd1YXJkIH0gZnJvbSAnLi4vYXV0aC9ndWFyZHMvand0LWF1dGguZ3VhcmQnO1xuaW1wb3J0IHsgT3JnYW5pemF0aW9uU2VydmljZSB9IGZyb20gJy4vb3JnYW5pemF0aW9uLnNlcnZpY2UnO1xuaW1wb3J0IHsgUGFnaW5hdGlvbkR0byB9IGZyb20gJy4uL2NvbW1vbi9kdG8vcGFnaW5hdGlvbi5kdG8nO1xuaW1wb3J0IHtcbiAgQ3JlYXRlT3JnYW5pemF0aW9uRHRvLFxuICBJbnZpdGVNZW1iZXJEdG8sXG4gIFVwZGF0ZU1lbWJlclJvbGVEdG8sXG4gIEFjY2VwdEludml0YXRpb25EdG8sXG4gIEJ1bGtJbnZpdGVNZW1iZXJzRHRvLFxufSBmcm9tICcuL2R0by9vcmdhbml6YXRpb24uZHRvJztcblxuaW50ZXJmYWNlIFJlcXVlc3RXaXRoVXNlciBleHRlbmRzIEV4cHJlc3NSZXF1ZXN0IHtcbiAgdXNlcjogeyBpZDogc3RyaW5nIH07XG59XG5cbkBDb250cm9sbGVyKCdvcmdhbml6YXRpb25zJylcbmV4cG9ydCBjbGFzcyBPcmdhbml6YXRpb25Db250cm9sbGVyIHtcbiAgY29uc3RydWN0b3IocHJpdmF0ZSByZWFkb25seSBvcmdhbml6YXRpb25TZXJ2aWNlOiBPcmdhbml6YXRpb25TZXJ2aWNlKSB7fVxuXG4gIEBVc2VHdWFyZHMoSnd0QXV0aEd1YXJkKVxuICBAUG9zdCgpXG4gIGNyZWF0ZShAUmVxdWVzdCgpIHJlcTogUmVxdWVzdFdpdGhVc2VyLCBAQm9keSgpIGR0bzogQ3JlYXRlT3JnYW5pemF0aW9uRHRvKSB7XG4gICAgcmV0dXJuIHRoaXMub3JnYW5pemF0aW9uU2VydmljZS5jcmVhdGUocmVxLnVzZXIuaWQsIGR0byk7XG4gIH1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQEdldCgpXG4gIGdldE15T3JnYW5pemF0aW9ucyhAUmVxdWVzdCgpIHJlcTogUmVxdWVzdFdpdGhVc2VyKSB7XG4gICAgcmV0dXJuIHRoaXMub3JnYW5pemF0aW9uU2VydmljZS5nZXRVc2VyT3JnYW5pemF0aW9ucyhyZXEudXNlci5pZCk7XG4gIH1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQFBvc3QoJ2ludml0YXRpb25zL2FjY2VwdCcpXG4gIGFjY2VwdEludml0YXRpb24oXG4gICAgQFJlcXVlc3QoKSByZXE6IFJlcXVlc3RXaXRoVXNlcixcbiAgICBAQm9keSgpIGR0bzogQWNjZXB0SW52aXRhdGlvbkR0byxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMub3JnYW5pemF0aW9uU2VydmljZS5hY2NlcHRJbnZpdGF0aW9uKGR0by50b2tlbiwgcmVxLnVzZXIuaWQpO1xuICB9XG5cbiAgQFVzZUd1YXJkcyhKd3RBdXRoR3VhcmQpXG4gIEBHZXQoJzprZXknKVxuICBnZXRPcmdhbml6YXRpb24oQFBhcmFtKCdrZXknKSBrZXk6IHN0cmluZykge1xuICAgIHJldHVybiB0aGlzLm9yZ2FuaXphdGlvblNlcnZpY2UuZ2V0T3JnYW5pemF0aW9uKGtleSk7XG4gIH1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQEdldCgnOmtleS9tZW1iZXJzJylcbiAgZ2V0TWVtYmVycyhcbiAgICBAUGFyYW0oJ2tleScpIGtleTogc3RyaW5nLFxuICAgIEBRdWVyeSgpIHBhZ2luYXRpb246IFBhZ2luYXRpb25EdG8sXG4gICkge1xuICAgIHJldHVybiB0aGlzLm9yZ2FuaXphdGlvblNlcnZpY2UuZ2V0TWVtYmVycyhrZXksIHBhZ2luYXRpb24pO1xuICB9XG5cbiAgQFVzZUd1YXJkcyhKd3RBdXRoR3VhcmQpXG4gIEBQb3N0KCc6a2V5L21lbWJlcnMvYnVsaycpXG4gIGJ1bGtJbnZpdGVNZW1iZXJzKFxuICAgIEBQYXJhbSgna2V5Jykga2V5OiBzdHJpbmcsXG4gICAgQEJvZHkoKSBkdG86IEJ1bGtJbnZpdGVNZW1iZXJzRHRvLFxuICAgIEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIsXG4gICkge1xuICAgIHJldHVybiB0aGlzLm9yZ2FuaXphdGlvblNlcnZpY2UuYnVsa0ludml0ZU1lbWJlcnMoa2V5LCBkdG8ubWVtYmVycywgcmVxLnVzZXIuaWQpO1xuICB9XG5cbiAgQFVzZUd1YXJkcyhKd3RBdXRoR3VhcmQpXG4gIEBQb3N0KCc6a2V5L21lbWJlcnMnKVxuICBpbnZpdGVNZW1iZXIoQFBhcmFtKCdrZXknKSBrZXk6IHN0cmluZywgQEJvZHkoKSBkdG86IEludml0ZU1lbWJlckR0bykge1xuICAgIHJldHVybiB0aGlzLm9yZ2FuaXphdGlvblNlcnZpY2UuaW52aXRlTWVtYmVyKGtleSwgZHRvKTtcbiAgfVxuXG4gIEBVc2VHdWFyZHMoSnd0QXV0aEd1YXJkKVxuICBAUGF0Y2goJzprZXkvbWVtYmVycy86dXNlcklkL3JvbGUnKVxuICB1cGRhdGVNZW1iZXJSb2xlKFxuICAgIEBQYXJhbSgna2V5Jykga2V5OiBzdHJpbmcsXG4gICAgQFBhcmFtKCd1c2VySWQnKSB1c2VySWQ6IHN0cmluZyxcbiAgICBAQm9keSgpIGR0bzogVXBkYXRlTWVtYmVyUm9sZUR0byxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMub3JnYW5pemF0aW9uU2VydmljZS51cGRhdGVNZW1iZXJSb2xlKGtleSwgdXNlcklkLCBkdG8pO1xuICB9XG5cbiAgQFVzZUd1YXJkcyhKd3RBdXRoR3VhcmQpXG4gIEBEZWxldGUoJzprZXkvbWVtYmVycy86dXNlcklkJylcbiAgcmVtb3ZlTWVtYmVyKEBQYXJhbSgna2V5Jykga2V5OiBzdHJpbmcsIEBQYXJhbSgndXNlcklkJykgdXNlcklkOiBzdHJpbmcpIHtcbiAgICByZXR1cm4gdGhpcy5vcmdhbml6YXRpb25TZXJ2aWNlLnJlbW92ZU1lbWJlcihrZXksIHVzZXJJZCk7XG4gIH1cbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

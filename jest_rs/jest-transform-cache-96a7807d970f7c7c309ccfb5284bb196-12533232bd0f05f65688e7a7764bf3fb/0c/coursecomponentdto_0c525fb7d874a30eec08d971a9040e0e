@@ -1,0 +1,78 @@
+0581f1fff8e0b771db64705fc894d125
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CreateComponentDto = exports.SwitchStyleDto = exports.ReorderComponentsDto = exports.UpdateComponentDataDto = void 0;
+const class_validator_1 = require("class-validator");
+const class_transformer_1 = require("class-transformer");
+class UpdateComponentDataDto {
+    data;
+}
+exports.UpdateComponentDataDto = UpdateComponentDataDto;
+__decorate([
+    (0, class_validator_1.IsObject)(),
+    __metadata("design:type", typeof (_a = typeof Record !== "undefined" && Record) === "function" ? _a : Object)
+], UpdateComponentDataDto.prototype, "data", void 0);
+class ReorderItem {
+    id;
+    sequence;
+}
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ReorderItem.prototype, "id", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], ReorderItem.prototype, "sequence", void 0);
+class ReorderComponentsDto {
+    components;
+}
+exports.ReorderComponentsDto = ReorderComponentsDto;
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => ReorderItem),
+    __metadata("design:type", Array)
+], ReorderComponentsDto.prototype, "components", void 0);
+class SwitchStyleDto {
+    newComponentId;
+}
+exports.SwitchStyleDto = SwitchStyleDto;
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], SwitchStyleDto.prototype, "newComponentId", void 0);
+class CreateComponentDto {
+    componentName;
+    module;
+    unit;
+    afterSequence;
+}
+exports.CreateComponentDto = CreateComponentDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateComponentDto.prototype, "componentName", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateComponentDto.prototype, "module", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateComponentDto.prototype, "unit", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateComponentDto.prototype, "afterSequence", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvY291cnNlL2R0by9jb3Vyc2UtY29tcG9uZW50LmR0by50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7O0FBQUEscURBTXlCO0FBQ3pCLHlEQUF5QztBQUV6QyxNQUFhLHNCQUFzQjtJQUVqQyxJQUFJLENBQTBCO0NBQy9CO0FBSEQsd0RBR0M7QUFEQztJQURDLElBQUEsMEJBQVEsR0FBRTtrREFDTCxNQUFNLG9CQUFOLE1BQU07b0RBQWtCO0FBR2hDLE1BQU0sV0FBVztJQUVmLEVBQUUsQ0FBUztJQUdYLFFBQVEsQ0FBUztDQUNsQjtBQUpDO0lBREMsSUFBQSwwQkFBUSxHQUFFOzt1Q0FDQTtBQUdYO0lBREMsSUFBQSwwQkFBUSxHQUFFOzs2Q0FDTTtBQUduQixNQUFhLG9CQUFvQjtJQUkvQixVQUFVLENBQWdCO0NBQzNCO0FBTEQsb0RBS0M7QUFEQztJQUhDLElBQUEseUJBQU8sR0FBRTtJQUNULElBQUEsZ0NBQWMsRUFBQyxFQUFFLElBQUksRUFBRSxJQUFJLEVBQUUsQ0FBQztJQUM5QixJQUFBLHdCQUFJLEVBQUMsR0FBRyxFQUFFLENBQUMsV0FBVyxDQUFDOzt3REFDRTtBQUc1QixNQUFhLGNBQWM7SUFFekIsY0FBYyxDQUFTO0NBQ3hCO0FBSEQsd0NBR0M7QUFEQztJQURDLElBQUEsMEJBQVEsR0FBRTs7c0RBQ1k7QUFHekIsTUFBYSxrQkFBa0I7SUFFN0IsYUFBYSxDQUFTO0lBR3RCLE1BQU0sQ0FBUztJQUdmLElBQUksQ0FBUztJQUdiLGFBQWEsQ0FBUztDQUN2QjtBQVpELGdEQVlDO0FBVkM7SUFEQyxJQUFBLDBCQUFRLEdBQUU7O3lEQUNXO0FBR3RCO0lBREMsSUFBQSwwQkFBUSxHQUFFOztrREFDSTtBQUdmO0lBREMsSUFBQSwwQkFBUSxHQUFFOztnREFDRTtBQUdiO0lBREMsSUFBQSwwQkFBUSxHQUFFOzt5REFDVyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvaG9tZS9jb2RpZ280Ny9zaXN0ZW1hcy9jb3Vyc2Uvc291cmNlL2FwcHMvYXBpL3NyYy9jb3Vyc2UvZHRvL2NvdXJzZS1jb21wb25lbnQuZHRvLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7XG4gIElzTnVtYmVyLFxuICBJc1N0cmluZyxcbiAgSXNPYmplY3QsXG4gIElzQXJyYXksXG4gIFZhbGlkYXRlTmVzdGVkLFxufSBmcm9tICdjbGFzcy12YWxpZGF0b3InO1xuaW1wb3J0IHsgVHlwZSB9IGZyb20gJ2NsYXNzLXRyYW5zZm9ybWVyJztcblxuZXhwb3J0IGNsYXNzIFVwZGF0ZUNvbXBvbmVudERhdGFEdG8ge1xuICBASXNPYmplY3QoKVxuICBkYXRhOiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPjtcbn1cblxuY2xhc3MgUmVvcmRlckl0ZW0ge1xuICBASXNOdW1iZXIoKVxuICBpZDogbnVtYmVyO1xuXG4gIEBJc051bWJlcigpXG4gIHNlcXVlbmNlOiBudW1iZXI7XG59XG5cbmV4cG9ydCBjbGFzcyBSZW9yZGVyQ29tcG9uZW50c0R0byB7XG4gIEBJc0FycmF5KClcbiAgQFZhbGlkYXRlTmVzdGVkKHsgZWFjaDogdHJ1ZSB9KVxuICBAVHlwZSgoKSA9PiBSZW9yZGVySXRlbSlcbiAgY29tcG9uZW50czogUmVvcmRlckl0ZW1bXTtcbn1cblxuZXhwb3J0IGNsYXNzIFN3aXRjaFN0eWxlRHRvIHtcbiAgQElzTnVtYmVyKClcbiAgbmV3Q29tcG9uZW50SWQ6IG51bWJlcjtcbn1cblxuZXhwb3J0IGNsYXNzIENyZWF0ZUNvbXBvbmVudER0byB7XG4gIEBJc1N0cmluZygpXG4gIGNvbXBvbmVudE5hbWU6IHN0cmluZztcblxuICBASXNOdW1iZXIoKVxuICBtb2R1bGU6IG51bWJlcjtcblxuICBASXNOdW1iZXIoKVxuICB1bml0OiBudW1iZXI7XG5cbiAgQElzTnVtYmVyKClcbiAgYWZ0ZXJTZXF1ZW5jZTogbnVtYmVyO1xufVxuIl0sInZlcnNpb24iOjN9

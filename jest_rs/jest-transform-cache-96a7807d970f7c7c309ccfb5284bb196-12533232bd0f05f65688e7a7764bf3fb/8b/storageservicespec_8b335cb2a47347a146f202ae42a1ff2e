@@ -1,0 +1,41 @@
+99ddf3a4b920f2ebb233135a51b9aac5
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const testing_1 = require("@nestjs/testing");
+const config_1 = require("@nestjs/config");
+const storage_service_1 = require("./storage.service");
+const local_storage_provider_1 = require("./providers/local-storage.provider");
+const mockLocalProvider = {
+    upload: jest.fn().mockResolvedValue('/api/v1/uploads/images/test.jpg'),
+    delete: jest.fn().mockResolvedValue(undefined),
+};
+const mockConfigService = { get: jest.fn().mockReturnValue('local') };
+describe('StorageService', () => {
+    let service;
+    beforeEach(async () => {
+        const module = await testing_1.Test.createTestingModule({
+            providers: [
+                storage_service_1.StorageService,
+                { provide: local_storage_provider_1.LocalStorageProvider, useValue: mockLocalProvider },
+                { provide: config_1.ConfigService, useValue: mockConfigService },
+            ],
+        }).compile();
+        service = module.get(storage_service_1.StorageService);
+        jest.clearAllMocks();
+    });
+    describe('upload', () => {
+        it('delegates to the active provider and returns URL', async () => {
+            const buffer = Buffer.from('fake-image');
+            const result = await service.upload(buffer, 'test.jpg', 'image/jpeg');
+            expect(mockLocalProvider.upload).toHaveBeenCalledWith(buffer, 'test.jpg', 'image/jpeg');
+            expect(result).toBe('/api/v1/uploads/images/test.jpg');
+        });
+    });
+    describe('delete', () => {
+        it('delegates to the active provider', async () => {
+            await service.delete('/api/v1/uploads/images/test.jpg');
+            expect(mockLocalProvider.delete).toHaveBeenCalledWith('/api/v1/uploads/images/test.jpg');
+        });
+    });
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvc3RvcmFnZS9zdG9yYWdlLnNlcnZpY2Uuc3BlYy50cyIsIm1hcHBpbmdzIjoiOztBQUFBLDZDQUFzRDtBQUN0RCwyQ0FBK0M7QUFDL0MsdURBQW1EO0FBQ25ELCtFQUEwRTtBQUUxRSxNQUFNLGlCQUFpQixHQUFHO0lBQ3hCLE1BQU0sRUFBRSxJQUFJLENBQUMsRUFBRSxFQUFFLENBQUMsaUJBQWlCLENBQUMsaUNBQWlDLENBQUM7SUFDdEUsTUFBTSxFQUFFLElBQUksQ0FBQyxFQUFFLEVBQUUsQ0FBQyxpQkFBaUIsQ0FBQyxTQUFTLENBQUM7Q0FDL0MsQ0FBQztBQUNGLE1BQU0saUJBQWlCLEdBQUcsRUFBRSxHQUFHLEVBQUUsSUFBSSxDQUFDLEVBQUUsRUFBRSxDQUFDLGVBQWUsQ0FBQyxPQUFPLENBQUMsRUFBRSxDQUFDO0FBRXRFLFFBQVEsQ0FBQyxnQkFBZ0IsRUFBRSxHQUFHLEVBQUU7SUFDOUIsSUFBSSxPQUF1QixDQUFDO0lBRTVCLFVBQVUsQ0FBQyxLQUFLLElBQUksRUFBRTtRQUNwQixNQUFNLE1BQU0sR0FBa0IsTUFBTSxjQUFJLENBQUMsbUJBQW1CLENBQUM7WUFDM0QsU0FBUyxFQUFFO2dCQUNULGdDQUFjO2dCQUNkLEVBQUUsT0FBTyxFQUFFLDZDQUFvQixFQUFFLFFBQVEsRUFBRSxpQkFBaUIsRUFBRTtnQkFDOUQsRUFBRSxPQUFPLEVBQUUsc0JBQWEsRUFBRSxRQUFRLEVBQUUsaUJBQWlCLEVBQUU7YUFDeEQ7U0FDRixDQUFDLENBQUMsT0FBTyxFQUFFLENBQUM7UUFDYixPQUFPLEdBQUcsTUFBTSxDQUFDLEdBQUcsQ0FBaUIsZ0NBQWMsQ0FBQyxDQUFDO1FBQ3JELElBQUksQ0FBQyxhQUFhLEVBQUUsQ0FBQztJQUN2QixDQUFDLENBQUMsQ0FBQztJQUVILFFBQVEsQ0FBQyxRQUFRLEVBQUUsR0FBRyxFQUFFO1FBQ3RCLEVBQUUsQ0FBQyxrREFBa0QsRUFBRSxLQUFLLElBQUksRUFBRTtZQUNoRSxNQUFNLE1BQU0sR0FBRyxNQUFNLENBQUMsSUFBSSxDQUFDLFlBQVksQ0FBQyxDQUFDO1lBQ3pDLE1BQU0sTUFBTSxHQUFHLE1BQU0sT0FBTyxDQUFDLE1BQU0sQ0FBQyxNQUFNLEVBQUUsVUFBVSxFQUFFLFlBQVksQ0FBQyxDQUFDO1lBQ3RFLE1BQU0sQ0FBQyxpQkFBaUIsQ0FBQyxNQUFNLENBQUMsQ0FBQyxvQkFBb0IsQ0FBQyxNQUFNLEVBQUUsVUFBVSxFQUFFLFlBQVksQ0FBQyxDQUFDO1lBQ3hGLE1BQU0sQ0FBQyxNQUFNLENBQUMsQ0FBQyxJQUFJLENBQUMsaUNBQWlDLENBQUMsQ0FBQztRQUN6RCxDQUFDLENBQUMsQ0FBQztJQUNMLENBQUMsQ0FBQyxDQUFDO0lBRUgsUUFBUSxDQUFDLFFBQVEsRUFBRSxHQUFHLEVBQUU7UUFDdEIsRUFBRSxDQUFDLGtDQUFrQyxFQUFFLEtBQUssSUFBSSxFQUFFO1lBQ2hELE1BQU0sT0FBTyxDQUFDLE1BQU0sQ0FBQyxpQ0FBaUMsQ0FBQyxDQUFDO1lBQ3hELE1BQU0sQ0FBQyxpQkFBaUIsQ0FBQyxNQUFNLENBQUMsQ0FBQyxvQkFBb0IsQ0FBQyxpQ0FBaUMsQ0FBQyxDQUFDO1FBQzNGLENBQUMsQ0FBQyxDQUFDO0lBQ0wsQ0FBQyxDQUFDLENBQUM7QUFDTCxDQUFDLENBQUMsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvaG9tZS9jb2RpZ280Ny9zaXN0ZW1hcy9jb3Vyc2Uvc291cmNlL2FwcHMvYXBpL3NyYy9zdG9yYWdlL3N0b3JhZ2Uuc2VydmljZS5zcGVjLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IFRlc3QsIFRlc3RpbmdNb2R1bGUgfSBmcm9tICdAbmVzdGpzL3Rlc3RpbmcnO1xuaW1wb3J0IHsgQ29uZmlnU2VydmljZSB9IGZyb20gJ0BuZXN0anMvY29uZmlnJztcbmltcG9ydCB7IFN0b3JhZ2VTZXJ2aWNlIH0gZnJvbSAnLi9zdG9yYWdlLnNlcnZpY2UnO1xuaW1wb3J0IHsgTG9jYWxTdG9yYWdlUHJvdmlkZXIgfSBmcm9tICcuL3Byb3ZpZGVycy9sb2NhbC1zdG9yYWdlLnByb3ZpZGVyJztcblxuY29uc3QgbW9ja0xvY2FsUHJvdmlkZXIgPSB7XG4gIHVwbG9hZDogamVzdC5mbigpLm1vY2tSZXNvbHZlZFZhbHVlKCcvYXBpL3YxL3VwbG9hZHMvaW1hZ2VzL3Rlc3QuanBnJyksXG4gIGRlbGV0ZTogamVzdC5mbigpLm1vY2tSZXNvbHZlZFZhbHVlKHVuZGVmaW5lZCksXG59O1xuY29uc3QgbW9ja0NvbmZpZ1NlcnZpY2UgPSB7IGdldDogamVzdC5mbigpLm1vY2tSZXR1cm5WYWx1ZSgnbG9jYWwnKSB9O1xuXG5kZXNjcmliZSgnU3RvcmFnZVNlcnZpY2UnLCAoKSA9PiB7XG4gIGxldCBzZXJ2aWNlOiBTdG9yYWdlU2VydmljZTtcblxuICBiZWZvcmVFYWNoKGFzeW5jICgpID0+IHtcbiAgICBjb25zdCBtb2R1bGU6IFRlc3RpbmdNb2R1bGUgPSBhd2FpdCBUZXN0LmNyZWF0ZVRlc3RpbmdNb2R1bGUoe1xuICAgICAgcHJvdmlkZXJzOiBbXG4gICAgICAgIFN0b3JhZ2VTZXJ2aWNlLFxuICAgICAgICB7IHByb3ZpZGU6IExvY2FsU3RvcmFnZVByb3ZpZGVyLCB1c2VWYWx1ZTogbW9ja0xvY2FsUHJvdmlkZXIgfSxcbiAgICAgICAgeyBwcm92aWRlOiBDb25maWdTZXJ2aWNlLCB1c2VWYWx1ZTogbW9ja0NvbmZpZ1NlcnZpY2UgfSxcbiAgICAgIF0sXG4gICAgfSkuY29tcGlsZSgpO1xuICAgIHNlcnZpY2UgPSBtb2R1bGUuZ2V0PFN0b3JhZ2VTZXJ2aWNlPihTdG9yYWdlU2VydmljZSk7XG4gICAgamVzdC5jbGVhckFsbE1vY2tzKCk7XG4gIH0pO1xuXG4gIGRlc2NyaWJlKCd1cGxvYWQnLCAoKSA9PiB7XG4gICAgaXQoJ2RlbGVnYXRlcyB0byB0aGUgYWN0aXZlIHByb3ZpZGVyIGFuZCByZXR1cm5zIFVSTCcsIGFzeW5jICgpID0+IHtcbiAgICAgIGNvbnN0IGJ1ZmZlciA9IEJ1ZmZlci5mcm9tKCdmYWtlLWltYWdlJyk7XG4gICAgICBjb25zdCByZXN1bHQgPSBhd2FpdCBzZXJ2aWNlLnVwbG9hZChidWZmZXIsICd0ZXN0LmpwZycsICdpbWFnZS9qcGVnJyk7XG4gICAgICBleHBlY3QobW9ja0xvY2FsUHJvdmlkZXIudXBsb2FkKS50b0hhdmVCZWVuQ2FsbGVkV2l0aChidWZmZXIsICd0ZXN0LmpwZycsICdpbWFnZS9qcGVnJyk7XG4gICAgICBleHBlY3QocmVzdWx0KS50b0JlKCcvYXBpL3YxL3VwbG9hZHMvaW1hZ2VzL3Rlc3QuanBnJyk7XG4gICAgfSk7XG4gIH0pO1xuXG4gIGRlc2NyaWJlKCdkZWxldGUnLCAoKSA9PiB7XG4gICAgaXQoJ2RlbGVnYXRlcyB0byB0aGUgYWN0aXZlIHByb3ZpZGVyJywgYXN5bmMgKCkgPT4ge1xuICAgICAgYXdhaXQgc2VydmljZS5kZWxldGUoJy9hcGkvdjEvdXBsb2Fkcy9pbWFnZXMvdGVzdC5qcGcnKTtcbiAgICAgIGV4cGVjdChtb2NrTG9jYWxQcm92aWRlci5kZWxldGUpLnRvSGF2ZUJlZW5DYWxsZWRXaXRoKCcvYXBpL3YxL3VwbG9hZHMvaW1hZ2VzL3Rlc3QuanBnJyk7XG4gICAgfSk7XG4gIH0pO1xufSk7XG4iXSwidmVyc2lvbiI6M30=

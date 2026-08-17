@@ -1,0 +1,56 @@
+1e82dcefdfd20efb1e4ea5d82df68d03
+"use strict";
+// Loading texts for SSE events during course generation
+// Each task phase has its own set of loading messages
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LOADING_TEXTS = void 0;
+exports.LOADING_TEXTS = {
+    // Objective generation phase
+    GENERATING_OBJECTIVES: [
+        'Analyzing learning requirements...',
+        "Applying Bloom's Taxonomy...",
+        'Structuring cognitive levels...',
+        'Defining measurable outcomes...',
+        'Optimizing learning objectives...',
+    ],
+    // Index/structure generation phase
+    GENERATING_INDEX: [
+        'Mapping course structure...',
+        'Organizing module sequence...',
+        'Creating unit hierarchy...',
+        'Balancing content distribution...',
+        'Finalizing course outline...',
+    ],
+    // Unit content generation phase
+    GENERATING_UNIT: [
+        'Crafting lesson introduction...',
+        'Building interactive components...',
+        'Generating educational content...',
+        'Adding visual elements...',
+        'Creating knowledge checks...',
+        'Optimizing learning flow...',
+        'Preparing assessments...',
+        'Polishing final layout...',
+    ],
+    // Title generation phase
+    GENERATING_TITLE: [
+        'Analyzing topic keywords...',
+        'Crafting compelling title...',
+        'Optimizing for engagement...',
+    ],
+    // Course generation phase (when generating all units)
+    GENERATING_COURSE: [
+        'Starting course generation...',
+        'Preparing unit templates...',
+        'Generating introductory content...',
+        'Building learning activities...',
+        'Creating interactive exercises...',
+        'Designing knowledge checks...',
+        'Crafting assessment components...',
+        'Applying instructional design patterns...',
+        'Optimizing content flow...',
+        'Assembling course modules...',
+        'Finalizing course materials...',
+    ],
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvY291cnNlL2NvbnN0YW50cy9sb2FkaW5nLXRleHRzLnRzIiwibWFwcGluZ3MiOiI7QUFBQSx3REFBd0Q7QUFDeEQsc0RBQXNEOzs7QUFFekMsUUFBQSxhQUFhLEdBQUc7SUFDM0IsNkJBQTZCO0lBQzdCLHFCQUFxQixFQUFFO1FBQ3JCLG9DQUFvQztRQUNwQyw4QkFBOEI7UUFDOUIsaUNBQWlDO1FBQ2pDLGlDQUFpQztRQUNqQyxtQ0FBbUM7S0FDcEM7SUFFRCxtQ0FBbUM7SUFDbkMsZ0JBQWdCLEVBQUU7UUFDaEIsNkJBQTZCO1FBQzdCLCtCQUErQjtRQUMvQiw0QkFBNEI7UUFDNUIsbUNBQW1DO1FBQ25DLDhCQUE4QjtLQUMvQjtJQUVELGdDQUFnQztJQUNoQyxlQUFlLEVBQUU7UUFDZixpQ0FBaUM7UUFDakMsb0NBQW9DO1FBQ3BDLG1DQUFtQztRQUNuQywyQkFBMkI7UUFDM0IsOEJBQThCO1FBQzlCLDZCQUE2QjtRQUM3QiwwQkFBMEI7UUFDMUIsMkJBQTJCO0tBQzVCO0lBRUQseUJBQXlCO0lBQ3pCLGdCQUFnQixFQUFFO1FBQ2hCLDZCQUE2QjtRQUM3Qiw4QkFBOEI7UUFDOUIsOEJBQThCO0tBQy9CO0lBRUQsc0RBQXNEO0lBQ3RELGlCQUFpQixFQUFFO1FBQ2pCLCtCQUErQjtRQUMvQiw2QkFBNkI7UUFDN0Isb0NBQW9DO1FBQ3BDLGlDQUFpQztRQUNqQyxtQ0FBbUM7UUFDbkMsK0JBQStCO1FBQy9CLG1DQUFtQztRQUNuQywyQ0FBMkM7UUFDM0MsNEJBQTRCO1FBQzVCLDhCQUE4QjtRQUM5QixnQ0FBZ0M7S0FDakM7Q0FDTyxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL2NvdXJzZS9jb25zdGFudHMvbG9hZGluZy10ZXh0cy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBMb2FkaW5nIHRleHRzIGZvciBTU0UgZXZlbnRzIGR1cmluZyBjb3Vyc2UgZ2VuZXJhdGlvblxuLy8gRWFjaCB0YXNrIHBoYXNlIGhhcyBpdHMgb3duIHNldCBvZiBsb2FkaW5nIG1lc3NhZ2VzXG5cbmV4cG9ydCBjb25zdCBMT0FESU5HX1RFWFRTID0ge1xuICAvLyBPYmplY3RpdmUgZ2VuZXJhdGlvbiBwaGFzZVxuICBHRU5FUkFUSU5HX09CSkVDVElWRVM6IFtcbiAgICAnQW5hbHl6aW5nIGxlYXJuaW5nIHJlcXVpcmVtZW50cy4uLicsXG4gICAgXCJBcHBseWluZyBCbG9vbSdzIFRheG9ub215Li4uXCIsXG4gICAgJ1N0cnVjdHVyaW5nIGNvZ25pdGl2ZSBsZXZlbHMuLi4nLFxuICAgICdEZWZpbmluZyBtZWFzdXJhYmxlIG91dGNvbWVzLi4uJyxcbiAgICAnT3B0aW1pemluZyBsZWFybmluZyBvYmplY3RpdmVzLi4uJyxcbiAgXSxcblxuICAvLyBJbmRleC9zdHJ1Y3R1cmUgZ2VuZXJhdGlvbiBwaGFzZVxuICBHRU5FUkFUSU5HX0lOREVYOiBbXG4gICAgJ01hcHBpbmcgY291cnNlIHN0cnVjdHVyZS4uLicsXG4gICAgJ09yZ2FuaXppbmcgbW9kdWxlIHNlcXVlbmNlLi4uJyxcbiAgICAnQ3JlYXRpbmcgdW5pdCBoaWVyYXJjaHkuLi4nLFxuICAgICdCYWxhbmNpbmcgY29udGVudCBkaXN0cmlidXRpb24uLi4nLFxuICAgICdGaW5hbGl6aW5nIGNvdXJzZSBvdXRsaW5lLi4uJyxcbiAgXSxcblxuICAvLyBVbml0IGNvbnRlbnQgZ2VuZXJhdGlvbiBwaGFzZVxuICBHRU5FUkFUSU5HX1VOSVQ6IFtcbiAgICAnQ3JhZnRpbmcgbGVzc29uIGludHJvZHVjdGlvbi4uLicsXG4gICAgJ0J1aWxkaW5nIGludGVyYWN0aXZlIGNvbXBvbmVudHMuLi4nLFxuICAgICdHZW5lcmF0aW5nIGVkdWNhdGlvbmFsIGNvbnRlbnQuLi4nLFxuICAgICdBZGRpbmcgdmlzdWFsIGVsZW1lbnRzLi4uJyxcbiAgICAnQ3JlYXRpbmcga25vd2xlZGdlIGNoZWNrcy4uLicsXG4gICAgJ09wdGltaXppbmcgbGVhcm5pbmcgZmxvdy4uLicsXG4gICAgJ1ByZXBhcmluZyBhc3Nlc3NtZW50cy4uLicsXG4gICAgJ1BvbGlzaGluZyBmaW5hbCBsYXlvdXQuLi4nLFxuICBdLFxuXG4gIC8vIFRpdGxlIGdlbmVyYXRpb24gcGhhc2VcbiAgR0VORVJBVElOR19USVRMRTogW1xuICAgICdBbmFseXppbmcgdG9waWMga2V5d29yZHMuLi4nLFxuICAgICdDcmFmdGluZyBjb21wZWxsaW5nIHRpdGxlLi4uJyxcbiAgICAnT3B0aW1pemluZyBmb3IgZW5nYWdlbWVudC4uLicsXG4gIF0sXG5cbiAgLy8gQ291cnNlIGdlbmVyYXRpb24gcGhhc2UgKHdoZW4gZ2VuZXJhdGluZyBhbGwgdW5pdHMpXG4gIEdFTkVSQVRJTkdfQ09VUlNFOiBbXG4gICAgJ1N0YXJ0aW5nIGNvdXJzZSBnZW5lcmF0aW9uLi4uJyxcbiAgICAnUHJlcGFyaW5nIHVuaXQgdGVtcGxhdGVzLi4uJyxcbiAgICAnR2VuZXJhdGluZyBpbnRyb2R1Y3RvcnkgY29udGVudC4uLicsXG4gICAgJ0J1aWxkaW5nIGxlYXJuaW5nIGFjdGl2aXRpZXMuLi4nLFxuICAgICdDcmVhdGluZyBpbnRlcmFjdGl2ZSBleGVyY2lzZXMuLi4nLFxuICAgICdEZXNpZ25pbmcga25vd2xlZGdlIGNoZWNrcy4uLicsXG4gICAgJ0NyYWZ0aW5nIGFzc2Vzc21lbnQgY29tcG9uZW50cy4uLicsXG4gICAgJ0FwcGx5aW5nIGluc3RydWN0aW9uYWwgZGVzaWduIHBhdHRlcm5zLi4uJyxcbiAgICAnT3B0aW1pemluZyBjb250ZW50IGZsb3cuLi4nLFxuICAgICdBc3NlbWJsaW5nIGNvdXJzZSBtb2R1bGVzLi4uJyxcbiAgICAnRmluYWxpemluZyBjb3Vyc2UgbWF0ZXJpYWxzLi4uJyxcbiAgXSxcbn0gYXMgY29uc3Q7XG5cbmV4cG9ydCB0eXBlIExvYWRpbmdUZXh0UGhhc2UgPSBrZXlvZiB0eXBlb2YgTE9BRElOR19URVhUUztcbiJdLCJ2ZXJzaW9uIjozfQ==

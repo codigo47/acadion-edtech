@@ -1,0 +1,81 @@
+7cebb7948cde9a269b978a6eac60e8e7
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotificationController = void 0;
+const common_1 = require("@nestjs/common");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const notification_service_1 = require("./notification.service");
+const pagination_dto_1 = require("../common/dto/pagination.dto");
+let NotificationController = class NotificationController {
+    notificationService;
+    constructor(notificationService) {
+        this.notificationService = notificationService;
+    }
+    getAll(req, pagination) {
+        return this.notificationService.getUserNotifications(req.user.id, pagination);
+    }
+    getUnreadCount(req) {
+        return this.notificationService
+            .getUnreadCount(req.user.id)
+            .then((count) => ({ count }));
+    }
+    markAsRead(id, req) {
+        return this.notificationService.markAsRead(id, req.user.id);
+    }
+    markAllAsRead(req) {
+        return this.notificationService.markAllAsRead(req.user.id);
+    }
+};
+exports.NotificationController = NotificationController;
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)(),
+    __param(0, (0, common_1.Request)()),
+    __param(1, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, typeof (_b = typeof pagination_dto_1.PaginationDto !== "undefined" && pagination_dto_1.PaginationDto) === "function" ? _b : Object]),
+    __metadata("design:returntype", void 0)
+], NotificationController.prototype, "getAll", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('unread-count'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], NotificationController.prototype, "getUnreadCount", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Patch)(':id/read'),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:returntype", void 0)
+], NotificationController.prototype, "markAsRead", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Patch)('read-all'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], NotificationController.prototype, "markAllAsRead", null);
+exports.NotificationController = NotificationController = __decorate([
+    (0, common_1.Controller)('notifications'),
+    __metadata("design:paramtypes", [typeof (_a = typeof notification_service_1.NotificationService !== "undefined" && notification_service_1.NotificationService) === "function" ? _a : Object])
+], NotificationController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvbm90aWZpY2F0aW9uL25vdGlmaWNhdGlvbi5jb250cm9sbGVyLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSwyQ0FTd0I7QUFFeEIsa0VBQTZEO0FBQzdELGlFQUE2RDtBQUM3RCxpRUFBNkQ7QUFPdEQsSUFBTSxzQkFBc0IsR0FBNUIsTUFBTSxzQkFBc0I7SUFDSjtJQUE3QixZQUE2QixtQkFBd0M7UUFBeEMsd0JBQW1CLEdBQW5CLG1CQUFtQixDQUFxQjtJQUFHLENBQUM7SUFJekUsTUFBTSxDQUNPLEdBQW9CLEVBQ3RCLFVBQXlCO1FBRWxDLE9BQU8sSUFBSSxDQUFDLG1CQUFtQixDQUFDLG9CQUFvQixDQUFDLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxFQUFFLFVBQVUsQ0FBQyxDQUFDO0lBQ2hGLENBQUM7SUFJRCxjQUFjLENBQVksR0FBb0I7UUFDNUMsT0FBTyxJQUFJLENBQUMsbUJBQW1CO2FBQzVCLGNBQWMsQ0FBQyxHQUFHLENBQUMsSUFBSSxDQUFDLEVBQUUsQ0FBQzthQUMzQixJQUFJLENBQUMsQ0FBQyxLQUFLLEVBQUUsRUFBRSxDQUFDLENBQUMsRUFBRSxLQUFLLEVBQUUsQ0FBQyxDQUFDLENBQUM7SUFDbEMsQ0FBQztJQUlELFVBQVUsQ0FDbUIsRUFBVSxFQUMxQixHQUFvQjtRQUUvQixPQUFPLElBQUksQ0FBQyxtQkFBbUIsQ0FBQyxVQUFVLENBQUMsRUFBRSxFQUFFLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxDQUFDLENBQUM7SUFDOUQsQ0FBQztJQUlELGFBQWEsQ0FBWSxHQUFvQjtRQUMzQyxPQUFPLElBQUksQ0FBQyxtQkFBbUIsQ0FBQyxhQUFhLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUM3RCxDQUFDO0NBQ0YsQ0FBQTtBQWxDWSx3REFBc0I7QUFLakM7SUFGQyxJQUFBLGtCQUFTLEVBQUMsNkJBQVksQ0FBQztJQUN2QixJQUFBLFlBQUcsR0FBRTtJQUVILFdBQUEsSUFBQSxnQkFBTyxHQUFFLENBQUE7SUFDVCxXQUFBLElBQUEsY0FBSyxHQUFFLENBQUE7O2lFQUFhLDhCQUFhLG9CQUFiLDhCQUFhOztvREFHbkM7QUFJRDtJQUZDLElBQUEsa0JBQVMsRUFBQyw2QkFBWSxDQUFDO0lBQ3ZCLElBQUEsWUFBRyxFQUFDLGNBQWMsQ0FBQztJQUNKLFdBQUEsSUFBQSxnQkFBTyxHQUFFLENBQUE7Ozs7NERBSXhCO0FBSUQ7SUFGQyxJQUFBLGtCQUFTLEVBQUMsNkJBQVksQ0FBQztJQUN2QixJQUFBLGNBQUssRUFBQyxVQUFVLENBQUM7SUFFZixXQUFBLElBQUEsY0FBSyxFQUFDLElBQUksRUFBRSxxQkFBWSxDQUFDLENBQUE7SUFDekIsV0FBQSxJQUFBLGdCQUFPLEdBQUUsQ0FBQTs7Ozt3REFHWDtBQUlEO0lBRkMsSUFBQSxrQkFBUyxFQUFDLDZCQUFZLENBQUM7SUFDdkIsSUFBQSxjQUFLLEVBQUMsVUFBVSxDQUFDO0lBQ0gsV0FBQSxJQUFBLGdCQUFPLEdBQUUsQ0FBQTs7OzsyREFFdkI7aUNBakNVLHNCQUFzQjtJQURsQyxJQUFBLG1CQUFVLEVBQUMsZUFBZSxDQUFDO3lEQUV3QiwwQ0FBbUIsb0JBQW5CLDBDQUFtQjtHQUQxRCxzQkFBc0IsQ0FrQ2xDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL25vdGlmaWNhdGlvbi9ub3RpZmljYXRpb24uY29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBDb250cm9sbGVyLFxuICBHZXQsXG4gIFBhdGNoLFxuICBQYXJhbSxcbiAgUXVlcnksXG4gIFVzZUd1YXJkcyxcbiAgUmVxdWVzdCxcbiAgUGFyc2VJbnRQaXBlLFxufSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgdHlwZSB7IFJlcXVlc3QgYXMgRXhwcmVzc1JlcXVlc3QgfSBmcm9tICdleHByZXNzJztcbmltcG9ydCB7IEp3dEF1dGhHdWFyZCB9IGZyb20gJy4uL2F1dGgvZ3VhcmRzL2p3dC1hdXRoLmd1YXJkJztcbmltcG9ydCB7IE5vdGlmaWNhdGlvblNlcnZpY2UgfSBmcm9tICcuL25vdGlmaWNhdGlvbi5zZXJ2aWNlJztcbmltcG9ydCB7IFBhZ2luYXRpb25EdG8gfSBmcm9tICcuLi9jb21tb24vZHRvL3BhZ2luYXRpb24uZHRvJztcblxuaW50ZXJmYWNlIFJlcXVlc3RXaXRoVXNlciBleHRlbmRzIEV4cHJlc3NSZXF1ZXN0IHtcbiAgdXNlcjogeyBpZDogc3RyaW5nIH07XG59XG5cbkBDb250cm9sbGVyKCdub3RpZmljYXRpb25zJylcbmV4cG9ydCBjbGFzcyBOb3RpZmljYXRpb25Db250cm9sbGVyIHtcbiAgY29uc3RydWN0b3IocHJpdmF0ZSByZWFkb25seSBub3RpZmljYXRpb25TZXJ2aWNlOiBOb3RpZmljYXRpb25TZXJ2aWNlKSB7fVxuXG4gIEBVc2VHdWFyZHMoSnd0QXV0aEd1YXJkKVxuICBAR2V0KClcbiAgZ2V0QWxsKFxuICAgIEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIsXG4gICAgQFF1ZXJ5KCkgcGFnaW5hdGlvbjogUGFnaW5hdGlvbkR0byxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMubm90aWZpY2F0aW9uU2VydmljZS5nZXRVc2VyTm90aWZpY2F0aW9ucyhyZXEudXNlci5pZCwgcGFnaW5hdGlvbik7XG4gIH1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQEdldCgndW5yZWFkLWNvdW50JylcbiAgZ2V0VW5yZWFkQ291bnQoQFJlcXVlc3QoKSByZXE6IFJlcXVlc3RXaXRoVXNlcikge1xuICAgIHJldHVybiB0aGlzLm5vdGlmaWNhdGlvblNlcnZpY2VcbiAgICAgIC5nZXRVbnJlYWRDb3VudChyZXEudXNlci5pZClcbiAgICAgIC50aGVuKChjb3VudCkgPT4gKHsgY291bnQgfSkpO1xuICB9XG5cbiAgQFVzZUd1YXJkcyhKd3RBdXRoR3VhcmQpXG4gIEBQYXRjaCgnOmlkL3JlYWQnKVxuICBtYXJrQXNSZWFkKFxuICAgIEBQYXJhbSgnaWQnLCBQYXJzZUludFBpcGUpIGlkOiBudW1iZXIsXG4gICAgQFJlcXVlc3QoKSByZXE6IFJlcXVlc3RXaXRoVXNlcixcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMubm90aWZpY2F0aW9uU2VydmljZS5tYXJrQXNSZWFkKGlkLCByZXEudXNlci5pZCk7XG4gIH1cblxuICBAVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbiAgQFBhdGNoKCdyZWFkLWFsbCcpXG4gIG1hcmtBbGxBc1JlYWQoQFJlcXVlc3QoKSByZXE6IFJlcXVlc3RXaXRoVXNlcikge1xuICAgIHJldHVybiB0aGlzLm5vdGlmaWNhdGlvblNlcnZpY2UubWFya0FsbEFzUmVhZChyZXEudXNlci5pZCk7XG4gIH1cbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

@@ -1,0 +1,52 @@
+de5ff8c9230cbd987f7cb5b9f05bdce9
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AddGroupMemberDto = exports.UpdateGroupDto = exports.CreateGroupDto = void 0;
+const class_validator_1 = require("class-validator");
+class CreateGroupDto {
+    name;
+    description;
+}
+exports.CreateGroupDto = CreateGroupDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateGroupDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateGroupDto.prototype, "description", void 0);
+class UpdateGroupDto {
+    name;
+    description;
+}
+exports.UpdateGroupDto = UpdateGroupDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateGroupDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], UpdateGroupDto.prototype, "description", void 0);
+class AddGroupMemberDto {
+    userId;
+}
+exports.AddGroupMemberDto = AddGroupMemberDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], AddGroupMemberDto.prototype, "userId", void 0);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvZ3JvdXAvZHRvL2dyb3VwLmR0by50cyIsIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7QUFBQSxxREFBdUQ7QUFFdkQsTUFBYSxjQUFjO0lBRXpCLElBQUksQ0FBUztJQUliLFdBQVcsQ0FBVTtDQUN0QjtBQVBELHdDQU9DO0FBTEM7SUFEQyxJQUFBLDBCQUFRLEdBQUU7OzRDQUNFO0FBSWI7SUFGQyxJQUFBLDBCQUFRLEdBQUU7SUFDVixJQUFBLDRCQUFVLEdBQUU7O21EQUNRO0FBR3ZCLE1BQWEsY0FBYztJQUd6QixJQUFJLENBQVU7SUFJZCxXQUFXLENBQVU7Q0FDdEI7QUFSRCx3Q0FRQztBQUxDO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzs0Q0FDQztBQUlkO0lBRkMsSUFBQSwwQkFBUSxHQUFFO0lBQ1YsSUFBQSw0QkFBVSxHQUFFOzttREFDUTtBQUd2QixNQUFhLGlCQUFpQjtJQUU1QixNQUFNLENBQVM7Q0FDaEI7QUFIRCw4Q0FHQztBQURDO0lBREMsSUFBQSwwQkFBUSxHQUFFOztpREFDSSIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvaG9tZS9jb2RpZ280Ny9zaXN0ZW1hcy9jb3Vyc2Uvc291cmNlL2FwcHMvYXBpL3NyYy9ncm91cC9kdG8vZ3JvdXAuZHRvLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IElzU3RyaW5nLCBJc09wdGlvbmFsIH0gZnJvbSAnY2xhc3MtdmFsaWRhdG9yJztcblxuZXhwb3J0IGNsYXNzIENyZWF0ZUdyb3VwRHRvIHtcbiAgQElzU3RyaW5nKClcbiAgbmFtZTogc3RyaW5nO1xuXG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgZGVzY3JpcHRpb24/OiBzdHJpbmc7XG59XG5cbmV4cG9ydCBjbGFzcyBVcGRhdGVHcm91cER0byB7XG4gIEBJc1N0cmluZygpXG4gIEBJc09wdGlvbmFsKClcbiAgbmFtZT86IHN0cmluZztcblxuICBASXNTdHJpbmcoKVxuICBASXNPcHRpb25hbCgpXG4gIGRlc2NyaXB0aW9uPzogc3RyaW5nO1xufVxuXG5leHBvcnQgY2xhc3MgQWRkR3JvdXBNZW1iZXJEdG8ge1xuICBASXNTdHJpbmcoKVxuICB1c2VySWQ6IHN0cmluZztcbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

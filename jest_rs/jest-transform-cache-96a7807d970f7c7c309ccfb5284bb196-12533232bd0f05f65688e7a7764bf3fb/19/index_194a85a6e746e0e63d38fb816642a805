@@ -1,0 +1,24 @@
+a0cce7f0453649dfc1786f55d3c6d62a
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DETERMINISTIC_RULES = exports.PiiRule = exports.PromptInjectionRule = exports.LengthRule = void 0;
+const length_rule_1 = require("./length.rule");
+const prompt_injection_rule_1 = require("./prompt-injection.rule");
+const pii_rule_1 = require("./pii.rule");
+var length_rule_2 = require("./length.rule");
+Object.defineProperty(exports, "LengthRule", { enumerable: true, get: function () { return length_rule_2.LengthRule; } });
+var prompt_injection_rule_2 = require("./prompt-injection.rule");
+Object.defineProperty(exports, "PromptInjectionRule", { enumerable: true, get: function () { return prompt_injection_rule_2.PromptInjectionRule; } });
+var pii_rule_2 = require("./pii.rule");
+Object.defineProperty(exports, "PiiRule", { enumerable: true, get: function () { return pii_rule_2.PiiRule; } });
+/**
+ * Execution order matters: cheap structural checks first, then adversarial
+ * detection, then redaction. Redaction runs last so it only ever rewrites
+ * input we have already decided to accept.
+ */
+exports.DETERMINISTIC_RULES = [
+    new length_rule_1.LengthRule(),
+    new prompt_injection_rule_1.PromptInjectionRule(),
+    new pii_rule_1.PiiRule(),
+];
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvZ3VhcmRyYWlscy9ydWxlcy9pbmRleC50cyIsIm1hcHBpbmdzIjoiOzs7QUFDQSwrQ0FBMkM7QUFDM0MsbUVBQThEO0FBQzlELHlDQUFxQztBQUVyQyw2Q0FBMkM7QUFBbEMseUdBQUEsVUFBVSxPQUFBO0FBQ25CLGlFQUE4RDtBQUFyRCw0SEFBQSxtQkFBbUIsT0FBQTtBQUM1Qix1Q0FBcUM7QUFBNUIsbUdBQUEsT0FBTyxPQUFBO0FBRWhCOzs7O0dBSUc7QUFDVSxRQUFBLG1CQUFtQixHQUF3QjtJQUN0RCxJQUFJLHdCQUFVLEVBQUU7SUFDaEIsSUFBSSwyQ0FBbUIsRUFBRTtJQUN6QixJQUFJLGtCQUFPLEVBQUU7Q0FDZCxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL2d1YXJkcmFpbHMvcnVsZXMvaW5kZXgudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgRGV0ZXJtaW5pc3RpY1J1bGUgfSBmcm9tICcuLi90eXBlcyc7XG5pbXBvcnQgeyBMZW5ndGhSdWxlIH0gZnJvbSAnLi9sZW5ndGgucnVsZSc7XG5pbXBvcnQgeyBQcm9tcHRJbmplY3Rpb25SdWxlIH0gZnJvbSAnLi9wcm9tcHQtaW5qZWN0aW9uLnJ1bGUnO1xuaW1wb3J0IHsgUGlpUnVsZSB9IGZyb20gJy4vcGlpLnJ1bGUnO1xuXG5leHBvcnQgeyBMZW5ndGhSdWxlIH0gZnJvbSAnLi9sZW5ndGgucnVsZSc7XG5leHBvcnQgeyBQcm9tcHRJbmplY3Rpb25SdWxlIH0gZnJvbSAnLi9wcm9tcHQtaW5qZWN0aW9uLnJ1bGUnO1xuZXhwb3J0IHsgUGlpUnVsZSB9IGZyb20gJy4vcGlpLnJ1bGUnO1xuXG4vKipcbiAqIEV4ZWN1dGlvbiBvcmRlciBtYXR0ZXJzOiBjaGVhcCBzdHJ1Y3R1cmFsIGNoZWNrcyBmaXJzdCwgdGhlbiBhZHZlcnNhcmlhbFxuICogZGV0ZWN0aW9uLCB0aGVuIHJlZGFjdGlvbi4gUmVkYWN0aW9uIHJ1bnMgbGFzdCBzbyBpdCBvbmx5IGV2ZXIgcmV3cml0ZXNcbiAqIGlucHV0IHdlIGhhdmUgYWxyZWFkeSBkZWNpZGVkIHRvIGFjY2VwdC5cbiAqL1xuZXhwb3J0IGNvbnN0IERFVEVSTUlOSVNUSUNfUlVMRVM6IERldGVybWluaXN0aWNSdWxlW10gPSBbXG4gIG5ldyBMZW5ndGhSdWxlKCksXG4gIG5ldyBQcm9tcHRJbmplY3Rpb25SdWxlKCksXG4gIG5ldyBQaWlSdWxlKCksXG5dO1xuIl0sInZlcnNpb24iOjN9

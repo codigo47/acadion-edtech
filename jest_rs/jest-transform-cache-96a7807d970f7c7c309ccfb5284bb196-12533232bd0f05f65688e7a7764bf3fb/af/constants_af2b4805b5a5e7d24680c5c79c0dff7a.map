@@ -1,0 +1,1 @@
+{"file":"/home/codigo47/sistemas/course/source/apps/api/src/course/constants.ts","mappings":";;;AAAa,QAAA,0BAA0B,GAAG,sBAAsB,CAAC","names":[],"sources":["/home/codigo47/sistemas/course/source/apps/api/src/course/constants.ts"],"sourcesContent":["export const COURSE_ORCHESTRATION_QUEUE = 'course_orchestration';\n"],"version":3}

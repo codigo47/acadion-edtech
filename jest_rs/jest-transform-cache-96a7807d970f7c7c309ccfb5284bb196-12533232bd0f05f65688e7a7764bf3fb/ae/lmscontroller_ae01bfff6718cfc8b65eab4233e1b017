@@ -1,0 +1,174 @@
+f2ea33bf54bba3f5102f36b3fb779d3e
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LmsController = void 0;
+const common_1 = require("@nestjs/common");
+const jwt_auth_guard_1 = require("../auth/guards/jwt-auth.guard");
+const lms_service_1 = require("./lms.service");
+const adaptive_service_1 = require("./adaptive.service");
+const lms_dto_1 = require("./dto/lms.dto");
+let LmsController = class LmsController {
+    lmsService;
+    adaptiveService;
+    constructor(lmsService, adaptiveService) {
+        this.lmsService = lmsService;
+        this.adaptiveService = adaptiveService;
+    }
+    getStudentDashboard(req) {
+        return this.lmsService.getStudentDashboard(req.user.id);
+    }
+    getCourseContent(key, req) {
+        return this.lmsService.getCourseContent(key, req.user.id);
+    }
+    selfEnroll(key, req) {
+        return this.lmsService.selfEnroll(key, req.user.id);
+    }
+    updateProgress(key, req, dto) {
+        return this.lmsService.updateProgress(key, req.user.id, dto);
+    }
+    completeCourse(key, req, dto) {
+        return this.lmsService.completeCourse(key, req.user.id, dto);
+    }
+    submitKnowledgeCheck(key, req, dto) {
+        return this.lmsService.submitKnowledgeCheck(key, req.user.id, dto);
+    }
+    adminEnroll(key, dto) {
+        return this.lmsService.adminEnroll(key, dto);
+    }
+    adminReEnroll(key, userId) {
+        return this.lmsService.adminReEnroll(key, userId);
+    }
+    // Adaptive learning endpoints
+    getPreAssessment(key, req) {
+        return this.adaptiveService.getPreAssessment(key, req.user.id);
+    }
+    submitPreAssessment(key, req, dto) {
+        return this.adaptiveService.submitPreAssessment(dto.enrollmentId, req.user.id, dto.answers);
+    }
+    getPostAssessment(key, req) {
+        return this.adaptiveService.getPostAssessment(key, req.user.id);
+    }
+    submitPostAssessment(key, req, dto) {
+        return this.adaptiveService.submitPostAssessment(dto.enrollmentId, req.user.id, dto.answers);
+    }
+};
+exports.LmsController = LmsController;
+__decorate([
+    (0, common_1.Get)('dashboard'),
+    __param(0, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "getStudentDashboard", null);
+__decorate([
+    (0, common_1.Get)('courses/:key'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "getCourseContent", null);
+__decorate([
+    (0, common_1.Post)('courses/:key/enroll'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "selfEnroll", null);
+__decorate([
+    (0, common_1.Patch)('courses/:key/progress'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, typeof (_c = typeof lms_dto_1.UpdateProgressDto !== "undefined" && lms_dto_1.UpdateProgressDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "updateProgress", null);
+__decorate([
+    (0, common_1.Post)('courses/:key/complete'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, typeof (_d = typeof lms_dto_1.CompleteCourseDto !== "undefined" && lms_dto_1.CompleteCourseDto) === "function" ? _d : Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "completeCourse", null);
+__decorate([
+    (0, common_1.Post)('courses/:key/knowledge-check'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, typeof (_e = typeof lms_dto_1.SubmitKnowledgeCheckDto !== "undefined" && lms_dto_1.SubmitKnowledgeCheckDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "submitKnowledgeCheck", null);
+__decorate([
+    (0, common_1.Post)('courses/:key/admin-enroll'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, typeof (_f = typeof lms_dto_1.AdminEnrollDto !== "undefined" && lms_dto_1.AdminEnrollDto) === "function" ? _f : Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "adminEnroll", null);
+__decorate([
+    (0, common_1.Post)('courses/:key/re-enroll/:userId'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "adminReEnroll", null);
+__decorate([
+    (0, common_1.Get)('courses/:key/pre-assessment'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "getPreAssessment", null);
+__decorate([
+    (0, common_1.Post)('courses/:key/pre-assessment'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, typeof (_g = typeof lms_dto_1.SubmitPreAssessmentDto !== "undefined" && lms_dto_1.SubmitPreAssessmentDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "submitPreAssessment", null);
+__decorate([
+    (0, common_1.Get)('courses/:key/post-assessment'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "getPostAssessment", null);
+__decorate([
+    (0, common_1.Post)('courses/:key/post-assessment'),
+    __param(0, (0, common_1.Param)('key')),
+    __param(1, (0, common_1.Request)()),
+    __param(2, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object, typeof (_h = typeof lms_dto_1.SubmitPostAssessmentDto !== "undefined" && lms_dto_1.SubmitPostAssessmentDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", void 0)
+], LmsController.prototype, "submitPostAssessment", null);
+exports.LmsController = LmsController = __decorate([
+    (0, common_1.Controller)('lms'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __metadata("design:paramtypes", [typeof (_a = typeof lms_service_1.LmsService !== "undefined" && lms_service_1.LmsService) === "function" ? _a : Object, typeof (_b = typeof adaptive_service_1.AdaptiveService !== "undefined" && adaptive_service_1.AdaptiveService) === "function" ? _b : Object])
+], LmsController);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL2hvbWUvY29kaWdvNDcvc2lzdGVtYXMvY291cnNlL3NvdXJjZS9hcHBzL2FwaS9zcmMvbG1zL2xtcy5jb250cm9sbGVyLnRzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSwyQ0FTd0I7QUFFeEIsa0VBQTZEO0FBQzdELCtDQUEyQztBQUMzQyx5REFBcUQ7QUFDckQsMkNBT3VCO0FBUWhCLElBQU0sYUFBYSxHQUFuQixNQUFNLGFBQWE7SUFFTDtJQUNBO0lBRm5CLFlBQ21CLFVBQXNCLEVBQ3RCLGVBQWdDO1FBRGhDLGVBQVUsR0FBVixVQUFVLENBQVk7UUFDdEIsb0JBQWUsR0FBZixlQUFlLENBQWlCO0lBQ2hELENBQUM7SUFHSixtQkFBbUIsQ0FBWSxHQUFvQjtRQUNqRCxPQUFPLElBQUksQ0FBQyxVQUFVLENBQUMsbUJBQW1CLENBQUMsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUMxRCxDQUFDO0lBR0QsZ0JBQWdCLENBQ0EsR0FBVyxFQUNkLEdBQW9CO1FBRS9CLE9BQU8sSUFBSSxDQUFDLFVBQVUsQ0FBQyxnQkFBZ0IsQ0FBQyxHQUFHLEVBQUUsR0FBRyxDQUFDLElBQUksQ0FBQyxFQUFFLENBQUMsQ0FBQztJQUM1RCxDQUFDO0lBR0QsVUFBVSxDQUFlLEdBQVcsRUFBYSxHQUFvQjtRQUNuRSxPQUFPLElBQUksQ0FBQyxVQUFVLENBQUMsVUFBVSxDQUFDLEdBQUcsRUFBRSxHQUFHLENBQUMsSUFBSSxDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBQ3RELENBQUM7SUFHRCxjQUFjLENBQ0UsR0FBVyxFQUNkLEdBQW9CLEVBQ3ZCLEdBQXNCO1FBRTlCLE9BQU8sSUFBSSxDQUFDLFVBQVUsQ0FBQyxjQUFjLENBQUMsR0FBRyxFQUFFLEdBQUcsQ0FBQyxJQUFJLENBQUMsRUFBRSxFQUFFLEdBQUcsQ0FBQyxDQUFDO0lBQy9ELENBQUM7SUFHRCxjQUFjLENBQ0UsR0FBVyxFQUNkLEdBQW9CLEVBQ3ZCLEdBQXNCO1FBRTlCLE9BQU8sSUFBSSxDQUFDLFVB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Q1osV0FBQSxJQUFBLGdCQUFPLEdBQUUsQ0FBQTtJQUNULFdBQUEsSUFBQSxhQUFJLEdBQUUsQ0FBQTs7eUVBQU0saUNBQXVCLG9CQUF2QixpQ0FBdUI7O3lEQU9yQzt3QkE1R1UsYUFBYTtJQUZ6QixJQUFBLG1CQUFVLEVBQUMsS0FBSyxDQUFDO0lBQ2pCLElBQUEsa0JBQVMsRUFBQyw2QkFBWSxDQUFDO3lEQUdTLHdCQUFVLG9CQUFWLHdCQUFVLG9EQUNMLGtDQUFlLG9CQUFmLGtDQUFlO0dBSHhDLGFBQWEsQ0E2R3pCIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9ob21lL2NvZGlnbzQ3L3Npc3RlbWFzL2NvdXJzZS9zb3VyY2UvYXBwcy9hcGkvc3JjL2xtcy9sbXMuY29udHJvbGxlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQge1xuICBDb250cm9sbGVyLFxuICBHZXQsXG4gIFBvc3QsXG4gIFBhdGNoLFxuICBQYXJhbSxcbiAgQm9keSxcbiAgVXNlR3VhcmRzLFxuICBSZXF1ZXN0LFxufSBmcm9tICdAbmVzdGpzL2NvbW1vbic7XG5pbXBvcnQgdHlwZSB7IFJlcXVlc3QgYXMgRXhwcmVzc1JlcXVlc3QgfSBmcm9tICdleHByZXNzJztcbmltcG9ydCB7IEp3dEF1dGhHdWFyZCB9IGZyb20gJy4uL2F1dGgvZ3VhcmRzL2p3dC1hdXRoLmd1YXJkJztcbmltcG9ydCB7IExtc1NlcnZpY2UgfSBmcm9tICcuL2xtcy5zZXJ2aWNlJztcbmltcG9ydCB7IEFkYXB0aXZlU2VydmljZSB9IGZyb20gJy4vYWRhcHRpdmUuc2VydmljZSc7XG5pbXBvcnQge1xuICBVcGRhdGVQcm9ncmVzc0R0byxcbiAgQ29tcGxldGVDb3Vyc2VEdG8sXG4gIFN1Ym1pdEtub3dsZWRnZUNoZWNrRHRvLFxuICBBZG1pbkVucm9sbER0byxcbiAgU3VibWl0UHJlQXNzZXNzbWVudER0byxcbiAgU3VibWl0UG9zdEFzc2Vzc21lbnREdG8sXG59IGZyb20gJy4vZHRvL2xtcy5kdG8nO1xuXG5pbnRlcmZhY2UgUmVxdWVzdFdpdGhVc2VyIGV4dGVuZHMgRXhwcmVzc1JlcXVlc3Qge1xuICB1c2VyOiB7IGlkOiBzdHJpbmcgfTtcbn1cblxuQENvbnRyb2xsZXIoJ2xtcycpXG5AVXNlR3VhcmRzKEp3dEF1dGhHdWFyZClcbmV4cG9ydCBjbGFzcyBMbXNDb250cm9sbGVyIHtcbiAgY29uc3RydWN0b3IoXG4gICAgcHJpdmF0ZSByZWFkb25seSBsbXNTZXJ2aWNlOiBMbXNTZXJ2aWNlLFxuICAgIHByaXZhdGUgcmVhZG9ubHkgYWRhcHRpdmVTZXJ2aWNlOiBBZGFwdGl2ZVNlcnZpY2UsXG4gICkge31cblxuICBAR2V0KCdkYXNoYm9hcmQnKVxuICBnZXRTdHVkZW50RGFzaGJvYXJkKEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIpIHtcbiAgICByZXR1cm4gdGhpcy5sbXNTZXJ2aWNlLmdldFN0dWRlbnREYXNoYm9hcmQocmVxLnVzZXIuaWQpO1xuICB9XG5cbiAgQEdldCgnY291cnNlcy86a2V5JylcbiAgZ2V0Q291cnNlQ29udGVudChcbiAgICBAUGFyYW0oJ2tleScpIGtleTogc3RyaW5nLFxuICAgIEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIsXG4gICkge1xuICAgIHJldHVybiB0aGlzLmxtc1NlcnZpY2UuZ2V0Q291cnNlQ29udGVudChrZXksIHJlcS51c2VyLmlkKTtcbiAgfVxuXG4gIEBQb3N0KCdjb3Vyc2VzLzprZXkvZW5yb2xsJylcbiAgc2VsZkVucm9sbChAUGFyYW0oJ2tleScpIGtleTogc3RyaW5nLCBAUmVxdWVzdCgpIHJlcTogUmVxdWVzdFdpdGhVc2VyKSB7XG4gICAgcmV0dXJuIHRoaXMubG1zU2VydmljZS5zZWxmRW5yb2xsKGtleSwgcmVxLnVzZXIuaWQpO1xuICB9XG5cbiAgQFBhdGNoKCdjb3Vyc2VzLzprZXkvcHJvZ3Jlc3MnKVxuICB1cGRhdGVQcm9ncmVzcyhcbiAgICBAUGFyYW0oJ2tleScpIGtleTogc3RyaW5nLFxuICAgIEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIsXG4gICAgQEJvZHkoKSBkdG86IFVwZGF0ZVByb2dyZXNzRHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5sbXNTZXJ2aWNlLnVwZGF0ZVByb2dyZXNzKGtleSwgcmVxLnVzZXIuaWQsIGR0byk7XG4gIH1cblxuICBAUG9zdCgnY291cnNlcy86a2V5L2NvbXBsZXRlJylcbiAgY29tcGxldGVDb3Vyc2UoXG4gICAgQFBhcmFtKCdrZXknKSBrZXk6IHN0cmluZyxcbiAgICBAUmVxdWVzdCgpIHJlcTogUmVxdWVzdFdpdGhVc2VyLFxuICAgIEBCb2R5KCkgZHRvOiBDb21wbGV0ZUNvdXJzZUR0byxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMubG1zU2VydmljZS5jb21wbGV0ZUNvdXJzZShrZXksIHJlcS51c2VyLmlkLCBkdG8pO1xuICB9XG5cbiAgQFBvc3QoJ2NvdXJzZXMvOmtleS9rbm93bGVkZ2UtY2hlY2snKVxuICBzdWJtaXRLbm93bGVkZ2VDaGVjayhcbiAgICBAUGFyYW0oJ2tleScpIGtleTogc3RyaW5nLFxuICAgIEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIsXG4gICAgQEJvZHkoKSBkdG86IFN1Ym1pdEtub3dsZWRnZUNoZWNrRHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5sbXNTZXJ2aWNlLnN1Ym1pdEtub3dsZWRnZUNoZWNrKGtleSwgcmVxLnVzZXIuaWQsIGR0byk7XG4gIH1cblxuICBAUG9zdCgnY291cnNlcy86a2V5L2FkbWluLWVucm9sbCcpXG4gIGFkbWluRW5yb2xsKFxuICAgIEBQYXJhbSgna2V5Jykga2V5OiBzdHJpbmcsXG4gICAgQEJvZHkoKSBkdG86IEFkbWluRW5yb2xsRHRvLFxuICApIHtcbiAgICByZXR1cm4gdGhpcy5sbXNTZXJ2aWNlLmFkbWluRW5yb2xsKGtleSwgZHRvKTtcbiAgfVxuXG4gIEBQb3N0KCdjb3Vyc2VzLzprZXkvcmUtZW5yb2xsLzp1c2VySWQnKVxuICBhZG1pblJlRW5yb2xsKFxuICAgIEBQYXJhbSgna2V5Jykga2V5OiBzdHJpbmcsXG4gICAgQFBhcmFtKCd1c2VySWQnKSB1c2VySWQ6IHN0cmluZyxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMubG1zU2VydmljZS5hZG1pblJlRW5yb2xsKGtleSwgdXNlcklkKTtcbiAgfVxuXG4gIC8vIEFkYXB0aXZlIGxlYXJuaW5nIGVuZHBvaW50c1xuICBAR2V0KCdjb3Vyc2VzLzprZXkvcHJlLWFzc2Vzc21lbnQnKVxuICBnZXRQcmVBc3Nlc3NtZW50KFxuICAgIEBQYXJhbSgna2V5Jykga2V5OiBzdHJpbmcsXG4gICAgQFJlcXVlc3QoKSByZXE6IFJlcXVlc3RXaXRoVXNlcixcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMuYWRhcHRpdmVTZXJ2aWNlLmdldFByZUFzc2Vzc21lbnQoa2V5LCByZXEudXNlci5pZCk7XG4gIH1cblxuICBAUG9zdCgnY291cnNlcy86a2V5L3ByZS1hc3Nlc3NtZW50JylcbiAgc3VibWl0UHJlQXNzZXNzbWVudChcbiAgICBAUGFyYW0oJ2tleScpIGtleTogc3RyaW5nLFxuICAgIEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIsXG4gICAgQEJvZHkoKSBkdG86IFN1Ym1pdFByZUFzc2Vzc21lbnREdG8sXG4gICkge1xuICAgIHJldHVybiB0aGlzLmFkYXB0aXZlU2VydmljZS5zdWJtaXRQcmVBc3Nlc3NtZW50KFxuICAgICAgZHRvLmVucm9sbG1lbnRJZCxcbiAgICAgIHJlcS51c2VyLmlkLFxuICAgICAgZHRvLmFuc3dlcnMsXG4gICAgKTtcbiAgfVxuXG4gIEBHZXQoJ2NvdXJzZXMvOmtleS9wb3N0LWFzc2Vzc21lbnQnKVxuICBnZXRQb3N0QXNzZXNzbWVudChcbiAgICBAUGFyYW0oJ2tleScpIGtleTogc3RyaW5nLFxuICAgIEBSZXF1ZXN0KCkgcmVxOiBSZXF1ZXN0V2l0aFVzZXIsXG4gICkge1xuICAgIHJldHVybiB0aGlzLmFkYXB0aXZlU2VydmljZS5nZXRQb3N0QXNzZXNzbWVudChrZXksIHJlcS51c2VyLmlkKTtcbiAgfVxuXG4gIEBQb3N0KCdjb3Vyc2VzLzprZXkvcG9zdC1hc3Nlc3NtZW50JylcbiAgc3VibWl0UG9zdEFzc2Vzc21lbnQoXG4gICAgQFBhcmFtKCdrZXknKSBrZXk6IHN0cmluZyxcbiAgICBAUmVxdWVzdCgpIHJlcTogUmVxdWVzdFdpdGhVc2VyLFxuICAgIEBCb2R5KCkgZHRvOiBTdWJtaXRQb3N0QXNzZXNzbWVudER0byxcbiAgKSB7XG4gICAgcmV0dXJuIHRoaXMuYWRhcHRpdmVTZXJ2aWNlLnN1Ym1pdFBvc3RBc3Nlc3NtZW50KFxuICAgICAgZHRvLmVucm9sbG1lbnRJZCxcbiAgICAgIHJlcS51c2VyLmlkLFxuICAgICAgZHRvLmFuc3dlcnMsXG4gICAgKTtcbiAgfVxufVxuIl0sInZlcnNpb24iOjN9

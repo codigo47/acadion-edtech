@@ -3,6 +3,7 @@ import { CourseController } from './course.controller';
 import { CourseService } from './course.service';
 import { CourseSSEService } from './course-sse.service';
 import { TaskName } from './enums/task-name.enum';
+import { GuardrailsService } from '../guardrails/guardrails.service';
 import { Subject } from 'rxjs';
 
 const mockCourseService = {
@@ -27,6 +28,20 @@ const mockSSEService = {
   getEventStream: jest.fn(),
 };
 
+// The `tasks` route declares ChatInputGuardrailPipe, so Nest builds the real
+// pipe and needs its dependency. Stub the service to allow everything — the
+// guardrail behaviour has its own suite in src/guardrails; this one is about
+// controller dispatch.
+const mockGuardrailsService = {
+  check: jest.fn(async (input: string) => ({
+    decision: 'allow' as const,
+    sanitizedInput: input,
+    findings: [],
+    latencyMs: 0,
+  })),
+  buildRejectionMessage: jest.fn(() => 'rejected'),
+};
+
 describe('CourseController', () => {
   let controller: CourseController;
 
@@ -36,6 +51,7 @@ describe('CourseController', () => {
       providers: [
         { provide: CourseService, useValue: mockCourseService },
         { provide: CourseSSEService, useValue: mockSSEService },
+        { provide: GuardrailsService, useValue: mockGuardrailsService },
       ],
     }).compile();
     controller = module.get<CourseController>(CourseController);
@@ -45,73 +61,125 @@ describe('CourseController', () => {
   describe('executeTask', () => {
     it('dispatches CREATE_COURSE', async () => {
       mockCourseService.create.mockResolvedValue({ courseKey: 'k1' });
-      const result = await controller.executeTask({ taskName: TaskName.CREATE_COURSE, userId: 'u1' } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.CREATE_COURSE,
+        userId: 'u1',
+      } as any);
       expect(result.courseKey).toBe('k1');
     });
 
     it('dispatches GENERATE_TITLE', async () => {
       mockCourseService.generateTitle.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.GENERATE_TITLE, courseKey: 'k1', topic: 'AI' } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.GENERATE_TITLE,
+        courseKey: 'k1',
+        topic: 'AI',
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches SET_AUDIENCE', async () => {
       mockCourseService.setAudience.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_AUDIENCE, courseKey: 'k1', audience: 'devs' } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_AUDIENCE,
+        courseKey: 'k1',
+        audience: 'devs',
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches SET_OBJECTIVE', async () => {
       mockCourseService.setObjective.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_OBJECTIVE, courseKey: 'k1', objective: 'learn' } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_OBJECTIVE,
+        courseKey: 'k1',
+        objective: 'learn',
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches SET_BUILDING_METHOD', async () => {
       mockCourseService.setBuildingMethod.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_BUILDING_METHOD, courseKey: 'k1', buildingMethod: 'ai' } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_BUILDING_METHOD,
+        courseKey: 'k1',
+        buildingMethod: 'ai',
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches SET_MODULES', async () => {
       mockCourseService.setModules.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_MODULES, courseKey: 'k1', modulesCount: 3 } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_MODULES,
+        courseKey: 'k1',
+        modulesCount: 3,
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches SET_UNITS', async () => {
       mockCourseService.setUnits.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_UNITS, courseKey: 'k1', modules: {} } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_UNITS,
+        courseKey: 'k1',
+        modules: {},
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches GET_EXERCISE_TYPES', async () => {
-      mockCourseService.getExerciseTypes.mockResolvedValue({ exerciseTypes: [] });
-      const result = await controller.executeTask({ taskName: TaskName.GET_EXERCISE_TYPES, courseKey: 'k1', conversationKey: 'c1' } as any);
+      mockCourseService.getExerciseTypes.mockResolvedValue({
+        exerciseTypes: [],
+      });
+      const result = await controller.executeTask({
+        taskName: TaskName.GET_EXERCISE_TYPES,
+        courseKey: 'k1',
+        conversationKey: 'c1',
+      } as any);
       expect(result.exerciseTypes).toEqual([]);
     });
 
     it('dispatches SET_EVALUATION', async () => {
       mockCourseService.setEvaluation.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_EVALUATION, courseKey: 'k1', conversationKey: 'c1', selectedComponents: [] } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_EVALUATION,
+        courseKey: 'k1',
+        conversationKey: 'c1',
+        selectedComponents: [],
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches SET_EVALUATION_DETAILS', async () => {
-      mockCourseService.setEvaluationDetails.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_EVALUATION_DETAILS, courseKey: 'k1' } as any);
+      mockCourseService.setEvaluationDetails.mockResolvedValue({
+        success: true,
+      });
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_EVALUATION_DETAILS,
+        courseKey: 'k1',
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches SET_BRANDING', async () => {
       mockCourseService.setBranding.mockResolvedValue({ success: true });
-      const result = await controller.executeTask({ taskName: TaskName.SET_BRANDING, courseKey: 'k1' } as any);
+      const result = await controller.executeTask({
+        taskName: TaskName.SET_BRANDING,
+        courseKey: 'k1',
+      } as any);
       expect(result.success).toBe(true);
     });
 
     it('dispatches GENERATE_COURSE', async () => {
-      mockCourseService.generateCourse.mockResolvedValue({ success: true, totalJobs: 5 });
-      const result = await controller.executeTask({ taskName: TaskName.GENERATE_COURSE, courseKey: 'k1' } as any);
+      mockCourseService.generateCourse.mockResolvedValue({
+        success: true,
+        totalJobs: 5,
+      });
+      const result = await controller.executeTask({
+        taskName: TaskName.GENERATE_COURSE,
+        courseKey: 'k1',
+      } as any);
       expect(result.totalJobs).toBe(5);
     });
 
@@ -141,7 +209,9 @@ describe('CourseController', () => {
 
   describe('getCourseComponents', () => {
     it('delegates to service', async () => {
-      mockCourseService.getCourseComponents.mockResolvedValue({ components: [] });
+      mockCourseService.getCourseComponents.mockResolvedValue({
+        components: [],
+      });
       const result = await controller.getCourseComponents('k1');
       expect(result.components).toEqual([]);
     });
